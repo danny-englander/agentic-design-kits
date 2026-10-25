@@ -184,7 +184,7 @@
 
   /* ============================================================================================
      Hero. Swiss Minimal: the name in huge bold type, stacked, beside a flat composition in the
-     accent. Fleuron: a centered masthead, the name in Light, an italic tagline, a fleuron.
+     accent. Fleuron: a centered masthead, the name in Light, a roman lead (italic read poorly at that length), a fleuron.
      ============================================================================================ */
   .hero { display: grid; gap: 2.5rem; padding: 3rem 0 4rem; }
   .hero-kicker { color: var(--accent-text); }
@@ -208,7 +208,7 @@
   @media (max-width: 767px) { :root[data-kit="swiss"] .hero-mark { max-width: 12rem; } }
 
   :root[data-kit="fleuron"] .hero { text-align: center; justify-items: center; gap: 0; padding: 3rem 0 0; }
-  :root[data-kit="fleuron"] .hero-lead { font-style: italic; max-width: 34rem; margin: 1.25rem auto 0; text-wrap: balance; }
+  :root[data-kit="fleuron"] .hero-lead { max-width: 34rem; margin: 1.25rem auto 0; text-wrap: balance; }
   :root[data-kit="fleuron"] .hero-actions { justify-content: center; }
   :root[data-kit="fleuron"] .hero-mark { aspect-ratio: auto; max-width: none; margin-top: 2.25rem; order: 5; }
   :root[data-kit="fleuron"] .hero-mark::before { content: "\2766" / ""; display: block; font-size: 2.25rem; line-height: 1; color: var(--accent); }
