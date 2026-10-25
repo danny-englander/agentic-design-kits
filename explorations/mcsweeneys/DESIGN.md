@@ -67,11 +67,11 @@ The second accent, like verdigris beside vermilion:
 
 | Token | Light | Dark |
 | --- | --- | --- |
-| `accent` | `#2c4a7a` | `#8db0de` |
+| `accent` | `#2c4a7a` | `#2edbf8` |
 | `accent-ink` | `#fdf9f0` | `#17150f` |
-| `accent-bright` | `#2c4a7a` | `#8db0de` |
+| `accent-bright` | `#2c4a7a` | `#2edbf8` |
 
-Accent names: **Rubric** (default) and **Prussian**. Rubric is the red ink of manuscript initials and headings (often vermilion itself, so it nods to the parent kit). Prussian is the first modern synthetic pigment, 1706, the blue of cyanotypes and old bindings. Prussian passes 7.7:1 on light paper and 8.2:1 on dark, 6.9:1 on light `plate`.
+Accent names: **Rubric** (default) and **Prussian**. Rubric is the red ink of manuscript initials and headings (often vermilion itself, so it nods to the parent kit). Prussian is the first modern synthetic pigment, 1706, the blue of cyanotypes and old bindings. Prussian passes 7.7:1 on light paper, 6.9:1 on light `plate`. Dark Prussian is a bright cyan, `#2edbf8`, the blue of a cyanotype held to the light: 10.9:1 on dark paper, 9.1:1 on dark `plate`, and 10.9:1 for `accent-ink` on its fill. It is for dark only; on light paper it gives 1.45:1.
 
 Changes from Swiss Minimal:
 
