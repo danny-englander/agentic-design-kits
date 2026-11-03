@@ -9,7 +9,7 @@ export const features: Feature[] = [
   {
     date: '2026-11-03',
     title: 'A mark in the top bar',
-    body: 'The site name in the top bar now has a small mark before it: two rings and a red dot. It follows the light and dark themes and the accent.',
+    body: 'The site name in the top bar now has a small mark before it: two rings and a red dot. It follows the light and dark themes and the accent. The browser tab shows the same mark.',
     details: [
       '`BaseLayout` has a new `mark` slot, inside the home link before the name, for one small inline SVG. It is hidden from screen readers, as the link is named by the site name.',
       'The rings are drawn in the bar\'s own color, so they turn light with it while the menu or drawer is open; the dot is the accent.',
