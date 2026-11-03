@@ -7,6 +7,7 @@
 // Slots: the default slot is the page. "panel" goes under the menu (or, with `panelTabs`,
 // under every tab); with `panelTabs`, each tab's content goes in the slot named after its id.
 // "topbar" adds buttons to the top bar, before the menu button (e.g. a <DrawerButton />).
+// "mark" goes just before the tagline, inside the home link (a small decorative inline SVG).
 // "overlays" sits outside the page, for a <Drawer />, a bottom bar or a toast.
 // "head" adds to <head> (meta tags, or an inline script that must run before first paint).
 import font from '../../fonts/OverusedGrotesk-VF.woff2?url';
@@ -52,6 +53,7 @@ const homeHref = home ?? (hasPanel ? '/' : false);
 const trim = (path: string) => path.replace(/\/$/, '') || '/';
 const onHome = homeHref !== false && trim(Astro.url.pathname) === trim(homeHref);
 // Pass each tab's slot on to the panel.
+const mark = Astro.slots.has('mark') ? await Astro.slots.render('mark') : '';
 const tabContent = await Promise.all(
   panelTabs.map((t) => (Astro.slots.has(t.id) ? Astro.slots.render(t.id) : Promise.resolve(''))),
 );
@@ -84,10 +86,14 @@ const tabContent = await Promise.all(
             {
               homeHref !== false && tagline ? (
                 <a class="topbar-home" href={homeHref} aria-current={onHome ? 'page' : undefined}>
+                  <Fragment set:html={mark} />
                   {tagline}
                 </a>
               ) : (
-                tagline
+                <>
+                  <Fragment set:html={mark} />
+                  {tagline}
+                </>
               )
             }
           </p>
