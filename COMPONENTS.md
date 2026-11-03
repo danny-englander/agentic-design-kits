@@ -12,7 +12,9 @@ A sticky bar on `paper` that holds the site name, the menu button and the theme 
 
 **Home link.** On a site with more than one page, the name links to the home page: `<a class="topbar-home" href="/">Site name</a>` inside that text. It is plain text in the bar's color, underlined on hover, and carries `aria-current="page"` on the home page itself. `BaseLayout` does this whenever it has a menu; pass `home="/en/"` for another home, or `home={false}` to leave the name unlinked. A one-page site keeps the name as plain text.
 
-**Do.** Keep it to a name and two or three outlined buttons. **Don't.** Add a logo image, a shadow or a second rule.
+**Mark.** A site may put one small symbol before the name: an inline SVG in `BaseLayout`'s `mark` slot, which sits inside the home link. Draw it at 1.25rem (`width`/`height` 20), in `currentColor` so it follows the bar when it turns dark, with at most one accent touch (`accent-text`, switching to `accent-bright` while `html[data-menu="open"]` or `[data-drawer-open]`). Give it `aria-hidden="true"`: the link's name is the site name. When the name wraps on a phone, set the link to `inline-flex` with a 0.5rem gap so the second line hangs beside the mark. The demo's two rings and a dot are in `demo/src/components/SiteMark.astro`.
+
+**Do.** Keep it to a name, an optional mark and two or three outlined buttons. **Don't.** Add a logo image or wordmark, a shadow or a second rule.
 
 ## OutlinedButton
 

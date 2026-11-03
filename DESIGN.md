@@ -36,7 +36,7 @@ Put this in `<head>` before first paint so a saved theme does not flash:
 - Plain, short, declarative. "Send", "Menu", "All items". No exclamation marks, no emoji.
 - **All caps only for one or two words** (tab names, button text, a tiny label like `ARCHIVE`). Anything longer is sentence case, because caps are slow to read.
 - A filtered view always says what it shows: "All items", "Writing · 7 items".
-- Write the site's name in `display`, weight 700, tight, stacked on two lines when large. There is no logo: the name set in type is the mark.
+- Write the site's name in `display`, weight 700, tight, stacked on two lines when large. The name set in type is the mark. A site may put one small symbol before it in the top bar (the demo's is two rings and a dot): 1.25rem, drawn in `currentColor` with at most one accent touch. Never a logo image or a wordmark.
 
 ## Color
 
@@ -98,7 +98,7 @@ One family, `--font-sans` (Overused Grotesk, falling back to Helvetica Neue, Hel
 - **Sized to the text:** 1.25rem beside body text, 1.5rem for a lone row action. Outline icons, with strokes close to the text's 2px. Don't mix filled and outline icons in one row.
 - **Hit area at least 36px square** (2.25rem), even when the icon is smaller.
 - **Every icon-only control** gets a verb-first `aria-label` naming the action and its object ("Search on Spotify: *title* (opens in a new tab)", "Remove: *title*") and a `title` tooltip with the short form ("Search on Spotify"). The icon itself is `aria-hidden="true"`.
-- **No icons for decoration**, none beside a text label that already says it, and no trash can: remove is a circled X.
+- **No icons for decoration** (the top bar's small mark is the one exception), none beside a text label that already says it, and no trash can: remove is a circled X.
 - One custom mark (a star, a music note) may be a hand-drawn inline SVG under the same rules.
 
 See IconActions in `COMPONENTS.md` for the markup.
