@@ -9,6 +9,7 @@ import FeaturesList from '../design/kit/astro/FeaturesList.astro';
 import Footer from '../design/kit/astro/Footer.astro';
 import RecentDrawer from '../components/RecentDrawer.astro';
 import AccentSwitcher from '../components/AccentSwitcher.astro';
+import SiteMark from '../components/SiteMark.astro';
 import { menuFor } from '../data/menu';
 import { features, latestFeatureDate } from '../data/features';
 import '../styles/global.css';
@@ -81,6 +82,8 @@ const tabs = [
       if (accent === 'vermilion' || accent === 'verdigris') document.documentElement.dataset.accent = accent;
     } catch {}
   </script>
+
+  <SiteMark slot="mark" />
 
   <DrawerButton slot="topbar" label="Recent pages">Recent</DrawerButton>
 
