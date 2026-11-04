@@ -719,6 +719,57 @@ A title banner in place of a hero, for pages that need a name but not an introdu
 
 **Do.** Keep it to a few words. **Don't.** Add a lead line or an image to it; that is a `Hero`.
 
+## CTA
+
+One thing to go and look at, inside a section: a thin rule, a small label, a title, a line or two of text and the filled button. A `CardGrid` of the next few things can follow it.
+
+**Markup.**
+
+```html
+<div class="cta">
+  <p class="label muted cta-label">Featured</p>
+  <h3 class="cta-title">Field notes</h3>
+  <p class="cta-text">A short essay on working with a single typeface.</p>
+  <a class="btn" href="/work/field-notes/" aria-label="Read it: Field notes">Read it</a>
+</div>
+```
+
+In Astro, `<Cta title="Field notes" text="A short essay…" href="/work/field-notes/" action="Read it" />`. `label` (default "Featured") and `action` (default "View") change the two short labels; `level="h2"` when it isn't inside a section with its own `h2`.
+
+- A 1px `rule` on top, not the 2px `ink` of a section: it belongs to the section it sits in.
+- The title is 1.5rem, 2rem from 768px, bold. It isn't a link: the button is.
+- The filled button is the page's one primary action. Its name adds the title, so it says where it goes.
+
+**Don't.** Put two on a page, or use one in place of a `PostFeature` at the top of a blog's index. A title with an image and a hero's space is a `PostFeature`.
+
+## CardGrid
+
+A few linked things side by side, each with a number, a title, one short sentence and up to three tags. Stacked on phones; three cards sit three across from 1024px, four cards two across from 768px.
+
+**Markup.**
+
+```html
+<ul class="card-grid">
+  <li class="card">
+    <span class="label num muted">01</span>
+    <h3 class="card-title"><a href="/blog/one-typeface/">Why one typeface is enough</a></h3>
+    <p class="card-summary">A site set in a single grotesque.</p>
+    <ul class="card-tags">
+      <li class="label muted">Type</li>
+    </ul>
+  </li>
+</ul>
+```
+
+In Astro, `<CardGrid cards={cards} />`, each a `Card` (`title`, `href`, `summary`, optional `tags`; the type is in `kit/astro/types.ts`). `columns={2}` (`.card-grid--2`) makes two across from 768px: use it for two or four cards. `start={2}` starts the numbers at 2, for cards that carry on from something numbered before them. `level="h2"` under a `PageTitle`.
+
+- No box. Each card opens with a 2px `ink` rule, the same as a section, with the number in a 3rem column beside the text.
+- The title is 1.5rem and bold, and underlines (2px) on hover. Only the title is a link.
+- The summary is 16px and `muted`. Keep it to one short sentence, so the cards stay close in height.
+- Two, three or four cards, so a row never ends with a gap. Leave out `columns` for three, which stack until 1024px: three in two columns would leave one alone.
+
+**Don't.** Add a border, a tint or a shadow, or make the whole card a link. A long list of things to choose is a `ListRow`, and dated posts are a `PostList`.
+
 ## PostList
 
 A blog's index, newest first: each post's date beside its linked title, with a summary and a quiet meta line under it.
