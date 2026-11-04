@@ -695,6 +695,33 @@ html[data-drawer-open] { overflow: hidden; }  /* stop the page scrolling behind 
 .post-list-summary { margin: 0.5rem 0 0; max-width: 40rem; }
 .post-list-meta { margin: 0.5rem 0 0; font-size: 0.875rem; line-height: 1.375; color: var(--muted); }
 
+/* ---------- CTA: one thing to go and look at, inside a section ---------- */
+/* A thin rule, a small label, a title, a line or two of text and the filled button. */
+.cta { padding-top: 1.5rem; border-top: 1px solid var(--rule); }
+.cta-label { margin: 0; }
+.cta-title { margin: 0.5rem 0 0; font-size: 1.5rem; font-weight: 700; line-height: 1.15; letter-spacing: -0.01em; }
+@media (min-width: 768px) { .cta-title { font-size: 2rem; } }
+.cta-text { margin: 0.75rem 0 0; max-width: 40rem; }
+.cta .btn { display: inline-block; margin-top: 1.5rem; text-decoration: none; }
+
+/* ---------- Card grid: a few linked things side by side ---------- */
+/* No box: each card opens with a 2px rule, the number in a column beside the text. Three across
+   only from 1024px, where the number column still leaves room for a title. */
+.card-grid { display: grid; gap: 2.5rem 2rem; margin: 0; padding: 0; list-style: none; }
+@media (min-width: 768px) { .card-grid--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1024px) { .card-grid:not(.card-grid--2) { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.card {
+  display: grid; grid-template-columns: 3rem minmax(0, 1fr); gap: 0.25rem 1rem; align-content: start;
+  margin: 0; padding-top: 1rem; border-top: 2px solid var(--ink);
+}
+.card > .label { padding-top: 0.25rem; }
+.card-title { margin: 0; font-size: 1.5rem; font-weight: 700; line-height: 1.15; letter-spacing: -0.01em; }
+.card-title a { color: inherit; text-decoration: none; }
+.card-title a:hover { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 0.15em; }
+.card-summary { grid-column: 2; margin: 0.25rem 0 0; font-size: 1rem; line-height: 1.5; color: var(--muted); }
+.card-tags { grid-column: 2; display: flex; flex-wrap: wrap; gap: 0.25rem 1.25rem; margin: 0.5rem 0 0; padding: 0; list-style: none; }
+.card-tags li { margin: 0; }
+
 /* ---------- Post feature: one post at the top of a blog's index ---------- */
 /* Built like .hero--split: text and a square image 50/50 from 768px, stacked text first on
    phones, with a hero's space around it. A small accent-text label, the title as a link, the

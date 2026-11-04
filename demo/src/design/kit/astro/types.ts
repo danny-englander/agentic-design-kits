@@ -43,6 +43,16 @@ export interface Post {
   meta?: string;
 }
 
+/** One card in a CardGrid. */
+export interface Card {
+  title: string;
+  href: string;
+  /** One short sentence. */
+  summary: string;
+  /** Up to three short labels, e.g. what it is built with. */
+  tags?: string[];
+}
+
 /** A link to a neighboring post (PostNav). */
 export interface PostLink {
   title: string;

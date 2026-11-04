@@ -1,0 +1,39 @@
+---
+// A few linked things side by side (CardGrid in COMPONENTS.md). Three across from 1024px, two
+// from 768px with columns={2}, stacked below that. Each card opens with a 2px rule; there is no
+// box. Only the title is a link.
+import type { Card } from './types';
+
+interface Props {
+  cards: Card[];
+  columns?: 2 | 3;
+  /** The first card's number, when the cards carry on from something numbered before them. */
+  start?: number;
+  /** Heading level for each card's title: h3 inside a section, h2 under a PageTitle. */
+  level?: 'h2' | 'h3';
+  /** Utilities for spacing, e.g. "mb-8". */
+  class?: string;
+}
+const { cards, columns = 3, start = 1, level: Title = 'h3', class: className } = Astro.props;
+---
+
+<ul class:list={['card-grid', columns === 2 && 'card-grid--2', className]}>
+  {
+    cards.map((card, i) => (
+      <li class="card">
+        <span class="label num muted">{String(start + i).padStart(2, '0')}</span>
+        <Title class="card-title">
+          <a href={card.href}>{card.title}</a>
+        </Title>
+        <p class="card-summary">{card.summary}</p>
+        {card.tags && card.tags.length > 0 && (
+          <ul class="card-tags">
+            {card.tags.map((tag) => (
+              <li class="label muted">{tag}</li>
+            ))}
+          </ul>
+        )}
+      </li>
+    ))
+  }
+</ul>
