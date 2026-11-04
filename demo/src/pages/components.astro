@@ -9,6 +9,8 @@ import Hero from '../design/kit/astro/Hero.astro';
 import Ellipse from '../design/kit/astro/Ellipse.astro';
 import NumCircle from '../design/kit/astro/NumCircle.astro';
 import Footer from '../design/kit/astro/Footer.astro';
+import Cta from '../design/kit/astro/Cta.astro';
+import CardGrid from '../design/kit/astro/CardGrid.astro';
 import FilePicker from '../design/kit/astro/FilePicker.astro';
 import SummaryList from '../design/kit/astro/SummaryList.astro';
 import OutputPanel from '../design/kit/astro/OutputPanel.astro';
@@ -368,6 +370,30 @@ const chips = [
     </ComponentEntry>
     <ComponentEntry num={n()} name="Hero" classes=".hero">
       <Fragment slot="about">The top of this page. <a class="link" href="/">Home</a> has the square image beside it, <a class="link" href="/about/">About</a> the wide one under it.</Fragment>
+    </ComponentEntry>
+  </Section>
+
+  <Section id="calls" title="Calls to action" range="37–38">
+    <ComponentEntry num={n()} name="CTA" classes=".cta">
+      <Fragment slot="about">One thing to go and look at, with the filled button. <a class="link" href="/#reading">Home</a> has one above a card grid.</Fragment>
+      <Cta
+        title="Field notes"
+        text="A short essay on working with a single typeface."
+        href="/work/field-notes/"
+        action="Read it"
+      />
+    </ComponentEntry>
+    <ComponentEntry num={n()} name="Card grid" classes=".card-grid, .card" wide>
+      <Fragment slot="about">A few linked things. Four cards sit two across from 768px and stack on a phone; three sit three across from 1024px. <a class="link" href="/#reading">Home</a> has it under a CTA.</Fragment>
+      <CardGrid
+        columns={2}
+        cards={[
+          { title: 'A type specimen', href: '/work/type-specimen/', summary: 'One family, set large.', tags: ['Design', 'Web'] },
+          { title: 'Field notes', href: '/work/field-notes/', summary: 'What one typeface can carry.', tags: ['Writing'] },
+          { title: 'Why one typeface is enough', href: '/blog/one-typeface/', summary: 'Fewer decisions and a clearer voice.', tags: ['Type'] },
+          { title: 'Notes on vermilion and verdigris', href: '/blog/two-pigments/', summary: 'Two accents, both old pigments.', tags: ['Color'] },
+        ]}
+      />
     </ComponentEntry>
   </Section>
 </SiteLayout>

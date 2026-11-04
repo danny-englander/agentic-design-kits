@@ -8,8 +8,10 @@ interface Props {
   name: string;
   /** The kit classes or attribute, e.g. ".btn". */
   classes?: string;
+  /** From 1024px, put the component under the text at full width, for one that needs the room. */
+  wide?: boolean;
 }
-const { num, name, classes } = Astro.props;
+const { num, name, classes, wide } = Astro.props;
 ---
 
 <li
@@ -26,7 +28,7 @@ const { num, name, classes } = Astro.props;
   <!-- The column gap stays the section header's, so the names line up under its h2 -->
   {
     Astro.slots.has('default') && (
-      <div class="min-w-0 md:col-start-2 lg:col-start-3 lg:self-start lg:pl-6">
+      <div class:list={['min-w-0 md:col-start-2', wide ? 'lg:col-[2/4]' : 'lg:col-start-3 lg:self-start lg:pl-6']}>
         <slot />
       </div>
     )

@@ -7,6 +7,18 @@ import type { Feature } from '../design/kit/astro/types';
  */
 export const features: Feature[] = [
   {
+    date: '2026-11-04',
+    title: 'CTAs and cards',
+    body: 'Two new pieces for pointing people at things: a call to action with the filled button, and a grid of linked cards to sit under it. See them on the home page.',
+    details: [
+      'A new kit piece, `Cta` (`.cta`): a thin rule, a small label, a title, a line of text and the filled button. One to a page.',
+      'A new kit piece, `CardGrid` (`.card-grid`, `.card`): a number, a linked title, one short sentence and up to three tags, under a 2px rule, with no box.',
+      'Four cards sit two across from 768px with `columns={2}`, and three sit three across from 1024px. Both stack on phones.',
+      'The home page has a new Reading section using both, and the Components page lists them as 37 and 38.',
+      'Sites on the kit: copy the new `theme.css`, `types.ts`, `Cta.astro` and `CardGrid.astro` in. Nothing existing changes.',
+    ],
+  },
+  {
     date: '2026-11-03',
     title: 'A mark in the top bar',
     body: 'The site name in the top bar now has a small mark before it: two rings and a red dot. It follows the light and dark themes and the accent. The browser tab shows the same mark.',

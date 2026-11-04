@@ -3,6 +3,9 @@ import SiteLayout from '../layouts/SiteLayout.astro';
 import Row from '../components/Row.astro';
 import Section from '../components/Section.astro';
 import Hero from '../design/kit/astro/Hero.astro';
+import Cta from '../design/kit/astro/Cta.astro';
+import CardGrid from '../design/kit/astro/CardGrid.astro';
+import { getIndex, href } from '../data/blog';
 import hero from '../assets/hero.jpg';
 
 const principles = [
@@ -14,6 +17,16 @@ const principles = [
   { title: 'Access first', meta: 'Visible focus, 14px floor, real buttons' },
 ];
 const active = 2;
+
+// The newest posts: the featured one over four cards, each cut to its summary's first sentence.
+const firstSentence = (text: string) => text.split(/(?<=\.)\s/)[0];
+const { featured, rest } = await getIndex();
+const cards = rest.slice(0, 4).map((post) => ({
+  title: post.data.title,
+  href: href(post),
+  summary: firstSentence(post.data.summary),
+  tags: post.data.tags,
+}));
 ---
 
 <SiteLayout title="Home" description="A demo site for the Swiss Minimal design kit.">
@@ -37,4 +50,20 @@ const active = 2;
       ))
     }
   </Section>
+
+  <section class="mb-16 border-t-2 border-ink pt-3" aria-labelledby="reading">
+    <h2 class="h2 pb-6" id="reading">Reading</h2>
+    {
+      featured && (
+        <Cta
+          class="mb-10"
+          title={featured.data.title}
+          text={firstSentence(featured.data.summary)}
+          href={href(featured)}
+          action="Read post"
+        />
+      )
+    }
+    <CardGrid cards={cards} columns={2} />
+  </section>
 </SiteLayout>
