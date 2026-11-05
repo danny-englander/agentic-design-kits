@@ -1,8 +1,11 @@
 ---
 // One component on the Components page, inside a Section: its number, name, kit classes and a
 // line on what it is for, then the live component from the default slot.
+// The number sits in an outlined accent circle, at text-sm.
 // Phones and tablets: everything stacks in the name column.
 // From 1024px: number, text and the component side by side.
+import NumCircle from '../design/kit/astro/NumCircle.astro';
+
 interface Props {
   num: number;
   name: string;
@@ -17,9 +20,9 @@ const { num, name, classes, wide } = Astro.props;
 <li
   class="grid gap-y-4 border-b border-rule py-8 last:border-b-0 md:grid-cols-[3rem_1fr] md:gap-x-2 lg:grid-cols-[3rem_minmax(0,2fr)_minmax(0,3fr)]"
 >
-  <!-- md:pl-5 lines the number up with the ListRow numbers on the other pages. The number and the
-       name share a baseline, as the range label and h2 do in the section header above. -->
-  <span class="num small muted font-medium md:self-baseline md:pl-5">{String(num).padStart(2, '0')}</span>
+  <!-- md:pl-2 lines the circle up with the range label. The number and the name share a baseline,
+       as the range label and h2 do in the section header above. -->
+  <span class="small md:self-baseline md:pl-2"><NumCircle value={num} accent /></span>
   <div class="md:col-start-2 md:self-baseline">
     <h3 class="title">{name}</h3>
     {classes && <p class="muted mt-1"><code>{classes}</code></p>}
