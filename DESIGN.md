@@ -36,7 +36,7 @@ Put this in `<head>` before first paint so a saved theme does not flash:
 - Plain, short, declarative. "Send", "Menu", "All items". No exclamation marks, no emoji.
 - **All caps only for one or two words** (button text, a tiny label like `ARCHIVE`). Anything longer is sentence case, because caps are slow to read. Tab names are title case, however short.
 - A filtered view always says what it shows: "All items", "Writing · 7 items".
-- Write the site's name in `display`, weight 700, tight, stacked on two lines when large. The name set in type is the mark. A site may put one small symbol before it in the top bar (the demo's is two rings and a dot): 1.25rem, drawn in `currentColor` with at most one accent touch. Never a logo image or a wordmark.
+- Write the site's name in `display`, weight 700, tight, stacked on two lines when large. The name set in type is the mark. A site may put one small symbol before it in the top bar (the demo's is a Swiss cross): 1.25rem, drawn in `currentColor` with at most one accent touch, or as one flat shape all in the accent. Never a logo image or a wordmark.
 
 ## Color
 
