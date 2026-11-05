@@ -357,7 +357,15 @@ const chips = [
       <Fragment slot="about">The dark block behind the menu button. <a class="link" href="#menu">Open it</a>.</Fragment>
     </ComponentEntry>
     <ComponentEntry num={n()} name="Panel tabs" classes=".panel-tabs, .panel-tab">
-      <Fragment slot="about">Menu, Contact and Features across the top of the panel. <a class="link" href="#contact">Open Contact</a>.</Fragment>
+      <Fragment slot="about">Menu, Contact and Features across the top of the panel. This one is only a picture of them; <a class="link" href="#contact">open Contact</a> for the real ones.</Fragment>
+      <!-- A picture: inert and hidden from screen readers, as it does nothing. panel.js only runs the tabs inside the panel. -->
+      <div class="bg-bar p-6 text-bar-ink" inert aria-hidden="true">
+        <div role="tablist" class="panel-tabs">
+          <button type="button" role="tab" aria-selected="false" class="panel-tab"><span class="panel-tab-num">01</span> Menu</button>
+          <button type="button" role="tab" aria-selected="true" class="panel-tab"><span class="panel-tab-num">02</span> Contact</button>
+          <button type="button" role="tab" aria-selected="false" class="panel-tab"><span class="panel-tab-num">03</span> Features</button>
+        </div>
+      </div>
     </ComponentEntry>
     <ComponentEntry num={n()} name="New dot" classes=".new-dot">
       <Fragment slot="about">The dot on the menu button when something was added since your last visit.</Fragment>
