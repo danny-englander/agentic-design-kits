@@ -8,6 +8,31 @@ import type { Feature } from '../design/kit/astro/types';
 export const features: Feature[] = [
   {
     date: '2026-11-05',
+    title: 'A design kit your AI agent can implement',
+    body: 'The home page now says what the kit is for: a set of rules for your agent to follow, not components to copy and paste. It explains how that works and has a prompt to copy into your agent.',
+    details: [
+      'A new How it works section in three steps, and a Use it with your agent section with a Copy prompt button.',
+      'The Components page says why it shows no code: your agent reads the markup from the kit’s docs.',
+      'The Agents page, the README and `llms.txt` open with the same idea.',
+    ],
+  },
+  {
+    date: '2026-11-05',
+    title: 'A skip link on every page',
+    body: 'The first press of Tab now shows Skip to main content, so keyboard users can go straight past the top bar. Every page also has a proper main landmark for screen readers.',
+    details: [
+      '`BaseLayout` writes the skip link (`.skip-link`) and wraps its default slot in `<main id="main">`.',
+      'A new `footer` slot keeps the `Footer` outside `<main>`, where it stays the page’s footer landmark.',
+      'Sites on the kit: copy the new `theme.css`, `BaseLayout.astro` and `Footer.astro` in, and give your `Footer` `slot="footer"`.',
+    ],
+  },
+  {
+    date: '2026-11-05',
+    title: 'Components from the home page',
+    body: 'A call to action just under the hero now leads to the Components page. The featured post joins the Reading cards.',
+  },
+  {
+    date: '2026-11-05',
     title: 'Primary, secondary and tertiary buttons',
     body: 'Buttons now come as a set: primary and secondary at one size, in bold sentence case, and a new, quieter tertiary one. The Components page shows each on its own, in a group and with a hover label.',
     details: [
