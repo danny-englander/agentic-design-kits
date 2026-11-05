@@ -24,7 +24,7 @@ const format = (date: string) =>
         <time datetime={p.date}>{format(p.date)}</time>
         <div>
           <Title class="post-list-title">
-            <a href={p.href}>{p.title}</a>
+            <a href={p.href}>{p.title}<span aria-hidden="true">&nbsp;→</span></a>
           </Title>
           {p.summary && <p class="post-list-summary">{p.summary}</p>}
           {p.meta && <p class="post-list-meta">{p.meta}</p>}

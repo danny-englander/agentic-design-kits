@@ -23,7 +23,7 @@ const { cards, columns = 3, start = 1, level: Title = 'h3', class: className } =
       <li class="card">
         <span class="label num muted">{String(start + i).padStart(2, '0')}</span>
         <Title class="card-title">
-          <a href={card.href}>{card.title}</a>
+          <a href={card.href}>{card.title}<span aria-hidden="true">&nbsp;→</span></a>
         </Title>
         <p class="card-summary">{card.summary}</p>
         {card.tags && card.tags.length > 0 && (
