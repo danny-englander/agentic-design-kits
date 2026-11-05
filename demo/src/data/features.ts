@@ -8,6 +8,29 @@ import type { Feature } from '../design/kit/astro/types';
 export const features: Feature[] = [
   {
     date: '2026-11-05',
+    title: 'Primary, secondary and tertiary buttons',
+    body: 'Buttons now come as a set: primary and secondary at one size, in bold sentence case, and a new, quieter tertiary one. The Components page shows each on its own, in a group and with a hover label.',
+    details: [
+      '`.btn` drops its capitals and takes the padding of `.btn-outline`. Both are 18px bold, 44px tall.',
+      'A new tertiary button (`.btn-outline--tertiary`): the same box at 16px, weight 500, for an action repeated many times on a page.',
+      '`data-tip` hover labels now work on `.btn` and `.btn-outline` as well as top-bar buttons. Give the button a matching `aria-label`.',
+      '`.btn-group` buttons sit 12px apart, up from 8px.',
+      'The Components page drops its separate Hover label and Outlined button entries. `.topbar-btn` stays in the kit for the top bar.',
+      'Sites on the kit: copy the new `theme.css` in, and check any `.btn` labels are in sentence case.',
+    ],
+  },
+  {
+    date: '2026-11-05',
+    title: 'Longer teasers and a button on each card',
+    body: 'Cards now carry a teaser of two or three lines, and a Read this button in place of the arrow on the title.',
+    details: [
+      'The button is a tertiary button on a link. Its `aria-label` adds the card’s title, so each one says where it goes.',
+      'The button reads Read this unless a card sets `action`. The title stays a link too.',
+      'Sites on the kit: copy the new `theme.css`, `types.ts` and `CardGrid.astro` in.',
+    ],
+  },
+  {
+    date: '2026-11-05',
     title: 'A Swiss cross in the top bar',
     body: 'The site name in the top bar now has a Swiss cross before it, in the accent color. The browser tab shows the same cross.',
     details: [
