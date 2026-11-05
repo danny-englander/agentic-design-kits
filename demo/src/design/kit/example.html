@@ -12,8 +12,8 @@
     :root { --bar-h: 0rem; }  /* this page has no fixed bottom bar */
     /* Page-specific layout only. Everything else comes from theme.css. */
     .bar { display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid currentColor; padding: 0.75rem 0; }
-    .hero { padding: 3rem 0 4rem; }
-    .hero p { max-width: 28rem; margin: 2rem 0 0; }
+    .hero { padding: 3rem 0 4rem 0; }
+    .hero p { max-width: 28rem; margin: 2rem 0 0 0; }
     .section { border-top: 2px solid var(--ink); padding-top: 0.75rem; margin-bottom: 4rem; }
     .section-head { display: grid; grid-template-columns: 3rem 1fr; column-gap: 0.5rem; align-items: baseline; padding-bottom: 1.5rem; }
     .section-head .num { padding-left: 0.5rem; }
@@ -21,7 +21,7 @@
     .row .num { padding-left: 1rem; }  /* clear of the active row's 6px edge */
     @media (min-width: 768px) { .row .num { padding-left: 1.25rem; } }
     .page-acc { margin-bottom: 2.5rem; }
-    .swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr)); gap: 0.75rem; margin: 1rem 0 3rem; }
+    .swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr)); gap: 0.75rem; margin: 1rem 0 3rem 0; }
     .sw { padding: 1rem; border: 1px solid var(--rule); font-size: 0.875rem; }
     .sw b { display: block; height: 2.5rem; margin-bottom: 0.5rem; border: 1px solid var(--rule); }
     form { max-width: 28rem; background: var(--bar); color: var(--bar-ink); padding: 1.5rem; margin-bottom: 4rem; }

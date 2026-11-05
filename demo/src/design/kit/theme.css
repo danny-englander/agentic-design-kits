@@ -413,10 +413,10 @@ html[data-drawer-open] .topbar { --tb-bg: var(--bar); --tb-fg: var(--bar-ink); }
 /* .hero--split: a square or portrait image beside the text, 50/50 from 768px.
    .hero--wide: a landscape image under the text, the full width of the page.
    Phones always stack: text first, then the image. */
-.hero { display: grid; gap: 2.5rem; padding: 3rem 0 4rem; }
-.hero-lead { max-width: 28rem; margin: 2rem 0 0; }
+.hero { display: grid; gap: 2.5rem; padding: 3rem 0 4rem 0; }
+.hero-lead { max-width: 28rem; margin: 2rem 0 0 0; }
 @media (min-width: 768px) {
-  .hero { gap: 3rem; padding: 5rem 0 6rem; }
+  .hero { gap: 3rem; padding: 5rem 0 6rem 0; }
   .hero--split { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: start; }
   .hero--split .display { font-size: clamp(3.5rem, 8vw, 8rem); }  /* half the width, so a smaller hero title */
 }
@@ -425,7 +425,7 @@ html[data-drawer-open] .topbar { --tb-bg: var(--bar); --tb-fg: var(--bar-ink); }
 /* One h1 across the width of .page, for pages that need a name but not a hero. Smaller than
    `display`, still the biggest thing on the page. .page-title--bar sets it on a dark block with
    an 8px accent rule along its bottom: a large shape, so plain `accent`. */
-.page-title { padding: 3rem 0 2.5rem; }
+.page-title { padding: 3rem 0 2.5rem 0; }
 .page-title-text {
   margin: 0;
   font-size: clamp(3rem, 9vw, 7.5rem);
@@ -435,14 +435,14 @@ html[data-drawer-open] .topbar { --tb-bg: var(--bar); --tb-fg: var(--bar-ink); }
   overflow-wrap: break-word;     /* a long word wraps instead of pushing the page sideways */
 }
 .page-title--bar {
-  margin: 2rem 0 3rem;
-  padding: 2.5rem var(--gutter) 2rem;
+  margin: 2rem 0 3rem 0;
+  padding: 2.5rem var(--gutter) 2rem var(--gutter);
   border-bottom: 8px solid var(--accent);
   background: var(--bar); color: var(--bar-ink);
 }
 @media (min-width: 768px) {
-  .page-title { padding: 5rem 0 3.5rem; }
-  .page-title--bar { margin: 3rem 0 4rem; padding: 4rem 2.5rem 3rem; }
+  .page-title { padding: 5rem 0 3.5rem 0; }
+  .page-title--bar { margin: 3rem 0 4rem 0; padding: 4rem 2.5rem 3rem 2.5rem; }
 }
 
 /* ---------- Images (see "Images" in DESIGN.md) ---------- */
@@ -476,7 +476,7 @@ html[data-menu="open"],
 html[data-drawer-open] { overflow: hidden; }  /* stop the page scrolling behind a panel */
 .panel-inner {                   /* the scrolling content area inside .panel */
   max-width: var(--page-max); height: 100%; margin: 0 auto;
-  overflow-y: auto; padding: 6rem var(--gutter) 3rem;
+  overflow-y: auto; padding: 6rem var(--gutter) 3rem var(--gutter);
 }
 @media (min-width: 768px) { .panel-inner { padding-top: 8rem; } }
 
@@ -486,7 +486,7 @@ html[data-drawer-open] { overflow: hidden; }  /* stop the page scrolling behind 
 @media (min-width: 640px) { .panel-tabs { column-gap: 2.5rem; } }
 .panel-tab {
   position: relative;            /* anchors the "new" dot */
-  padding: 0 0 0.5rem;
+  padding: 0 0 0.5rem 0;
   border: 0; border-bottom: 2px solid transparent;
   background: transparent;
   color: color-mix(in srgb, currentColor 70%, transparent);
@@ -522,7 +522,7 @@ html[data-drawer-open] { overflow: hidden; }  /* stop the page scrolling behind 
 .drawer-inner {
   display: flex; flex-direction: column; min-height: 0;
   width: 100%; max-width: var(--page-max); margin: 0 auto;
-  padding: 5rem var(--gutter) 2rem;
+  padding: 5rem var(--gutter) 2rem var(--gutter);
 }
 .drawer-heading { color: var(--accent-bright); font-weight: 700; }
 .drawer-heading:focus { outline: none; }  /* focused by script on open, not by the user */
@@ -679,7 +679,7 @@ html[data-drawer-open] { overflow: hidden; }  /* stop the page scrolling behind 
 .dated-list time { font-size: 0.875rem; font-weight: 700; line-height: 1.375; color: var(--dl-date); }
 @media (min-width: 640px) { .dated-list time { padding-top: 0.2rem; } }
 .dated-list :is(h3, h4) { margin: 0; font-size: 1.125rem; font-weight: 700; line-height: 1.375; }
-.dated-list p { margin: 0.25rem 0 0; line-height: 1.375; }
+.dated-list p { margin: 0.25rem 0 0 0; line-height: 1.375; }
 
 /* ---------- Post list: a blog's index, newest first ---------- */
 /* Built like the dated list, for the page: a 2px rule on top, thin rules between, the date over
@@ -702,16 +702,16 @@ html[data-drawer-open] { overflow: hidden; }  /* stop the page scrolling behind 
 @media (min-width: 768px) { .post-list-title { font-size: 2rem; } }
 .post-list-title a { color: inherit; text-decoration: none; }
 .post-list-title a:hover { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 0.15em; }
-.post-list-summary { margin: 0.5rem 0 0; max-width: 40rem; }
-.post-list-meta { margin: 0.5rem 0 0; font-size: 0.875rem; line-height: 1.375; color: var(--muted); }
+.post-list-summary { margin: 0.5rem 0 0 0; max-width: 40rem; }
+.post-list-meta { margin: 0.5rem 0 0 0; font-size: 0.875rem; line-height: 1.375; color: var(--muted); }
 
 /* ---------- CTA: one thing to go and look at, inside a section ---------- */
 /* A thin rule, a small label, a title, a line or two of text and the filled button. */
 .cta { padding-top: 1.5rem; border-top: 1px solid var(--rule); }
 .cta-label { margin: 0; }
-.cta-title { margin: 0.5rem 0 0; font-size: 1.5rem; font-weight: 700; line-height: 1.15; letter-spacing: -0.01em; }
+.cta-title { margin: 0.5rem 0 0 0; font-size: 1.5rem; font-weight: 700; line-height: 1.15; letter-spacing: -0.01em; }
 @media (min-width: 768px) { .cta-title { font-size: 2rem; } }
-.cta-text { margin: 0.75rem 0 0; max-width: 40rem; }
+.cta-text { margin: 0.75rem 0 0 0; max-width: 40rem; }
 .cta .btn { display: inline-block; margin-top: 1.5rem; text-decoration: none; }
 
 /* ---------- Card grid: a few linked things side by side ---------- */
@@ -728,17 +728,17 @@ html[data-drawer-open] { overflow: hidden; }  /* stop the page scrolling behind 
 .card-title { margin: 0; font-size: 1.5rem; font-weight: 700; line-height: 1.15; letter-spacing: -0.01em; }
 .card-title a { color: inherit; text-decoration: none; }
 .card-title a:hover { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 0.15em; }
-.card-summary { grid-column: 2; margin: 0.25rem 0 0; font-size: 1rem; line-height: 1.5; color: var(--muted); }
-.card-tags { grid-column: 2; display: flex; flex-wrap: wrap; gap: 0.25rem 1.25rem; margin: 0.5rem 0 0; padding: 0; list-style: none; }
+.card-summary { grid-column: 2; margin: 0.25rem 0 0 0; font-size: 1rem; line-height: 1.5; color: var(--muted); }
+.card-tags { grid-column: 2; display: flex; flex-wrap: wrap; gap: 0.25rem 1.25rem; margin: 0.5rem 0 0 0; padding: 0; list-style: none; }
 .card-tags li { margin: 0; }
 
 /* ---------- Post feature: one post at the top of a blog's index ---------- */
 /* Built like .hero--split: text and a square image 50/50 from 768px, stacked text first on
    phones, with a hero's space around it. A small accent-text label, the title as a link, the
    summary in lead size, a meta line and the filled button. The image is cropped square. */
-.post-feature { display: grid; gap: 2.5rem; padding: 3rem 0 4rem; }
+.post-feature { display: grid; gap: 2.5rem; padding: 3rem 0 4rem 0; }
 @media (min-width: 768px) {
-  .post-feature { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: start; gap: 3rem; padding: 5rem 0 6rem; }
+  .post-feature { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: start; gap: 3rem; padding: 5rem 0 6rem 0; }
 }
 .post-feature-label {
   margin: 0;
@@ -746,22 +746,22 @@ html[data-drawer-open] { overflow: hidden; }  /* stop the page scrolling behind 
   color: var(--accent-text);
 }
 .post-feature-title {
-  margin: 1rem 0 0;
+  margin: 1rem 0 0 0;
   font-size: clamp(2.5rem, 5.5vw, 5rem); font-weight: 700; line-height: 0.95; letter-spacing: -0.02em;
   overflow-wrap: break-word;
 }
 .post-feature-title a { color: inherit; text-decoration: none; }
 .post-feature-title a:hover { text-decoration: underline; text-decoration-thickness: 3px; text-underline-offset: 0.12em; }
-.post-feature-summary { margin: 1.5rem 0 0; max-width: 32rem; }
-.post-feature-meta { margin: 1rem 0 0; font-size: 0.875rem; line-height: 1.375; color: var(--muted); }
+.post-feature-summary { margin: 1.5rem 0 0 0; max-width: 32rem; }
+.post-feature-meta { margin: 1rem 0 0 0; font-size: 0.875rem; line-height: 1.375; color: var(--muted); }
 .post-feature .btn { display: inline-block; margin-top: 2rem; text-decoration: none; }
 
 /* ---------- Post header: the top of an article ---------- */
 /* A small label back to the index, the title (between page-title and h2 in size, since titles
    run to a line or two), an optional lead, then the byline: a row of label-over-value pairs
    under a 2px rule. The row wraps on phones. */
-.post-header { padding: 3rem 0 2.5rem; }
-@media (min-width: 768px) { .post-header { padding: 5rem 0 3.5rem; } }
+.post-header { padding: 3rem 0 2.5rem 0; }
+@media (min-width: 768px) { .post-header { padding: 5rem 0 3.5rem 0; } }
 .post-header-label {
   display: inline-block; margin-bottom: 1.5rem;
   font-size: 0.875rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;
@@ -773,17 +773,17 @@ a.post-header-label:hover { color: var(--accent-text); text-decoration: underlin
   font-size: clamp(2.5rem, 6vw, 5rem); font-weight: 700; line-height: 0.95; letter-spacing: -0.02em;
   overflow-wrap: break-word;
 }
-.post-header-lead { margin: 1.5rem 0 0; max-width: 40rem; }
+.post-header-lead { margin: 1.5rem 0 0 0; max-width: 40rem; }
 .post-meta {
   display: flex; flex-wrap: wrap; gap: 1rem 3rem;
-  margin: 2.5rem 0 0; padding-top: 0.75rem;
+  margin: 2.5rem 0 0 0; padding-top: 0.75rem;
   border-top: 2px solid var(--ink);
 }
 .post-meta dt {
   font-size: 0.875rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;
   color: var(--muted);
 }
-.post-meta dd { margin: 0.125rem 0 0; }
+.post-meta dd { margin: 0.125rem 0 0 0; }
 
 /* ---------- Post body: long-form text from Markdown ---------- */
 /* Markdown can't take classes, so this styles plain elements inside it: paragraphs, h2 and h3,
@@ -792,14 +792,14 @@ a.post-header-label:hover { color: var(--accent-text); text-decoration: underlin
    new part, and the thick rule is kept for sections of the page. A quote is set
    large and bold beside a 6px accent edge, the same edge the active row has. */
 .post-body { max-width: 42rem; }
-.post-body > * { margin: 0 0 1.25rem; }
+.post-body > * { margin: 0 0 1.25rem 0; }
 .post-body > :last-child { margin-bottom: 0; }
 .post-body h2 {
-  margin: 3rem 0 1rem;
+  margin: 3rem 0 1rem 0;
   font-size: 1.75rem; font-weight: 700; line-height: 1.1; letter-spacing: -0.02em;
 }
 @media (min-width: 768px) { .post-body h2 { font-size: 2.25rem; } }
-.post-body h3 { margin: 2rem 0 0.5rem; font-size: 1.25rem; font-weight: 700; line-height: 1.25; letter-spacing: 0.01em; }
+.post-body h3 { margin: 2rem 0 0.5rem 0; font-size: 1.25rem; font-weight: 700; line-height: 1.25; letter-spacing: 0.01em; }
 .post-body > :first-child { margin-top: 0; }
 .post-body a { color: inherit; text-decoration: underline; text-underline-offset: 4px; }
 .post-body a:hover { color: var(--accent-text); }
@@ -831,7 +831,7 @@ a.post-header-label:hover { color: var(--accent-text); text-decoration: underlin
    side from 640px, with Next always in the right column. */
 .post-nav { display: grid; margin-top: 4rem; border-top: 2px solid var(--ink); }
 @media (min-width: 640px) { .post-nav { grid-template-columns: 1fr 1fr; gap: 2rem; } }
-.post-nav a { display: block; padding: 0.75rem 0 1.25rem; color: inherit; text-decoration: none; }
+.post-nav a { display: block; padding: 0.75rem 0 1.25rem 0; color: inherit; text-decoration: none; }
 .post-nav a + a { border-top: 1px solid var(--rule); }
 @media (min-width: 640px) {
   .post-nav a + a { border-top: 0; }
@@ -914,23 +914,23 @@ a.post-header-label:hover { color: var(--accent-text); text-decoration: underlin
    a quiet note on the left; the site's links on the right in two short columns. Stacks on
    phones, two columns from 768px. --bar sets it on a dark block, like page-title--bar. */
 .site-footer {
-  margin-top: 4rem; padding: 2.75rem 0 3rem;
+  margin-top: 4rem; padding: 2.75rem 0 3rem 0;
   border-top: 2px solid currentColor;
 }
 .site-footer--bar {
-  padding: 2rem var(--gutter) 2.5rem;
+  padding: 2rem var(--gutter) 2.5rem var(--gutter);
   border-top: 0;
   background: var(--bar); color: var(--bar-ink);
 }
 .site-footer-inner { display: grid; gap: 2.5rem; }
 @media (min-width: 768px) {
   .site-footer-inner { grid-template-columns: 1fr 1fr; gap: 2rem; }
-  .site-footer--bar { padding: 2.5rem 2.5rem 3rem; }
+  .site-footer--bar { padding: 2.5rem 2.5rem 3rem 2.5rem; }
 }
 .site-footer-name { margin: 0; font-size: 2.25rem; font-weight: 700; line-height: 1; letter-spacing: -0.025em; }
-.site-footer-text { margin: 1rem 0 0; max-width: 28rem; }
+.site-footer-text { margin: 1rem 0 0 0; max-width: 28rem; }
 .site-footer-note {              /* dimmed by color, not opacity, as the closing note is */
-  margin: 1.5rem 0 0; max-width: 28rem;
+  margin: 1.5rem 0 0 0; max-width: 28rem;
   font-size: 0.875rem; line-height: 1.375;
   color: color-mix(in srgb, currentColor 75%, transparent);
 }
