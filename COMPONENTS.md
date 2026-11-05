@@ -16,6 +16,26 @@ A sticky bar on `paper` that holds the site name, the menu button and the theme 
 
 **Do.** Keep it to a name, an optional mark and two or three outlined buttons. **Don't.** Add a logo image or wordmark, a shadow or a second rule.
 
+## SkipLink
+
+A link to the page's main content, the first thing the Tab key reaches, so a keyboard user can go past the top bar on every page.
+
+**Markup.** The first thing in `<body>`, with `<main>` to land on:
+
+```html
+<a class="skip-link" href="#main">Skip to main content</a>
+…
+<main id="main" tabindex="-1">…</main>
+```
+
+`BaseLayout` writes both. Everything in its default slot goes in `<main>`; a `Footer` goes in the `footer` slot, because a `<footer>` inside `<main>` stops being the page's footer landmark.
+
+- Off screen until it has focus, then `ink` with `paper` text at the top left, over the top bar, with the usual focus ring.
+- `tabindex="-1"` lets `<main>` take focus, so the next Tab carries on from there. It draws no ring: focus is on the whole page.
+- Hidden while the menu or drawer is open, when the page behind can't be reached.
+
+**Don't.** Leave `<main>` out, or show the link before it has focus.
+
 ## OutlinedButton
 
 The quiet button: 1px border in `currentColor`, transparent, inverts on hover. Used in the top bar for Menu, the theme toggle and the burger.
@@ -388,7 +408,7 @@ The traditional footer at the end of the page. The site name, a line about the s
 </footer>
 ```
 
-In Astro, `<Footer name="Site name" description="…" links={menu}><Fragment slot="note">© 2026 Site name.</Fragment></Footer>` as the last thing in `BaseLayout`'s default slot. `links` takes the same `MenuItem[]` as the menu, and every item with an `href` is listed, nested ones included, so the footer never keeps its own list; the current page is underlined in the accent. The default slot adds anything under the links.
+In Astro, `<Footer name="Site name" description="…" links={menu}><Fragment slot="note">© 2026 Site name.</Fragment></Footer>` in `BaseLayout`'s `footer` slot, which keeps it outside `<main>`. `links` takes the same `MenuItem[]` as the menu, and every item with an `href` is listed, nested ones included, so the footer never keeps its own list; the current page is underlined in the accent. The default slot adds anything under the links.
 
 - **The rule.** It opens with the 2px rule every section starts with, `space-16` below the page above it.
 - **`--bar`** (`tone="bar"`) sets it on a dark `bar` block instead, like `page-title--bar`: for a site whose pages end on a light section and want a firm end.

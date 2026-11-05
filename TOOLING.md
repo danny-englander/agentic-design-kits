@@ -106,6 +106,7 @@ Write them with Playwright's role locators (`page.getByRole('tab', { name: /Cont
 
 What the automated tests can't see. Run through it in a real browser at about 390px and 1280px wide, in light and dark, before a release or after restyling a site. Skip the lines for components the site doesn't use.
 
+- [ ] The first Tab on a page shows Skip to main content at the top left; Enter moves past the top bar, and the next Tab lands in the page.
 - [ ] Menu button opens the panel; the top bar turns dark with it; the page behind doesn't scroll.
 - [ ] Focus moves into the panel on open and back to the menu button on close. Tab can't reach the page behind.
 - [ ] Escape closes it. Clicking an in-page `#` link in the menu closes it.
