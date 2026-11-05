@@ -1,14 +1,12 @@
 ---
-// The small mark before the site name in the top bar: two rings and an accent dot. Decorative:
+// The small mark before the site name in the top bar: a Swiss cross in the accent. Decorative:
 // it sits inside the home link, whose name is the tagline, so it is hidden from assistive tech.
-// The rings are currentColor (the bar's own color, so they follow the bar when the panel turns
-// it dark); the dot is accent-text on paper and accent-bright on the dark bar.
+// The cross is accent-text on paper and accent-bright on the dark bar. Its arms are a sixth
+// longer than they are wide, as on the Swiss flag.
 ---
 
 <svg class="site-mark" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false">
-  <circle cx="12" cy="12" r="10.75" fill="none" stroke="currentColor" stroke-width="2" />
-  <circle cx="12" cy="12" r="5.75" fill="none" stroke="currentColor" stroke-width="2" />
-  <circle class="site-mark-dot" cx="12" cy="12" r="2" />
+  <path d="M9 2h6v7h7v6h-7v7H9v-7H2V9h7z" />
 </svg>
 
 <style>
@@ -23,12 +21,10 @@
     width: 1.25rem;
     height: 1.25rem;
     margin-top: 0.125rem; /* centred on the first 1.5rem line */
-  }
-  .site-mark-dot {
     fill: var(--accent-text);
   }
-  :global(html[data-menu='open']) .site-mark-dot,
-  :global(html[data-drawer-open]) .site-mark-dot {
+  :global(html[data-menu='open']) .site-mark,
+  :global(html[data-drawer-open]) .site-mark {
     fill: var(--accent-bright);
   }
 </style>
