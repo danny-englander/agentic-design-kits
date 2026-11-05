@@ -914,7 +914,7 @@ a.post-header-label:hover { color: var(--accent-text); text-decoration: underlin
    a quiet note on the left; the site's links on the right in two short columns. Stacks on
    phones, two columns from 768px. --bar sets it on a dark block, like page-title--bar. */
 .site-footer {
-  margin-top: 4rem; padding: 0.75rem 0 3rem;
+  margin-top: 4rem; padding: 2.75rem 0 3rem;
   border-top: 2px solid currentColor;
 }
 .site-footer--bar {
