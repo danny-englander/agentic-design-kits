@@ -273,6 +273,8 @@ kbd {                            /* a key: outlined like the top-bar buttons */
   border-bottom: 1px solid var(--rule);
   transition: background-color 150ms, color 150ms;
 }
+/* The last row a reader can see has no rule, even when a filter has hidden the ones after it */
+.row:not(:has(~ .row:not([hidden]))) { border-bottom: 0; }
 .row:hover { background: var(--row-hover-bg); color: var(--row-fg); }
 .row[data-active="true"] { background: var(--row-active-bg); color: var(--row-fg); box-shadow: inset 6px 0 0 var(--row-edge); }
 .row:hover .muted, .row[data-active="true"] .muted { color: var(--row-fg); }
@@ -646,6 +648,7 @@ html[data-drawer-open] { overflow: hidden; }  /* stop the page scrolling behind 
 .summary-list { --sl-rule: var(--rule); margin: 0; }
 :is(.panel, .drawer, .page-title--bar, .site-footer--bar) .summary-list { --sl-rule: color-mix(in srgb, var(--bar-ink) 25%, transparent); }
 .summary-list > div { display: grid; gap: 0.25rem 2rem; padding: 1rem 0; border-bottom: 1px solid var(--sl-rule); }
+.summary-list > div:last-child { border-bottom: 0; }
 @media (min-width: 640px) { .summary-list > div { grid-template-columns: 10rem 1fr; align-items: baseline; } }
 .summary-list dt {
   font-size: 0.875rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;
@@ -666,6 +669,7 @@ html[data-drawer-open] { overflow: hidden; }  /* stop the page scrolling behind 
   padding: 1.25rem 0;
   border-bottom: 1px solid color-mix(in srgb, currentColor 25%, transparent);
 }
+.dated-list > li:last-child { border-bottom: 0; }
 @media (min-width: 640px) { .dated-list > li { grid-template-columns: 10rem 1fr; } }
 .dated-list time { font-size: 0.875rem; font-weight: 700; line-height: 1.375; color: var(--dl-date); }
 @media (min-width: 640px) { .dated-list time { padding-top: 0.2rem; } }
@@ -682,6 +686,7 @@ html[data-drawer-open] { overflow: hidden; }  /* stop the page scrolling behind 
   padding: 1.5rem 0;
   border-bottom: 1px solid var(--rule);
 }
+.post-list > li:last-child { border-bottom: 0; }
 @media (min-width: 640px) { .post-list > li { grid-template-columns: 10rem minmax(0, 1fr); } }
 .post-list time {
   font-size: 0.875rem; font-weight: 500; line-height: 1.375;
@@ -980,6 +985,7 @@ a.post-header-label:hover { color: var(--accent-text); text-decoration: underlin
   max-width: 44rem; border-top: 2px solid currentColor;
 }
 .menu-list > li { border-bottom: 1px solid color-mix(in srgb, currentColor 25%, transparent); }
+.menu-list > li:last-child { border-bottom: 0; }
 .menu-link,
 .acc > summary {                 /* a top-level item: big bold line */
   display: flex; align-items: center; justify-content: space-between; gap: 1.5rem;
