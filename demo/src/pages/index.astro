@@ -6,6 +6,7 @@ import Hero from '../design/kit/astro/Hero.astro';
 import Cta from '../design/kit/astro/Cta.astro';
 import CardGrid from '../design/kit/astro/CardGrid.astro';
 import { getIndex, href } from '../data/blog';
+import { newSitePrompt } from '../data/prompts';
 import hero from '../assets/hero.jpg';
 
 const principles = [
@@ -18,6 +19,12 @@ const principles = [
 ];
 const active = 2;
 
+const steps = [
+  { title: 'Hand it to your agent', meta: 'Point it at the kit’s AGENTS.md and DESIGN.md' },
+  { title: 'Say what the site should do', meta: 'In plain words, the way you would to a designer' },
+  { title: 'Check the result', meta: 'Accessibility tests in both themes, so you check the work, not just trust it' },
+];
+
 // The four newest posts, the featured one first.
 const { featured, rest } = await getIndex();
 const cards = [featured, ...rest].filter((post) => post !== undefined).slice(0, 4).map((post) => ({
@@ -28,9 +35,9 @@ const cards = [featured, ...rest].filter((post) => post !== undefined).slice(0, 
 }));
 ---
 
-<SiteLayout title="Home" description="A demo site for the Swiss Minimal design kit.">
+<SiteLayout title="Home" description="Swiss Minimal, a design kit your AI agent can implement.">
   <Hero
-    lead="A small test bed for the design kit: flat color, thick rules, one grotesque typeface."
+    lead="A design kit your AI agent can implement: flat color, thick rules, one grotesque typeface."
     image={hero}
     alt="Abstract composition of black, grey and red circles and rectangles divided by black rules"
     caption="Composition in black, grey and red. Example artwork."
@@ -47,6 +54,21 @@ const cards = [featured, ...rest].filter((post) => post !== undefined).slice(0, 
     action="View components"
     level="h2"
   />
+
+  <Section id="how" title="How it works" range="01–03">
+    <div slot="intro" class="max-w-2xl pb-6 md:ml-14 [&>p]:mb-5">
+      <p class="lead">Not a library of components to copy and paste. A set of rules, and an agent that follows them.</p>
+      <p>Most UI kits hand you finished code and leave the judgment to you. This one hands the judgment to your agent: what each color is for, which weights to use, where a rule goes, and when not to add anything at all.</p>
+    </div>
+    {steps.map((s, i) => <Row num={i + 1} title={s.title} meta={s.meta} />)}
+  </Section>
+
+  <section class="mb-16 border-t-2 border-ink pt-8" aria-labelledby="prompt">
+    <h2 class="h2 pb-6" id="prompt">Use it with your agent</h2>
+    <p class="mb-5 max-w-2xl">Copy this into Claude Code, Cursor or any agent that can read a repository, and change the pages and the accent to suit. <a class="link" href="/agents/">Agents</a> has more, including how to restyle a site you already have.</p>
+    <pre class="mb-5" tabindex="0"><code data-prompt>{newSitePrompt}</code></pre>
+    <button type="button" class="btn-outline" data-copy-prompt>Copy prompt</button>
+  </section>
 
   <Section id="principles" title="Principles" range="01–06">
     {
@@ -65,3 +87,16 @@ const cards = [featured, ...rest].filter((post) => post !== undefined).slice(0, 
     <CardGrid cards={cards} columns={2} />
   </section>
 </SiteLayout>
+
+<script>
+  const toast = (text: string) => document.dispatchEvent(new CustomEvent('toast', { detail: text }));
+
+  document.querySelector('[data-copy-prompt]')?.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(document.querySelector('[data-prompt]')?.textContent ?? '');
+      toast('Prompt copied.');
+    } catch {
+      toast('Couldn’t copy. Select the prompt instead.');
+    }
+  });
+</script>

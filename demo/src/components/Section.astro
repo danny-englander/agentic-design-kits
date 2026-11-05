@@ -22,6 +22,7 @@ const { id, title, range, filterable } = Astro.props;
     <p class="num small muted whitespace-nowrap font-medium md:pl-2">{range}</p>
     <h2 class="h2" id={id}>{title}</h2>
   </div>
+  <slot name="intro" />
   <ul>
     <slot />
   </ul>

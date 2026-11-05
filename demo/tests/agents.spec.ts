@@ -27,3 +27,12 @@ test('the Agents page links to llms.txt and never scrolls sideways on a phone', 
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
   expect(overflow).toBe(0);
 });
+
+test('the home page copies the prompt for an agent', async ({ page, context }) => {
+  await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+  await page.goto('/');
+  await page.getByRole('button', { name: 'Copy prompt' }).click();
+  await expect(page.getByRole('status').filter({ hasText: 'Prompt copied.' })).toBeVisible();
+  const copied = await page.evaluate(() => navigator.clipboard.readText());
+  expect(copied).toContain('Start a new Astro site with the Swiss Minimal design kit.');
+});

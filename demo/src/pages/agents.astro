@@ -1,6 +1,7 @@
 ---
 import SiteLayout from '../layouts/SiteLayout.astro';
 import Hero from '../design/kit/astro/Hero.astro';
+import { repo, doc, newSitePrompt } from '../data/prompts';
 
 // What a visitor might ask for, and the kit components an agent reaches for.
 const requests = [
@@ -13,9 +14,6 @@ const requests = [
   { ask: 'Show our install steps', gets: 'A code block, with commands in bold' },
   { ask: 'Code samples in our posts', gets: 'Code in three colors, set up once for every Markdown post' },
 ];
-
-const repo = 'https://github.com/danny-englander/swiss-minimal';
-const doc = (file: string) => `${repo}/blob/main/${file}`;
 
 // A starting AGENTS.md for a site built on the kit. Kept short: it points at the kit's own docs.
 const siteAgents = `# Notes for AI agents
@@ -38,12 +36,6 @@ the kit's rules and component guide:
 - Don't edit src/design/. A fix there belongs in the kit's repository.
 - Run the axe tests before calling a change done.`;
 
-const newSitePrompt = `Start a new Astro site with the Swiss Minimal design kit.
-Follow "Starting a new site with the kit" in
-${doc('AGENTS.md')}
-Pages: Home, Work, About and Contact. Accent: verdigris.
-Add an AGENTS.md for the site that points at the kit's docs.`;
-
 const restylePrompt = `Restyle this site with the Swiss Minimal design kit.
 Follow "Restyling an existing site with the kit" in
 ${doc('AGENTS.md')}
@@ -55,6 +47,7 @@ components before you change anything.`;
   <Hero title="Agents" lead="You don't need to learn the kit's markup. Say what the site should do, and an AI coding agent picks the components, writes the code and checks it against the rules." />
 
   <article class="max-w-2xl pb-16">
+    <p class="mb-5">Swiss Minimal is not a library of components to copy and paste. It is a set of rules, and an agent that follows them.</p>
     <p class="mb-14">The kit is open to pull requests for new features. Suggest one or report a problem in the <a class="link" href={`${repo}/issues`}>issues on GitHub</a>.</p>
 
     <section class="mb-14 border-t-2 border-ink pt-8 [&>p]:mb-5" aria-labelledby="agents-ask">
