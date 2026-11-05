@@ -36,6 +36,9 @@ const badgeSizes = [
   { code: 'NL', label: 'Netherlands', size: 'text-sm', solid: true },
 ];
 
+// The number circle at each size, largest first. Like the badge, its size is its text's.
+const circleSizes = ['text-4xl', 'text-2xl', 'text-base', 'text-sm'];
+
 // A menu like the panel's, two levels deep, for the Menu entry.
 const sampleMenu: MenuItem[] = [
   { label: 'Home', href: '/' },
@@ -236,18 +239,27 @@ const chips = [
         }
       </ul>
     </ComponentEntry>
-    <ComponentEntry num={n()} name="Number circle" classes=".num-circle, .num-circle--solid">
-      <Fragment slot="about">A number in a circle, outlined or solid, for steps or for list rows. It takes the color and size of the text around it.</Fragment>
-      <div class="flex flex-wrap items-center gap-x-8 gap-y-4 text-2xl">
-        <p class="flex items-center gap-2"><NumCircle value={1} /> <NumCircle value={2} /> <NumCircle value={3} /></p>
-        <p class="flex items-center gap-2"><NumCircle value={1} solid /> <NumCircle value={2} solid /> <NumCircle value={3} solid /></p>
-      </div>
-      <ul class="mt-8 border-t border-rule [&>li:last-child]:border-b-0">
+    <ComponentEntry num={n()} name="Number circle" classes=".num-circle, .num-circle--solid, .num-circle--accent, text-sm to text-4xl">
+      <Fragment slot="about">A number in a circle, outlined or solid, for steps or for list rows. The accent version sets numbers apart, as on the entries of this page. It takes the color and size of the text around it, so a text utility sizes it, never below <code>text-sm</code>.</Fragment>
+      <ul class="flex flex-wrap items-end gap-x-6 gap-y-4">
+        {
+          circleSizes.map((size) => (
+            <li class="flex flex-col items-center gap-2">
+              <p class:list={['flex items-center gap-2', size]}><NumCircle value={1} /> <NumCircle value={1} solid /></p>
+              <code class="small muted">{size}</code>
+            </li>
+          ))
+        }
+      </ul>
+      <p class="small muted mt-8 mb-3">In the accent, at <code>text-2xl</code>:</p>
+      <p class="flex items-center gap-2 text-2xl"><NumCircle value={1} accent /> <NumCircle value={1} solid accent /></p>
+      <p class="small muted mt-8 mb-3">In a list row, at <code>text-sm</code>:</p>
+      <ul class="border-t border-rule">
         <Row num={1} title="Copy the kit" meta="kit/ and fonts/, side by side in src/design/" numStyle="circle" />
         <Row num={2} title="Import the stylesheet" meta="One global stylesheet, starting with tailwind.css" numStyle="circle" active />
         <Row num={3} title="Build on BaseLayout" meta="A Hero or a PageTitle on every page" numStyle="circle" />
       </ul>
-      <ul class="mt-8 border-t border-rule [&>li:last-child]:border-b-0">
+      <ul class="mt-8 border-t border-rule">
         <Row num={1} title="Copy the kit" meta="kit/ and fonts/, side by side in src/design/" numStyle="solid" />
         <Row num={2} title="Import the stylesheet" meta="One global stylesheet, starting with tailwind.css" numStyle="solid" active />
         <Row num={3} title="Build on BaseLayout" meta="A Hero or a PageTitle on every page" numStyle="solid" />
