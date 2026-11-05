@@ -625,17 +625,18 @@ An oval badge holding a short code, like the "CH" sticker on the back of a Swiss
 
 ## NumberCircle
 
-A number set in a circle, for when a number should read as a mark of its own: the steps of a how-to, or a list row's number set apart from its name. Outlined, or solid.
+A number set in a circle, for when a number should read as a mark of its own: the steps of a how-to, or a list row's number set apart from its name. Outlined or solid, in the text's color or the accent.
 
-**Markup.** `<span class="num-circle"><span>02</span></span>`; add `num-circle--solid` to fill it. The inner span is needed: it carries the cut-out color of the solid version. In Astro, `<NumCircle value={2} />` (a number is padded to "02"), with `solid` for the filled one.
+**Markup.** `<span class="num-circle"><span>02</span></span>`; add `num-circle--solid` to fill it, and `num-circle--accent` to draw either one in the accent. The inner span is needed: it carries the cut-out color of the solid version. In Astro, `<NumCircle value={2} />` (a number is padded to "02"), with `solid` for the filled one and `accent` for the accent.
 
 - **Shape.** A 2.25em circle (`radius-round`, at 50%) with a 1px rule, or 0.06em on a big one. Weight 500, tabular numerals.
 - **Color.** All `currentColor`, so it takes the color of the text it sits in: put `muted` on it beside a row's name, leave it `ink` as a step marker. The solid version fills with that color and cuts the digits out in the surface's own: `paper` on the page, `bar` in the panel, drawer and `page-title--bar`, the row's fill when a `ListRow` is hovered or active.
+- **Accent.** `.num-circle--accent` sets numbers apart: the one that matters on a screen, or the outlined numbers of the one list a page is built around. It is `accent-text` on the page, with `accent-ink` digits when solid, and `accent-bright` on a `bar` surface and in a hovered or active `ListRow`, with the digits cut out as usual.
 - **Size.** Like the `Ellipse`, it takes its text's size: `small` in a list row, a text utility (`text-2xl`) for a step marker on its own. Never under 0.875rem.
 - **One or two digits.** It is a circle, not a pill: a three-digit number would crowd it. Past 99, use a plain `.num`.
 - Use one style per list: all outlined or all solid. The solid one is not a "current" marker; the active row already has its fill and edge.
 
-**Don't.** Put letters in it (that is an `Ellipse`), color it with the accent, or make it a button.
+**Don't.** Put letters in it (that is an `Ellipse`), give it a color other than the text's or the accent, or make it a button.
 
 ## ActivityIndicators
 
