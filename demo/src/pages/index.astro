@@ -18,10 +18,9 @@ const principles = [
 ];
 const active = 2;
 
-// The newest posts: the featured one, cut to its summary's first sentence, over four cards.
-const firstSentence = (text: string) => text.split(/(?<=\.)\s/)[0];
+// The four newest posts, the featured one first.
 const { featured, rest } = await getIndex();
-const cards = rest.slice(0, 4).map((post) => ({
+const cards = [featured, ...rest].filter((post) => post !== undefined).slice(0, 4).map((post) => ({
   title: post.data.title,
   href: href(post),
   summary: post.data.summary,
@@ -39,6 +38,16 @@ const cards = rest.slice(0, 4).map((post) => ({
     <Fragment slot="title">Swiss<br />Minimal</Fragment>
   </Hero>
 
+  <Cta
+    class="mb-16"
+    label="Components"
+    title="See the whole kit"
+    text="Every button, form, list and menu, live on one page with the classes that build it."
+    href="/components/"
+    action="View components"
+    level="h2"
+  />
+
   <Section id="principles" title="Principles" range="01–06">
     {
       principles.map((p, i) => (
@@ -53,17 +62,6 @@ const cards = rest.slice(0, 4).map((post) => ({
 
   <section class="mb-16 border-t-2 border-ink pt-8" aria-labelledby="reading">
     <h2 class="h2 pb-6" id="reading">Reading</h2>
-    {
-      featured && (
-        <Cta
-          class="mb-10"
-          title={featured.data.title}
-          text={firstSentence(featured.data.summary)}
-          href={href(featured)}
-          action="Read post"
-        />
-      )
-    }
     <CardGrid cards={cards} columns={2} />
   </section>
 </SiteLayout>
