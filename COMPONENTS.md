@@ -754,7 +754,7 @@ A few linked things side by side, each with a number, a title, one short sentenc
 <ul class="card-grid">
   <li class="card">
     <span class="label num muted">01</span>
-    <h3 class="card-title"><a href="/blog/one-typeface/">Why one typeface is enough</a></h3>
+    <h3 class="card-title"><a href="/blog/one-typeface/">Why one typeface is enough<span aria-hidden="true">&nbsp;→</span></a></h3>
     <p class="card-summary">A site set in a single grotesque.</p>
     <ul class="card-tags">
       <li class="label muted">Type</li>
@@ -766,7 +766,7 @@ A few linked things side by side, each with a number, a title, one short sentenc
 In Astro, `<CardGrid cards={cards} />`, each a `Card` (`title`, `href`, `summary`, optional `tags`; the type is in `kit/astro/types.ts`). `columns={2}` (`.card-grid--2`) makes two across from 768px: use it for two or four cards. `start={2}` starts the numbers at 2, for cards that carry on from something numbered before them. `level="h2"` under a `PageTitle`.
 
 - No box. Each card opens with a 2px `ink` rule, the same as a section, with the number in a 3rem column beside the text.
-- The title is 1.5rem and bold, and underlines (2px) on hover. Only the title is a link.
+- The title is 1.5rem and bold, and underlines (2px) on hover. Only the title is a link. The font's arrow after it shows that, hidden from screen readers and tied to the last word with a no-break space, so it never wraps alone.
 - The summary is 16px and `muted`. Keep it to one short sentence, so the cards stay close in height.
 - Two, three or four cards, so a row never ends with a gap. Leave out `columns` for three, which stack until 1024px: three in two columns would leave one alone.
 
@@ -783,7 +783,7 @@ A blog's index, newest first: each post's date beside its linked title, with a s
   <li>
     <time datetime="2026-10-20">Oct 20, 2026</time>
     <div>
-      <h2 class="post-list-title"><a href="/blog/one-typeface/">Why one typeface is enough</a></h2>
+      <h2 class="post-list-title"><a href="/blog/one-typeface/">Why one typeface is enough<span aria-hidden="true">&nbsp;→</span></a></h2>
       <p class="post-list-summary">A site set in a single grotesque…</p>
       <p class="post-list-meta">Type · 2 min read</p>
     </div>
@@ -795,7 +795,7 @@ In Astro, `<PostList posts={posts} />`, each a `Post` (`title`, `href`, `date`, 
 
 - A 2px `ink` rule on top, 1px `rule` between posts, like the dated list.
 - Date over the post on phones; a 10rem date column beside it from 640px. The date is 14px, 500, `muted`, tabular: the title is what stands out, not the date.
-- The title is 1.5rem, 2rem from 768px, bold; it underlines (2px) on hover. Only the title is a link.
+- The title is 1.5rem, 2rem from 768px, bold; it underlines (2px) on hover. Only the title is a link, with the font's arrow after it, as on a card.
 - **Format dates in UTC**, as for the dated list.
 - Meta is a short line: topics and reading time, joined with " · ".
 
