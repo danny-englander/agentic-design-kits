@@ -20,7 +20,7 @@
 .accent-switcher-btn:hover { color: var(--accent-bright); }
 .accent-switcher-gear { width: 1.5rem; height: 1.5rem; }
 .accent-switcher-panel {
-  width: 15rem; padding: 1rem 1.25rem 1.25rem;
+  width: 15rem; padding: 1rem 1.25rem 1.25rem 1.25rem;
   background: var(--bar); color: var(--bar-ink);
 }
 .accent-option {
