@@ -478,7 +478,7 @@ html[data-drawer-open] { overflow: hidden; }  /* stop the page scrolling behind 
 }
 @media (min-width: 768px) { .panel-inner { padding-top: 8rem; } }
 
-/* Numbered tabs across the top of the panel: "01 About  02 Contact". Small uppercase labels
+/* Numbered tabs across the top of the panel: "01 About  02 Contact". Title case labels
    at 70% of the text color; the chosen one is full strength with a 2px accent-bright underline. */
 .panel-tabs { display: flex; flex-wrap: wrap; gap: 0.75rem 1.5rem; }
 @media (min-width: 640px) { .panel-tabs { column-gap: 2.5rem; } }
@@ -488,7 +488,7 @@ html[data-drawer-open] { overflow: hidden; }  /* stop the page scrolling behind 
   border: 0; border-bottom: 2px solid transparent;
   background: transparent;
   color: color-mix(in srgb, currentColor 70%, transparent);
-  font: inherit; font-size: 0.875rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
+  font: inherit; font-size: 1rem; font-weight: 500; letter-spacing: 0.01em;
   transition: color 150ms, border-color 150ms;
 }
 .panel-tab:hover, .panel-tab[aria-selected="true"] { color: var(--bar-ink); }
