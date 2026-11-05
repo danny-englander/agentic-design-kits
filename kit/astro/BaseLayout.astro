@@ -4,7 +4,8 @@
 // fonts/ beside kit/. It does not import any CSS itself: import your site's global
 // stylesheet (which starts with `@import "<path>/kit/tailwind.css";`) in your own layout.
 //
-// Slots: the default slot is the page. "panel" goes under the menu (or, with `panelTabs`,
+// Slots: the default slot is the page's <main>. "footer" follows it, for a <Footer />, so the
+// footer stays outside <main>. "panel" goes under the menu (or, with `panelTabs`,
 // under every tab); with `panelTabs`, each tab's content goes in the slot named after its id.
 // "topbar" adds buttons to the top bar, before the menu button (e.g. a <DrawerButton />).
 // "mark" goes just before the tagline, inside the home link (a small decorative inline SVG).
@@ -79,6 +80,7 @@ const tabContent = await Promise.all(
     <slot name="head" />
   </head>
   <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
     <div class="topbar">
       <div class="page">
         <div class="flex items-center justify-between border-b-2 border-current py-3">
@@ -123,7 +125,10 @@ const tabContent = await Promise.all(
          The bottom padding keeps the end of the page clear of a fixed bottom bar. -->
     <div data-panel-page class="pb-(--bar-h)">
       <div class="page">
-        <slot />
+        <main id="main" tabindex="-1">
+          <slot />
+        </main>
+        <slot name="footer" />
       </div>
     </div>
   </body>
