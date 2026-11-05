@@ -548,7 +548,7 @@ In Astro, `<SummaryList items={[{ label: 'Download', value: 'Done. Saved 92 new 
 
 - **Label** in the `label` style (14px, 500, uppercase) at 85% of the text color; **value** in body text.
 - Label over value on phones; a 10rem label column from 640px, on the value's baseline.
-- 1px `rule` under each row. On a dark surface the rules follow `bar-ink`.
+- 1px `rule` between rows, none under the last. On a dark surface the rules follow `bar-ink`.
 - Labels are one or two words; values are a short sentence. Put it under a section's 2px rule and `h2`, like any section.
 
 **Don't.** Use it for a list of things to choose from (that is a `ListRow`), or for more than a handful of rows.

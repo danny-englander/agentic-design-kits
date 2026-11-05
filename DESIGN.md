@@ -27,7 +27,7 @@ Put this in `<head>` before first paint so a saved theme does not flash:
 - **Type does the work.** Big bold headings, small quiet labels, nothing decorative.
 - **Flat.** No shadows, gradients, rounded corners or glass in the interface. The UI draws only six curves: the spinner, the "new" dot, the drawer's round "more below" arrow, the radio button, the `Ellipse` badge and the number circle, all marks that must read as different from the square controls around them. (One exception: a scrolling title fades at its edges; that fade hides text, it is not decoration.) Images are content and keep their own color and shapes; see Images.
 - **One typeface, two weights.** Overused Grotesk at 700 (headings, names) and 500 (small labels). Body copy is 400. Never a third weight. The one exception is code, which is set in Source Code Pro (see Type).
-- **Thick rule, thin rule.** A 2px `ink` rule starts each section and ends the top bar. Rows are separated by a 1px `rule`.
+- **Thick rule, thin rule.** A 2px `ink` rule starts each section and ends the top bar. Rows are separated by a 1px `rule`, with none after the last one.
 - **One grid.** Section headings, list rows and descriptions share the same columns, so a range label sits over the numbers, the title over the names and the blurb over the descriptions.
 - **Color is rare.** `accent` marks the one thing that matters on a screen: the primary action, the active item, the activity indicator, a chosen radio or a switch that is on.
 
@@ -78,7 +78,7 @@ One family, `--font-sans` (Overused Grotesk, falling back to Helvetica Neue, Hel
 - Content width `page-max` (88rem), centered in `.page`, with `gutter` side padding (1rem, 2rem from 640px).
 - Hero with generous space (`space-12`, `space-20` from 768px), then sections separated by `space-16`. A hero image takes its layout from its shape: square or portrait sits beside the text, 50/50 from 768px; landscape goes under the text at the full page width. Phones always stack, text first.
 - Section header: 2px `ink` top rule, then the grid row (range label, `h2` title, blurb).
-- List rows: 1px `rule` bottom border, `space-4` vertical padding. The row number sits `space-4` in from the left (1.25rem from 768px) so it stays clear of the active row's 6px edge.
+- List rows: 1px `rule` bottom border, none on the last row, `space-4` vertical padding. The row number sits `space-4` in from the left (1.25rem from 768px) so it stays clear of the active row's 6px edge.
 - Mobile first. Rows stack on phones and become a column grid from 768px.
 - Pages end with a `Footer`: the 2px rule, the site name and its links.
 - A fixed bottom bar (`BottomBar`) is optional, and goes only on pages where something stays current while the page scrolls. On those pages, set `bar-h` to its height and reserve that space at the bottom of the page (`BaseLayout`'s `barHeight` prop does both). Without one, `--bar-h` is `0rem`.
