@@ -17,7 +17,7 @@ const presets = [
   <PageTitle title="Forms" />
 
   <form class="max-w-xl pb-16" data-settings-form>
-    <section class="mb-14 border-t-2 border-ink pt-3" aria-labelledby="forms-details">
+    <section class="mb-14 border-t-2 border-ink pt-8" aria-labelledby="forms-details">
       <h2 class="h2 mb-3" id="forms-details">Details</h2>
       <p class="small muted mb-8"><span class="required-mark"></span>Required</p>
       <label class="field-label" for="forms-name">Your name</label>
@@ -39,7 +39,7 @@ const presets = [
       </div>
     </section>
 
-    <section class="mb-14 border-t-2 border-ink pt-3" aria-labelledby="forms-delivery">
+    <section class="mb-14 border-t-2 border-ink pt-8" aria-labelledby="forms-delivery">
       <h2 class="h2 mb-8" id="forms-delivery">Delivery</h2>
       <fieldset class="choice-group mb-8">
         <legend class="field-label">How often</legend>
@@ -55,7 +55,7 @@ const presets = [
       </fieldset>
     </section>
 
-    <section class="mb-10 border-t-2 border-ink pt-3" aria-labelledby="forms-settings">
+    <section class="mb-10 border-t-2 border-ink pt-8" aria-labelledby="forms-settings">
       <h2 class="h2 mb-8" id="forms-settings">Settings</h2>
       <label class="choice"><input class="switch" type="checkbox" role="switch" name="updates" checked /> Email me when something is added</label>
       <label class="choice"><input class="switch" type="checkbox" role="switch" name="digest" /> Send a monthly digest</label>
@@ -68,7 +68,7 @@ const presets = [
   <!-- A task form with live output, like a downloader's settings screen. No backend: Start runs
        a short pretend export, streamed into the output panel, then fills the summary. -->
   <form class="max-w-xl pb-14" data-export-form>
-    <section class="mb-10 border-t-2 border-ink pt-3" aria-labelledby="forms-export">
+    <section class="mb-10 border-t-2 border-ink pt-8" aria-labelledby="forms-export">
       <h2 class="h2 mb-3" id="forms-export">Export</h2>
       <p class="small muted mb-8"><span class="required-mark"></span>Required</p>
       <div class="grid gap-x-6 sm:grid-cols-2">
@@ -94,7 +94,7 @@ const presets = [
   <div class="max-w-4xl pb-16">
     <!-- A <pre> keeps its whitespace, so the starting text stays on one line. -->
     <OutputPanel id="export-output" status="Not started" height="14rem" class="mb-14"><span class="pre-cmd">$ export</span>{'\n'}Choose dates and press Start.</OutputPanel>
-    <section class="border-t-2 border-ink pt-3" aria-labelledby="forms-summary" data-export-summary>
+    <section class="border-t-2 border-ink pt-8" aria-labelledby="forms-summary" data-export-summary>
       <h2 class="h2 mb-6" id="forms-summary">Summary</h2>
       <SummaryList
         items={[
