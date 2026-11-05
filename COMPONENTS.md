@@ -120,6 +120,7 @@ Numbered tabs across the top of the slide-down panel ("01 Menu  02 Contact  03 F
 
 `kit/panel.js` finds the tabs and runs them. In Astro, pass `panelTabs={[{ id: 'menu', label: 'Menu' }, …]}` to `BaseLayout` (or `tabs` to `MenuPanel`) and put each tab's content in the slot named after its id (`<form slot="contact">`). The menu `items` sit at the top of the first tab.
 
+- **Labels are title case,** as you write them: the tabs set no capitals, at 1rem, weight 500.
 - **Every tab is a Tab stop**, and Enter or Space opens it (they are real buttons). The arrow keys, Home and End also move between them. With three to five tabs, a keyboard user never has to discover the arrows.
 - **Each tab deep-links.** `#contact` in the URL opens the panel on Contact, the URL shows the open tab, and Back closes the panel. A plain `<a href="#contact">` anywhere on the page opens it. So no element on the page may use a tab's id.
 - On open, focus goes to the open tab, retried for a moment because Reduce Motion can refuse the first `focus()`.
