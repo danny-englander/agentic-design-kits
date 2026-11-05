@@ -625,6 +625,7 @@ html[data-drawer-open] { overflow: hidden; }  /* stop the page scrolling behind 
 /* One or two digits. Sized in em like the ellipse, so it follows the text around it. Drawn in
    currentColor, so it takes the color of whatever it sits in, muted text, a filled row or a
    bar; --solid fills with that color and cuts the digits out in the surface's own color.
+   --accent draws either one in the accent instead, with accent-ink digits on the solid one.
    Markup: <span class="num-circle"><span>02</span></span>; the inner span carries the cut. */
 .num-circle {
   --nc-cut: var(--paper);
@@ -640,6 +641,10 @@ html[data-drawer-open] { overflow: hidden; }  /* stop the page scrolling behind 
 .panel .num-circle, .drawer .num-circle, .page-title--bar .num-circle { --nc-cut: var(--bar); }
 .row:hover .num-circle { --nc-cut: var(--row-hover-bg); }
 .row[data-active="true"] .num-circle { --nc-cut: var(--row-active-bg); }
+.num-circle--accent { color: var(--accent-text); }
+.num-circle--accent.num-circle--solid { --nc-cut: var(--accent-ink); }
+:is(.panel, .drawer, .page-title--bar) .num-circle--accent { --nc-cut: var(--bar); color: var(--accent-bright); }
+.row:hover .num-circle--accent, .row[data-active="true"] .num-circle--accent { color: var(--accent-bright); }
 
 /* ---------- Summary list: a few results, label beside value ---------- */
 /* A <dl> of rows: a small uppercase label and its value, thin rules between. Label over value
