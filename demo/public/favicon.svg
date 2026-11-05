@@ -1,18 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
   <style>
     .bg { fill: #f3f0e9 }
-    .ink { stroke: #0e0e0e }
-    .dot { fill: #e5301b }
+    .cross { fill: #e5301b }
     @media (prefers-color-scheme: dark) {
       .bg { fill: #0c0c0c }
-      .ink { stroke: #f3f0e9 }
-      .dot { fill: #ff4b2b }
+      .cross { fill: #ff4b2b }
     }
   </style>
-  <rect class="bg" width="64" height="64"/>
-  <g class="ink" fill="none" stroke-width="6">
-    <circle cx="32" cy="32" r="24"/>
-    <circle cx="32" cy="32" r="12.5"/>
-  </g>
-  <circle class="dot" cx="32" cy="32" r="5"/>
+  <rect class="bg" width="24" height="24"/>
+  <path class="cross" d="M9 2h6v7h7v6h-7v7H9v-7H2V9h7z"/>
 </svg>
