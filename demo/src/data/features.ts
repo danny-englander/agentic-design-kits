@@ -7,6 +7,58 @@ import type { Feature } from '../design/kit/astro/types';
  */
 export const features: Feature[] = [
   {
+    date: '2026-11-05',
+    title: 'A Swiss cross in the top bar',
+    body: 'The site name in the top bar now has a Swiss cross before it, in the accent color. The browser tab shows the same cross.',
+    details: [
+      'It replaces the two rings and a dot, in `SiteMark.astro`. Its arms are a sixth longer than they are wide, as on the Swiss flag.',
+      'The rules for the mark now allow one flat shape all in the accent, as well as `currentColor` with one accent touch.',
+      'The browser tab icon is always vermilion, as a favicon can’t follow the site’s accent setting.',
+    ],
+  },
+  {
+    date: '2026-11-05',
+    title: 'Tabs in title case',
+    body: 'The tabs in the menu now read Menu, Contact and Features rather than all capitals, a little larger, so they are easier to read. The Components page shows them too.',
+    details: [
+      '`.panel-tab` sets no capitals now, at 1rem, so a label shows as you write it.',
+      'Sites on the kit: copy the new `theme.css` in, and check your tab labels are in title case.',
+    ],
+  },
+  {
+    date: '2026-11-05',
+    title: 'Arrows on linked titles',
+    body: 'Titles on cards and in the Blog list now end in an arrow, so you can see they are links without hovering.',
+    details: [
+      'The arrow is the font’s own, hidden from screen readers and tied to the last word, so it never wraps alone.',
+      'Sites on the kit: copy the new `CardGrid.astro` and `PostList.astro` in.',
+    ],
+  },
+  {
+    date: '2026-11-05',
+    title: 'An accent number circle',
+    body: 'Number circles now come in the accent color, outlined or solid. The entries on the Components page use the outlined one, and the page shows every size.',
+    details: [
+      'A new class, `.num-circle--accent`, or `accent` on `NumCircle`. It uses `accent-text` on the page, and `accent-bright` on dark surfaces and in hovered or active list rows.',
+      'Sites on the kit: copy the new `theme.css` and `NumCircle.astro` in. Nothing existing changes.',
+    ],
+  },
+  {
+    date: '2026-11-05',
+    title: 'Components in A to Z order',
+    body: 'The Components page now runs A to Z, both its groups and what is in them. CTA, cards and the number circle each have a group of their own.',
+  },
+  {
+    date: '2026-11-05',
+    title: 'Lists and sections with more room',
+    body: 'Lists no longer end in a thin rule, even when a filter hides the rows after the last one you can see. Sections and the footer have more room under their rule.',
+    details: [
+      'List rows, the dated list, the summary list, the post list and the menu all drop the last rule.',
+      'The footer’s padding is now `2.75rem 0 3rem 0`.',
+      'Sites on the kit: copy the new `theme.css` in.',
+    ],
+  },
+  {
     date: '2026-11-04',
     title: 'CTAs and cards',
     body: 'Two new pieces for pointing people at things: a call to action with the filled button, and a grid of linked cards to sit under it. See them on the home page.',
@@ -14,7 +66,7 @@ export const features: Feature[] = [
       'A new kit piece, `Cta` (`.cta`): a thin rule, a small label, a title, a line of text and the filled button. One to a page.',
       'A new kit piece, `CardGrid` (`.card-grid`, `.card`): a number, a linked title, one short sentence and up to three tags, under a 2px rule, with no box.',
       'Four cards sit two across from 768px with `columns={2}`, and three sit three across from 1024px. Both stack on phones.',
-      'The home page has a new Reading section using both, and the Components page lists them as 37 and 38.',
+      'The home page has a new Reading section using both, and the Components page lists them.',
       'Sites on the kit: copy the new `theme.css`, `types.ts`, `Cta.astro` and `CardGrid.astro` in. Nothing existing changes.',
     ],
   },
