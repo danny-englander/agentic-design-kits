@@ -1,6 +1,10 @@
 # Swiss Minimal
 
+[![CI](https://github.com/danny-englander/swiss-minimal/actions/workflows/ci.yml/badge.svg)](https://github.com/danny-englander/swiss-minimal/actions/workflows/ci.yml)
+
 ![The demo's home page in dark mode: "Swiss Minimal" in large bold type beside an abstract composition of black, grey and red shapes](docs/home-dark.webp)
+
+[www.swissminimal.ch](https://www.swissminimal.ch)
 
 A Swiss / Bauhaus design kit for Astro and Tailwind v4: type-led, flat color, thick rules, one typeface.
 

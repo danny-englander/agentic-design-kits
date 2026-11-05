@@ -1,0 +1,29 @@
+# The checks from "Working on this repository" in CLAUDE.md, on every push to main and pull request.
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: demo
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: demo/.nvmrc
+          cache: npm
+          cache-dependency-path: demo/package-lock.json
+      - run: npm ci
+      - name: The kit's two copies match
+        run: |
+          diff -r ../kit src/design/kit
+          diff -r ../fonts src/design/fonts
+      - run: npx astro check
+      - run: npx playwright install --with-deps chromium
+      - run: npm test
