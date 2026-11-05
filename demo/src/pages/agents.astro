@@ -63,7 +63,7 @@ components before you change anything.`;
       <dl class="mb-5 border-t border-rule">
         {
           requests.map((r) => (
-            <div class="grid gap-1 border-b border-rule py-4 sm:grid-cols-[1fr_1fr] sm:gap-6">
+            <div class="grid gap-1 border-b border-rule py-4 last:border-b-0 sm:grid-cols-[1fr_1fr] sm:gap-6">
               <dt class="font-bold">{r.ask}</dt>
               <dd class="muted">{r.gets}</dd>
             </div>

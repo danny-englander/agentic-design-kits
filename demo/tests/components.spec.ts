@@ -79,3 +79,19 @@ test('the page never scrolls sideways on a phone', async ({ page }) => {
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
   expect(overflow).toBe(0);
 });
+
+test('the last row a filter leaves showing has no rule', async ({ page }) => {
+  await page.goto('/work');
+  await page.getByText('Filter by category').click();
+  const chips = page.locator('[data-filter]:not([data-filter="all"], [data-filter="favorites"])');
+  for (const chip of await chips.all()) {
+    await chip.click();
+    for (const section of await page.locator('[data-filter-section]:visible').all()) {
+      const rules = await section
+        .locator('.row:visible')
+        .evaluateAll((rows) => rows.map((r) => getComputedStyle(r).borderBottomWidth));
+      expect(rules.at(-1)).toBe('0px');
+      expect(rules.slice(0, -1).every((w) => w === '1px')).toBe(true);
+    }
+  }
+});

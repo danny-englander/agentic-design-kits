@@ -151,8 +151,7 @@ const chips = [
   <Section id="lists" title="Lists" range="11–17">
     <ComponentEntry num={n()} name="List row" classes=".row">
       <Fragment slot="about">Numbered rows that fill on hover. The active one stays filled, with an edge on its left.</Fragment>
-      <!-- The entry's own rule closes the list, so the last row drops its rule rather than double it -->
-      <ul class="border-t border-rule [&>li:last-child]:border-b-0">
+      <ul class="border-t border-rule">
         <Row num={1} title="One typeface" meta="Weights 400, 500 and 700 only" />
         <Row num={2} title="Flat color" meta="Cream, ink and one accent" active>
           <span class="eq" aria-hidden="true"><i></i><i></i><i></i></span>
@@ -199,21 +198,16 @@ const chips = [
     </ComponentEntry>
     <ComponentEntry num={n()} name="Dated list" classes=".dated-list">
       <Fragment slot="about">What a site can do and when each part arrived, newest first. These are the latest three.</Fragment>
-      <!-- As with the list rows: the entry's rule closes the list -->
-      <div class="[&>ol>li:last-child]:border-b-0">
-        <FeaturesList features={features.slice(0, 3)} level="h4" />
-      </div>
+      <FeaturesList features={features.slice(0, 3)} level="h4" />
     </ComponentEntry>
     <ComponentEntry num={n()} name="Summary list" classes=".summary-list">
       <Fragment slot="about">A few results, each a small label beside its value, as after a task has run. The label sits over the value on a phone.</Fragment>
-      <div class="[&>dl>div:last-child]:border-b-0">
-        <SummaryList
-          items={[
-            { label: 'Download', value: 'Done. Saved 92 new files, skipped 0 already downloaded.' },
-            { label: 'Info files', value: '92 new, 0 updated with new files, the rest unchanged.' },
-          ]}
-        />
-      </div>
+      <SummaryList
+        items={[
+          { label: 'Download', value: 'Done. Saved 92 new files, skipped 0 already downloaded.' },
+          { label: 'Info files', value: '92 new, 0 updated with new files, the rest unchanged.' },
+        ]}
+      />
     </ComponentEntry>
     <ComponentEntry num={n()} name="Closing note" classes=".closing-note">
       <Fragment slot="about">A bold rule that ends a list, over one quiet line about it.</Fragment>
