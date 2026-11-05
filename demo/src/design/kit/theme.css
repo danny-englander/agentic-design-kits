@@ -327,11 +327,12 @@ html[data-drawer-open] .topbar { --tb-bg: var(--bar); --tb-fg: var(--bar-ink); }
 .burger[aria-expanded="true"] i:nth-child(2) { opacity: 0; }
 .burger[aria-expanded="true"] i:nth-child(3) { transform: rotate(-45deg); }
 
-/* Hover labels for top-bar buttons, from data-tip="...". Shown after 350ms on devices with a
+/* Hover labels for buttons, from data-tip="...". Shown after 350ms on devices with a
    real hover (so they never stick after a tap on a phone), and at once on keyboard focus.
    Colors are the bar's, reversed, so they read on the paper bar and on the dark one.
-   Centered under the button; the last button's label is right-aligned so it stays on screen. */
-.topbar-btn[data-tip]::after {
+   In the top bar, centered under the button; the last button's label is right-aligned so it
+   stays on screen. On primary and secondary buttons, lined up with the button's left edge. */
+:is(.topbar-btn, .btn, .btn-outline)[data-tip]::after {
   content: attr(data-tip);
   position: absolute; top: calc(100% + 0.5rem); left: 50%; z-index: 1;
   transform: translateX(-50%);
@@ -343,10 +344,13 @@ html[data-drawer-open] .topbar { --tb-bg: var(--bar); --tb-fg: var(--bar-ink); }
   transition: opacity 150ms;
 }
 .topbar-btn[data-tip]:last-of-type::after { left: auto; right: 0; transform: none; }
+:is(.btn, .btn-outline)[data-tip] { position: relative; --tb-fg: var(--ink); --tb-bg: var(--paper); }
+:is(.btn, .btn-outline)[data-tip]::after { left: 0; transform: none; }
+:is(.panel, .drawer, .bottom-bar, .page-title--bar, .site-footer--bar) :is(.btn, .btn-outline)[data-tip] { --tb-fg: var(--bar-ink); --tb-bg: var(--bar); }
 @media (hover: hover) {
-  .topbar-btn[data-tip]:hover::after { opacity: 1; transition-delay: 350ms; }
+  :is(.topbar-btn, .btn, .btn-outline)[data-tip]:hover::after { opacity: 1; transition-delay: 350ms; }
 }
-.topbar-btn[data-tip]:focus-visible::after { opacity: 1; }
+:is(.topbar-btn, .btn, .btn-outline)[data-tip]:focus-visible::after { opacity: 1; }
 
 /* "New" dot: a small accent dot on a button's top-right corner, ringed in the bar's color so it
    stands clear of the border, and a matching one after a tab's label. Both sit out of the text
@@ -363,16 +367,16 @@ html[data-drawer-open] .topbar { --tb-bg: var(--bar); --tb-fg: var(--bar-ink); }
 }
 .new-dot--tab { position: absolute; top: 0; right: -0.7rem; }
 
-.btn {                           /* the one filled button */
-  padding: 0.9rem 1.8rem;
-  border: 0;
+/* Buttons: primary (.btn, filled) and secondary (.btn-outline, further down) are the same size. */
+.btn, .btn-outline {
+  display: inline-flex; flex: none; align-items: center; justify-content: center;
+  min-height: 2.75rem; padding: 0.6rem 1.25rem;
+  font: inherit; font-size: 1.125rem; font-weight: 700; line-height: 1.2; white-space: nowrap;
+}
+.btn {                           /* the primary button, the one filled button */
+  border: 1px solid var(--accent-text);
   background: var(--accent-text);
   color: var(--accent-ink);
-  font: inherit;
-  font-size: 1rem;
-  font-weight: 700;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
 }
 .btn:hover { filter: brightness(1.12); }
 .btn:disabled { opacity: 0.6; cursor: progress; }
@@ -706,13 +710,13 @@ html[data-drawer-open] { overflow: hidden; }  /* stop the page scrolling behind 
 .post-list-meta { margin: 0.5rem 0 0 0; font-size: 0.875rem; line-height: 1.375; color: var(--muted); }
 
 /* ---------- CTA: one thing to go and look at, inside a section ---------- */
-/* A thin rule, a small label, a title, a line or two of text and the filled button. */
+/* A thin rule, a small label, a title, a line or two of text and the primary button. */
 .cta { padding-top: 1.5rem; border-top: 1px solid var(--rule); }
 .cta-label { margin: 0; }
 .cta-title { margin: 0.5rem 0 0 0; font-size: 1.5rem; font-weight: 700; line-height: 1.15; letter-spacing: -0.01em; }
 @media (min-width: 768px) { .cta-title { font-size: 2rem; } }
 .cta-text { margin: 0.75rem 0 0 0; max-width: 40rem; }
-.cta .btn { display: inline-block; margin-top: 1.5rem; text-decoration: none; }
+.cta .btn { margin-top: 1.5rem; text-decoration: none; }
 
 /* ---------- Card grid: a few linked things side by side ---------- */
 /* No box: each card opens with a 2px rule, the number in a column beside the text. Three across
@@ -731,11 +735,12 @@ html[data-drawer-open] { overflow: hidden; }  /* stop the page scrolling behind 
 .card-summary { grid-column: 2; margin: 0.25rem 0 0 0; font-size: 1rem; line-height: 1.5; color: var(--muted); }
 .card-tags { grid-column: 2; display: flex; flex-wrap: wrap; gap: 0.25rem 1.25rem; margin: 0.5rem 0 0 0; padding: 0; list-style: none; }
 .card-tags li { margin: 0; }
+.card > .btn-outline { grid-column: 2; justify-self: start; margin-top: 1rem; text-decoration: none; }
 
 /* ---------- Post feature: one post at the top of a blog's index ---------- */
 /* Built like .hero--split: text and a square image 50/50 from 768px, stacked text first on
    phones, with a hero's space around it. A small accent-text label, the title as a link, the
-   summary in lead size, a meta line and the filled button. The image is cropped square. */
+   summary in lead size, a meta line and the primary button. The image is cropped square. */
 .post-feature { display: grid; gap: 2.5rem; padding: 3rem 0 4rem 0; }
 @media (min-width: 768px) {
   .post-feature { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: start; gap: 3rem; padding: 5rem 0 6rem 0; }
@@ -754,7 +759,7 @@ html[data-drawer-open] { overflow: hidden; }  /* stop the page scrolling behind 
 .post-feature-title a:hover { text-decoration: underline; text-decoration-thickness: 3px; text-underline-offset: 0.12em; }
 .post-feature-summary { margin: 1.5rem 0 0 0; max-width: 32rem; }
 .post-feature-meta { margin: 1rem 0 0 0; font-size: 0.875rem; line-height: 1.375; color: var(--muted); }
-.post-feature .btn { display: inline-block; margin-top: 2rem; text-decoration: none; }
+.post-feature .btn { margin-top: 2rem; text-decoration: none; }
 
 /* ---------- Post header: the top of an article ---------- */
 /* A small label back to the index, the title (between page-title and h2 in size, since titles
@@ -1129,21 +1134,20 @@ a.post-header-label:hover { color: var(--accent-text); text-decoration: underlin
 .field::-webkit-datetime-edit { padding: 0; }
 :is(.panel, .drawer, .bottom-bar, .page-title--bar, .site-footer--bar) .field { color-scheme: dark; }
 
-/* Secondary button: outlined, sentence case, for actions beside the one filled .btn (presets,
+/* Secondary button: outlined, for actions beside the primary .btn (presets,
    Choose…, Open in Finder). Fills with the text color on hover; takes the bar's colors on dark.
-   Several in a row: <div class="btn-group" role="group" aria-label="…">. */
+   Several in a row: <div class="btn-group" role="group" aria-label="…">.
+   Tertiary button: add .btn-outline--tertiary for a quieter one, medium weight and a size smaller. */
 .btn-outline {
   --bo-fg: var(--ink); --bo-bg: var(--paper);
-  display: inline-flex; flex: none; align-items: center; justify-content: center;
-  min-height: 2.75rem; padding: 0.6rem 1.25rem;
   border: 1px solid var(--bo-fg); background: transparent; color: var(--bo-fg);
-  font: inherit; font-size: 1rem; font-weight: 500; line-height: 1.2; white-space: nowrap;
   transition: background-color 150ms, color 150ms;
 }
+.btn-outline--tertiary { font-size: 1rem; font-weight: 500; }
 .btn-outline:hover { background: var(--bo-fg); color: var(--bo-bg); }
 .btn-outline:disabled { opacity: 0.6; cursor: not-allowed; }
 :is(.panel, .drawer, .bottom-bar, .page-title--bar, .site-footer--bar) .btn-outline { --bo-fg: var(--bar-ink); --bo-bg: var(--bar); }
-.btn-group { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.btn-group { display: flex; flex-wrap: wrap; gap: 0.75rem; }
 
 /* File picker: a field that shows the chosen file's name, and a Choose… button. The real
    <input type="file"> stays in the page (visually hidden, still focusable), so the keyboard and

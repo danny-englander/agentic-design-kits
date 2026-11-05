@@ -1,7 +1,7 @@
 ---
 // A few linked things side by side (CardGrid in COMPONENTS.md). Three across from 1024px, two
 // from 768px with columns={2}, stacked below that. Each card opens with a 2px rule; there is no
-// box. Only the title is a link.
+// box. The title and the tertiary button under it link to the same place.
 import type { Card } from './types';
 
 interface Props {
@@ -23,7 +23,7 @@ const { cards, columns = 3, start = 1, level: Title = 'h3', class: className } =
       <li class="card">
         <span class="label num muted">{String(start + i).padStart(2, '0')}</span>
         <Title class="card-title">
-          <a href={card.href}>{card.title}<span aria-hidden="true">&nbsp;→</span></a>
+          <a href={card.href}>{card.title}</a>
         </Title>
         <p class="card-summary">{card.summary}</p>
         {card.tags && card.tags.length > 0 && (
@@ -33,6 +33,7 @@ const { cards, columns = 3, start = 1, level: Title = 'h3', class: className } =
             ))}
           </ul>
         )}
+        <a class="btn-outline btn-outline--tertiary" href={card.href} aria-label={`${card.action ?? 'Read this'}: ${card.title}`}>{card.action ?? 'Read this'}</a>
       </li>
     ))
   }

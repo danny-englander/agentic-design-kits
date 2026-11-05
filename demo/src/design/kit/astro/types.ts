@@ -47,10 +47,12 @@ export interface Post {
 export interface Card {
   title: string;
   href: string;
-  /** One short sentence. */
+  /** A teaser of two or three lines. */
   summary: string;
   /** Up to three short labels, e.g. what it is built with. */
   tags?: string[];
+  /** The button's text. Its name adds the title. Default "Read this". */
+  action?: string;
 }
 
 /** A link to a neighboring post (PostNav). */
