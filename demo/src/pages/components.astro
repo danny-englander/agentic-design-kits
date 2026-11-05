@@ -66,36 +66,72 @@ const chips = [
     <Fragment slot="title">Compo&shy;nents</Fragment>
   </Hero>
 
-  <!-- Outlined buttons take their colors from the top bar; off the bar they need the same two. -->
-  <div class="[--tb-bg:var(--paper)] [--tb-fg:var(--ink)]">
-    <Section id="buttons" title="Buttons" range="01–04">
-      <ComponentEntry num={n()} name="Button" classes=".btn">
-        <Fragment slot="about">The one filled button, for the single main action of a view. Hover brightens it.</Fragment>
-        <button class="btn" type="button" data-toast-text="Sent.">Send</button>
-      </ComponentEntry>
-      <ComponentEntry num={n()} name="Hover label" classes="data-tip">
-        <Fragment slot="about">A short label under an outlined button saying what it does. Hover or tab to it.</Fragment>
-        <button class="topbar-btn topbar-btn--text" type="button" data-tip="Print page" data-print>Print</button>
-      </ComponentEntry>
-      <ComponentEntry num={n()} name="Outlined button" classes=".topbar-btn, .topbar-btn--text">
-        <Fragment slot="about">The quiet button of the top bar: a 1px outline in capitals that fills on hover. The top bar uses it for Recent, the menu and the theme.</Fragment>
-        <button class="topbar-btn topbar-btn--text" type="button" data-copy="/components/">Copy link</button>
-      </ComponentEntry>
-      <ComponentEntry num={n()} name="Secondary button" classes=".btn-outline, .btn-group">
-        <Fragment slot="about">Every other action beside the filled one: presets that fill a form, Choose…, Open in Finder. Sentence case, outlined, filled on hover.</Fragment>
-        <div class="btn-group" role="group" aria-label="Date presets">
-          <button type="button" class="btn-outline" data-toast-text="This month chosen.">This month</button>
-          <button type="button" class="btn-outline" data-toast-text="Last month chosen.">Last month</button>
-          <button type="button" class="btn-outline" data-toast-text="1st–15th chosen.">1st–15th</button>
-          <button type="button" class="btn-outline" data-toast-text="16th–end chosen.">16th–end</button>
+  <Section id="buttons" title="Buttons" range="01–03">
+    <ComponentEntry num={n()} name="Primary button" classes=".btn, .btn-group, data-tip">
+      <Fragment slot="about">The one filled button, for the single main action of a view. Hover brightens it. In a group it comes first, with secondary buttons after it.</Fragment>
+      <div class="flex flex-col items-start gap-6">
+        <div>
+          <p class="small muted mb-2">On its own</p>
+          <button class="btn" type="button" data-toast-text="Sent.">Send</button>
         </div>
-      </ComponentEntry>
-    </Section>
-  </div>
+        <div>
+          <p class="small muted mb-2">In a group</p>
+          <div class="btn-group" role="group" aria-label="Message actions">
+            <button class="btn" type="button" data-toast-text="Sent.">Send</button>
+            <button type="button" class="btn-outline" data-toast-text="Saved as a draft.">Save draft</button>
+          </div>
+        </div>
+        <div>
+          <p class="small muted mb-2">With a hover label: hover or tab to it</p>
+          <button class="btn" type="button" aria-label="Send the message" data-tip="Send the message" data-toast-text="Sent.">Send</button>
+        </div>
+      </div>
+    </ComponentEntry>
+    <ComponentEntry num={n()} name="Secondary button" classes=".btn-outline, .btn-group, data-tip">
+      <Fragment slot="about">Every other action beside the primary one, at the same size: presets that fill a form, Choose…, Open in Finder. Outlined, filled on hover.</Fragment>
+      <div class="flex flex-col items-start gap-6">
+        <div>
+          <p class="small muted mb-2">On its own</p>
+          <button type="button" class="btn-outline" data-toast-text="This month chosen.">This month</button>
+        </div>
+        <div>
+          <p class="small muted mb-2">In a group</p>
+          <div class="btn-group" role="group" aria-label="Date presets">
+            <button type="button" class="btn-outline" data-toast-text="This month chosen.">This month</button>
+            <button type="button" class="btn-outline" data-toast-text="Last month chosen.">Last month</button>
+          </div>
+        </div>
+        <div>
+          <p class="small muted mb-2">With a hover label: hover or tab to it</p>
+          <button type="button" class="btn-outline" aria-label="Fill in this month" data-tip="Fill in this month" data-toast-text="This month chosen.">This month</button>
+        </div>
+      </div>
+    </ComponentEntry>
+    <ComponentEntry num={n()} name="Tertiary button" classes=".btn-outline--tertiary">
+      <Fragment slot="about">A quieter secondary button, for an action repeated many times on a page, such as the button on each card. Medium weight and a size smaller, in the same box.</Fragment>
+      <div class="flex flex-col items-start gap-6">
+        <div>
+          <p class="small muted mb-2">On its own</p>
+          <button type="button" class="btn-outline btn-outline--tertiary" data-toast-text="Details opened.">View details</button>
+        </div>
+        <div>
+          <p class="small muted mb-2">In a group</p>
+          <div class="btn-group" role="group" aria-label="Item actions">
+            <button type="button" class="btn-outline btn-outline--tertiary" data-toast-text="Details opened.">View details</button>
+            <button type="button" class="btn-outline btn-outline--tertiary" data-toast-text="Saved for later.">Save for later</button>
+          </div>
+        </div>
+        <div>
+          <p class="small muted mb-2">With a hover label: hover or tab to it</p>
+          <button type="button" class="btn-outline btn-outline--tertiary" aria-label="View details of this item" data-tip="View details of this item" data-toast-text="Details opened.">View details</button>
+        </div>
+      </div>
+    </ComponentEntry>
+  </Section>
 
-  <Section id="calls" title="Calls to action" range="05">
+  <Section id="calls" title="Calls to action" range="04">
     <ComponentEntry num={n()} name="CTA" classes=".cta">
-      <Fragment slot="about">One thing to go and look at, with the filled button. <a class="link" href="/#reading">Home</a> has one above a card grid.</Fragment>
+      <Fragment slot="about">One thing to go and look at, with the primary button. <a class="link" href="/#reading">Home</a> has one above a card grid.</Fragment>
       <Cta
         title="Field notes"
         text="A short essay on working with a single typeface."
@@ -105,23 +141,23 @@ const chips = [
     </ComponentEntry>
   </Section>
 
-  <Section id="cards" title="Cards" range="06">
+  <Section id="cards" title="Cards" range="05">
     <ComponentEntry num={n()} name="Card grid" classes=".card-grid, .card" wide>
       <Fragment slot="about">A few linked things. Four cards sit two across from 768px and stack on a phone; three sit three across from 1024px. <a class="link" href="/#reading">Home</a> has it under a CTA.</Fragment>
       <CardGrid
         columns={2}
         cards={[
-          { title: 'A type specimen', href: '/work/type-specimen/', summary: 'One family, set large.', tags: ['Design', 'Web'] },
-          { title: 'Field notes', href: '/work/field-notes/', summary: 'What one typeface can carry.', tags: ['Writing'] },
-          { title: 'Why one typeface is enough', href: '/blog/one-typeface/', summary: 'Fewer decisions and a clearer voice.', tags: ['Type'] },
-          { title: 'Notes on vermilion and verdigris', href: '/blog/two-pigments/', summary: 'Two accents, both old pigments.', tags: ['Color'] },
+          { title: 'A type specimen', href: '/work/type-specimen/', summary: 'A one-page specimen for a grotesque variable font, set at every size the system uses, from 14px captions up to the display hero. Each line is live text.', tags: ['Design', 'Web'] },
+          { title: 'Field notes', href: '/work/field-notes/', summary: 'A short essay on working with a single typeface, from notes kept over a year of small projects. What one family can carry when weight and size do all the work.', tags: ['Writing'] },
+          { title: 'Why one typeface is enough', href: '/blog/one-typeface/', summary: 'A site set in a single grotesque, at two weights, has fewer decisions to get wrong and a clearer voice. Here is what the constraint buys.', tags: ['Type'] },
+          { title: 'Notes on vermilion and verdigris', href: '/blog/two-pigments/', summary: 'The kit offers two accents, both old pigments. Why each one, and why a site only ever uses one of them.', tags: ['Color'] },
         ]}
       />
     </ComponentEntry>
   </Section>
 
   <div class="[--tb-bg:var(--paper)] [--tb-fg:var(--ink)]">
-    <Section id="feedback" title="Feedback" range="07–11">
+    <Section id="feedback" title="Feedback" range="06–10">
       <ComponentEntry num={n()} name="Activity indicators" classes=".eq, .spinner">
         <Fragment slot="about">The equalizer marks what is playing now; the spinner says something is loading.</Fragment>
         <div class="flex items-center gap-8">
@@ -169,7 +205,7 @@ const chips = [
     </Section>
   </div>
 
-  <Section id="forms" title="Forms" range="12–17">
+  <Section id="forms" title="Forms" range="11–16">
     <ComponentEntry num={n()} name="Date and time" classes='.field, type="date", "time"'>
       <Fragment slot="about">The browser's own date and time inputs as fields, with their calendar and clock. The format follows the visitor's settings.</Fragment>
       <div class="grid max-w-md gap-x-6 gap-y-5 sm:grid-cols-2">
@@ -227,7 +263,7 @@ const chips = [
     </ComponentEntry>
   </Section>
 
-  <Section id="lists" title="Lists" range="18–24">
+  <Section id="lists" title="Lists" range="17–23">
     <ComponentEntry num={n()} name="Closing note" classes=".closing-note">
       <Fragment slot="about">A bold rule that ends a list, over one quiet line about it.</Fragment>
       <p class="closing-note max-w-md">Kept on this device only.</p>
@@ -294,7 +330,7 @@ const chips = [
     </ComponentEntry>
   </Section>
 
-  <Section id="number-circle" title="Number circle" range="25">
+  <Section id="number-circle" title="Number circle" range="24">
     <ComponentEntry num={n()} name="Number circle" classes=".num-circle, .num-circle--solid, .num-circle--accent, text-sm to text-4xl">
       <Fragment slot="about">A number in a circle, outlined or solid, for steps or for list rows. The accent version sets numbers apart, as on the entries of this page. It takes the color and size of the text around it, so a text utility sizes it, never below <code>text-sm</code>.</Fragment>
       <ul class="flex flex-wrap items-end gap-x-6 gap-y-4">
@@ -323,7 +359,7 @@ const chips = [
     </ComponentEntry>
   </Section>
 
-  <Section id="frame" title="Page frame" range="26–32">
+  <Section id="frame" title="Page frame" range="25–31">
     <ComponentEntry num={n()} name="Bottom bar" classes=".bottom-bar, .marquee, .jump-btn">
       <Fragment slot="about">The dark bar fixed along the bottom of this page, and of <a class="link" href="/work/">Work</a>. A page opts in. Its title scrolls three times when it is too long, then rests; on Work, its triangle brings Field notes back into view.</Fragment>
     </ComponentEntry>
@@ -355,7 +391,7 @@ const chips = [
     </ComponentEntry>
   </Section>
 
-  <Section id="text" title="Text and images" range="33–35">
+  <Section id="text" title="Text and images" range="32–34">
     <ComponentEntry num={n()} name="Code block" classes="pre, .pre--bar">
       <Fragment slot="about">Code in Source Code Pro. Terminal output and logs go on the dark block, the same in both themes.</Fragment>
       <pre class="mb-4" tabindex="0"><code>@import "../design/kit/tailwind.css";</code></pre>
@@ -392,7 +428,7 @@ const chips = [
     </ComponentEntry>
   </Section>
 
-  <Section id="titles" title="Titles, menus and footers" range="36–38">
+  <Section id="titles" title="Titles, menus and footers" range="35–37">
     <ComponentEntry num={n()} name="Footer" classes=".site-footer, .site-footer--bar">
       <Fragment slot="about">The traditional footer, as at the end of every page here: the name and a note on the left, the site's links on the right. It stacks on a phone. Plain, or on a dark block.</Fragment>
       <!-- Samples inside the entry are not the page's footer, so each names its links apart. -->
@@ -435,8 +471,6 @@ const chips = [
       }
     });
   });
-
-  document.querySelector('[data-print]')?.addEventListener('click', () => window.print());
 
   // The dialog's choice comes back as its returnValue when it closes.
   document.querySelector<HTMLDialogElement>('#cmp-dialog')?.addEventListener('close', (e) => {

@@ -126,3 +126,11 @@ test('code is highlighted in the kit’s code colors, with no background of Shik
   });
   expect(colors).toEqual({ background: 'rgba(0, 0, 0, 0)', keyword: true, string: true, constant: true, comment: true });
 });
+
+test('each card on the home page has a button named for its title', async ({ page }) => {
+  await page.goto('/');
+  const buttons = page.locator('.card > .btn-outline');
+  await expect(buttons).toHaveCount(4);
+  await expect(page.getByRole('link', { name: 'Read this: Thick rule, thin rule' })).toHaveAttribute('href', /thick-rule/);
+  await expect(page.locator('.card-title a').first()).not.toContainText('→');
+});

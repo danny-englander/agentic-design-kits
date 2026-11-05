@@ -18,13 +18,13 @@ const principles = [
 ];
 const active = 2;
 
-// The newest posts: the featured one over four cards, each cut to its summary's first sentence.
+// The newest posts: the featured one, cut to its summary's first sentence, over four cards.
 const firstSentence = (text: string) => text.split(/(?<=\.)\s/)[0];
 const { featured, rest } = await getIndex();
 const cards = rest.slice(0, 4).map((post) => ({
   title: post.data.title,
   href: href(post),
-  summary: firstSentence(post.data.summary),
+  summary: post.data.summary,
   tags: post.data.tags,
 }));
 ---
