@@ -111,7 +111,7 @@ What the automated tests can't see. Run through it in a real browser at about 39
 - [ ] Escape closes it. Clicking an in-page `#` link in the menu closes it.
 - [ ] Panel tabs: every tab is a Tab stop; arrows, Home and End move; a tab's `#id` in the URL opens it; Back closes the panel.
 - [ ] "New" dot: none on a first visit; shows for a returning visitor; opening its tab clears it.
-- [ ] Hover labels show under the top-bar buttons after a pause (not on a phone); the last one stays on screen.
+- [ ] Hover labels show under the top-bar buttons after a pause (not on a phone), and under the primary and secondary buttons on the Components page; the last top-bar one stays on screen.
 - [ ] Drawer: reaches down to the bottom bar like the menu; the page doesn't scroll; a click outside (the top or bottom bar) closes it and still works; Tab past the last row closes it; the menu and drawer close each other; the round arrow shows while the list overflows.
 - [ ] Icon actions: icons are one color and turn the accent on hover; each says what it does (hover label and screen reader); removing a row moves focus to the next row's remove button.
 - [ ] Favorites: the star never opens its row; the Favorites filter shows only starred items.

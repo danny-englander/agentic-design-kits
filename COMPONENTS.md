@@ -28,38 +28,46 @@ Hover fills with the bar's text color and swaps the text to its background (insi
 
 ## HoverLabel
 
-A small label under a top-bar button saying what it does ("Menu", "Switch to dark theme"), for buttons whose look alone may not say it.
+A small label under a button saying what it does ("Menu", "Switch to dark theme"), for buttons whose look alone may not say it.
 
-**Markup.** Add `data-tip="Menu"` to any `.topbar-btn`. CSS draws it from the attribute; no script.
+**Markup.** Add `data-tip="Menu"` to any `.topbar-btn`, `.btn` or `.btn-outline`. CSS draws it from the attribute; no script.
 
 - Shows after a 350ms pause on devices with a real hover (`@media (hover: hover)`), so it never sticks after a tap on a phone, and at once on `:focus-visible`.
-- Colors are the bar's, reversed (`--tb-fg` fill, `--tb-bg` text), so it reads on the paper bar and on the dark one while a panel is open. 14px, weight 500, sentence case.
-- Centered under its button; the last button in the group (`:last-of-type`) is right-aligned so its label never runs off the screen.
+- Colors are the bar's, reversed (`--tb-fg` fill, `--tb-bg` text), so it reads on the paper bar and on the dark one while a panel is open. Primary and secondary buttons set those two themselves: `ink` and `paper` on the page, `bar-ink` and `bar` on a dark surface. 14px, weight 500, sentence case.
+- In the top bar it is centered under its button, and the last button in the group (`:last-of-type`) is right-aligned so its label never runs off the screen. On a primary or secondary button it lines up with the button's left edge.
 - Keep it in step with the button: `MenuButton`, `DrawerButton` and `ThemeToggle` update `data-tip` with their `aria-label` ("Menu" / "Close menu").
 
 **Do.** Use the same words as the `aria-label`, or its short form. **Don't.** Put one on a link in running text, or write more than a few words.
 
-## Button
+## PrimaryButton
 
-The one filled button: `accent-text` fill, `accent-ink` text, bold uppercase with 0.15em tracking. It is the only place the accent fills a small area.
+The one filled button: `accent-text` fill, `accent-ink` text, sentence case, 1.125rem bold. It is the same size as a `SecondaryButton`, and the only place the accent fills a small area.
 
-**Markup.** `<button class="btn">Send</button>`. Padding 0.9rem 1.8rem, no border, square corners. Hover brightens it slightly (`filter: brightness(1.12)`); `:disabled` drops to 60% opacity with a progress cursor.
+**Markup.** `<button class="btn">Send</button>`. At least 2.75rem tall, padding 0.6rem 1.25rem, a 1px border in the fill's color, square corners. Hover brightens it slightly (`filter: brightness(1.12)`); `:disabled` drops to 60% opacity with a progress cursor.
 
-**Use it** for the single primary action of a view (submit a form, start playback, subscribe). One per view. Everything else is a secondary button, an outlined button or a link.
+**Use it** for the single primary action of a view (submit a form, start playback, subscribe). One per view, so in a `.btn-group` it comes first, followed by `SecondaryButton`s. Everything else is a secondary or tertiary button, an outlined button or a link.
 
 **Don't** put it in plain `accent`, round it, or write more than two words on it.
 
 ## SecondaryButton
 
-The button for every other action beside the one filled `Button`: a 1px outline in the text's color, sentence case, 1rem weight 500, at least 2.75rem tall. It fills with the text color on hover. Presets that fill in a form ("This month", "Last month"), the Choose… of a `FilePicker`, "Open in Finder" under a result.
+The button for every other action beside the `PrimaryButton`, at the same size: a 1px outline in the text's color, sentence case, 1.125rem bold, at least 2.75rem tall. It fills with the text color on hover. Presets that fill in a form ("This month", "Last month"), the Choose… of a `FilePicker`, "Open in Finder" under a result.
 
-**Markup.** `<button type="button" class="btn-outline">Last month</button>`. Several together go in `<div class="btn-group" role="group" aria-label="Date presets">`, which wraps on a phone.
+**Markup.** `<button type="button" class="btn-outline">Last month</button>`. Several together go in `<div class="btn-group" role="group" aria-label="Date presets">`, `space-3` apart, which wraps on a phone.
 
 - On a dark surface (panel, drawer, bottom bar, `page-title--bar`, a dark footer) it takes `bar-ink` and fills with it.
-- It does what it says when pressed and keeps no state. A choice that stays chosen is a `FilterChips` button with `aria-pressed`, which looks the same.
+- It does what it says when pressed and keeps no state. A choice that stays chosen is a `FilterChips` button with `aria-pressed`, which is outlined too.
 - `:disabled` drops to 60%.
 
-**Don't.** Use it for the main action of the view (that is the filled `Button`), or write it in capitals (that is the top bar's `OutlinedButton`).
+**Don't.** Use it for the main action of the view (that is the `PrimaryButton`), or write it in capitals (that is the top bar's `OutlinedButton`).
+
+## TertiaryButton
+
+A quieter `SecondaryButton`, for an action repeated many times on a page, such as the Read this on each `CardGrid` card, where bold outlines would compete with the content. The same box and outline, at 1rem weight 500.
+
+**Markup.** Add `btn-outline--tertiary` to a secondary button: `<button type="button" class="btn-outline btn-outline--tertiary">View details</button>`. Everything else comes from `.btn-outline`: the hover fill, the colors on a dark surface, `:disabled`, `.btn-group` and `data-tip`.
+
+**Don't.** Use it for the main action of the view, or beside secondary buttons in the same group: pick one or the other.
 
 ## Panel
 
@@ -420,7 +428,7 @@ Load `kit/dialog.js`. In Astro, `<Dialog id="confirm" title="Delete this export?
 - **Opening** with invoker commands (`commandfor` + `command="show-modal"`) needs no script; `kit/dialog.js` runs them in browsers that don't yet.
 - **Closing.** Every button in the `<form method="dialog">` closes it and leaves its `value` in `dialog.returnValue`; listen for `close` and act on it. `closedby="any"` closes it on a click outside too (the script fills in where that isn't supported); Escape and outside clicks return `""`, the X `"close"`.
 - **Focus.** Put `autofocus` on the safest choice (Cancel, not Delete), so Enter never destroys anything by accident.
-- **Actions** are one filled `Button` for the choice the dialog is about and `SecondaryButton`s for the rest, filled one first.
+- **Actions** are one `PrimaryButton` for the choice the dialog is about and `SecondaryButton`s for the rest, primary one first.
 - **Shape.** Up to 34rem wide, `gutter` from the screen's edges on a phone; the title is 1.75rem bold; the X is two bars like the menu button's, `accent-text` on hover. It fades and rises in over 250ms and fades out; not under Reduce Motion. The backdrop is `bar` at 75%, flat, no blur.
 
 **Don't.** Use it for something that could be a page or a `Toast`, open one from another, or put navigation in it.
@@ -723,7 +731,7 @@ A title banner in place of a hero, for pages that need a name but not an introdu
 
 ## CTA
 
-One thing to go and look at, inside a section: a thin rule, a small label, a title, a line or two of text and the filled button. A `CardGrid` of the next few things can follow it.
+One thing to go and look at, inside a section: a thin rule, a small label, a title, a line or two of text and the primary button. A `CardGrid` of the next few things can follow it.
 
 **Markup.**
 
@@ -740,13 +748,13 @@ In Astro, `<Cta title="Field notes" text="A short essay…" href="/work/field-no
 
 - A 1px `rule` on top, not the 2px `ink` of a section: it belongs to the section it sits in.
 - The title is 1.5rem, 2rem from 768px, bold. It isn't a link: the button is.
-- The filled button is the page's one primary action. Its name adds the title, so it says where it goes.
+- The primary button is the page's one main action. Its name adds the title, so it says where it goes.
 
 **Don't.** Put two on a page, or use one in place of a `PostFeature` at the top of a blog's index. A title with an image and a hero's space is a `PostFeature`.
 
 ## CardGrid
 
-A few linked things side by side, each with a number, a title, one short sentence and up to three tags. Stacked on phones; three cards sit three across from 1024px, four cards two across from 768px.
+A few linked things side by side, each with a number, a title, a short teaser, up to three tags and an outlined button. Stacked on phones; three cards sit three across from 1024px, four cards two across from 768px.
 
 **Markup.**
 
@@ -754,20 +762,22 @@ A few linked things side by side, each with a number, a title, one short sentenc
 <ul class="card-grid">
   <li class="card">
     <span class="label num muted">01</span>
-    <h3 class="card-title"><a href="/blog/one-typeface/">Why one typeface is enough<span aria-hidden="true">&nbsp;→</span></a></h3>
-    <p class="card-summary">A site set in a single grotesque.</p>
+    <h3 class="card-title"><a href="/blog/one-typeface/">Why one typeface is enough</a></h3>
+    <p class="card-summary">A site set in a single grotesque, at two weights, has fewer decisions to get wrong and a clearer voice. Here is what the constraint buys.</p>
     <ul class="card-tags">
       <li class="label muted">Type</li>
     </ul>
+    <a class="btn-outline btn-outline--tertiary" href="/blog/one-typeface/" aria-label="Read this: Why one typeface is enough">Read this</a>
   </li>
 </ul>
 ```
 
-In Astro, `<CardGrid cards={cards} />`, each a `Card` (`title`, `href`, `summary`, optional `tags`; the type is in `kit/astro/types.ts`). `columns={2}` (`.card-grid--2`) makes two across from 768px: use it for two or four cards. `start={2}` starts the numbers at 2, for cards that carry on from something numbered before them. `level="h2"` under a `PageTitle`.
+In Astro, `<CardGrid cards={cards} />`, each a `Card` (`title`, `href`, `summary`, optional `tags` and `action`; the type is in `kit/astro/types.ts`). `columns={2}` (`.card-grid--2`) makes two across from 768px: use it for two or four cards. `start={2}` starts the numbers at 2, for cards that carry on from something numbered before them. `level="h2"` under a `PageTitle`.
 
 - No box. Each card opens with a 2px `ink` rule, the same as a section, with the number in a 3rem column beside the text.
-- The title is 1.5rem and bold, and underlines (2px) on hover. Only the title is a link. The font's arrow after it shows that, hidden from screen readers and tied to the last word with a no-break space, so it never wraps alone.
-- The summary is 16px and `muted`. Keep it to one short sentence, so the cards stay close in height.
+- The title is 1.5rem and bold, and underlines (2px) on hover. It links to the same place as the button.
+- The button is a `TertiaryButton` on a link, "Read this" unless `action` says otherwise. Its `aria-label` adds the title ("Read this: Why one typeface is enough"), so each one says where it goes.
+- The summary is 16px and `muted`. Write it as a teaser of two or three lines, so the cards stay close in height.
 - Two, three or four cards, so a row never ends with a gap. Leave out `columns` for three, which stack until 1024px: three in two columns would leave one alone.
 
 **Don't.** Add a border, a tint or a shadow, or make the whole card a link. A long list of things to choose is a `ListRow`, and dated posts are a `PostList`.
@@ -824,7 +834,7 @@ In Astro, `<PostFeature post={post} image={art} alt="What it shows" />`, with th
 
 - It takes a hero's place and space: `space-12` above, more from 768px. A page with a `PostFeature` has no `Hero` or `PageTitle`; give it an `h1` (visually hidden is fine) naming the page.
 - The label is small, bold and `accent-text`; the title is bold and tight at `clamp(2.5rem, 5.5vw, 5rem)`, and underlines (3px) on hover.
-- The filled button is the page's one primary action. Its name adds the post's title, so it says where it goes.
+- The primary button is the page's one main action. Its name adds the post's title, so it says where it goes.
 - The image is cropped square (`.media--1x1`) and loads eagerly, like a hero's. A square or portrait original crops best.
 - Only one per page. Don't repeat the featured post in the list below it.
 
