@@ -8,6 +8,11 @@ import type { Feature } from '../design/kit/astro/types';
 export const features: Feature[] = [
   {
     date: '2026-11-05',
+    title: 'A new share card',
+    body: 'The picture a link preview shows now says the kit is one your AI agent can implement, and carries the CH oval between the title and the tagline.',
+  },
+  {
+    date: '2026-11-05',
     title: 'A design kit your AI agent can implement',
     body: 'The home page now says what the kit is for: a set of rules for your agent to follow, not components to copy and paste. It explains how that works and has a prompt to copy into your agent.',
     details: [
