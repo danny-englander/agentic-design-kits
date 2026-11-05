@@ -61,7 +61,7 @@ const chips = [
 ---
 
 <SiteLayout title="Components" description="Every component in the Swiss Minimal kit on one page." bottomBar>
-  <Hero lead="Every component in the kit on one page, in the order of the component guide. The ones that frame the page are listed at the end.">
+  <Hero lead="Every component in the kit on one page, grouped by what it does, with the groups and what is in them A to Z.">
     <!-- At the display minimum (64px) the word is wider than a 375px phone, so it may break here. -->
     <Fragment slot="title">Compo&shy;nents</Fragment>
   </Hero>
@@ -73,6 +73,14 @@ const chips = [
         <Fragment slot="about">The one filled button, for the single main action of a view. Hover brightens it.</Fragment>
         <button class="btn" type="button" data-toast-text="Sent.">Send</button>
       </ComponentEntry>
+      <ComponentEntry num={n()} name="Hover label" classes="data-tip">
+        <Fragment slot="about">A short label under an outlined button saying what it does. Hover or tab to it.</Fragment>
+        <button class="topbar-btn topbar-btn--text" type="button" data-tip="Print page" data-print>Print</button>
+      </ComponentEntry>
+      <ComponentEntry num={n()} name="Outlined button" classes=".topbar-btn, .topbar-btn--text">
+        <Fragment slot="about">The quiet button of the top bar: a 1px outline in capitals that fills on hover. The top bar uses it for Recent, the menu and the theme.</Fragment>
+        <button class="topbar-btn topbar-btn--text" type="button" data-copy="/components/">Copy link</button>
+      </ComponentEntry>
       <ComponentEntry num={n()} name="Secondary button" classes=".btn-outline, .btn-group">
         <Fragment slot="about">Every other action beside the filled one: presets that fill a form, Choose…, Open in Finder. Sentence case, outlined, filled on hover.</Fragment>
         <div class="btn-group" role="group" aria-label="Date presets">
@@ -82,18 +90,99 @@ const chips = [
           <button type="button" class="btn-outline" data-toast-text="16th–end chosen.">16th–end</button>
         </div>
       </ComponentEntry>
-      <ComponentEntry num={n()} name="Outlined button" classes=".topbar-btn, .topbar-btn--text">
-        <Fragment slot="about">The quiet button of the top bar: a 1px outline in capitals that fills on hover. The top bar uses it for Recent, the menu and the theme.</Fragment>
-        <button class="topbar-btn topbar-btn--text" type="button" data-copy="/components/">Copy link</button>
+    </Section>
+  </div>
+
+  <Section id="calls" title="Calls to action" range="05">
+    <ComponentEntry num={n()} name="CTA" classes=".cta">
+      <Fragment slot="about">One thing to go and look at, with the filled button. <a class="link" href="/#reading">Home</a> has one above a card grid.</Fragment>
+      <Cta
+        title="Field notes"
+        text="A short essay on working with a single typeface."
+        href="/work/field-notes/"
+        action="Read it"
+      />
+    </ComponentEntry>
+  </Section>
+
+  <Section id="cards" title="Cards" range="06">
+    <ComponentEntry num={n()} name="Card grid" classes=".card-grid, .card" wide>
+      <Fragment slot="about">A few linked things. Four cards sit two across from 768px and stack on a phone; three sit three across from 1024px. <a class="link" href="/#reading">Home</a> has it under a CTA.</Fragment>
+      <CardGrid
+        columns={2}
+        cards={[
+          { title: 'A type specimen', href: '/work/type-specimen/', summary: 'One family, set large.', tags: ['Design', 'Web'] },
+          { title: 'Field notes', href: '/work/field-notes/', summary: 'What one typeface can carry.', tags: ['Writing'] },
+          { title: 'Why one typeface is enough', href: '/blog/one-typeface/', summary: 'Fewer decisions and a clearer voice.', tags: ['Type'] },
+          { title: 'Notes on vermilion and verdigris', href: '/blog/two-pigments/', summary: 'Two accents, both old pigments.', tags: ['Color'] },
+        ]}
+      />
+    </ComponentEntry>
+  </Section>
+
+  <div class="[--tb-bg:var(--paper)] [--tb-fg:var(--ink)]">
+    <Section id="feedback" title="Feedback" range="07–11">
+      <ComponentEntry num={n()} name="Activity indicators" classes=".eq, .spinner">
+        <Fragment slot="about">The equalizer marks what is playing now; the spinner says something is loading.</Fragment>
+        <div class="flex items-center gap-8">
+          <p class="flex items-center gap-3"><span class="eq" aria-hidden="true"><i></i><i></i><i></i></span> Now playing</p>
+          <span class="spinner" role="status" aria-label="Loading"></span>
+        </div>
       </ComponentEntry>
-      <ComponentEntry num={n()} name="Hover label" classes="data-tip">
-        <Fragment slot="about">A short label under an outlined button saying what it does. Hover or tab to it.</Fragment>
-        <button class="topbar-btn topbar-btn--text" type="button" data-tip="Print page" data-print>Print</button>
+      <ComponentEntry num={n()} name="Dialog" classes=".dialog, <dialog>">
+        <Fragment slot="about">The browser's own modal dialog: the page behind goes still, Escape or a click outside closes it, and focus comes back here. For a choice that needs an answer before going on.</Fragment>
+        <button type="button" class="btn-outline" commandfor="cmp-dialog" command="show-modal">Delete export…</button>
+        <Dialog id="cmp-dialog" title="Delete this export?">
+          <p>The 8 files saved on October 1 go with it. This can't be undone.</p>
+          <Fragment slot="actions">
+            <button class="btn" value="delete">Delete</button>
+            <button class="btn-outline" value="cancel" autofocus>Cancel</button>
+          </Fragment>
+        </Dialog>
+      </ComponentEntry>
+      <ComponentEntry num={n()} name="Icon actions" classes=".icon-row, .icon-btn">
+        <Fragment slot="about">Icon-only links and buttons under a list item, one color, the accent on hover.</Fragment>
+        <a class="title block underline-offset-4 hover:underline" href="/work/">Work</a>
+        <p class="icon-row">
+          <a
+            class="icon-btn"
+            href="https://bsky.app/intent/compose?text=Swiss%20Minimal"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Share on Bluesky: Work (opens in a new tab)"
+            title="Share on Bluesky"><Icon name="simple-icons:bluesky" class="icon" aria-hidden="true" /></a
+          >
+          <button class="icon-btn" type="button" data-copy="/work/" aria-label="Copy link: Work" title="Copy link">
+            <Icon name="material-symbols:content-copy-outline" class="icon" aria-hidden="true" />
+          </button>
+        </p>
+      </ComponentEntry>
+      <ComponentEntry num={n()} name="Output panel" classes=".output, .output-log">
+        <Fragment slot="about">A task's live output: a status beside the heading, a spinner while it runs, and the log in a dark block that scrolls. See it run on <a class="link" href="/forms/">Forms</a>.</Fragment>
+        <!-- Inside an entry, so its heading is an h4 under the entry's h3. -->
+        <OutputPanel id="cmp-output" title="Output" status="Finished" headingLevel="h4" height="9rem"><span class="pre-cmd">$ export 2026-10-01 2026-10-15</span>{'\n'}Saved exports/2026-10-01-item-01.jpg{'\n'}Saved exports/2026-10-01-item-02.jpg{'\n'}Saved exports/2026-10-01-item-03.jpg{'\n'}<span class="pre-err">Skipped notes.txt: not an image</span></OutputPanel>
+      </ComponentEntry>
+      <ComponentEntry num={n()} name="Toast" classes=".toast">
+        <Fragment slot="about">A one-line confirmation at the bottom left, gone after a few seconds.</Fragment>
+        <button class="topbar-btn topbar-btn--text" type="button" data-toast-text="Settings saved.">Show toast</button>
       </ComponentEntry>
     </Section>
   </div>
 
-  <Section id="forms" title="Forms" range="05–10">
+  <Section id="forms" title="Forms" range="12–17">
+    <ComponentEntry num={n()} name="Date and time" classes='.field, type="date", "time"'>
+      <Fragment slot="about">The browser's own date and time inputs as fields, with their calendar and clock. The format follows the visitor's settings.</Fragment>
+      <div class="grid max-w-md gap-x-6 gap-y-5 sm:grid-cols-2">
+        <div>
+          <label class="field-label" for="cmp-date">Start date</label>
+          <input class="field" type="date" id="cmp-date" name="date" value="2026-10-01" />
+        </div>
+        <div>
+          <label class="field-label" for="cmp-time">Run at</label>
+          <input class="field" type="time" id="cmp-time" name="time" value="09:00" />
+        </div>
+      </div>
+    </ComponentEntry>
     <ComponentEntry num={n()} name="Field" classes=".field, .field-label">
       <Fragment slot="about">An underline in large type, no box. A required field gets the flower mark after its label.</Fragment>
       <div class="max-w-md">
@@ -101,6 +190,21 @@ const chips = [
         <label class="field-label" for="cmp-name">Your name</label>
         <input class="field" id="cmp-name" name="name" autocomplete="name" placeholder="Jane Doe" required />
       </div>
+    </ComponentEntry>
+    <ComponentEntry num={n()} name="File picker" classes=".file-pick, .file-pick-name">
+      <Fragment slot="about">A field that shows the chosen file's name, with a Choose… button. The browser's own file input does the work underneath.</Fragment>
+      <div class="max-w-md">
+        <FilePicker id="cmp-file" name="file" label="Attachment" />
+      </div>
+    </ComponentEntry>
+    <ComponentEntry num={n()} name="Radio" classes=".choice-group, .radio">
+      <Fragment slot="about">One choice from two to five, all in view. The arrow keys move the choice.</Fragment>
+      <fieldset class="choice-group choice-group--row">
+        <legend class="field-label">Format</legend>
+        <label class="choice"><input class="radio" type="radio" name="format" value="email" checked /> Email</label>
+        <label class="choice"><input class="radio" type="radio" name="format" value="rss" /> RSS</label>
+        <label class="choice"><input class="radio" type="radio" name="format" value="print" disabled /> Print (paused)</label>
+      </fieldset>
     </ComponentEntry>
     <ComponentEntry num={n()} name="Select" classes=".select-wrap, .select">
       <Fragment slot="about">A field that picks one item from a list, with a chevron at its end.</Fragment>
@@ -116,51 +220,25 @@ const chips = [
         </div>
       </div>
     </ComponentEntry>
-    <ComponentEntry num={n()} name="Date and time" classes='.field, type="date", "time"'>
-      <Fragment slot="about">The browser's own date and time inputs as fields, with their calendar and clock. The format follows the visitor's settings.</Fragment>
-      <div class="grid max-w-md gap-x-6 gap-y-5 sm:grid-cols-2">
-        <div>
-          <label class="field-label" for="cmp-date">Start date</label>
-          <input class="field" type="date" id="cmp-date" name="date" value="2026-10-01" />
-        </div>
-        <div>
-          <label class="field-label" for="cmp-time">Run at</label>
-          <input class="field" type="time" id="cmp-time" name="time" value="09:00" />
-        </div>
-      </div>
-    </ComponentEntry>
-    <ComponentEntry num={n()} name="File picker" classes=".file-pick, .file-pick-name">
-      <Fragment slot="about">A field that shows the chosen file's name, with a Choose… button. The browser's own file input does the work underneath.</Fragment>
-      <div class="max-w-md">
-        <FilePicker id="cmp-file" name="file" label="Attachment" />
-      </div>
-    </ComponentEntry>
     <ComponentEntry num={n()} name="Switch" classes=".choice, .switch">
       <Fragment slot="about">On or off for a setting. On fills with the accent.</Fragment>
       <label class="choice"><input class="switch" type="checkbox" role="switch" name="updates" checked /> Email me when something is added</label>
       <label class="choice"><input class="switch" type="checkbox" role="switch" name="digest" /> Send a monthly digest</label>
     </ComponentEntry>
-    <ComponentEntry num={n()} name="Radio" classes=".choice-group, .radio">
-      <Fragment slot="about">One choice from two to five, all in view. The arrow keys move the choice.</Fragment>
-      <fieldset class="choice-group choice-group--row">
-        <legend class="field-label">Format</legend>
-        <label class="choice"><input class="radio" type="radio" name="format" value="email" checked /> Email</label>
-        <label class="choice"><input class="radio" type="radio" name="format" value="rss" /> RSS</label>
-        <label class="choice"><input class="radio" type="radio" name="format" value="print" disabled /> Print (paused)</label>
-      </fieldset>
-    </ComponentEntry>
   </Section>
 
-  <Section id="lists" title="Lists" range="11–17">
-    <ComponentEntry num={n()} name="List row" classes=".row">
-      <Fragment slot="about">Numbered rows that fill on hover. The active one stays filled, with an edge on its left.</Fragment>
-      <ul class="border-t border-rule">
-        <Row num={1} title="One typeface" meta="Weights 400, 500 and 700 only" />
-        <Row num={2} title="Flat color" meta="Cream, ink and one accent" active>
-          <span class="eq" aria-hidden="true"><i></i><i></i><i></i></span>
-        </Row>
-        <Row num={3} title="Thick rules" meta="A 2px line opens every section" />
-      </ul>
+  <Section id="lists" title="Lists" range="18–24">
+    <ComponentEntry num={n()} name="Closing note" classes=".closing-note">
+      <Fragment slot="about">A bold rule that ends a list, over one quiet line about it.</Fragment>
+      <p class="closing-note max-w-md">Kept on this device only.</p>
+    </ComponentEntry>
+    <ComponentEntry num={n()} name="Dated list" classes=".dated-list">
+      <Fragment slot="about">What a site can do and when each part arrived, newest first. These are the latest three.</Fragment>
+      <FeaturesList features={features.slice(0, 3)} level="h4" />
+    </ComponentEntry>
+    <ComponentEntry num={n()} name="Favorite star" classes=".fav-btn">
+      <Fragment slot="about">Saves an item on this device. This star and the one beside Field notes on the Work page are the same.</Fragment>
+      <p class="flex items-center gap-2"><FavoriteButton id="field-notes" name="Field notes" /> Field notes</p>
     </ComponentEntry>
     <ComponentEntry num={n()} name="Filter chips" classes=".chip-group, .chip">
       <Fragment slot="about">Outlined buttons that narrow a list to one category. The pressed one fills.</Fragment>
@@ -174,9 +252,15 @@ const chips = [
         }
       </div>
     </ComponentEntry>
-    <ComponentEntry num={n()} name="Favorite star" classes=".fav-btn">
-      <Fragment slot="about">Saves an item on this device. This star and the one beside Field notes on the Work page are the same.</Fragment>
-      <p class="flex items-center gap-2"><FavoriteButton id="field-notes" name="Field notes" /> Field notes</p>
+    <ComponentEntry num={n()} name="List row" classes=".row">
+      <Fragment slot="about">Numbered rows that fill on hover. The active one stays filled, with an edge on its left.</Fragment>
+      <ul class="border-t border-rule">
+        <Row num={1} title="One typeface" meta="Weights 400, 500 and 700 only" />
+        <Row num={2} title="Flat color" meta="Cream, ink and one accent" active>
+          <span class="eq" aria-hidden="true"><i></i><i></i><i></i></span>
+        </Row>
+        <Row num={3} title="Thick rules" meta="A 2px line opens every section" />
+      </ul>
     </ComponentEntry>
     <ComponentEntry num={n()} name="Page accordion" classes=".page-acc">
       <Fragment slot="about">Folds a filter row away, with a line saying what it shows. Open it and pick a chip.</Fragment>
@@ -199,10 +283,6 @@ const chips = [
         </div>
       </details>
     </ComponentEntry>
-    <ComponentEntry num={n()} name="Dated list" classes=".dated-list">
-      <Fragment slot="about">What a site can do and when each part arrived, newest first. These are the latest three.</Fragment>
-      <FeaturesList features={features.slice(0, 3)} level="h4" />
-    </ComponentEntry>
     <ComponentEntry num={n()} name="Summary list" classes=".summary-list">
       <Fragment slot="about">A few results, each a small label beside its value, as after a task has run. The label sits over the value on a phone.</Fragment>
       <SummaryList
@@ -212,33 +292,9 @@ const chips = [
         ]}
       />
     </ComponentEntry>
-    <ComponentEntry num={n()} name="Closing note" classes=".closing-note">
-      <Fragment slot="about">A bold rule that ends a list, over one quiet line about it.</Fragment>
-      <p class="closing-note max-w-md">Kept on this device only.</p>
-    </ComponentEntry>
   </Section>
 
-  <Section id="text" title="Text and images" range="18–21">
-    <ComponentEntry num={n()} name="Code block" classes="pre, .pre--bar">
-      <Fragment slot="about">Code in Source Code Pro. Terminal output and logs go on the dark block, the same in both themes.</Fragment>
-      <pre class="mb-4" tabindex="0"><code>@import "../design/kit/tailwind.css";</code></pre>
-      <pre class="pre--bar" tabindex="0"><code><span class="pre-cmd">$ npm test</span>
-52 passed (15.7s)
-<span class="pre-err">1 failed: tests/forms.spec.ts</span></code></pre>
-    </ComponentEntry>
-    <ComponentEntry num={n()} name="Oval badge" classes=".ellipse, .ellipse--solid, text-sm to text-4xl">
-      <Fragment slot="about">Abbreviations in an oval, after international car decals. Plain or solid. It takes the size of its text, so a text utility sizes it, never below <code>text-sm</code>.</Fragment>
-      <ul class="flex flex-wrap items-end gap-x-6 gap-y-4">
-        {
-          badgeSizes.map((b) => (
-            <li class="flex flex-col items-center gap-2">
-              <Ellipse code={b.code} label={b.label} solid={b.solid} class={b.size} />
-              <code class="small muted">{b.size}</code>
-            </li>
-          ))
-        }
-      </ul>
-    </ComponentEntry>
+  <Section id="number-circle" title="Number circle" range="25">
     <ComponentEntry num={n()} name="Number circle" classes=".num-circle, .num-circle--solid, .num-circle--accent, text-sm to text-4xl">
       <Fragment slot="about">A number in a circle, outlined or solid, for steps or for list rows. The accent version sets numbers apart, as on the entries of this page. It takes the color and size of the text around it, so a text utility sizes it, never below <code>text-sm</code>.</Fragment>
       <ul class="flex flex-wrap items-end gap-x-6 gap-y-4">
@@ -265,6 +321,48 @@ const chips = [
         <Row num={3} title="Build on BaseLayout" meta="A Hero or a PageTitle on every page" numStyle="solid" />
       </ul>
     </ComponentEntry>
+  </Section>
+
+  <Section id="frame" title="Page frame" range="26–32">
+    <ComponentEntry num={n()} name="Bottom bar" classes=".bottom-bar, .marquee, .jump-btn">
+      <Fragment slot="about">The dark bar fixed along the bottom of this page, and of <a class="link" href="/work/">Work</a>. A page opts in. Its title scrolls three times when it is too long, then rests; on Work, its triangle brings Field notes back into view.</Fragment>
+    </ComponentEntry>
+    <ComponentEntry num={n()} name="Drawer" classes=".drawer">
+      <Fragment slot="about">The Recent button in the top bar: the pages you have opened here.</Fragment>
+    </ComponentEntry>
+    <ComponentEntry num={n()} name="Hero" classes=".hero">
+      <Fragment slot="about">The top of this page. <a class="link" href="/">Home</a> has the square image beside it, <a class="link" href="/about/">About</a> the wide one under it.</Fragment>
+    </ComponentEntry>
+    <ComponentEntry num={n()} name="New dot" classes=".new-dot">
+      <Fragment slot="about">The dot on the menu button when something was added since your last visit.</Fragment>
+    </ComponentEntry>
+    <ComponentEntry num={n()} name="Panel tabs" classes=".panel-tabs, .panel-tab">
+      <Fragment slot="about">Menu, Contact and Features across the top of the panel. This one is only a picture of them; <a class="link" href="#contact">open Contact</a> for the real ones.</Fragment>
+      <!-- A picture: inert and hidden from screen readers, as it does nothing. panel.js only runs the tabs inside the panel. -->
+      <div class="bg-bar p-6 text-bar-ink" inert aria-hidden="true">
+        <div role="tablist" class="panel-tabs">
+          <button type="button" role="tab" aria-selected="false" class="panel-tab"><span class="panel-tab-num">01</span> Menu</button>
+          <button type="button" role="tab" aria-selected="true" class="panel-tab"><span class="panel-tab-num">02</span> Contact</button>
+          <button type="button" role="tab" aria-selected="false" class="panel-tab"><span class="panel-tab-num">03</span> Features</button>
+        </div>
+      </div>
+    </ComponentEntry>
+    <ComponentEntry num={n()} name="Slide-down panel" classes=".panel">
+      <Fragment slot="about">The dark block behind the menu button. <a class="link" href="#menu">Open it</a>.</Fragment>
+    </ComponentEntry>
+    <ComponentEntry num={n()} name="Top bar" classes=".topbar">
+      <Fragment slot="about">The bar at the top of this page, with the site name and the outlined buttons.</Fragment>
+    </ComponentEntry>
+  </Section>
+
+  <Section id="text" title="Text and images" range="33–35">
+    <ComponentEntry num={n()} name="Code block" classes="pre, .pre--bar">
+      <Fragment slot="about">Code in Source Code Pro. Terminal output and logs go on the dark block, the same in both themes.</Fragment>
+      <pre class="mb-4" tabindex="0"><code>@import "../design/kit/tailwind.css";</code></pre>
+      <pre class="pre--bar" tabindex="0"><code><span class="pre-cmd">$ npm test</span>
+52 passed (15.7s)
+<span class="pre-err">1 failed: tests/forms.spec.ts</span></code></pre>
+    </ComponentEntry>
     <ComponentEntry num={n()} name="Image" classes=".media, .figure">
       <Fragment slot="about">A plain rectangle on the grid, cropped to a fixed shape, with the caption below.</Fragment>
       <figure class="figure max-w-md">
@@ -279,70 +377,22 @@ const chips = [
         <figcaption>The home page artwork, cropped to 4:3.</figcaption>
       </figure>
     </ComponentEntry>
+    <ComponentEntry num={n()} name="Oval badge" classes=".ellipse, .ellipse--solid, text-sm to text-4xl">
+      <Fragment slot="about">Abbreviations in an oval, after international car decals. Plain or solid. It takes the size of its text, so a text utility sizes it, never below <code>text-sm</code>.</Fragment>
+      <ul class="flex flex-wrap items-end gap-x-6 gap-y-4">
+        {
+          badgeSizes.map((b) => (
+            <li class="flex flex-col items-center gap-2">
+              <Ellipse code={b.code} label={b.label} solid={b.solid} class={b.size} />
+              <code class="small muted">{b.size}</code>
+            </li>
+          ))
+        }
+      </ul>
+    </ComponentEntry>
   </Section>
 
-  <div class="[--tb-bg:var(--paper)] [--tb-fg:var(--ink)]">
-    <Section id="feedback" title="Feedback" range="22–26">
-      <ComponentEntry num={n()} name="Output panel" classes=".output, .output-log">
-        <Fragment slot="about">A task's live output: a status beside the heading, a spinner while it runs, and the log in a dark block that scrolls. See it run on <a class="link" href="/forms/">Forms</a>.</Fragment>
-        <!-- Inside an entry, so its heading is an h4 under the entry's h3. -->
-        <OutputPanel id="cmp-output" title="Output" status="Finished" headingLevel="h4" height="9rem"><span class="pre-cmd">$ export 2026-10-01 2026-10-15</span>{'\n'}Saved exports/2026-10-01-item-01.jpg{'\n'}Saved exports/2026-10-01-item-02.jpg{'\n'}Saved exports/2026-10-01-item-03.jpg{'\n'}<span class="pre-err">Skipped notes.txt: not an image</span></OutputPanel>
-      </ComponentEntry>
-      <ComponentEntry num={n()} name="Dialog" classes=".dialog, <dialog>">
-        <Fragment slot="about">The browser's own modal dialog: the page behind goes still, Escape or a click outside closes it, and focus comes back here. For a choice that needs an answer before going on.</Fragment>
-        <button type="button" class="btn-outline" commandfor="cmp-dialog" command="show-modal">Delete export…</button>
-        <Dialog id="cmp-dialog" title="Delete this export?">
-          <p>The 8 files saved on October 1 go with it. This can't be undone.</p>
-          <Fragment slot="actions">
-            <button class="btn" value="delete">Delete</button>
-            <button class="btn-outline" value="cancel" autofocus>Cancel</button>
-          </Fragment>
-        </Dialog>
-      </ComponentEntry>
-      <ComponentEntry num={n()} name="Toast" classes=".toast">
-        <Fragment slot="about">A one-line confirmation at the bottom left, gone after a few seconds.</Fragment>
-        <button class="topbar-btn topbar-btn--text" type="button" data-toast-text="Settings saved.">Show toast</button>
-      </ComponentEntry>
-      <ComponentEntry num={n()} name="Activity indicators" classes=".eq, .spinner">
-        <Fragment slot="about">The equalizer marks what is playing now; the spinner says something is loading.</Fragment>
-        <div class="flex items-center gap-8">
-          <p class="flex items-center gap-3"><span class="eq" aria-hidden="true"><i></i><i></i><i></i></span> Now playing</p>
-          <span class="spinner" role="status" aria-label="Loading"></span>
-        </div>
-      </ComponentEntry>
-      <ComponentEntry num={n()} name="Icon actions" classes=".icon-row, .icon-btn">
-        <Fragment slot="about">Icon-only links and buttons under a list item, one color, the accent on hover.</Fragment>
-        <a class="title block underline-offset-4 hover:underline" href="/work/">Work</a>
-        <p class="icon-row">
-          <a
-            class="icon-btn"
-            href="https://bsky.app/intent/compose?text=Swiss%20Minimal"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Share on Bluesky: Work (opens in a new tab)"
-            title="Share on Bluesky"><Icon name="simple-icons:bluesky" class="icon" aria-hidden="true" /></a
-          >
-          <button class="icon-btn" type="button" data-copy="/work/" aria-label="Copy link: Work" title="Copy link">
-            <Icon name="material-symbols:content-copy-outline" class="icon" aria-hidden="true" />
-          </button>
-        </p>
-      </ComponentEntry>
-    </Section>
-  </div>
-
-  <Section id="titles" title="Titles, menus and footers" range="27–29">
-    <ComponentEntry num={n()} name="Page title" classes=".page-title, .page-title--bar">
-      <Fragment slot="about">One big title in place of a hero, as on <a class="link" href="/forms/">Forms</a>. The dark version, on <a class="link" href="/work/">Work</a>, ends in a thick accent rule.</Fragment>
-      <!-- A page has one h1, so these copies set the title in a p; the spacing utilities tighten them to fit the column. -->
-      <div class="page-title py-0"><p class="page-title-text">All work</p></div>
-      <div class="page-title page-title--bar mt-8 mb-0"><p class="page-title-text">All work</p></div>
-    </ComponentEntry>
-    <ComponentEntry num={n()} name="Menu" classes=".menu-list, .acc, .submenu">
-      <Fragment slot="about">The big lines in the panel. An item with sub-items opens as an accordion, with a plus that turns to a minus. Open Work, then Projects.</Fragment>
-      <div class="bg-bar p-6 text-bar-ink">
-        <MenuItems items={sampleMenu} group="sample-menu" />
-      </div>
-    </ComponentEntry>
+  <Section id="titles" title="Titles, menus and footers" range="36–38">
     <ComponentEntry num={n()} name="Footer" classes=".site-footer, .site-footer--bar">
       <Fragment slot="about">The traditional footer, as at the end of every page here: the name and a note on the left, the site's links on the right. It stacks on a phone. Plain, or on a dark block.</Fragment>
       <!-- Samples inside the entry are not the page's footer, so each names its links apart. -->
@@ -353,61 +403,17 @@ const chips = [
         <Fragment slot="note">© 2026 Swiss Minimal.</Fragment>
       </Footer>
     </ComponentEntry>
-  </Section>
-
-  <Section id="frame" title="Page frame" range="30–36">
-    <ComponentEntry num={n()} name="Top bar" classes=".topbar">
-      <Fragment slot="about">The bar at the top of this page, with the site name and the outlined buttons.</Fragment>
-    </ComponentEntry>
-    <ComponentEntry num={n()} name="Slide-down panel" classes=".panel">
-      <Fragment slot="about">The dark block behind the menu button. <a class="link" href="#menu">Open it</a>.</Fragment>
-    </ComponentEntry>
-    <ComponentEntry num={n()} name="Panel tabs" classes=".panel-tabs, .panel-tab">
-      <Fragment slot="about">Menu, Contact and Features across the top of the panel. This one is only a picture of them; <a class="link" href="#contact">open Contact</a> for the real ones.</Fragment>
-      <!-- A picture: inert and hidden from screen readers, as it does nothing. panel.js only runs the tabs inside the panel. -->
-      <div class="bg-bar p-6 text-bar-ink" inert aria-hidden="true">
-        <div role="tablist" class="panel-tabs">
-          <button type="button" role="tab" aria-selected="false" class="panel-tab"><span class="panel-tab-num">01</span> Menu</button>
-          <button type="button" role="tab" aria-selected="true" class="panel-tab"><span class="panel-tab-num">02</span> Contact</button>
-          <button type="button" role="tab" aria-selected="false" class="panel-tab"><span class="panel-tab-num">03</span> Features</button>
-        </div>
+    <ComponentEntry num={n()} name="Menu" classes=".menu-list, .acc, .submenu">
+      <Fragment slot="about">The big lines in the panel. An item with sub-items opens as an accordion, with a plus that turns to a minus. Open Work, then Projects.</Fragment>
+      <div class="bg-bar p-6 text-bar-ink">
+        <MenuItems items={sampleMenu} group="sample-menu" />
       </div>
     </ComponentEntry>
-    <ComponentEntry num={n()} name="New dot" classes=".new-dot">
-      <Fragment slot="about">The dot on the menu button when something was added since your last visit.</Fragment>
-    </ComponentEntry>
-    <ComponentEntry num={n()} name="Drawer" classes=".drawer">
-      <Fragment slot="about">The Recent button in the top bar: the pages you have opened here.</Fragment>
-    </ComponentEntry>
-    <ComponentEntry num={n()} name="Bottom bar" classes=".bottom-bar, .marquee, .jump-btn">
-      <Fragment slot="about">The dark bar fixed along the bottom of this page, and of <a class="link" href="/work/">Work</a>. A page opts in. Its title scrolls three times when it is too long, then rests; on Work, its triangle brings Field notes back into view.</Fragment>
-    </ComponentEntry>
-    <ComponentEntry num={n()} name="Hero" classes=".hero">
-      <Fragment slot="about">The top of this page. <a class="link" href="/">Home</a> has the square image beside it, <a class="link" href="/about/">About</a> the wide one under it.</Fragment>
-    </ComponentEntry>
-  </Section>
-
-  <Section id="calls" title="Calls to action" range="37–38">
-    <ComponentEntry num={n()} name="CTA" classes=".cta">
-      <Fragment slot="about">One thing to go and look at, with the filled button. <a class="link" href="/#reading">Home</a> has one above a card grid.</Fragment>
-      <Cta
-        title="Field notes"
-        text="A short essay on working with a single typeface."
-        href="/work/field-notes/"
-        action="Read it"
-      />
-    </ComponentEntry>
-    <ComponentEntry num={n()} name="Card grid" classes=".card-grid, .card" wide>
-      <Fragment slot="about">A few linked things. Four cards sit two across from 768px and stack on a phone; three sit three across from 1024px. <a class="link" href="/#reading">Home</a> has it under a CTA.</Fragment>
-      <CardGrid
-        columns={2}
-        cards={[
-          { title: 'A type specimen', href: '/work/type-specimen/', summary: 'One family, set large.', tags: ['Design', 'Web'] },
-          { title: 'Field notes', href: '/work/field-notes/', summary: 'What one typeface can carry.', tags: ['Writing'] },
-          { title: 'Why one typeface is enough', href: '/blog/one-typeface/', summary: 'Fewer decisions and a clearer voice.', tags: ['Type'] },
-          { title: 'Notes on vermilion and verdigris', href: '/blog/two-pigments/', summary: 'Two accents, both old pigments.', tags: ['Color'] },
-        ]}
-      />
+    <ComponentEntry num={n()} name="Page title" classes=".page-title, .page-title--bar">
+      <Fragment slot="about">One big title in place of a hero, as on <a class="link" href="/forms/">Forms</a>. The dark version, on <a class="link" href="/work/">Work</a>, ends in a thick accent rule.</Fragment>
+      <!-- A page has one h1, so these copies set the title in a p; the spacing utilities tighten them to fit the column. -->
+      <div class="page-title py-0"><p class="page-title-text">All work</p></div>
+      <div class="page-title page-title--bar mt-8 mb-0"><p class="page-title-text">All work</p></div>
     </ComponentEntry>
   </Section>
 </SiteLayout>
