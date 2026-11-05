@@ -6,7 +6,9 @@
 
 Demo: [www.swissminimal.ch](https://www.swissminimal.ch)
 
-A Swiss / Bauhaus design kit for Astro and Tailwind v4: type-led, flat color, thick rules, one typeface.
+A design kit your AI agent can implement. Swiss / Bauhaus, for Astro and Tailwind v4: type-led, flat color, thick rules, one typeface.
+
+It is not a library of components to copy and paste. It is a set of rules, and an agent that follows them: what each color is for, which weights to use, where a rule goes, and when not to add anything at all. Say what the site should do, and a coding agent picks the components, writes the code and checks it against the rules. See [Agents](https://www.swissminimal.ch/agents/) on the demo site.
 
 Each site picks one accent: vermilion (the default, a red leaning toward orange) or verdigris (the blue-green of copper patina), with `<BaseLayout accent="vermilion">` / `accent="verdigris"`, or `<html data-accent="vermilion">` / `"verdigris"`. See Color in [`DESIGN.md`](DESIGN.md). In the demo, the gear on the right edge previews both.
 
