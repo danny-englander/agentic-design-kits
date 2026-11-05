@@ -26,14 +26,14 @@ const card = ({ paper, ink }: { paper: string; ink: string }) => `<!doctype html
   .text { flex: 1; display: flex; flex-direction: column; justify-content: space-between; padding: 64px; }
   h1 { font-size: 132px; font-weight: 700; line-height: 0.88; letter-spacing: -0.02em; }
   .foot { border-top: 2px solid ${ink}; padding-top: 20px; }
-  .lead { font-size: 26px; line-height: 1.3; }
+  .lead { font-size: 24px; line-height: 1.3; white-space: nowrap; }
   .url { margin-top: 12px; font-size: 20px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; }
   img { width: 630px; height: 630px; object-fit: cover; display: block; }
 </style>
 <div class="text">
   <h1>Swiss<br>Minimal</h1>
   <div class="foot">
-    <p class="lead">A design kit for Astro and Tailwind.<br>Type-led, flat color, thick rules.</p>
+    <p class="lead">A design kit your AI agent can implement.<br>Type-led, flat color, thick rules.</p>
     <p class="url">swissminimal.ch</p>
   </div>
 </div>
