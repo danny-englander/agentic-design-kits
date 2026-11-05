@@ -19,13 +19,15 @@ test('the index opens with the featured post, then lists five of the rest newest
   await expectFeature(page);
   const titles = page.locator('.post-list-title a');
   await expect(titles).toHaveText([
-    'Setting a grid before the words',
-    'Notes on vermilion and verdigris',
-    'Thick rule, thin rule',
-    'Labels in two words or fewer',
-    'Why the bars stay dark',
+    'Setting a grid before the words →',
+    'Notes on vermilion and verdigris →',
+    'Thick rule, thin rule →',
+    'Labels in two words or fewer →',
+    'Why the bars stay dark →',
   ]);
   await expect(titles.first()).toHaveAttribute('href', '/blog/grid-before-words/');
+  // The arrow is for the eye: screen readers get the title alone.
+  await expect(page.getByRole('link', { name: 'Thick rule, thin rule', exact: true })).toBeVisible();
   await expect(page.locator('.post-list time').first()).toHaveAttribute('datetime', '2026-09-30');
 });
 
@@ -39,7 +41,7 @@ test('the pager leads to page 2, which keeps the feature and lists the older pos
   await expect(page).toHaveURL(/\/blog\/page\/2\/$/);
   await expect(page).toHaveTitle('Blog · Page 2 · Swiss Minimal');
   await expectFeature(page);
-  await expect(page.locator('.post-list-title a')).toHaveText(['Images are content, not filler', 'Motion that stops']);
+  await expect(page.locator('.post-list-title a')).toHaveText(['Images are content, not filler →', 'Motion that stops →']);
   await expect(pager.getByRole('link', { name: 'Page 2 of 2' })).toHaveAttribute('aria-current', 'page');
   await expect(pager.locator('[rel="next"]')).toHaveCount(0);
   await expect(pager.getByRole('link', { name: 'Newer' })).toHaveAttribute('href', '/blog/');
