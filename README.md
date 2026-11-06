@@ -1,7 +1,7 @@
 # Swiss Minimal
 
 [![CI](https://github.com/danny-englander/swiss-minimal/actions/workflows/ci.yml/badge.svg)](https://github.com/danny-englander/swiss-minimal/actions/workflows/ci.yml)
-[![Node 22.12+](https://img.shields.io/badge/node-22.12%2B-blue)](https://nodejs.org/)
+[![Node 24+](https://img.shields.io/badge/node-24%2B-blue)](https://nodejs.org/)
 [![Astro 7](https://img.shields.io/badge/astro-7-blue)](https://astro.build/)
 [![Tailwind v4](https://img.shields.io/badge/tailwind-v4-blue)](https://tailwindcss.com/)
 [![License: MIT](https://img.shields.io/github/license/danny-englander/swiss-minimal)](LICENSE)
@@ -27,7 +27,7 @@ Each site picks one accent: vermilion (the default, a red leaning toward orange)
 
 ## Run the demo
 
-Needs Node 22.12 or later (`demo/.nvmrc` pins 24).
+Needs Node 24 or later (`demo/.nvmrc` pins 24).
 
 ```bash
 cd demo

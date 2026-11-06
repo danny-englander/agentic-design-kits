@@ -18,7 +18,7 @@ Check the Node version before running `node`, `npm` or `npx` in any project, thi
 
 ## Starting a new site with the kit
 
-1. Make an Astro project with Tailwind v4 (`tailwindcss`, `@tailwindcss/vite`), Node 22.12 or later.
+1. Make an Astro project with Tailwind v4 (`tailwindcss`, `@tailwindcss/vite`), Node 24 or later.
 2. Copy `kit/` and `fonts/` into `src/design/`, side by side. The relative paths inside them (font URLs, the layout's font preload, `../panel.js`) depend on that layout.
 3. Make `src/styles/global.css` start with `@import "../design/kit/tailwind.css";` and import it in your layout. Don't import `tailwindcss` or `theme.css` anywhere else.
 4. Build pages on `kit/astro/BaseLayout.astro`: give it a `menu` (`MenuItem[]`, current page marked), an `accent` if not vermilion, and `barHeight` on pages with a `BottomBar` (it is optional). Open each page with a `Hero` or a `PageTitle`, and end it with a `Footer` in the `footer` slot, given the same `menu`.
