@@ -7,7 +7,7 @@ A Swiss / Bauhaus look for any site: type-led, flat color, thick rules, almost n
 This folder is the standalone kit, built for **Astro with Tailwind v4** (no React needed). Copy `kit/` and `fonts/` side by side into a project.
 
 - `kit/tailwind.css`: the entry point for a Tailwind site. Imports Tailwind, loads `theme.css` into the `components` layer and maps the tokens to utilities. See "With Tailwind v4".
-- `kit/theme.css`: every token (light and dark), the base styles and every component class, in plain CSS. It also works on its own, without Tailwind. Dark mode follows the system unless `<html data-theme="light|dark">` is set.
+- `kit/theme.css`: every token (light and dark), the base styles and every component class, in plain CSS. It imports `kit/fonts.css`, which holds the `@font-face` rules and `--font-sans`; `kit/astro/font.ts` names the font `BaseLayout` preloads. It also works on its own, without Tailwind. Dark mode follows the system unless `<html data-theme="light|dark">` is set.
 - `kit/panel.js`: the slide-down panel's behavior, tabs included. Plain JavaScript, no dependencies, like the other scripts: `new-dot.js` (the "new" dot), `drawer.js` (the second, non-modal panel), `jump.js` (jump to the current item), `marquee.js` (a scrolling title), `file-pick.js` (the file picker), `output.js` (live output), `dialog.js` (fills in for the native dialog where a browser is behind), `favorites.js` (favorite stars) and `icon-controls.js` (icon buttons for rows built in the browser).
 - `kit/astro/`: BaseLayout, Hero, PageTitle, PostList, PostFeature, Pager, PostHeader, PostNav, Footer, BottomBar, FilePicker, SummaryList, OutputPanel, Dialog, Ellipse, NumCircle, MenuButton, MenuPanel, MenuItems, ThemeToggle, Drawer, DrawerButton, FavoriteButton, FeaturesList, IconTemplates (needs `astro-icon`) and the types (`MenuItem`, `PanelTab`, `NewDot`, `Feature`, `Post`, `PostLink`). They use Tailwind utilities for layout and the kit classes for components.
 - `kit/example.html`: a one-page demo using only `theme.css`. Open it to see what "correct" looks like.
@@ -67,6 +67,7 @@ One family, `--font-sans` (Overused Grotesk, falling back to Helvetica Neue, Hel
 | `label` | 1 to 2 words, uppercase, 500, 0.08em |
 | `code` | Code, file names, commands, keys: `--font-mono` at 0.9375em of the text around it, never under 0.875rem |
 
+- Every size, weight, body line height and label style is a token at the top of `theme.css` (`--size-100` to `--size-1000`, `--size-display` and the other fluid sizes, `--weight-*`, `--leading-body`, `--label-case`, `--label-tracking`), so a theme built on this kit changes type in one place. A new rule uses these tokens, never a raw value.
 - **14px is the floor.** Nothing is smaller.
 - Add `.num` (tabular numerals) to any number that lines up in a column.
 - Headings are tight, names slightly open. Never track body text.
@@ -171,8 +172,6 @@ This is the default setup, and how Dial Hopping is built.
 
 ```css
 @theme inline {
-  --font-sans: "Overused Grotesk", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  --font-mono: "Source Code Pro", ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
   --color-paper: var(--paper);
   --color-ink: var(--ink);
   --color-muted: var(--muted);
