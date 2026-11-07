@@ -23,7 +23,7 @@ interface Props {
 const { title, lead, image, alt = '', caption, layout = 'auto' } = Astro.props;
 
 const shape = image && (layout === 'auto' ? (image.width / image.height > 1 ? 'wide' : 'split') : layout);
-const sizes = shape === 'split' ? '(min-width: 768px) 50vw, 100vw' : '(min-width: 88rem) 88rem, 100vw';
+const sizes = shape === 'split' ? '(min-width: 768px) 50vw, 60vw' : '(min-width: 88rem) 88rem, 100vw';
 ---
 
 <header class:list={['hero', shape && `hero--${shape}`]}>
