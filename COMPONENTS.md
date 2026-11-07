@@ -702,7 +702,7 @@ The top of a page: the name in `display`, a `lead` line, and an optional caption
 
 - **Split** (`.hero--split`): a square (1:1) or portrait image. Text and image sit 50/50 from 768px; the `display` title steps down (`clamp(3.5rem, 8vw, 8rem)`) to fit its half.
 - **Wide** (`.hero--wide`): a landscape image (3:2, 16:9). Title and lead above; the image runs the full width of `.page`.
-- On phones both stack: text first, then the image and caption.
+- Below 768px both stack: text first, then the image and caption. A split hero's image is 60% wide and centered, so a square image doesn't fill the screen.
 
 **Markup.**
 
