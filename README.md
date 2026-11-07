@@ -1,4 +1,4 @@
-# Swiss Minimal
+# Swiss Minimal Design Kit
 
 [![CI](https://github.com/danny-englander/swiss-minimal/actions/workflows/ci.yml/badge.svg)](https://github.com/danny-englander/swiss-minimal/actions/workflows/ci.yml)
 [![Node 24+](https://img.shields.io/badge/node-24%2B-blue)](https://nodejs.org/)
