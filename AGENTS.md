@@ -6,6 +6,13 @@ Read first, whatever the task: [`DESIGN.md`](DESIGN.md) (the rules, and its "Do 
 
 Check the Node version before running `node`, `npm` or `npx` in any project, this one or a site you are styling: look for an `.nvmrc` (here `demo/.nvmrc`) and use the version it names (`nvm use` in that folder). Don't rely on whichever Node the shell happens to have.
 
+## Verdigris is built on this repository
+
+Verdigris is a separate theme, forked from this repository and updated from its `main`. This is not the `verdigris` accent, which is part of this kit. Its shared files stay identical to the ones here, and its own stylesheet overrides this kit's tokens and classes.
+
+- **Keep names stable.** Renaming or removing a token, a kit class or a component prop can break Verdigris, even when every check here passes. Do it only when it is worth that, and say so in the commit body.
+- **Shared fixes start here.** A fix to a shared component is made here and reaches Verdigris through its next update, never the other way round.
+
 ## Working on this repository
 
 - **The kit exists twice, and the copies must match.** `kit/` is the kit as others copy it; `demo/src/design/kit/` is the demo's copy (likewise `fonts/` and `demo/src/design/fonts/`). Make every kit change in `kit/`, copy the file to the demo, and check with `diff -r kit demo/src/design/kit` (no output means they match). Nothing else catches a missed copy: the demo still looks right and the tests still pass.
