@@ -47,15 +47,27 @@ if (git('status', '--porcelain')) {
 git('fetch', '--quiet', '--tags', 'origin');
 if (git('rev-list', '--count', 'HEAD..origin/main') !== '0') stop('origin/main has commits you do not have. Pull first.');
 
-// 2. The last release, and today's tag name.
-const tags = git('tag', '--list', 'v*', '--merged', 'HEAD', '--sort=-creatordate').split('\n').filter(Boolean);
+// 2. The last release, and today's tag name. Only tags on origin count: a fork that fetches
+// from the repository it came from (Verdigris from Swiss Minimal) holds that one's tags too.
+const ownTags = new Set(
+  git('ls-remote', '--tags', '--refs', 'origin')
+    .split('\n')
+    .filter(Boolean)
+    .map((ref) => ref.split('\t')[1].replace('refs/tags/', '')),
+);
+const tags = git('tag', '--list', 'v*', '--merged', 'HEAD', '--sort=-creatordate')
+  .split('\n')
+  .filter((t) => ownTags.has(t));
 const lastTag = tags[0];
 if (lastTag && git('rev-list', '-n', '1', lastTag) === git('rev-parse', 'HEAD')) {
   stop(`This commit is already released as ${lastTag}.`);
 }
 const base = `v${today.replaceAll('-', '.')}`;
-const sameDay = git('tag', '--list', `${base}*`).split('\n').filter(Boolean);
+const sameDay = [...ownTags].filter((t) => t === base || t.startsWith(`${base}.`));
 const tag = sameDay.length === 0 ? base : `${base}.${sameDay.length + 1}`;
+if (git('tag', '--list', tag)) {
+  stop(`There is already a local tag ${tag} that isn't on origin, perhaps fetched from another remote. Delete it with: git tag -d ${tag}`);
+}
 
 const line = (f: Feature) => `- **${f.title}.** ${f.body}`;
 // The entry's line, then its details as sub-bullets. Only the line is compared with what was
