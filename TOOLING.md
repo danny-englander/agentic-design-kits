@@ -139,7 +139,7 @@ Dial Hopping's `npm run release` (`scripts/release.ts`) turns "push to main" int
 ### What it does
 
 1. Checks it is on a clean main that is up to date with `origin`.
-2. Picks the tag: `v` plus today's date, `v2026.10.16`, or `v2026.10.16.2` for a second release that day. Dates sort, say when, and need no version-number decisions.
+2. Picks the tag: `v` plus today's date, `v2026.10.16`, or `v2026.10.16.2` for a second release that day. Dates sort, say when, and need no version-number decisions. Only tags on `origin` count, so a fork that fetches another repository's tags still finds its own last release.
 3. Writes the notes from the typed features list (`src/data/features.ts`, the same data as the `DatedList` / Features tab):
    - entries added since the last tag are **New**; entries whose text or date changed are **Updated**;
    - lines already in the last release's published notes are not repeated;
