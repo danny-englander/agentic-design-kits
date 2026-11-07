@@ -7,6 +7,11 @@ import type { Feature } from '../design/kit/astro/types';
  */
 export const features: Feature[] = [
   {
+    date: '2026-11-07',
+    title: 'Beautiful Code',
+    body: 'A new page at /beautiful-code/ shows highlighted code in the kit’s colors, with samples in JavaScript, Bash, Python, Java and C#. Each block has a file name and a Copy button.',
+  },
+  {
     date: '2026-11-05',
     title: 'A new share card',
     body: 'The picture a link preview shows now says the kit is one your AI agent can implement, and carries the CH oval between the title and the tagline.',
