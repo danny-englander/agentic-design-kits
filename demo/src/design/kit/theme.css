@@ -448,9 +448,11 @@ html[data-drawer-open] .topbar { --tb-bg: var(--bar); --tb-fg: var(--bar-ink); }
    Phones always stack: text first, then the image. */
 .hero { display: grid; gap: 2.5rem; padding: 3rem 0 4rem 0; }
 .hero-lead { max-width: 28rem; margin: 2rem 0 0 0; }
+.hero--split .hero-figure { width: 60%; margin: 0 auto; }   /* stacked, so a square image doesn't fill the screen */
 @media (min-width: 768px) {
   .hero { gap: 3rem; padding: 5rem 0 6rem 0; }
   .hero--split { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: start; }
+  .hero--split .hero-figure { width: auto; margin: 0; }
   .hero--split .display { font-size: var(--size-display-split); }  /* half the width, so a smaller hero title */
 }
 
