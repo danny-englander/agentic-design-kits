@@ -8,18 +8,18 @@ The kit is written for agents to follow: a set of rules, not a library of compon
 
 ## Docs
 
-- [AGENTS.md](https://raw.githubusercontent.com/danny-englander/swiss-minimal/main/AGENTS.md): Notes for AI agents: working on the kit, starting a new site with it, restyling an existing site. Start here.
-- [DESIGN.md](https://raw.githubusercontent.com/danny-englander/swiss-minimal/main/DESIGN.md): The rules: color, type, layout, iconography, images, motion, accessibility, the Tailwind setup and the "Do not" list.
-- [COMPONENTS.md](https://raw.githubusercontent.com/danny-englander/swiss-minimal/main/COMPONENTS.md): Markup, behavior and do's and don'ts for each component.
-- [tokens.json](https://raw.githubusercontent.com/danny-englander/swiss-minimal/main/tokens.json): Every token value, light and dark, for both accents, with a note on what each is for.
-- [TOOLING.md](https://raw.githubusercontent.com/danny-englander/swiss-minimal/main/TOOLING.md): Accessibility tests with Playwright and axe, a manual checklist, and date-tagged releases.
+- [AGENTS.md](https://raw.githubusercontent.com/danny-englander/swiss-minimal-design-kit/main/AGENTS.md): Notes for AI agents: working on the kit, starting a new site with it, restyling an existing site. Start here.
+- [DESIGN.md](https://raw.githubusercontent.com/danny-englander/swiss-minimal-design-kit/main/DESIGN.md): The rules: color, type, layout, iconography, images, motion, accessibility, the Tailwind setup and the "Do not" list.
+- [COMPONENTS.md](https://raw.githubusercontent.com/danny-englander/swiss-minimal-design-kit/main/COMPONENTS.md): Markup, behavior and do's and don'ts for each component.
+- [tokens.json](https://raw.githubusercontent.com/danny-englander/swiss-minimal-design-kit/main/tokens.json): Every token value, light and dark, for both accents, with a note on what each is for.
+- [TOOLING.md](https://raw.githubusercontent.com/danny-englander/swiss-minimal-design-kit/main/TOOLING.md): Accessibility tests with Playwright and axe, a manual checklist, and date-tagged releases.
 
 ## Kit
 
-- [kit/tailwind.css](https://raw.githubusercontent.com/danny-englander/swiss-minimal/main/kit/tailwind.css): The entry point for a Tailwind v4 site. Imports Tailwind, loads theme.css and maps the tokens to utilities.
-- [kit/theme.css](https://raw.githubusercontent.com/danny-englander/swiss-minimal/main/kit/theme.css): Every token, the base styles and every component class, in plain CSS.
-- [kit/astro/](https://github.com/danny-englander/swiss-minimal/tree/main/kit/astro): Astro components: BaseLayout, Hero, PageTitle, Ellipse, Cta, CardGrid, the menu, drawer and theme toggle, the blog's PostFeature, PostList, Pager, PostHeader and PostNav, and their types.
-- [kit/example.html](https://raw.githubusercontent.com/danny-englander/swiss-minimal/main/kit/example.html): A one-page demo using only theme.css.
+- [kit/tailwind.css](https://raw.githubusercontent.com/danny-englander/swiss-minimal-design-kit/main/kit/tailwind.css): The entry point for a Tailwind v4 site. Imports Tailwind, loads theme.css and maps the tokens to utilities.
+- [kit/theme.css](https://raw.githubusercontent.com/danny-englander/swiss-minimal-design-kit/main/kit/theme.css): Every token, the base styles and every component class, in plain CSS.
+- [kit/astro/](https://github.com/danny-englander/swiss-minimal-design-kit/tree/main/kit/astro): Astro components: BaseLayout, Hero, PageTitle, Ellipse, Cta, CardGrid, the menu, drawer and theme toggle, the blog's PostFeature, PostList, Pager, PostHeader and PostNav, and their types.
+- [kit/example.html](https://raw.githubusercontent.com/danny-englander/swiss-minimal-design-kit/main/kit/example.html): A one-page demo using only theme.css.
 
 ## Demo
 
@@ -30,8 +30,8 @@ The kit is written for agents to follow: a set of rules, not a library of compon
 
 ## Optional
 
-- [README](https://raw.githubusercontent.com/danny-englander/swiss-minimal/main/README.md): What is in the repository, and how to run, test and release the demo.
-- [Repository](https://github.com/danny-englander/swiss-minimal): The source, including the demo site in demo/.
+- [README](https://raw.githubusercontent.com/danny-englander/swiss-minimal-design-kit/main/README.md): What is in the repository, and how to run, test and release the demo.
+- [Repository](https://github.com/danny-englander/swiss-minimal-design-kit): The source, including the demo site in demo/.
 - [Home](https://www.swissminimal.ch/): The demo's home page, with a split hero and list rows.
 - [Work](https://www.swissminimal.ch/work/): A filterable list with favorites and a dark page title.
 - [About](https://www.swissminimal.ch/about/): Running text, code blocks and oval badges.
