@@ -1,11 +1,11 @@
 # Swiss Minimal Design Kit
 
-[![CI](https://github.com/danny-englander/swiss-minimal/actions/workflows/ci.yml/badge.svg)](https://github.com/danny-englander/swiss-minimal/actions/workflows/ci.yml)
+[![CI](https://github.com/danny-englander/swiss-minimal-design-kit/actions/workflows/ci.yml/badge.svg)](https://github.com/danny-englander/swiss-minimal-design-kit/actions/workflows/ci.yml)
 [![Node 24+](https://img.shields.io/badge/node-24%2B-blue)](https://nodejs.org/)
 [![Astro 7](https://img.shields.io/badge/astro-7-blue)](https://astro.build/)
 [![Tailwind v4](https://img.shields.io/badge/tailwind-v4-blue)](https://tailwindcss.com/)
-[![License: MIT](https://img.shields.io/github/license/danny-englander/swiss-minimal)](LICENSE)
-[![Last commit](https://img.shields.io/github/last-commit/danny-englander/swiss-minimal)](https://github.com/danny-englander/swiss-minimal/commits/main)
+[![License: MIT](https://img.shields.io/github/license/danny-englander/swiss-minimal-design-kit)](LICENSE)
+[![Last commit](https://img.shields.io/github/last-commit/danny-englander/swiss-minimal-design-kit)](https://github.com/danny-englander/swiss-minimal-design-kit/commits/main)
 
 ![The demo's home page in dark mode: "Swiss Minimal" in large bold type beside an abstract composition of black, grey and red shapes](docs/home-dark.webp)
 
