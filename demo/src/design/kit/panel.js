@@ -35,7 +35,8 @@
      keys, Home and End also move between tabs.
    - Each tab deep-links: #about in the URL opens the panel on that tab, the URL shows the
      open tab, and Back closes the panel. (So no element on the page may use a tab's id.)
-   - On open, focus goes to the open tab, retried for a moment under Reduce Motion.
+   - On open, focus goes to the open tab, retried for a moment under Reduce Motion. A link
+     to another tab inside the open panel moves focus to that tab too.
    - Fires   'panel:tab'   on document, with { detail: { id } }, whenever a tab is shown
      while the panel is open (and when the panel opens). kit/new-dot.js listens for it. */
 (function () {
@@ -90,7 +91,9 @@
   }
 
   function setOpen(next, tabId) {
-    if (tabId) selectTab(tabId);
+    // Already open (a link in the panel such as <a href="#contact"> switched tabs): move focus to
+    // the new tab, or it stays on the link, which is now hidden with the tab it was in.
+    if (tabId) selectTab(tabId, open && next);
     if (next === open) return;
     open = next;
     button.setAttribute('aria-expanded', String(open));
