@@ -23,7 +23,7 @@ Each site picks one accent: vermilion (the default, a red leaning toward orange)
 - [`AGENTS.md`](AGENTS.md): notes for AI agents (also `CLAUDE.md`): working on this repository, starting a new site with the kit, and restyling an existing one.
 - [`kit/`](kit): `tailwind.css`, `theme.css`, small plain scripts (`panel.js`, `new-dot.js`, `drawer.js`, `jump.js`, `marquee.js`, `file-pick.js`, `output.js`, `dialog.js`, `favorites.js`, `icon-controls.js`) and the Astro components.
 - [`fonts/`](fonts): Overused Grotesk, and Source Code Pro for code (both SIL OFL 1.1).
-- [`demo/`](demo): a small Astro site that uses every component.
+- [`demo/`](demo): a small Astro site that uses every component. It installs the kit as the `swiss-minimal` package, through the npm workspace in the root [`package.json`](package.json), so it always runs the files in `kit/` and `fonts/`. The package is not on npm yet.
 
 ## Run the demo
 
