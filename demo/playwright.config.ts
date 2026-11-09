@@ -1,12 +1,21 @@
+import { execFileSync } from 'node:child_process';
 import { defineConfig, devices } from '@playwright/test';
 
 // Accessibility checks for the demo (see TOOLING.md). Run with `npm test`.
 
-// The tests' own server, on an uncommon port of their own. Dev servers start at 4321 and move
-// up one at a time when a port is busy, so any port near it can end up serving a different
-// site. Tests use relative URLs; this is the only place the port appears.
-const PORT = 4392;
+// The tests' own server, on a free port the system picks for each run, so no site's tests have a
+// port written down to collide on. System-picked ports sit far above the dev servers' 4321.
+// Playwright loads this file again in every worker; the workers inherit TEST_SERVER_PORT from
+// the first load, so they all reach the same server. Set it yourself to choose the port.
+// Tests use relative URLs; this is the only place the port appears.
+const PORT = Number((process.env.TEST_SERVER_PORT ||= freePort()));
 const baseURL = `http://localhost:${PORT}`;
+
+/** A port nothing is listening on, chosen by the system. */
+function freePort() {
+  const script = "const s = require('net').createServer().listen(0, () => { console.log(s.address().port); s.close(); });";
+  return execFileSync(process.execPath, ['-e', script], { encoding: 'utf8' }).trim();
+}
 
 export default defineConfig({
   testDir: './tests',
