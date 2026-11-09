@@ -18,12 +18,10 @@ jobs:
         with:
           node-version-file: demo/.nvmrc
           cache: npm
-          cache-dependency-path: demo/package-lock.json
+          cache-dependency-path: package-lock.json
+      # The repository is an npm workspace: one install at the root serves the kit and the demo.
       - run: npm ci
-      - name: The kit's two copies match
-        run: |
-          diff -r ../kit src/design/kit
-          diff -r ../fonts src/design/fonts
+        working-directory: .
       - run: npx astro check
       - run: npx playwright install --with-deps chromium
       - run: npm test

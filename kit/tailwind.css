@@ -1,6 +1,7 @@
 /* Swiss Minimal for Tailwind v4. Import this once, from your site's global stylesheet:
 
-     @import "../design/kit/tailwind.css";
+     @import "swiss-minimal/tailwind.css";     (installed as a package)
+     @import "../design/kit/tailwind.css";     (copied into src/design/)
 
    It loads Tailwind, then theme.css into Tailwind's `components` layer, so a utility in
    your markup (`pt-0`, `max-w-none`) always beats a kit class it sits beside. Then it maps
@@ -9,6 +10,10 @@
    because they point at the CSS variables rather than copying their values. */
 @import "tailwindcss";
 @import "./theme.css" layer(components);
+
+/* The kit's own components use a few utilities (flex, sr-only, …). Tailwind does not look
+   inside node_modules or outside the site's folder by itself, so point it at them. */
+@source "./astro";
 
 @theme inline {
   --color-paper: var(--paper);

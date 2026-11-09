@@ -2,8 +2,8 @@
 // "Recent pages": the kit's Drawer, filled in the browser with the pages opened on this
 // device, newest first. Shows the drawer, its "more below" arrow, the closing note, and
 // IconActions: three brand marks, an action icon and a remove button per row.
-import Drawer from '../design/kit/astro/Drawer.astro';
-import IconTemplates from '../design/kit/astro/IconTemplates.astro';
+import Drawer from 'swiss-minimal/astro/Drawer.astro';
+import IconTemplates from 'swiss-minimal/astro/IconTemplates.astro';
 ---
 
 <!-- Rows are built in the browser, so each icon is rendered once here and cloned per row. -->
@@ -23,7 +23,7 @@ import IconTemplates from '../design/kit/astro/IconTemplates.astro';
 </Drawer>
 
 <script>
-  import { focusAfterRemoval, iconControl } from '../design/kit/icon-controls.js';
+  import { focusAfterRemoval, iconControl } from 'swiss-minimal/icon-controls.js';
 
   const KEY = 'swiss-demo:recent';
   const MAX = 20;

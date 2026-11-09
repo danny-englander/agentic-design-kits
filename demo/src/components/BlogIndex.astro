@@ -2,9 +2,9 @@
 // One page of the blog's index: the featured post on every page, then five of the rest and the
 // pager. /blog/ is page 1; /blog/page/2/ and on come from pages/blog/page/[page].astro.
 import SiteLayout from '../layouts/SiteLayout.astro';
-import PostFeature from '../design/kit/astro/PostFeature.astro';
-import PostList from '../design/kit/astro/PostList.astro';
-import Pager from '../design/kit/astro/Pager.astro';
+import PostFeature from 'swiss-minimal/astro/PostFeature.astro';
+import PostList from 'swiss-minimal/astro/PostList.astro';
+import Pager from 'swiss-minimal/astro/Pager.astro';
 import { getIndex, pageUrl, toPost, PER_PAGE } from '../data/blog';
 
 interface Props {

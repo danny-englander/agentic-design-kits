@@ -8,7 +8,7 @@ import { chromium } from '@playwright/test';
 
 const dataUrl = (path: string, type: string) =>
   `data:${type};base64,${readFileSync(new URL(path, import.meta.url)).toString('base64')}`;
-const font = dataUrl('../src/design/fonts/OverusedGrotesk-VF.woff2', 'font/woff2');
+const font = dataUrl('../../fonts/OverusedGrotesk-VF.woff2', 'font/woff2');
 const art = dataUrl('../src/assets/hero.jpg', 'image/jpeg');
 
 // paper and ink from tokens.json

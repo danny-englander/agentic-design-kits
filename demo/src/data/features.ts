@@ -1,4 +1,4 @@
-import type { Feature } from '../design/kit/astro/types';
+import type { Feature } from 'swiss-minimal/types';
 
 /**
  * What the kit and this demo can do, newest first, for the Features tab in the menu. One entry
