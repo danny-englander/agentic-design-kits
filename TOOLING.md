@@ -18,10 +18,17 @@ Add `"test": "playwright test"` to `package.json` scripts, and `test-results/` a
 ### The config, and why
 
 ```ts
+import { execFileSync } from 'node:child_process';
 import { defineConfig, devices } from '@playwright/test';
 
-const PORT = 4392; // one per site: Dial Hopping uses 4391, this demo 4392
+// A free port the system picks once per run. Workers inherit it from the first load.
+const PORT = Number((process.env.TEST_SERVER_PORT ||= freePort()));
 const baseURL = `http://localhost:${PORT}`;
+
+function freePort() {
+  const script = "const s = require('net').createServer().listen(0, () => { console.log(s.address().port); s.close(); });";
+  return execFileSync(process.execPath, ['-e', script], { encoding: 'utf8' }).trim();
+}
 
 export default defineConfig({
   testDir: './tests',
@@ -44,7 +51,7 @@ export default defineConfig({
 
 - **Test the built site, not the dev server.** Visitors get the build. The dev server can also reload the page once while it warms up, which breaks a test mid-run.
 - **Reduce Motion on.** The kit turns its slides and fades off for this setting, so a scan never catches a panel halfway down or text mid-fade (which axe reads as low contrast).
-- **An uncommon port of its own, never near 4321.** Astro dev servers start at 4321 and, when a port is busy, quietly move up one: with a few running, a dev server can land on 4326 or higher. That really happened: a Swiss Minimal dev server moved to 4326, the port Dial Hopping's tests used, and those tests passed against the wrong site. So give each site's tests a distinct port well away from 4321–4330 (Dial Hopping 4391, this demo 4392). `--ignore-lock` lets the preview run while a dev server holds Astro's lock.
+- **A free port, picked at run time.** Astro dev servers start at 4321 and, when a port is busy, quietly move up one: with a few running, a dev server can land on 4326 or higher. That really happened: a Swiss Minimal dev server moved to 4326, the fixed port Dial Hopping's tests used, and those tests passed against the wrong site. Fixed ports also collided between sites. So no port is written down: each run asks the system for a free one, which sits far above 4321. Playwright loads the config again in every worker, and the workers inherit `TEST_SERVER_PORT` from the first load, so they all reach the same server. Set `TEST_SERVER_PORT` yourself to choose the port. `--ignore-lock` lets the preview run while a dev server holds Astro's lock.
 - **`reuseExistingServer: false`.** With reuse on, Playwright tests whatever already answers on the port: another site, or a stale build from an earlier run. Off, a busy port fails loudly at the start instead. (The cost is a fresh build each run.)
 - **Write the port once.** Tests use relative URLs (`page.goto('/work')`), and anything that needs the origin, such as a route that blocks every other site, reads it from `baseURL` (the `baseURL` fixture, or `new URL(page.url()).origin`), never a hard-coded `localhost:…`.
 
