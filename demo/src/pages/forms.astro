@@ -1,9 +1,9 @@
 ---
 import SiteLayout from '../layouts/SiteLayout.astro';
-import PageTitle from '../design/kit/astro/PageTitle.astro';
-import FilePicker from '../design/kit/astro/FilePicker.astro';
-import OutputPanel from '../design/kit/astro/OutputPanel.astro';
-import SummaryList from '../design/kit/astro/SummaryList.astro';
+import PageTitle from 'swiss-minimal/astro/PageTitle.astro';
+import FilePicker from 'swiss-minimal/astro/FilePicker.astro';
+import OutputPanel from 'swiss-minimal/astro/OutputPanel.astro';
+import SummaryList from 'swiss-minimal/astro/SummaryList.astro';
 
 const presets = [
   { id: 'this-month', label: 'This month' },
@@ -107,7 +107,7 @@ const presets = [
 </SiteLayout>
 
 <script>
-  import { outputClear, outputLine, outputStatus } from '../design/kit/output.js';
+  import { outputClear, outputLine, outputStatus } from 'swiss-minimal/output.js';
 
   // No backend: confirm with the layout's toast.
   const form = document.querySelector<HTMLFormElement>('[data-settings-form]');

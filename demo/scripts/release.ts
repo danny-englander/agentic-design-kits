@@ -15,7 +15,7 @@ import { join } from 'node:path';
 import { createInterface } from 'node:readline/promises';
 import { pathToFileURL } from 'node:url';
 import { features } from '../src/data/features.ts';
-import type { Feature } from '../src/design/kit/astro/types.ts';
+import type { Feature } from 'swiss-minimal/types';
 
 const dryRun = process.argv.includes('--dry-run');
 const yes = process.argv.includes('--yes');
