@@ -8,10 +8,10 @@ Check the Node version before running `node`, `npm` or `npx` in any project, thi
 
 ## Verdigris is built on this repository
 
-Verdigris is a separate theme, forked from this repository and updated from its `main`. This is not the `verdigris` accent, which is part of this kit. Its shared files stay identical to the ones here, and its own stylesheet overrides this kit's tokens and classes.
+Verdigris is a separate theme and its own package, which installs this kit (`swiss-minimal`) as a dependency. This is not the `verdigris` accent, which is part of this kit. It uses this kit's `theme.css`, scripts and components as they are, passes them on under its own name, and overrides the tokens and classes in its own stylesheet.
 
-- **Keep names stable.** Renaming or removing a token, a kit class or a component prop can break Verdigris, even when every check here passes. Do it only when it is worth that, and say so in the commit body.
-- **Shared fixes start here.** A fix to a shared component is made here and reaches Verdigris through its next update, never the other way round.
+- **Keep names stable.** Renaming or removing a token, a kit class or a component prop can break Verdigris, even when every check here passes. The same goes for a file name in `kit/astro/` or `kit/*.js`, since Verdigris passes each one on by name. Do it only when it is worth that, and say so in the commit body.
+- **Shared fixes start here.** A fix to a shared component is made here and reaches Verdigris when it takes the next version, never the other way round.
 
 ## Working on this repository
 
