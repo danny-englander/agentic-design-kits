@@ -1,4 +1,5 @@
-# The checks from "Working on this repository" in CLAUDE.md, on every push to main and pull request.
+# The checks from "Working on this repository" in CLAUDE.md, on every push to main and pull
+# request, once for each kit's demo: Swiss Minimal's (demo) and Verdigris's (verdigris/demo).
 name: CI
 
 on:
@@ -9,9 +10,14 @@ on:
 jobs:
   check:
     runs-on: ubuntu-latest
+    strategy:
+      # A failure in one demo doesn't stop the other, so both results show.
+      fail-fast: false
+      matrix:
+        site: [demo, verdigris/demo]
     defaults:
       run:
-        working-directory: demo
+        working-directory: ${{ matrix.site }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -19,8 +25,11 @@ jobs:
           node-version-file: demo/.nvmrc
           cache: npm
           cache-dependency-path: package-lock.json
-      # The repository is an npm workspace: one install at the root serves the kit and the demo.
+      # The repository is an npm workspace: one install at the root serves both kits and demos.
       - run: npm ci
+        working-directory: .
+      - name: verdigris/kit/shared matches Swiss Minimal's components and scripts
+        run: npm run shared:check
         working-directory: .
       - run: npx astro check
       - run: npx playwright install --with-deps chromium
