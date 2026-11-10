@@ -1,0 +1,25 @@
+---
+// A drawn mark: Verdigris's one icon set, in one pen (see Iconography in DESIGN.md). aria-hidden,
+// because a mark is either beside a label that says it or inside a control with an aria-label.
+export const marks = {
+  menu: 'M3 7h18M3 12h13M3 17h18',
+  search: 'M10.5 4a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM15.2 15.2 20.5 20.5',
+  next: 'M2.5 12H21M16 7c.6 2.4 2.2 4.1 5 5-2.8.9-4.4 2.6-5 5',
+  open: 'M6 18 18 6M9 6h9v9',
+  close: 'M6 6l12 12M18 6 6 18',
+  journal: 'M12 6v14M12 6C10 4.500 7 4 4 4v14c3 0 6 .5 8 2 2-1.500 5-2 8-2V4c-3 0-6 .5-8 2Z',
+  write: 'M12 21v-6M9.500 15h5L18 8.500 12 2.500 6 8.500 9.500 15ZM12 2.500V10',
+  letter: 'M3 6h18v12H3zM3 7l9 7 9-7',
+  save: 'M6.500 3h11v18L12 16.500 6.500 21Z',
+  leaf: 'M4 20C4 11 9.500 4.500 20 4c.3 10.500-6 16-16 16ZM4 20 14 10',
+  date: 'M4 5.500h16v15H4zM4 10h16M8.500 3v4M15.500 3v4',
+  place: 'M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18ZM3 12h18M12 3c3.400 2.700 3.400 15.300 0 18M12 3c-3.400 2.700-3.400 15.300 0 18',
+} as const;
+interface Props {
+  name: keyof typeof marks;
+  class?: string;
+}
+const { name, class: className } = Astro.props;
+---
+
+<svg class:list={['mark', className]} viewBox="0 0 24 24" aria-hidden="true"><path d={marks[name]}></path></svg>

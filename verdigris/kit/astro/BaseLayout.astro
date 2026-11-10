@@ -1,0 +1,31 @@
+---
+// Verdigris's layout: Swiss Minimal's BaseLayout with this theme's text face preloaded in place
+// of Swiss Minimal's. The props and slots are the same; see that file for what each one does.
+// It does not import any CSS itself: import your site's global stylesheet (which starts with
+// `@import "verdigris/tailwind.css";`) in your own layout.
+import Base from 'swiss-minimal/astro/BaseLayout.astro';
+import type { ComponentProps } from 'astro/types';
+import font from './font';
+
+type Props = ComponentProps<typeof Base>;
+const { panelTabs = [], preloadFont = font, ...rest } = Astro.props;
+// Slots that Swiss Minimal's layout tests for (`Astro.slots.has`) are passed on only when they
+// are filled, so an empty one still counts as empty there.
+const mark = Astro.slots.has('mark') ? await Astro.slots.render('mark') : null;
+const tabs = await Promise.all(
+  panelTabs
+    .filter((t) => Astro.slots.has(t.id))
+    .map(async (t) => ({ id: t.id, html: await Astro.slots.render(t.id) })),
+);
+---
+
+<Base {...rest} panelTabs={panelTabs} preloadFont={preloadFont}>
+  <slot name="head" slot="head" />
+  {mark !== null && <Fragment slot="mark" set:html={mark} />}
+  <slot name="topbar" slot="topbar" />
+  {tabs.map((t) => <Fragment slot={t.id} set:html={t.html} />)}
+  <slot name="panel" slot="panel" />
+  <slot name="overlays" slot="overlays" />
+  <slot />
+  <slot name="footer" slot="footer" />
+</Base>

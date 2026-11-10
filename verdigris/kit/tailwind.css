@@ -1,0 +1,15 @@
+/* Verdigris for Tailwind v4. Import this once, from your site's global stylesheet:
+
+     @import "verdigris/tailwind.css";
+
+   It loads Swiss Minimal's Tailwind entry (Tailwind itself, the shared theme.css in Tailwind's
+   `components` layer, and the token utilities: bg-paper, text-ink, text-muted, border-rule,
+   bg-bar and so on), then puts Verdigris's typefaces and theme on top, in the same layer. A
+   utility in your markup (`pt-0`, `max-w-none`) still beats a kit class it sits beside. */
+@import "swiss-minimal/tailwind.css";
+@import "./fonts.css" layer(components);
+@import "./verdigris.css" layer(components);
+@source not inline("uppercase");   /* no capitals in Verdigris: the utility is never generated */
+
+/* Verdigris's own components. Tailwind does not look inside node_modules by itself. */
+@source "./astro";

@@ -1,0 +1,177 @@
+/* Verdigris: the theme on top of Swiss Minimal's theme.css. tailwind.css loads it right after
+   theme.css; a plain page links it after theme.css. Everything that makes this kit Verdigris and
+   not Swiss Minimal is here or in fonts.css, so theme.css can keep merging from upstream
+   untouched. Read DESIGN.md for the rules. tokens.json wins if the two drift. */
+
+/* ---------- Tokens ---------- */
+/* The [data-accent] selectors let these beat theme.css's accent blocks. Verdigris has one
+   palette, so the attribute changes nothing. */
+:root, :root[data-accent] {
+  --paper: #f2ede1;        /* page background */
+  --ink: #10201f;          /* text and rules, a green-black (14.4:1) */
+  --muted: #566460;        /* secondary text (5.3:1) */
+  --rule: #c9c5b4;         /* thin row dividers, decorative */
+  --accent: #0f8f8c;       /* verdigris: large shapes and the focus ring only (3.4:1) */
+  --accent-ink: #ffffff;   /* text on a verdigris fill (6.3:1) */
+  --accent-text: #0b6b69;  /* small verdigris text (5.4:1) */
+  --accent-bright: #5fd4cc;/* small verdigris text on bar (8.5:1) */
+  --copper: #b0612f;       /* large ornament only (3.9:1) */
+  --copper-text: #8f4a22;  /* small ornament and labels (5.7:1) */
+  --copper-bright: #e39a68;/* ornament and labels on bar (6.6:1) */
+  --bar: #0e2a29;          /* dark surfaces stay dark in both themes */
+  --bar-ink: #f2ede1;      /* text on bar (13:1) */
+  --rosette-line: 0.9;     /* dark lines on paper read thinner than light lines on dark */
+  --row-hover-bg: var(--bar);
+  --row-active-bg: var(--bar);
+  --row-fg: var(--bar-ink);
+  --row-edge: var(--copper-bright);
+
+  --size-100: 1.125rem;    /* the floor is 18px: Cormorant's small x-height reads like 14px in a grotesque */
+  --size-200: 1.25rem;
+  --size-300: 1.375rem;
+  --size-400: 1.625rem;
+  --size-500: 1.75rem;
+  --size-600: 1.875rem;
+  --size-700: 2.125rem;
+  --size-800: 2.5rem;
+  --size-900: 2.75rem;
+  --size-1000: 3.75rem;
+  --size-display: clamp(4.75rem, 12.4vw, 11rem);
+  --size-display-split: clamp(4rem, 9.5vw, 9.5rem);
+  --size-page-title: clamp(3.5rem, 9vw, 8rem);
+  --size-post-feature: clamp(2.75rem, 5.5vw, 5.25rem);
+  --size-post-title: clamp(3rem, 6vw, 5.5rem);
+  --code-sample-size: var(--size-200); /* code on the Beautiful Code page: 20px, as --size-300 runs large here */
+  --weight-body: 500;
+  --weight-medium: 600;
+  --weight-strong: 600;
+  --weight-display: 300;
+  --leading-body: 1.55;
+  --label-case: none;      /* no capitals anywhere: see DESIGN.md */
+  --label-tracking: 0;
+  --label-tracking-wide: 0;
+  --badge-tracking: 0;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]), :root[data-accent]:not([data-theme="light"]) {
+    --paper: #0b1716;
+    --ink: #ece6d8;
+    --muted: #a6b5b0;
+    --rule: #3a4a47;
+    --accent: #5fd4cc;
+    --accent-ink: #0b1716;
+    --accent-text: #5fd4cc;
+    --accent-bright: #5fd4cc;
+    --copper: #e39a68;
+    --copper-text: #e39a68;
+    --bar: #132c2a;
+    --bar-ink: #ece6d8;
+    --rosette-line: 0.6;
+    --row-hover-bg: #132c2a;
+    --row-active-bg: var(--bar);
+    --row-fg: var(--ink);
+    --row-edge: var(--copper);
+  }
+}
+:root[data-theme="dark"], :root[data-accent][data-theme="dark"] {
+  --paper: #0b1716;
+  --ink: #ece6d8;
+  --muted: #a6b5b0;
+  --rule: #3a4a47;
+  --accent: #5fd4cc;
+  --accent-ink: #0b1716;
+  --accent-text: #5fd4cc;
+  --accent-bright: #5fd4cc;
+  --copper: #e39a68;
+  --copper-text: #e39a68;
+  --bar: #132c2a;
+  --bar-ink: #ece6d8;
+  --rosette-line: 0.6;
+  --row-hover-bg: #132c2a;
+  --row-active-bg: var(--bar);
+  --row-fg: var(--ink);
+  --row-edge: var(--copper);
+}
+
+/* ---------- Type ---------- */
+body {
+  font-feature-settings: "kern", "liga", "ss02";   /* Garamond forms: bigger counters for reading */
+  font-variant-numeric: oldstyle-nums proportional-nums;
+}
+.display, .h2, .page-title-text, .post-feature-title, .post-header-title {
+  font-feature-settings: "kern", "liga", "dlig";
+}
+.lead { font-style: italic; font-weight: 300; line-height: 1.22; }
+.figure > figcaption, .post-body figcaption { font-style: italic; }
+/* Source Code Pro is far larger on its body than Cormorant, so code steps down to match. */
+code, kbd, samp { font-size: max(0.875rem, 0.8em); }
+/* Numbers that line up need lining figures; old-style would wander. */
+.num, .chip-count, .panel-tab-num, .num-circle, .post-body ol { font-variant-numeric: lining-nums tabular-nums; }
+
+/* ---------- The scotch rule ---------- */
+/* Thick and thin as one line: the 2px border theme.css draws, plus a 1px line 3px below it.
+   A background, so it needs no extra markup and works on grids and lists alike. */
+.rule-thick, .rule-scotch, .post-list, .post-meta, .post-nav, .site-footer {
+  background-image: linear-gradient(var(--ink), var(--ink));
+  background-repeat: no-repeat;
+  background-position: 0 3px;
+  background-size: 100% 1px;
+}
+.rule-scotch { height: 6px; border: 0; border-top: 2px solid var(--ink); }
+
+/* ---------- Ornament ---------- */
+/* A pause in the page, once a page at most. aria-hidden on the element: it says nothing. */
+.rule-fleuron {
+  display: flex; align-items: center; gap: 1.25rem;
+  margin: 0; color: var(--copper-text); font-size: 1.875rem; line-height: 1;
+}
+.rule-fleuron::before, .rule-fleuron::after { content: ""; flex: 1 1 0; border-top: 1px solid var(--rule); }
+/* A framed quotation or title. One to a page, never around an image or a control. */
+.plate {
+  position: relative; margin: 6px; padding: 2.5rem;
+  border: 1px solid var(--ink); outline: 2px solid var(--ink); outline-offset: 4px;
+  text-align: center;
+}
+.plate-corner { position: absolute; width: 11px; height: 11px; background: var(--accent); transform: rotate(45deg); }
+.plate-corner:nth-of-type(1) { top: -6px; left: -6px; }
+.plate-corner:nth-of-type(2) { top: -6px; right: -6px; }
+.plate-corner:nth-of-type(3) { bottom: -6px; left: -6px; }
+.plate-corner:nth-of-type(4) { bottom: -6px; right: -6px; }
+/* The rosette: line work in the two metals, drawn by Rosette.astro. */
+.rosette { fill: none; stroke-width: var(--rosette-line); }
+.rosette svg { display: block; width: 100%; height: auto; }
+.rosette-disc { overflow: hidden; }   /* the square's corners swing wider than the page on a phone */
+.rosette-outer, .rosette-core { stroke: var(--accent-text); }
+.rosette-inner { stroke: var(--copper-text); }
+/* Under no-preference, so Reduce Motion never starts it. The switch is hidden there too. */
+.rosette-switch { display: none; }
+@media (prefers-reduced-motion: no-preference) {
+  .rosette--spin .rosette-switch { display: inline-flex; margin-top: 0.5rem; }
+  .rosette--spin svg { animation: rosette-turn 120s linear infinite; will-change: transform; }
+  .rosette--spin:has(.switch:not(:checked)) svg { animation-play-state: paused; }
+}
+@keyframes rosette-turn { to { transform: rotate(360deg); } }
+/* A wide crop of the rosette: put it in a .media box. Its top and bottom run past the box. */
+.rosette-crop { position: relative; overflow: hidden; background: none; }
+.rosette-crop > .rosette { position: absolute; top: 50%; left: 0; width: 100%; transform: translateY(-50%); }
+/* One note a reader must not miss: a manicule, from the font. */
+.notice { display: flex; gap: 0.875rem; align-items: baseline; padding: 1rem 1.25rem; border: 1px solid var(--ink); }
+.notice::before { content: "\261E"; color: var(--copper-text); font-size: 1.875rem; line-height: 1; }
+/* A drawn mark: Mark.astro. One pen, one color at a time. */
+.mark { flex: none; width: 1.625rem; height: 1.625rem; fill: none; stroke: currentColor; stroke-width: 1.25; stroke-linecap: round; stroke-linejoin: round; }
+
+/* ---------- Reading ---------- */
+/* The drop cap is ::first-letter, so the word stays whole for screen readers. */
+.post-body--cap > p:first-of-type::first-letter {
+  float: left; padding: 0.5rem 0.75rem 0 0;
+  color: var(--accent-text); font-size: 7.375rem; font-weight: 300; line-height: 0.78;
+}
+.post-body blockquote {
+  padding: 1.75rem 0; border-left: 0;
+  border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
+  text-align: center; letter-spacing: 0;
+  font-style: italic; font-weight: 300; font-size: clamp(2rem, 3.6vw, 2.75rem); line-height: 1.16;
+  color: var(--accent-text);
+}
+.post-body hr { border-top: 0; height: auto; overflow: visible; text-align: center; }
+.post-body hr::before { content: "\2042"; color: var(--copper-text); font-size: 2.125rem; line-height: 1; }

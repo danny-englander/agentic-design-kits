@@ -6,6 +6,12 @@
       "runtimeExecutable": "/bin/zsh",
       "runtimeArgs": ["-c", "cd demo && PATH=$HOME/.nvm/versions/node/v24.21.0/bin:$PATH npx astro dev --port 4321"],
       "port": 4321
+    },
+    {
+      "name": "verdigris",
+      "runtimeExecutable": "/bin/zsh",
+      "runtimeArgs": ["-c", "cd verdigris/demo && PATH=$HOME/.nvm/versions/node/v24.21.0/bin:$PATH npx astro dev --port 4322"],
+      "port": 4322
     }
   ]
 }

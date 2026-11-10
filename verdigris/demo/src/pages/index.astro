@@ -1,0 +1,105 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+import Row from '../components/Row.astro';
+import Section from '../components/Section.astro';
+import Rosette from 'verdigris/astro/Rosette.astro';
+import Cta from 'verdigris/astro/Cta.astro';
+import CardGrid from 'verdigris/astro/CardGrid.astro';
+import { getIndex, href } from '../data/blog';
+import { newSitePrompt } from '../data/prompts';
+
+const principles = [
+  { title: 'One family, many voices', meta: 'Cormorant in light, medium, semibold and italic' },
+  { title: 'Patina and copper', meta: 'A cool accent, and a warm metal for ornament' },
+  { title: 'The scotch rule', meta: 'Thick and thin, drawn as one line' },
+  { title: 'Ornament from the font', meta: 'Fleurons, asterisms and daggers before drawings' },
+  { title: 'Larger than it looks', meta: 'An 18px floor, because the x-height is small' },
+  { title: 'Access first', meta: 'Visible focus, no capitals, real buttons' },
+];
+const active = 2;
+
+const steps = [
+  { title: 'Hand it to your agent', meta: 'Point it at the kit’s AGENTS.md and DESIGN.md' },
+  { title: 'Say what the site should do', meta: 'In plain words, the way you would to a designer' },
+  { title: 'Check the result', meta: 'Accessibility tests in both themes, so you check the work, not just trust it' },
+];
+
+// The four newest posts, the featured one first.
+const { featured, rest } = await getIndex();
+const cards = [featured, ...rest].filter((post) => post !== undefined).slice(0, 4).map((post) => ({
+  title: post.data.title,
+  href: href(post),
+  summary: post.data.summary,
+  tags: post.data.tags,
+}));
+---
+
+<SiteLayout title="Home" description="Verdigris, a design kit your AI agent can implement.">
+  <header class="hero hero--split">
+    <div class="hero-text">
+      <h1 class="display">Verdigris</h1>
+      <p class="lead hero-lead">A design kit your AI agent can implement: the discipline of a Swiss grid and the warmth of a printed book.</p>
+    </div>
+    <figure class="figure hero-figure">
+      <Rosette spin />
+      <figcaption>Engine-turned rosette, drawn in verdigris and copper. Example artwork.</figcaption>
+    </figure>
+  </header>
+
+  <p class="rule-fleuron mb-12" aria-hidden="true">❦</p>
+
+  <Cta
+    class="mb-16"
+    label="Components"
+    title="See the whole kit"
+    text="Every button, form, list and menu, live on one page with the classes that build it."
+    href="/components/"
+    action="View components"
+    level="h2"
+  />
+
+  <Section id="how" title="How it works" range="01–03">
+    <div slot="intro" class="max-w-2xl pb-6 md:ml-20 [&>p]:mb-5">
+      <p class="lead">Not a library of components to copy and paste. A set of rules, and an agent that follows them.</p>
+      <p>Most UI kits hand you finished code and leave the judgment to you. This one hands the judgment to your agent: what each color is for, which weights to use, where a rule goes, and when not to add anything at all.</p>
+    </div>
+    {steps.map((s, i) => <Row num={i + 1} title={s.title} meta={s.meta} />)}
+  </Section>
+
+  <section class="mb-16 rule-thick pt-8" aria-labelledby="prompt">
+    <h2 class="h2 pb-6" id="prompt">Use it with your agent</h2>
+    <p class="mb-5 max-w-2xl">Copy this into Claude Code, Cursor or any agent that can read a repository, and change the pages to suit. <a class="link" href="/agents/">Agents</a> has more, including how to restyle a site you already have.</p>
+    <pre class="mb-5" tabindex="0"><code data-prompt>{newSitePrompt}</code></pre>
+    <button type="button" class="btn-outline" data-copy-prompt>Copy prompt</button>
+  </section>
+
+  <Section id="principles" title="Principles" range="01–06">
+    {
+      principles.map((p, i) => (
+        <Row num={i + 1} title={p.title} meta={p.meta} active={i + 1 === active}>
+          {i + 1 === active && (
+            <span class="eq" aria-hidden="true"><i></i><i></i><i></i></span>
+          )}
+        </Row>
+      ))
+    }
+  </Section>
+
+  <section class="mb-16 rule-thick pt-8" aria-labelledby="reading">
+    <h2 class="h2 pb-6" id="reading">Reading</h2>
+    <CardGrid cards={cards} columns={2} />
+  </section>
+</SiteLayout>
+
+<script>
+  const toast = (text: string) => document.dispatchEvent(new CustomEvent('toast', { detail: text }));
+
+  document.querySelector('[data-copy-prompt]')?.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(document.querySelector('[data-prompt]')?.textContent ?? '');
+      toast('Prompt copied.');
+    } catch {
+      toast('Couldn’t copy. Select the prompt instead.');
+    }
+  });
+</script>

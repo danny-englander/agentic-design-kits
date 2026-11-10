@@ -1,0 +1,26 @@
+---
+// The small mark before the site name in the top bar: Cormorant's fleuron in the accent.
+// Decorative: it sits inside the home link, whose name is the tagline, so it is hidden from
+// assistive tech. The fleuron is accent-text on paper and accent-bright on the dark bar.
+---
+
+<span class="site-mark" aria-hidden="true">❦</span>
+
+<style>
+  /* The name hangs beside the mark when it wraps on a phone. */
+  :global(*:has(> .site-mark)) {
+    display: inline-flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  .site-mark {
+    flex: none;
+    font-size: 1.625rem;
+    line-height: 1.75rem;
+    color: var(--accent-text);
+  }
+  :global(html[data-menu='open']) .site-mark,
+  :global(html[data-drawer-open]) .site-mark {
+    color: var(--accent-bright);
+  }
+</style>

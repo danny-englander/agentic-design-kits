@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+  <style>
+    .bg { fill: #f2ede1 }
+    .leaf { stroke: #0b6b69 }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #0b1716 }
+      .leaf { stroke: #5fd4cc }
+    }
+  </style>
+  <rect class="bg" width="24" height="24"/>
+  <path class="leaf" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M4 20C4 11 9.500 4.500 20 4c.3 10.500-6 16-16 16ZM4 20 14 10"/>
+</svg>
