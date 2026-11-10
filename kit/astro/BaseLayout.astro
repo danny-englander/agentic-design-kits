@@ -37,6 +37,11 @@ interface Props {
   barHeight?: string;
   /** The site's one accent color, named on <html data-accent>. Vermilion by default. */
   accent?: 'vermilion' | 'verdigris';
+  /**
+   * The one font to preload: its URL, or `false` for none. Defaults to the kit's text face.
+   * A theme built on this kit, with its own typeface, passes its own here.
+   */
+  preloadFont?: string | false;
 }
 const {
   title,
@@ -48,6 +53,7 @@ const {
   home,
   barHeight = '0rem',
   accent = 'vermilion',
+  preloadFont = font,
 } = Astro.props;
 const hasPanel = menu.length > 0 || panelTabs.length > 0;
 const homeHref = home ?? (hasPanel ? '/' : false);
@@ -69,7 +75,7 @@ const tabContent = await Promise.all(
     {description && <meta name="description" content={description} />}
     <meta name="theme-color" content="#f3f0e9" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#0c0c0c" media="(prefers-color-scheme: dark)" />
-    <link rel="preload" href={font} as="font" type="font/woff2" crossorigin />
+    {preloadFont && <link rel="preload" href={preloadFont} as="font" type="font/woff2" crossorigin />}
     <script is:inline>
       // Apply a saved theme before first paint so there is no flash.
       try {
