@@ -23,7 +23,18 @@ Each site picks one accent: vermilion (the default, a red leaning toward orange)
 - [`AGENTS.md`](AGENTS.md): notes for AI agents (also `CLAUDE.md`): working on this repository, starting a new site with the kit, and restyling an existing one.
 - [`kit/`](kit): `tailwind.css`, `theme.css`, small plain scripts (`panel.js`, `new-dot.js`, `drawer.js`, `jump.js`, `marquee.js`, `file-pick.js`, `output.js`, `dialog.js`, `favorites.js`, `icon-controls.js`) and the Astro components.
 - [`fonts/`](fonts): Overused Grotesk, and Source Code Pro for code (both SIL OFL 1.1).
-- [`demo/`](demo): a small Astro site that uses every component. It installs the kit as the `swiss-minimal` package, through the npm workspace in the root [`package.json`](package.json), so it always runs the files in `kit/` and `fonts/`. The package is not on npm yet.
+- [`demo/`](demo): a small Astro site that uses every component. It installs the kit as the `swiss-minimal` package, through the npm workspace in the root [`package.json`](package.json), so it always runs the files in `kit/` and `fonts/`.
+- [`verdigris/`](verdigris): Verdigris, a second kit built on this one (Cormorant, copper green and engraved line work), with its own docs and demo ([verdigris.ch](https://verdigris.ch)). See its [`README`](verdigris/README.md).
+
+## Install the kit
+
+The package is not on npm. Each [release](https://github.com/danny-englander/swiss-minimal-design-kit/releases) has the kit attached as a file, `swiss-minimal.tgz`, which npm installs by its address. Replace `TAG` with the newest release's tag, such as `v2026.11.10`:
+
+```bash
+npm install https://github.com/danny-englander/swiss-minimal-design-kit/releases/download/TAG/swiss-minimal.tgz
+```
+
+To update, install a later release's file the same way.
 
 ## Run the demo
 
@@ -48,7 +59,7 @@ npm test
 
 ## Releases
 
-Each release is a date tag on main (`v2026.10.19`, or `v2026.10.19.2` for a second that day) with a GitHub Release whose notes come from the demo's Features list (`demo/src/data/features.ts`). From `demo/`:
+Each release is a date tag on main (`v2026.10.19`, or `v2026.10.19.2` for a second that day) with a GitHub Release. One release covers both kits: its notes come from each demo's Features list (`demo/src/data/features.ts` and `verdigris/demo/src/data/features.ts`), and each kit is attached as a file for sites to install (`swiss-minimal.tgz`, `verdigris.tgz`). At the repository's root:
 
 ```bash
 npm run release -- --dry-run
@@ -58,7 +69,7 @@ npm run release -- --dry-run
 npm run release
 ```
 
-The dry run shows the tag and notes and changes nothing. The real run asks first, then runs the tests, pushes main, pushes the tag and publishes the release. It only runs on a clean, up-to-date main, and stops if a new feature isn't dated today. Before releasing something a visitor would notice, add it at the top of `features.ts`. The script is Dial Hopping's, adapted; see "Releases" in [`TOOLING.md`](TOOLING.md).
+The dry run shows the tag and notes and changes nothing. The real run asks first, then runs both demos' tests, pushes main, pushes the tag and publishes the release with the two files. The push to main deploys both sites. It only runs on a clean, up-to-date main, and stops if a new feature isn't dated today. Before releasing something a visitor would notice, add it at the top of that kit's `features.ts`. `npm run pack -- --tag v2026.11.10` writes the two files to `packed/` without releasing, to look at what a site would get. The script is Dial Hopping's, adapted; see "Releases" in [`TOOLING.md`](TOOLING.md).
 
 ## License
 

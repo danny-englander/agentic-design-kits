@@ -141,7 +141,7 @@ What the automated tests can't see. Run through it in a real browser at about 39
 
 ## Releases: date tags and notes from the features list
 
-Dial Hopping's `npm run release` (`scripts/release.ts`) turns "push to main" into a named release with notes, in one step. It fits any site whose host builds on every push (Netlify, Vercel, Cloudflare Pages), where every push already is a release. This repository uses it too: `demo/scripts/release.ts` is the same script with the stations part dropped, reading `demo/src/data/features.ts` from the repository root.
+Dial Hopping's `npm run release` (`scripts/release.ts`) turns "push to main" into a named release with notes, in one step. It fits any site whose host builds on every push (Netlify, Vercel, Cloudflare Pages), where every push already is a release. This repository uses it too: its `scripts/release.ts` is the same script with the stations part dropped. It releases two kits at once, so it reads a features list from each demo, runs both demos' tests, and attaches each kit to the release as a file a site can install (`scripts/pack.ts`).
 
 ### What it does
 
