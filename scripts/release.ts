@@ -116,8 +116,13 @@ const lastTagDay = lastTag?.slice(1, 11).replaceAll('.', '-');
 async function kitNotes({ name, demo, features }: (typeof kits)[number], since: string): Promise<string> {
   const path = featuresPath(demo);
   const before = await featuresAt(since, path);
-  // The kit's first release from this repository: everything it has would count as new.
-  if (!before) return `${name} is released from this repository from now on.`;
+  // The kit's first release from this repository: everything it has would count as new, so
+  // only what is dated today is listed.
+  if (!before) {
+    const moved = `${name} is released from this repository from now on.`;
+    const dated = features.filter((f) => f.date === today);
+    return dated.length ? `${moved}\n\n### New\n\n${dated.map(entry).join('\n')}` : moved;
+  }
   const oldByTitle = new Map(before.map((f) => [f.title, f]));
   const newSinceTag = features.filter((f) => !oldByTitle.has(f.title));
 
