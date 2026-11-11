@@ -7,6 +7,16 @@ import type { Feature } from 'verdigris/types';
  */
 export const features: Feature[] = [
   {
+    date: '2026-11-11',
+    title: 'Install the kit as a package',
+    body: 'Verdigris now installs with one npm command, and brings Swiss Minimal with it. It lives beside Swiss Minimal in one repository, and the two are released together.',
+    details: [
+      'Each release on GitHub attaches `verdigris.tgz`, and a site installs it by its URL. The README has the command.',
+      'Import everything from `verdigris`: `verdigris/tailwind.css`, `verdigris/astro/Hero.astro`, `verdigris/output.js`.',
+      'The kit’s source is now the `verdigris/` folder of the Swiss Minimal repository. The old repository is archived.',
+    ],
+  },
+  {
     date: '2026-11-08',
     title: 'Beautiful Code',
     body: 'A new page at /beautiful-code/ shows highlighted code in the theme’s colors, with samples in JavaScript, Bash, Python, Java and C#. Each block has a file name and a Copy button.',
