@@ -1,11 +1,18 @@
-# Netlify's build for verdigris.ch. The project's base directory, set in Netlify, is this folder
-# (verdigris/demo); publish is relative to it. These override the project's settings in Netlify.
+# Netlify's build for verdigris.ch. In Netlify the project's package directory is this folder
+# (verdigris/demo), which is how this file is found, and its base directory is left empty: the
+# build runs at the root of the repository, where the one node_modules is installed. The command
+# names this demo's workspace, and publish is relative to the root. These override the project's
+# settings in Netlify.
 [build]
-  command = "npm run build"
-  publish = "dist"
+  command = "npm run build --workspace verdigris-demo"
+  publish = "verdigris/demo/dist"
   # Two sites build from this repository. Skip this one when a push changed nothing outside
   # demo/, Swiss Minimal's own demo. A change to Swiss Minimal's kit or fonts does build it,
   # since Verdigris is built on them. A command that exits 0 skips the build.
   # With no earlier build to compare against (a newly linked project, or a deploy with the cache
   # cleared), Netlify gives the same commit twice; the first test makes that build rather than skip.
   ignore = "[ \"$CACHED_COMMIT_REF\" != \"$COMMIT_REF\" ] && git diff --quiet $CACHED_COMMIT_REF $COMMIT_REF -- ':(top)' ':(top,exclude)demo'"
+
+# The root has no .nvmrc for Netlify to read; this matches verdigris/demo/.nvmrc.
+[build.environment]
+  NODE_VERSION = "24"
