@@ -7,6 +7,25 @@ import type { Feature } from 'swiss-minimal/types';
  */
 export const features: Feature[] = [
   {
+    date: '2026-11-11',
+    title: 'Install the kit as a package',
+    body: 'The kit now installs with one npm command, in place of copying its files into your site. To update, run the same command with a newer release.',
+    details: [
+      'Each release on GitHub attaches `swiss-minimal.tgz`, and a site installs it by its URL. The README has the command.',
+      'Import by package name: `swiss-minimal/tailwind.css`, `swiss-minimal/astro/Hero.astro`, `swiss-minimal/output.js`.',
+      'Sites on the kit: remove your copies of the kit’s files, and change your imports to the package names.',
+    ],
+  },
+  {
+    date: '2026-11-11',
+    title: 'Three small changes to components',
+    body: 'A link in the panel that leads to another tab now moves keyboard focus to that tab. Two components take a new option.',
+    details: [
+      '`PostFeature` has a `media` slot, for something other than a raster image, such as an SVG that follows the theme.',
+      '`BaseLayout` has a `preloadFont` prop, for a site that loads a font other than the kit’s.',
+    ],
+  },
+  {
     date: '2026-11-07',
     title: 'Beautiful Code',
     body: 'A new page at /beautiful-code/ shows highlighted code in the kit’s colors, with samples in JavaScript, Bash, Python, Java and C#. Each block has a file name and a Copy button.',
