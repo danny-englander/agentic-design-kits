@@ -5,4 +5,6 @@
   publish = "dist"
   # Two sites build from this repository. Skip this one when a push changed nothing outside
   # verdigris/, the other kit and its demo. A command that exits 0 skips the build.
-  ignore = "git diff --quiet $CACHED_COMMIT_REF $COMMIT_REF -- ':(top)' ':(top,exclude)verdigris'"
+  # With no earlier build to compare against (a newly linked project, or a deploy with the cache
+  # cleared), Netlify gives the same commit twice; the first test makes that build rather than skip.
+  ignore = "[ \"$CACHED_COMMIT_REF\" != \"$COMMIT_REF\" ] && git diff --quiet $CACHED_COMMIT_REF $COMMIT_REF -- ':(top)' ':(top,exclude)verdigris'"
