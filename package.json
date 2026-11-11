@@ -12,8 +12,14 @@
   },
   "keywords": ["design-kit", "css", "astro", "astro-component", "tailwindcss"],
   "type": "module",
-  "workspaces": ["demo"],
+  "workspaces": ["demo", "verdigris", "verdigris/demo"],
   "files": ["kit", "fonts", "DESIGN.md", "COMPONENTS.md", "TOOLING.md", "tokens.json"],
+  "scripts": {
+    "shared": "node verdigris/scripts/shared.mjs",
+    "shared:check": "node verdigris/scripts/shared.mjs --check",
+    "pack": "node --experimental-strip-types --no-warnings scripts/pack.ts",
+    "release": "node --experimental-strip-types --no-warnings scripts/release.ts"
+  },
   "exports": {
     "./tailwind.css": "./kit/tailwind.css",
     "./theme.css": "./kit/theme.css",

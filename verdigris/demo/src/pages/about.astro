@@ -1,0 +1,53 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+import Hero from 'verdigris/astro/Hero.astro';
+import landscape from '../assets/landscape.jpg';
+---
+
+<SiteLayout title="About" description="About the Verdigris design kit.">
+  <Hero
+    title="About"
+    lead="I'm Danny Englander, and I designed Verdigris in collaboration with Claude Code. It starts from my Swiss Minimal kit, and adds Cormorant, copper and a little ornament."
+    image={landscape}
+    alt="Wide crop of an engraved rosette, fine lines in verdigris and copper on a cream ground"
+    caption="The home page rosette at 16:9, to show the wide hero."
+  >
+    <p class="lead hero-lead">
+      Verdigris is a small design kit for type-led sites: one family, flat color, the scotch rule and
+      ornament that earns its place, and <a class="link" href="/agents/">works well with AI agents</a>.
+    </p>
+  </Hero>
+  <article class="max-w-2xl pb-16 [&>p]:mb-5">
+    <p>
+      This page exists to check the type scale on running text. Body copy sits at 26px with a line height of
+      1.55 (22px on phones), because Cormorant is small on its body. Headings rely on size alone, in the light weight; there are
+      no colored headings and no boxes to prop them up.
+    </p>
+    <p>
+      The palette is paper, ink and two metals. Cream paper, a green-black ink, a muted grey-green for secondary text,
+      verdigris for the one thing that matters on a screen, and copper for labels and ornament. Small
+      text in either metal uses a darker tone on the page so it still passes contrast.
+    </p>
+    <p>
+      Each page of the menu has its own link. Write to us on the <a class="link" href="#contact">contact page</a>,
+      or see the <a class="link" href="#features">features</a> and when each arrived.
+    </p>
+    <p>
+      Code is the one place a second family appears. To start a site,
+      install the <code>verdigris</code> package and import the kit from your
+      global stylesheet; press <kbd>Tab</kbd> to see the focus ring.
+    </p>
+    <pre class="mb-5" tabindex="0"><code>@import "verdigris/tailwind.css";
+/* site-only CSS below */</code></pre>
+    <p>
+      Terminal output and logs sit on a dark block, the same in both themes, with commands in bold and
+      errors in the accent.
+    </p>
+    <pre class="pre--bar mb-5" tabindex="0"><code><span class="pre-cmd">$ npm run release -- --dry-run</span>
+Tag v2026.10.21, notes from the Features list
+<span class="pre-err">Stopped: main is behind origin/main. Pull first.</span></code></pre>
+    <p class="small muted">
+      Set in Cormorant, by Christian Thalmann, released under the SIL Open Font License 1.1.
+    </p>
+  </article>
+</SiteLayout>

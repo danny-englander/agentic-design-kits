@@ -10,7 +10,6 @@
     "build": "astro build",
     "preview": "astro preview",
     "test": "playwright test",
-    "release": "node --experimental-strip-types --no-warnings scripts/release.ts",
     "share-images": "node --experimental-strip-types --no-warnings scripts/share-images.ts",
     "astro": "astro"
   },

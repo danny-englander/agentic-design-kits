@@ -1,0 +1,50 @@
+/* Verdigris's typeface. tailwind.css loads this after Swiss Minimal's theme.css, so its
+   --font-sans wins. The fonts live in ../fonts (SIL OFL 1.1, keep Cormorant-LICENSE.txt beside
+   them). Source Code Pro, for code, comes with Swiss Minimal. */
+
+@font-face {
+  font-family: "Cormorant";
+  src: url("../fonts/Cormorant-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Cormorant";
+  src: url("../fonts/Cormorant-LightItalic.woff2") format("woff2");
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Cormorant";
+  src: url("../fonts/Cormorant-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Cormorant";
+  src: url("../fonts/Cormorant-MediumItalic.woff2") format("woff2");
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Cormorant";
+  src: url("../fonts/Cormorant-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Cormorant";
+  src: url("../fonts/Cormorant-SemiBoldItalic.woff2") format("woff2");
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+
+:root {
+  --font-sans: "Cormorant", Garamond, "Iowan Old Style", Georgia, serif;
+}

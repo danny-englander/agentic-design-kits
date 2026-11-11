@@ -1,0 +1,8 @@
+# Netlify's build for swissminimal.ch. The project's base directory, set in Netlify, is this
+# folder (demo); publish is relative to it. These override the project's settings in Netlify.
+[build]
+  command = "npm run build"
+  publish = "dist"
+  # Two sites build from this repository. Skip this one when a push changed nothing outside
+  # verdigris/, the other kit and its demo. A command that exits 0 skips the build.
+  ignore = "git diff --quiet $CACHED_COMMIT_REF $COMMIT_REF -- ':(top)' ':(top,exclude)verdigris'"

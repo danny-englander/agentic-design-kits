@@ -1,0 +1,39 @@
+---
+// One component on the Components page, inside a Section: its number, name, kit classes and a
+// line on what it is for, then the live component from the default slot.
+// The number sits in an outlined accent circle, at text-sm.
+// Phones and tablets: everything stacks in the name column.
+// From 1024px: number, text and the component side by side.
+import NumCircle from 'verdigris/astro/NumCircle.astro';
+
+interface Props {
+  num: number;
+  name: string;
+  /** The kit classes or attribute, e.g. ".btn". */
+  classes?: string;
+  /** From 1024px, put the component under the text at full width, for one that needs the room. */
+  wide?: boolean;
+}
+const { num, name, classes, wide } = Astro.props;
+---
+
+<li
+  class="grid gap-y-4 border-b border-rule py-8 last:border-b-0 md:grid-cols-[4.5rem_1fr] md:gap-x-2 lg:grid-cols-[4.5rem_minmax(0,2fr)_minmax(0,3fr)]"
+>
+  <!-- md:pl-2 lines the circle up with the range label. The number and the name share a baseline,
+       as the range label and h2 do in the section header above. -->
+  <span class="small md:self-baseline md:pl-2"><NumCircle value={num} accent /></span>
+  <div class="md:col-start-2 md:self-baseline">
+    <h3 class="title">{name}</h3>
+    {classes && <p class="muted mt-1"><code>{classes}</code></p>}
+    <p class="mt-3 max-w-md"><slot name="about" /></p>
+  </div>
+  <!-- The column gap stays the section header's, so the names line up under its h2 -->
+  {
+    Astro.slots.has('default') && (
+      <div class:list={['min-w-0 md:col-start-2', wide ? 'lg:col-[2/4]' : 'lg:col-start-3 lg:self-start lg:pl-6']}>
+        <slot />
+      </div>
+    )
+  }
+</li>
