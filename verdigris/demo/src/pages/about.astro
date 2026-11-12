@@ -1,22 +1,28 @@
 ---
 import SiteLayout from '../layouts/SiteLayout.astro';
-import Hero from 'verdigris/astro/Hero.astro';
-import landscape from '../assets/landscape.jpg';
+import Rosette from 'verdigris/astro/Rosette.astro';
 ---
 
 <SiteLayout title="About" description="About the Verdigris design kit.">
-  <Hero
-    title="About"
-    lead="I'm Danny Englander, and I designed Verdigris in collaboration with Claude Code. It starts from my Swiss Minimal kit, and adds Cormorant, copper and a little ornament."
-    image={landscape}
-    alt="Wide crop of an engraved rosette, fine lines in verdigris and copper on a cream ground"
-    caption="The home page rosette at 16:9, to show the wide hero."
-  >
-    <p class="lead hero-lead">
-      Verdigris is a small design kit for type-led sites: one family, flat color, the scotch rule and
-      ornament that earns its place, and <a class="link" href="/agents/">works well with AI agents</a>.
-    </p>
-  </Hero>
+  <!-- The live rosette, whole and in the theme's colors, beside the text from 768px. Hero takes
+       only an image, so its markup is written out here, as on the home page. -->
+  <header class="hero hero--split">
+    <div class="hero-text">
+      <h1 class="display">About</h1>
+      <p class="lead hero-lead">
+        I'm Danny Englander, and I designed Verdigris in collaboration with Claude Code. It starts from my Swiss
+        Minimal kit, and adds Cormorant, copper and a little ornament.
+      </p>
+      <p class="lead hero-lead">
+        Verdigris is a small design kit for type-led sites: one family, flat color, the scotch rule and
+        ornament that earns its place, and <a class="link" href="/agents/">works well with AI agents</a>.
+      </p>
+    </div>
+    <figure class="figure hero-figure">
+      <Rosette />
+      <figcaption>The home page rosette, drawn in the theme's colors.</figcaption>
+    </figure>
+  </header>
   <article class="max-w-2xl pb-16 [&>p]:mb-5">
     <p>
       This page exists to check the type scale on running text. Body copy sits at 26px with a line height of
