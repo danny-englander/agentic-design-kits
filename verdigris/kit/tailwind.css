@@ -13,3 +13,12 @@
 
 /* Verdigris's own components. Tailwind does not look inside node_modules by itself. */
 @source "./astro";
+
+/* Copper, which Swiss Minimal does not have: text-copper and bg-copper (large shapes only),
+   text-copper-text (labels and small ornament on paper), text-copper-bright (on bar). Like
+   Swiss Minimal's, they point at the variables, so they follow light and dark. */
+@theme inline {
+  --color-copper: var(--copper);
+  --color-copper-text: var(--copper-text);
+  --color-copper-bright: var(--copper-bright);
+}
