@@ -4,9 +4,9 @@ import Rosette from 'verdigris/astro/Rosette.astro';
 ---
 
 <SiteLayout title="About" description="About the Verdigris design kit.">
-  <!-- The live rosette, whole and in the theme's colors, under the text. Hero takes only an
-       image, so its markup is written out here, as on the home page. -->
-  <header class="hero hero--wide">
+  <!-- The live rosette, whole and in the theme's colors, beside the text from 768px. Hero takes
+       only an image, so its markup is written out here, as on the home page. -->
+  <header class="hero hero--split">
     <div class="hero-text">
       <h1 class="display">About</h1>
       <p class="lead hero-lead">
@@ -18,7 +18,7 @@ import Rosette from 'verdigris/astro/Rosette.astro';
         ornament that earns its place, and <a class="link" href="/agents/">works well with AI agents</a>.
       </p>
     </div>
-    <figure class="figure hero-figure mx-auto w-full max-w-xl">
+    <figure class="figure hero-figure">
       <Rosette />
       <figcaption>The home page rosette, drawn in the theme's colors.</figcaption>
     </figure>
