@@ -7,7 +7,7 @@ import AxeBuilder from '@axe-core/playwright';
 
 const THEMES = ['light', 'dark'] as const;
 const ACCENTS = ['verdigris'] as const;
-const PAGES = ['/', '/work', '/work/field-notes', '/blog', '/blog/page/2', '/blog/one-family', '/blog/copper-green', '/about', '/forms', '/components', '/agents', '/beautiful-code'];
+const PAGES = ['/', '/work', '/work/field-notes', '/blog', '/blog/page/2', '/blog/one-family', '/blog/copper-green', '/about', '/forms', '/components', '/agents', '/beautiful-code', '/type-and-color'];
 const TABS = ['menu', 'contact', 'features'];
 
 /** Wait for any running CSS animation or transition to finish. */

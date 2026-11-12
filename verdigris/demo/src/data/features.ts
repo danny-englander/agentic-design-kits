@@ -7,6 +7,11 @@ import type { Feature } from 'verdigris/types';
  */
 export const features: Feature[] = [
   {
+    date: '2026-11-12',
+    title: 'Type and color',
+    body: 'A new page at /type-and-color/ shows every type style and every color token, with its light and dark values and contrast. Copper now has its own utilities: `text-copper-text`, `text-copper-bright` and `text-copper`.',
+  },
+  {
     date: '2026-11-11',
     title: 'Install the kit as a package',
     body: 'Verdigris now installs with one npm command, and brings Swiss Minimal with it. It lives beside Swiss Minimal in one repository, and the two are released together.',
