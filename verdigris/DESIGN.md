@@ -178,7 +178,7 @@ This is the default setup, and the default.
 
 **Layers.** `theme.css` sits in Tailwind's `components` layer, so a utility always beats a kit class it is paired with (`class="field mb-7"` sets the margin). Your own unlayered CSS beats both.
 
-**Token utilities.** Use these instead of raw colors, so light and dark both work: `bg-paper`, `text-ink`, `text-muted`, `border-rule`, `bg-bar`, `text-bar-ink`, `bg-accent` (large shapes only), `text-accent-text` (small accent text on the page), `text-accent-bright` (small accent text on `bar`), `bg-row-hover`, `bg-row-active`, `text-row-fg`, and `var(--bar-h)` as `h-(--bar-h)` / `pb-(--bar-h)`. Never `text-red-600`, `bg-black` or Tailwind's grey scale.
+**Token utilities.** Use these instead of raw colors, so light and dark both work: `bg-paper`, `text-ink`, `text-muted`, `border-rule`, `bg-bar`, `text-bar-ink`, `bg-accent` (large shapes only), `text-accent-text` (small accent text on the page), `text-accent-bright` (small accent text on `bar`), `text-copper-text` (copper labels and small ornament on the page), `text-copper-bright` (copper on `bar`), `text-copper` and `bg-copper` (large ornament only), `bg-row-hover`, `bg-row-active`, `text-row-fg`, and `var(--bar-h)` as `h-(--bar-h)` / `pb-(--bar-h)`. Never `text-red-600`, `bg-black` or Tailwind's grey scale.
 
 **Defaults that line up.** Tailwind's `sm` (640px) and `md` (768px) breakpoints are the kit's. Preflight clears margins on `p`, `h1`–`h6` and lists, so set spacing with utilities (`mb-5`, `[&>p]:mb-5` on a block of prose). Tailwind v4 drops the hand cursor on buttons; `theme.css` puts it back.
 
