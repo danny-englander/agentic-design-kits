@@ -28,13 +28,13 @@ Verdigris is a second kit, built on this one, in [`verdigris/`](verdigris): its 
 ## Starting a new site with the kit
 
 1. Make an Astro project with Tailwind v4 (`tailwindcss`, `@tailwindcss/vite`), Node 24 or later.
-2. Copy `kit/` and `fonts/` into `src/design/`, side by side. The relative paths inside them (font URLs, the layout's font preload, `../panel.js`) depend on that layout.
-3. Make `src/styles/global.css` start with `@import "../design/kit/tailwind.css";` and import it in your layout. Don't import `tailwindcss` or `theme.css` anywhere else.
-4. Build pages on `kit/astro/BaseLayout.astro`: give it a `menu` (`MenuItem[]`, current page marked), an `accent` if not vermilion, and `barHeight` on pages with a `BottomBar` (it is optional). Open each page with a `Hero` or a `PageTitle`, and end it with a `Footer` in the `footer` slot, given the same `menu`.
+2. Install the kit: `npm install @agentic-design-kits/swiss-minimal`. To update later, run `npm update`. Add `astro-icon` if the site uses `IconTemplates`.
+3. Make `src/styles/global.css` start with `@import "@agentic-design-kits/swiss-minimal/tailwind.css";` and import it in your layout. Don't import `tailwindcss` or `theme.css` anywhere else.
+4. Build pages on `@agentic-design-kits/swiss-minimal/astro/BaseLayout.astro`, and import every other component the same way (`@agentic-design-kits/swiss-minimal/astro/Hero.astro`), types from `@agentic-design-kits/swiss-minimal/types` and scripts as `@agentic-design-kits/swiss-minimal/output.js`. Give the layout a `menu` (`MenuItem[]`, current page marked), an `accent` if not vermilion, and `barHeight` on pages with a `BottomBar` (it is optional). Open each page with a `Hero` or a `PageTitle`, and end it with a `Footer` in the `footer` slot, given the same `menu`.
 5. Page layout is Tailwind utilities; components are kit classes. Colors only through the token utilities (`text-muted`, `bg-bar`, `text-accent-text`, …), never Tailwind's palette.
 6. **A blog:** keep posts in a content collection, one Markdown file each. The index opens with a `PostFeature` (one post beside a square image) in place of a hero, then a `PostList` of the rest and a `Pager` when there are more than fit a page; the feature stays on top of every page. A post opens with a `PostHeader`, puts its Markdown in a `.post-body` and ends with a `PostNav`. See the Post* and Pager sections of `COMPONENTS.md`.
 7. **Code in Markdown:** set `markdown: { shikiConfig: { theme: 'css-variables' } }` in `astro.config.mjs`, so code takes the kit's code colors. Without it, Astro's default theme puts GitHub's dark colors and background on every code block.
-8. Copy the tests from `TOOLING.md`. Don't edit the files in `src/design/`; a fix there belongs back in this repository.
+8. Copy the tests from `TOOLING.md`. Don't edit the kit's files in `node_modules/`; a fix belongs back in this repository.
 
 The demo (`demo/src/layouts/SiteLayout.astro`, `demo/src/pages/`) is the worked example of all of this.
 
@@ -48,7 +48,7 @@ Restyling is mostly removing: the kit only works when it is the site's only visu
 4. **Load it in the way that fits the site:**
    - *Tailwind v4:* replace the site's `@import "tailwindcss"` with the kit's `tailwind.css`, as for a new site.
    - *Tailwind v3:* `tailwind.css` needs v4. Upgrade (`npx @tailwindcss/upgrade`) first, or load `theme.css` on its own and leave the site's Tailwind alone.
-   - *No Tailwind, or not Astro:* link `kit/theme.css` as a plain stylesheet (with `fonts/` beside `kit/`). The plain scripts (`panel.js`, `drawer.js`, …) work in any framework. The Astro components don't, so copy their markup from `COMPONENTS.md` or read it off the `.astro` files.
+   - *No Tailwind, or not Astro:* link `theme.css` as a plain stylesheet (`node_modules/@agentic-design-kits/swiss-minimal/kit/theme.css`, with its `fonts/` beside its `kit/`). The plain scripts (`panel.js`, `drawer.js`, …) work in any framework. The Astro components don't, so copy their markup from `COMPONENTS.md` or read it off the `.astro` files.
 5. **Set up theming:** add the no-flash script from `DESIGN.md` to `<head>`, and replace the site's dark mode switch (a `.dark` class, say) with `<html data-theme>`; the kit's colors only follow `data-theme` and the system setting. Pick the accent with `data-accent`.
 6. **Remove the old system as each part moves over:** its color palette and custom properties, other font families and weights, shadows, rounded corners, gradients, icon fonts, and a UI library's components. `theme.css` sits in a CSS layer (under Tailwind) or loads before the site's own CSS, so leftover unlayered site CSS wins every conflict and quietly undoes the kit.
 7. **Go a page type at a time:** tokens, type and the top bar first (they touch every page), then lists and forms, then the rest. Commit after each step, so a problem can be traced to one step.

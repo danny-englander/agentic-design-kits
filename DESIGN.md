@@ -4,7 +4,7 @@ A Swiss / Bauhaus look for any site: type-led, flat color, thick rules, almost n
 
 ## What to load
 
-This folder is the standalone kit, built for **Astro with Tailwind v4** (no React needed). Copy `kit/` and `fonts/` side by side into a project.
+Swiss Minimal is a package, built for **Astro with Tailwind v4** (no React needed). Install it (`npm install @agentic-design-kits/swiss-minimal`) and import from `@agentic-design-kits/swiss-minimal`: `@agentic-design-kits/swiss-minimal/tailwind.css`, `@agentic-design-kits/swiss-minimal/astro/Hero.astro`, `@agentic-design-kits/swiss-minimal/output.js`, `@agentic-design-kits/swiss-minimal/types`. The paths below say where each file lives in the package. A site can also copy `kit/` and `fonts/` side by side into its own folder and import from there.
 
 - `kit/tailwind.css`: the entry point for a Tailwind site. Imports Tailwind, loads `theme.css` into the `components` layer and maps the tokens to utilities. See "With Tailwind v4".
 - `kit/theme.css`: every token (light and dark), the base styles and every component class, in plain CSS. It imports `kit/fonts.css`, which holds the `@font-face` rules and `--font-sans`; `kit/astro/font.ts` names the font `BaseLayout` preloads, unless its `preloadFont` prop names another (a URL, or `false` for none). It also works on its own, without Tailwind. Dark mode follows the system unless `<html data-theme="light|dark">` is set.
@@ -154,7 +154,7 @@ This is the default setup, and how Dial Hopping is built.
    ```
 2. Make one global stylesheet, e.g. `src/styles/global.css`, and import it in your layout:
    ```css
-   @import "../design/kit/tailwind.css";
+   @import "@agentic-design-kits/swiss-minimal/tailwind.css";
    /* site-only CSS below */
    ```
    Don't also `@import "tailwindcss"` or `theme.css` anywhere else; `tailwind.css` does both.
