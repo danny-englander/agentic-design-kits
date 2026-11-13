@@ -1,44 +1,91 @@
-# Swiss Minimal Design Kit
+# Agentic Design Kits
 
-[![CI](https://github.com/danny-englander/swiss-minimal-design-kit/actions/workflows/ci.yml/badge.svg)](https://github.com/danny-englander/swiss-minimal-design-kit/actions/workflows/ci.yml)
+[![CI](https://github.com/danny-englander/agentic-design-kits/actions/workflows/ci.yml/badge.svg)](https://github.com/danny-englander/agentic-design-kits/actions/workflows/ci.yml)
 [![Node 24+](https://img.shields.io/badge/node-24%2B-blue)](https://nodejs.org/)
 [![Astro 7](https://img.shields.io/badge/astro-7-blue)](https://astro.build/)
 [![Tailwind v4](https://img.shields.io/badge/tailwind-v4-blue)](https://tailwindcss.com/)
-[![License: MIT](https://img.shields.io/github/license/danny-englander/swiss-minimal-design-kit)](LICENSE)
-[![Last commit](https://img.shields.io/github/last-commit/danny-englander/swiss-minimal-design-kit)](https://github.com/danny-englander/swiss-minimal-design-kit/commits/main)
+[![License: MIT](https://img.shields.io/github/license/danny-englander/agentic-design-kits)](LICENSE)
+[![Last commit](https://img.shields.io/github/last-commit/danny-englander/agentic-design-kits)](https://github.com/danny-englander/agentic-design-kits/commits/main)
 
-![The demo's home page in dark mode: "Swiss Minimal" in large bold type beside an abstract composition of black, grey and red shapes](docs/home-dark.webp)
+Design kits your AI agent can implement, for Astro and Tailwind v4.
 
-Demo: [www.swissminimal.ch](https://www.swissminimal.ch)
+A kit here is not a library of components to copy and paste. It is a set of rules, and an agent that follows them: what each color is for, which weights to use, where a rule goes, and when not to add anything at all. Say what the site should do, and a coding agent picks the components, writes the code and checks it against the rules.
 
-A design kit your AI agent can implement. Swiss / Bauhaus, for Astro and Tailwind v4: type-led, flat color, thick rules, one typeface.
+## The kits
 
-It is not a library of components to copy and paste. It is a set of rules, and an agent that follows them: what each color is for, which weights to use, where a rule goes, and when not to add anything at all. Say what the site should do, and a coding agent picks the components, writes the code and checks it against the rules. See [Agents](https://www.swissminimal.ch/agents/) on the demo site.
+| Kit | Demo | The look | Source |
+| --- | --- | --- | --- |
+| **Swiss Minimal** | [swissminimal.ch](https://www.swissminimal.ch) | Swiss / Bauhaus: type-led, flat color, thick rules, one typeface (Overused Grotesk). One accent for each site, vermilion or verdigris. | the repository's root |
+| **Verdigris** | [verdigris.ch](https://verdigris.ch) | Swiss Minimal's strict grid, set in Cormorant, in copper green and copper, with engraved line work. No capitals anywhere. | [`verdigris/`](verdigris) |
 
-Each site picks one accent: vermilion (the default, a red leaning toward orange) or verdigris (the blue-green of copper patina), with `<BaseLayout accent="vermilion">` / `accent="verdigris"`, or `<html data-accent="vermilion">` / `"verdigris"`. See Color in [`DESIGN.md`](DESIGN.md). In the demo, the gear on the right edge previews both.
+Swiss Minimal is the base. Verdigris is built on it: it uses Swiss Minimal's stylesheet, scripts and components as they are, and adds its own tokens, typeface and ornament on top. A fix to a shared component is made once, in Swiss Minimal, and both kits have it.
 
-- [`DESIGN.md`](DESIGN.md): the rules (color, type, layout, images, motion, accessibility, Tailwind setup).
-- [`COMPONENTS.md`](COMPONENTS.md): markup and rules for each component.
-- [`TOOLING.md`](TOOLING.md): recipes for accessibility tests (Playwright and axe) and date-tagged releases, and a manual checklist.
-- [`AGENTS.md`](AGENTS.md): notes for AI agents (also `CLAUDE.md`): working on this repository, starting a new site with the kit, and restyling an existing one.
-- [`kit/`](kit): `tailwind.css`, `theme.css`, small plain scripts (`panel.js`, `new-dot.js`, `drawer.js`, `jump.js`, `marquee.js`, `file-pick.js`, `output.js`, `dialog.js`, `favorites.js`, `icon-controls.js`) and the Astro components.
+Each demo site has an Agents page with prompts to start from: [swissminimal.ch/agents](https://www.swissminimal.ch/agents/) and [verdigris.ch/agents](https://verdigris.ch/agents/).
+
+## What a kit is made of
+
+Each kit has the same parts, written so that an agent can read them and a person can check the result.
+
+- **`DESIGN.md`:** the rules (color, type, layout, images, motion, accessibility, the Tailwind setup) and a "Do not" list.
+- **`COMPONENTS.md`:** the markup, behavior and do's and don'ts for each component.
+- **`AGENTS.md`** (also `CLAUDE.md`): notes for AI agents on three tasks: working on the kit, starting a new site with it, and restyling an existing one.
+- **`tokens.json`:** every token value, light and dark, with a note on what each is for.
+- **`kit/`:** the CSS (plain, with a Tailwind v4 entry point), a few small plain scripts and the Astro components.
+- **`fonts/`:** the kit's typeface.
+- **`demo/`:** a small Astro site that uses every component, and the tests that scan it.
+
+## In this repository
+
+The repository is one npm workspace. Each demo installs its kit as a package through that workspace, so it always runs the files in `kit/` and `fonts/` beside it.
+
+**Swiss Minimal**, at the root:
+
+- [`DESIGN.md`](DESIGN.md), [`COMPONENTS.md`](COMPONENTS.md), [`AGENTS.md`](AGENTS.md) and [`tokens.json`](tokens.json).
+- [`kit/`](kit): `tailwind.css`, `theme.css`, the scripts (`panel.js`, `new-dot.js`, `drawer.js`, `jump.js`, `marquee.js`, `file-pick.js`, `output.js`, `dialog.js`, `favorites.js`, `icon-controls.js`) and the Astro components.
 - [`fonts/`](fonts): Overused Grotesk, and Source Code Pro for code (both SIL OFL 1.1).
-- [`demo/`](demo): a small Astro site that uses every component. It installs the kit as the `swiss-minimal` package, through the npm workspace in the root [`package.json`](package.json), so it always runs the files in `kit/` and `fonts/`.
-- [`verdigris/`](verdigris): Verdigris, a second kit built on this one (Cormorant, copper green and engraved line work), with its own docs and demo ([verdigris.ch](https://verdigris.ch)). See its [`README`](verdigris/README.md).
+- [`demo/`](demo): the site at swissminimal.ch.
 
-## Install the kit
+**Verdigris**, in [`verdigris/`](verdigris), with its own [`README`](verdigris/README.md):
 
-The package is not on npm. Each [release](https://github.com/danny-englander/swiss-minimal-design-kit/releases) has the kit attached as a file, `swiss-minimal.tgz`, which npm installs by its address. Replace `TAG` with the newest release's tag, such as `v2026.11.10`:
+- [`DESIGN.md`](verdigris/DESIGN.md), [`COMPONENTS.md`](verdigris/COMPONENTS.md), [`AGENTS.md`](verdigris/AGENTS.md) and [`tokens.json`](verdigris/tokens.json).
+- [`verdigris/kit/`](verdigris/kit): only what makes it Verdigris: `tailwind.css`, `verdigris.css`, `fonts.css` and the components written there (`BaseLayout`, `Mark`, `Rosette`). `kit/shared/` passes on Swiss Minimal's components and scripts, so a site imports all of them from `verdigris`.
+- [`verdigris/fonts/`](verdigris/fonts): Cormorant (SIL OFL 1.1).
+- [`verdigris/demo/`](verdigris/demo): the site at verdigris.ch.
+
+**For both kits:**
+
+- [`TOOLING.md`](TOOLING.md): recipes for accessibility tests (Playwright and axe) and date-tagged releases, and a manual checklist.
+- [`scripts/`](scripts): the release and packing scripts.
+
+## Install a kit
+
+The packages are not on npm. Each [release](https://github.com/danny-englander/agentic-design-kits/releases) has both kits attached as files, `swiss-minimal.tgz` and `verdigris.tgz`, which npm installs by address. Replace `TAG` with the newest release's tag, such as `v2026.11.11`.
+
+Swiss Minimal:
 
 ```bash
-npm install https://github.com/danny-englander/swiss-minimal-design-kit/releases/download/TAG/swiss-minimal.tgz
+npm install https://github.com/danny-englander/agentic-design-kits/releases/download/TAG/swiss-minimal.tgz
 ```
 
-To update, install a later release's file the same way.
+```css
+@import "swiss-minimal/tailwind.css";
+```
 
-## Run the demo
+Verdigris, which brings Swiss Minimal with it:
 
-Needs Node 24 or later (`demo/.nvmrc` pins 24).
+```bash
+npm install https://github.com/danny-englander/agentic-design-kits/releases/download/TAG/verdigris.tgz
+```
+
+```css
+@import "verdigris/tailwind.css";
+```
+
+To update, install a later release's file the same way. The steps after that (the layout, the menu, a blog, code in Markdown) are under "Starting a new site with the kit" in each kit's `AGENTS.md`.
+
+## Run a demo
+
+Needs Node 24 or later (each demo's `.nvmrc` pins 24). Swiss Minimal:
 
 ```bash
 cd demo
@@ -47,14 +94,22 @@ npm install
 npm run dev
 ```
 
-## Test the demo
+For Verdigris, the same in `verdigris/demo`. The two can run side by side; each dev server takes the next free port.
 
-Builds the demo and scans every page, the menu tabs and the drawer for WCAG 2.1 AA problems in light and dark. See [`TOOLING.md`](TOOLING.md).
+## Test a demo
+
+Builds the demo and scans every page, the menu tabs and the drawer for WCAG 2.1 AA problems in light and dark, plus behavior tests. See [`TOOLING.md`](TOOLING.md).
 
 ```bash
 cd demo
 npx playwright install chromium
 npm test
+```
+
+For Verdigris, the same in `verdigris/demo`. A change to Swiss Minimal's `kit/` or `fonts/` changes Verdigris too, so run both. When Swiss Minimal adds, removes or renames a component or script, run this at the repository's root, so Verdigris passes it on:
+
+```bash
+npm run shared
 ```
 
 ## Releases
@@ -73,4 +128,4 @@ The dry run shows the tag and notes and changes nothing. The real run asks first
 
 ## License
 
-MIT: see [`LICENSE`](LICENSE). The fonts in [`fonts/`](fonts) keep their own license, SIL OFL 1.1.
+MIT: see [`LICENSE`](LICENSE). The fonts in [`fonts/`](fonts) and [`verdigris/fonts/`](verdigris/fonts) keep their own license, SIL OFL 1.1.
