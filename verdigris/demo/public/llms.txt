@@ -2,25 +2,25 @@
 
 > A design kit for Astro and Tailwind v4, built on Swiss Minimal: a strict grid, one family (Cormorant), a cream page, green-black ink, verdigris and copper, and ornament that earns its place. No capitals anywhere.
 
-The kit is plain CSS (Swiss Minimal's `theme.css` and `kit/verdigris.css`, loaded through `verdigris/tailwind.css` on a Tailwind v4 site), a few small plain scripts and some Astro components. A site without Tailwind or Astro can link `theme.css` and `verdigris.css` as stylesheets and copy the components' markup. To use it, install it as a package from a release (`npm install https://github.com/danny-englander/swiss-minimal-design-kit/releases/download/TAG/verdigris.tgz`, with the newest tag from https://github.com/danny-englander/swiss-minimal-design-kit/releases for `TAG`; it is not on npm) and import from `verdigris`: `verdigris/tailwind.css`, `verdigris/astro/Hero.astro`. Swiss Minimal, which it is built on, is installed with it.
+The kit is plain CSS (Swiss Minimal's `theme.css` and `kit/verdigris.css`, loaded through `verdigris/tailwind.css` on a Tailwind v4 site), a few small plain scripts and some Astro components. A site without Tailwind or Astro can link `theme.css` and `verdigris.css` as stylesheets and copy the components' markup. To use it, install it as a package from a release (`npm install https://github.com/danny-englander/agentic-design-kits/releases/download/TAG/verdigris.tgz`, with the newest tag from https://github.com/danny-englander/agentic-design-kits/releases for `TAG`; it is not on npm) and import from `verdigris`: `verdigris/tailwind.css`, `verdigris/astro/Hero.astro`. Swiss Minimal, which it is built on, is installed with it.
 
 The kit is written for agents to follow: a set of rules, not a library of components to copy and paste. Agents: start with AGENTS.md. It covers the three tasks people bring, which are changing the kit, starting a new site with it and restyling an existing site, and says which other files to read for each one. Every token value is in tokens.json; if theme.css disagrees, tokens.json wins.
 
 ## Docs
 
-- [AGENTS.md](https://raw.githubusercontent.com/danny-englander/swiss-minimal-design-kit/main/verdigris/AGENTS.md): Notes for AI agents: working on the kit, starting a new site with it, restyling an existing site. Start here.
-- [DESIGN.md](https://raw.githubusercontent.com/danny-englander/swiss-minimal-design-kit/main/verdigris/DESIGN.md): The rules: color, type, layout, iconography, images, motion, accessibility, the Tailwind setup and the "Do not" list.
-- [COMPONENTS.md](https://raw.githubusercontent.com/danny-englander/swiss-minimal-design-kit/main/verdigris/COMPONENTS.md): Markup, behavior and do's and don'ts for each component.
-- [tokens.json](https://raw.githubusercontent.com/danny-englander/swiss-minimal-design-kit/main/verdigris/tokens.json): Every token value, light and dark, with a note on what each is for.
-- [TOOLING.md](https://raw.githubusercontent.com/danny-englander/swiss-minimal-design-kit/main/TOOLING.md): Accessibility tests with Playwright and axe, a manual checklist, and date-tagged releases.
+- [AGENTS.md](https://raw.githubusercontent.com/danny-englander/agentic-design-kits/main/verdigris/AGENTS.md): Notes for AI agents: working on the kit, starting a new site with it, restyling an existing site. Start here.
+- [DESIGN.md](https://raw.githubusercontent.com/danny-englander/agentic-design-kits/main/verdigris/DESIGN.md): The rules: color, type, layout, iconography, images, motion, accessibility, the Tailwind setup and the "Do not" list.
+- [COMPONENTS.md](https://raw.githubusercontent.com/danny-englander/agentic-design-kits/main/verdigris/COMPONENTS.md): Markup, behavior and do's and don'ts for each component.
+- [tokens.json](https://raw.githubusercontent.com/danny-englander/agentic-design-kits/main/verdigris/tokens.json): Every token value, light and dark, with a note on what each is for.
+- [TOOLING.md](https://raw.githubusercontent.com/danny-englander/agentic-design-kits/main/TOOLING.md): Accessibility tests with Playwright and axe, a manual checklist, and date-tagged releases.
 
 ## Kit
 
-- [kit/tailwind.css](https://raw.githubusercontent.com/danny-englander/swiss-minimal-design-kit/main/verdigris/kit/tailwind.css): The entry point for a Tailwind v4 site. Loads Swiss Minimal's Tailwind entry, then Verdigris's typeface and theme.
-- [kit/verdigris.css](https://raw.githubusercontent.com/danny-englander/swiss-minimal-design-kit/main/verdigris/kit/verdigris.css): Everything that makes this Verdigris: token overrides, type and the ornament.
-- [theme.css](https://raw.githubusercontent.com/danny-englander/swiss-minimal-design-kit/main/kit/theme.css): Swiss Minimal's stylesheet, which Verdigris builds on: every token, the base styles and every shared component class.
-- [kit/astro/](https://github.com/danny-englander/swiss-minimal-design-kit/tree/main/kit/astro): Swiss Minimal's Astro components, imported as `verdigris/astro/Name.astro`: BaseLayout, Hero, PageTitle, Ellipse, Cta, CardGrid, the menu, drawer and theme toggle, the blog's PostFeature, PostList, Pager, PostHeader and PostNav, and their types.
-- [kit/example.html](https://raw.githubusercontent.com/danny-englander/swiss-minimal-design-kit/main/verdigris/kit/example.html): A one-page demo using only theme.css, fonts.css and verdigris.css.
+- [kit/tailwind.css](https://raw.githubusercontent.com/danny-englander/agentic-design-kits/main/verdigris/kit/tailwind.css): The entry point for a Tailwind v4 site. Loads Swiss Minimal's Tailwind entry, then Verdigris's typeface and theme.
+- [kit/verdigris.css](https://raw.githubusercontent.com/danny-englander/agentic-design-kits/main/verdigris/kit/verdigris.css): Everything that makes this Verdigris: token overrides, type and the ornament.
+- [theme.css](https://raw.githubusercontent.com/danny-englander/agentic-design-kits/main/kit/theme.css): Swiss Minimal's stylesheet, which Verdigris builds on: every token, the base styles and every shared component class.
+- [kit/astro/](https://github.com/danny-englander/agentic-design-kits/tree/main/kit/astro): Swiss Minimal's Astro components, imported as `verdigris/astro/Name.astro`: BaseLayout, Hero, PageTitle, Ellipse, Cta, CardGrid, the menu, drawer and theme toggle, the blog's PostFeature, PostList, Pager, PostHeader and PostNav, and their types.
+- [kit/example.html](https://raw.githubusercontent.com/danny-englander/agentic-design-kits/main/verdigris/kit/example.html): A one-page demo using only theme.css, fonts.css and verdigris.css.
 
 ## Demo
 
@@ -31,8 +31,8 @@ The kit is written for agents to follow: a set of rules, not a library of compon
 
 ## Optional
 
-- [README](https://raw.githubusercontent.com/danny-englander/swiss-minimal-design-kit/main/verdigris/README.md): What is in the repository, and how to run, test and release the demo.
-- [Repository](https://github.com/danny-englander/swiss-minimal-design-kit/tree/main/verdigris): The source, in the verdigris/ folder of Swiss Minimal's repository, including the demo site in verdigris/demo/.
+- [README](https://raw.githubusercontent.com/danny-englander/agentic-design-kits/main/verdigris/README.md): What is in the repository, and how to run, test and release the demo.
+- [Repository](https://github.com/danny-englander/agentic-design-kits/tree/main/verdigris): The source, in the verdigris/ folder of Swiss Minimal's repository, including the demo site in verdigris/demo/.
 - [Home](https://verdigris.ch/): The demo's home page, with a split hero and list rows.
 - [Work](https://verdigris.ch/work/): A filterable list with favorites and a dark page title.
 - [About](https://verdigris.ch/about/): Running text and code blocks.
