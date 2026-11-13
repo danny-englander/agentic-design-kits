@@ -141,7 +141,7 @@ What the automated tests can't see. Run through it in a real browser at about 39
 
 ## Releases: date tags and notes from the features list
 
-Dial Hopping's `npm run release` (`scripts/release.ts`) turns "push to main" into a named release with notes, in one step. It fits any site whose host builds on every push (Netlify, Vercel, Cloudflare Pages), where every push already is a release. This repository uses it too: its `scripts/release.ts` is the same script with the stations part dropped. It releases two kits at once, so it reads a features list from each demo, runs both demos' tests, and attaches each kit to the release as a file a site can install (`scripts/pack.ts`).
+Dial Hopping's `npm run release` (`scripts/release.ts`) turns "push to main" into a named release with notes, in one step. It fits any site whose host builds on every push (Netlify, Vercel, Cloudflare Pages), where every push already is a release. This repository uses it too: its `scripts/release.ts` is the same script with the stations part dropped. It releases two kits at once, so it reads a features list from each demo, runs both demos' tests, and attaches each kit to the release as a file (`scripts/pack.ts`). The tag it pushes starts a GitHub Actions workflow, `.github/workflows/publish.yml`, which packs both kits again and publishes them to npm.
 
 ### What it does
 
@@ -168,6 +168,15 @@ npm run release -- --dry-run
 ```
 
 `--dry-run` shows the tag and notes and changes nothing; `--yes` skips the question. `RELEASE_TODAY=2026-10-20` pretends it is another day, for trying out a dry run.
+
+### Publishing the kits to npm
+
+This part is this repository's own; a site has no package to publish.
+
+- **The version is the tag's date.** `v2026.11.13` is published as `2026.1113.0`, and `v2026.11.13.2`, a second release that day, as `2026.1113.1` (`versionFor` in `scripts/pack.ts`). Month and day share the middle number because npm takes three numbers, and reads anything after a hyphen (`2026.11.13-2`) as coming before the plain version.
+- **The versions in the repository's `package.json` files are never published.** `scripts/pack.ts` copies each kit's files to a temporary folder, writes the release's version there, makes Verdigris depend on the same version of Swiss Minimal, and packs it.
+- **GitHub publishes, with no npm token.** The pushed tag starts `.github/workflows/publish.yml`, which packs both kits from the tag and runs `npm publish` on each, Swiss Minimal first. Each package on npmjs.com names that workflow as its trusted publisher (the package, then Settings, then Trusted publishing: the GitHub user, the repository, and `publish.yml`), with `npm publish` among the allowed actions.
+- **To publish a tag again** after a failed run, start the Publish workflow by hand (Actions, Publish, Run workflow) and give it the tag. A version already on npm is skipped.
 
 ### Set up
 

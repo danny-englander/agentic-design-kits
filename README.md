@@ -48,7 +48,7 @@ The repository is one npm workspace. Each demo installs its kit as a package thr
 **Verdigris**, in [`verdigris/`](verdigris), with its own [`README`](verdigris/README.md):
 
 - [`DESIGN.md`](verdigris/DESIGN.md), [`COMPONENTS.md`](verdigris/COMPONENTS.md), [`AGENTS.md`](verdigris/AGENTS.md) and [`tokens.json`](verdigris/tokens.json).
-- [`verdigris/kit/`](verdigris/kit): only what makes it Verdigris: `tailwind.css`, `verdigris.css`, `fonts.css` and the components written there (`BaseLayout`, `Mark`, `Rosette`). `kit/shared/` passes on Swiss Minimal's components and scripts, so a site imports all of them from `verdigris`.
+- [`verdigris/kit/`](verdigris/kit): only what makes it Verdigris: `tailwind.css`, `verdigris.css`, `fonts.css` and the components written there (`BaseLayout`, `Mark`, `Rosette`). `kit/shared/` passes on Swiss Minimal's components and scripts, so a site imports all of them from `@agentic-design-kits/verdigris`.
 - [`verdigris/fonts/`](verdigris/fonts): Cormorant (SIL OFL 1.1).
 - [`verdigris/demo/`](verdigris/demo): the site at verdigris.ch.
 
@@ -59,29 +59,29 @@ The repository is one npm workspace. Each demo installs its kit as a package thr
 
 ## Install a kit
 
-The packages are not on npm. Each [release](https://github.com/danny-englander/agentic-design-kits/releases) has both kits attached as files, `swiss-minimal.tgz` and `verdigris.tgz`, which npm installs by address. Replace `TAG` with the newest release's tag, such as `v2026.11.11`.
+Both kits are on npm, under the `@agentic-design-kits` scope.
 
 Swiss Minimal:
 
 ```bash
-npm install https://github.com/danny-englander/agentic-design-kits/releases/download/TAG/swiss-minimal.tgz
+npm install @agentic-design-kits/swiss-minimal
 ```
 
 ```css
-@import "swiss-minimal/tailwind.css";
+@import "@agentic-design-kits/swiss-minimal/tailwind.css";
 ```
 
 Verdigris, which brings Swiss Minimal with it:
 
 ```bash
-npm install https://github.com/danny-englander/agentic-design-kits/releases/download/TAG/verdigris.tgz
+npm install @agentic-design-kits/verdigris
 ```
 
 ```css
-@import "verdigris/tailwind.css";
+@import "@agentic-design-kits/verdigris/tailwind.css";
 ```
 
-To update, install a later release's file the same way. The steps after that (the layout, the menu, a blog, code in Markdown) are under "Starting a new site with the kit" in each kit's `AGENTS.md`.
+To update, run `npm update`, or the same command again. Versions follow the release date: `2026.1113.0` is the first release on 13 November 2026, and `2026.1113.1` a second that day. The steps after that (the layout, the menu, a blog, code in Markdown) are under "Starting a new site with the kit" in each kit's `AGENTS.md`.
 
 ## Run a demo
 
@@ -114,7 +114,7 @@ npm run shared
 
 ## Releases
 
-Each release is a date tag on main (`v2026.10.19`, or `v2026.10.19.2` for a second that day) with a GitHub Release. One release covers both kits: its notes come from each demo's Features list (`demo/src/data/features.ts` and `verdigris/demo/src/data/features.ts`), and each kit is attached as a file for sites to install (`swiss-minimal.tgz`, `verdigris.tgz`). At the repository's root:
+Each release is a date tag on main (`v2026.10.19`, or `v2026.10.19.2` for a second that day) with a GitHub Release. One release covers both kits: its notes come from each demo's Features list (`demo/src/data/features.ts` and `verdigris/demo/src/data/features.ts`), and both kits are published to npm (`@agentic-design-kits/swiss-minimal`, `@agentic-design-kits/verdigris`) with the date as their version. At the repository's root:
 
 ```bash
 npm run release -- --dry-run
@@ -124,7 +124,7 @@ npm run release -- --dry-run
 npm run release
 ```
 
-The dry run shows the tag and notes and changes nothing. The real run asks first, then runs both demos' tests, pushes main, pushes the tag and publishes the release with the two files. The push to main deploys both sites. It only runs on a clean, up-to-date main, and stops if a new feature isn't dated today. Before releasing something a visitor would notice, add it at the top of that kit's `features.ts`. `npm run pack -- --tag v2026.11.10` writes the two files to `packed/` without releasing, to look at what a site would get. The script is Dial Hopping's, adapted; see "Releases" in [`TOOLING.md`](TOOLING.md).
+The dry run shows the tag and notes and changes nothing. The real run asks first, then runs both demos' tests, pushes main, pushes the tag and publishes the GitHub Release. The push to main deploys both sites, and the pushed tag starts the Publish workflow ([`.github/workflows/publish.yml`](.github/workflows/publish.yml)), which puts both kits on npm. It only runs on a clean, up-to-date main, and stops if a new feature isn't dated today. Before releasing something a visitor would notice, add it at the top of that kit's `features.ts`. `npm run pack -- --tag v2026.11.10` writes the two package files to `packed/` without releasing, to look at what npm would get. The script is Dial Hopping's, adapted; see "Releases" in [`TOOLING.md`](TOOLING.md).
 
 ## License
 
