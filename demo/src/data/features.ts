@@ -8,6 +8,11 @@ import type { Feature } from '@agentic-design-kits/swiss-minimal/types';
 export const features: Feature[] = [
   {
     date: '2026-11-13',
+    title: 'Type and color',
+    body: 'A new page at /type-and-color/ shows every type style and every color token, with its light and dark values and contrast, for both accents.',
+  },
+  {
+    date: '2026-11-13',
     title: 'Swiss Minimal is on npm',
     body: 'The kit is now a package on npm, so a site installs and updates it like any other dependency: `npm install @agentic-design-kits/swiss-minimal`.',
     details: [
