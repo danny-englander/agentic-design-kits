@@ -1,9 +1,9 @@
 ---
 import SiteLayout from '../layouts/SiteLayout.astro';
-import PageTitle from 'verdigris/astro/PageTitle.astro';
-import FilePicker from 'verdigris/astro/FilePicker.astro';
-import OutputPanel from 'verdigris/astro/OutputPanel.astro';
-import SummaryList from 'verdigris/astro/SummaryList.astro';
+import PageTitle from '@agentic-design-kits/verdigris/astro/PageTitle.astro';
+import FilePicker from '@agentic-design-kits/verdigris/astro/FilePicker.astro';
+import OutputPanel from '@agentic-design-kits/verdigris/astro/OutputPanel.astro';
+import SummaryList from '@agentic-design-kits/verdigris/astro/SummaryList.astro';
 
 const presets = [
   { id: 'this-month', label: 'This month' },
@@ -107,7 +107,7 @@ const presets = [
 </SiteLayout>
 
 <script>
-  import { outputClear, outputLine, outputStatus } from 'verdigris/output.js';
+  import { outputClear, outputLine, outputStatus } from '@agentic-design-kits/verdigris/output.js';
 
   // No backend: confirm with the layout's toast.
   const form = document.querySelector<HTMLFormElement>('[data-settings-form]');

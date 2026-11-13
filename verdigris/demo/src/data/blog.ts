@@ -1,5 +1,5 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
-import type { Post } from 'verdigris/types';
+import type { Post } from '@agentic-design-kits/verdigris/types';
 
 export type BlogEntry = CollectionEntry<'blog'>;
 

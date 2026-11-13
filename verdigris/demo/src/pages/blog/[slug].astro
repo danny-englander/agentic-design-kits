@@ -3,9 +3,9 @@ import type { GetStaticPaths } from 'astro';
 import { Image } from 'astro:assets';
 import { render } from 'astro:content';
 import SiteLayout from '../../layouts/SiteLayout.astro';
-import PostHeader from 'verdigris/astro/PostHeader.astro';
-import Rosette from 'verdigris/astro/Rosette.astro';
-import PostNav from 'verdigris/astro/PostNav.astro';
+import PostHeader from '@agentic-design-kits/verdigris/astro/PostHeader.astro';
+import Rosette from '@agentic-design-kits/verdigris/astro/Rosette.astro';
+import PostNav from '@agentic-design-kits/verdigris/astro/PostNav.astro';
 import { getPosts, href, minutes, type BlogEntry } from '../../data/blog';
 
 // Posts are newest first, so the one before in the list is newer ("Next") and the one after is

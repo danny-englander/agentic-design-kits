@@ -1,4 +1,4 @@
-import type { MenuItem } from 'verdigris/types';
+import type { MenuItem } from '@agentic-design-kits/verdigris/types';
 
 // Every page address ends in a slash, as the built site serves it, so a link never costs a
 // redirect.

@@ -1,4 +1,4 @@
-import type { Feature } from 'swiss-minimal/types';
+import type { Feature } from '@agentic-design-kits/swiss-minimal/types';
 
 /**
  * What the kit and this demo can do, newest first, for the Features tab in the menu. One entry
@@ -6,6 +6,16 @@ import type { Feature } from 'swiss-minimal/types';
  * shows the "new" dot on the menu button for returning visitors until they open the tab.
  */
 export const features: Feature[] = [
+  {
+    date: '2026-11-13',
+    title: 'Swiss Minimal is on npm',
+    body: 'The kit is now a package on npm, so a site installs and updates it like any other dependency: `npm install @agentic-design-kits/swiss-minimal`.',
+    details: [
+      'The package has a new name, `@agentic-design-kits/swiss-minimal`, to go with the repository’s new name, Agentic Design Kits.',
+      'Sites that installed a release file: install the npm package, remove `swiss-minimal`, and change `swiss-minimal/` to `@agentic-design-kits/swiss-minimal/` in your imports.',
+      'Versions follow the release date: `2026.1113.0` is the first release on 13 November 2026.',
+    ],
+  },
   {
     date: '2026-11-11',
     title: 'Install the kit as a package',
