@@ -1,6 +1,6 @@
 /* Swiss Minimal for Tailwind v4. Import this once, from your site's global stylesheet:
 
-     @import "swiss-minimal/tailwind.css";     (installed as a package)
+     @import "@agentic-design-kits/swiss-minimal/tailwind.css";     (installed as a package)
      @import "../design/kit/tailwind.css";     (copied into src/design/)
 
    It loads Tailwind, then theme.css into Tailwind's `components` layer, so a utility in

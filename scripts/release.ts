@@ -1,8 +1,9 @@
 // Tags and publishes a release of both kits, Swiss Minimal and Verdigris: runs both demos'
 // tests, pushes main, adds a date tag such as v2026.10.19 (v2026.10.19.2 for a second release
-// that day) and creates the GitHub Release, with each kit attached as a file a site can install
-// (scripts/pack.ts). Adapted from Dial Hopping's scripts/release.ts (see "Releases" in
-// TOOLING.md). Run at the repository's root:
+// that day) and creates the GitHub Release, with each kit attached as a file (scripts/pack.ts).
+// The pushed tag starts the Publish workflow (.github/workflows/publish.yml), which puts both
+// kits on npm. Adapted from Dial Hopping's scripts/release.ts (see "Releases" in TOOLING.md).
+// Run at the repository's root:
 //   npm run release              asks before tagging and publishing
 //   npm run release -- --dry-run shows the tag and notes, changes nothing
 //   npm run release -- --yes     skips the question
@@ -18,8 +19,8 @@ import { createInterface } from 'node:readline/promises';
 import { pathToFileURL } from 'node:url';
 import { features as swissMinimalFeatures } from '../demo/src/data/features.ts';
 import { features as verdigrisFeatures } from '../verdigris/demo/src/data/features.ts';
-import { packKits } from './pack.ts';
-import type { Feature } from 'swiss-minimal/types';
+import { packKits, versionFor } from './pack.ts';
+import type { Feature } from '@agentic-design-kits/swiss-minimal/types';
 
 const dryRun = process.argv.includes('--dry-run');
 const yes = process.argv.includes('--yes');
@@ -167,11 +168,11 @@ for (const kit of kits) {
     : `The first tagged release.\n\n### Features so far\n\n${kit.features.map(entry).join('\n')}`;
   sections.push(`## ${kit.name}\n\n${body}`);
 }
-// How a site takes this release. The files are attached below, under Assets.
-const download = `https://github.com/danny-englander/agentic-design-kits/releases/download/${tag}`;
+// How a site takes this release: from npm, where the Publish workflow puts both kits.
+const version = versionFor(tag);
 sections.push(
-  `## Install\n\n\`\`\`sh\nnpm install ${download}/swiss-minimal.tgz\n\`\`\`\n\n` +
-    `\`\`\`sh\nnpm install ${download}/verdigris.tgz\n\`\`\`\n\nVerdigris brings Swiss Minimal with it.`,
+  `## Install\n\n\`\`\`sh\nnpm install @agentic-design-kits/swiss-minimal@${version}\n\`\`\`\n\n` +
+    `\`\`\`sh\nnpm install @agentic-design-kits/verdigris@${version}\n\`\`\`\n\nVerdigris brings Swiss Minimal with it.`,
 );
 sections.push(
   `<details>\n<summary>${lastTag ? `Commits since ${lastTag}` : 'Recent commits'}</summary>\n\n${commits}\n\n</details>`,
@@ -207,7 +208,7 @@ run('git', ['push', 'origin', tag]);
 const notesDir = mkdtempSync(join(tmpdir(), 'release-'));
 const notesFile = join(notesDir, 'notes.md');
 writeFileSync(notesFile, notes);
-// Each kit as a file, attached to the release for sites to install.
+// Each kit as a file, attached to the release: the same files the Publish workflow puts on npm.
 const files = packKits(tag, notesDir);
 const published = spawnSync(
   'gh',
@@ -221,4 +222,7 @@ if (published.status !== 0) {
       `then attach the kits: npm run pack -- --tag ${tag} && gh release upload ${tag} packed/*.tgz`,
   );
 }
-console.log(`\n✓ Released ${tag}.\n`);
+console.log(
+  `\n✓ Released ${tag}. The Publish workflow is putting ${version} of both kits on npm:\n` +
+    '  https://github.com/danny-englander/agentic-design-kits/actions/workflows/publish.yml\n',
+);

@@ -1,5 +1,5 @@
 {
-  "name": "verdigris",
+  "name": "@agentic-design-kits/verdigris",
   "version": "0.1.0",
   "private": true,
   "description": "A design kit in Cormorant, copper green and engraved line work, for Astro and Tailwind v4 sites. Built on Swiss Minimal.",
@@ -12,6 +12,7 @@
     "directory": "verdigris"
   },
   "keywords": ["design-kit", "css", "astro", "astro-component", "tailwindcss"],
+  "publishConfig": { "access": "public" },
   "type": "module",
   "files": ["kit", "fonts", "DESIGN.md", "COMPONENTS.md", "tokens.json"],
   "scripts": {
@@ -33,7 +34,7 @@
     "./*.js": "./kit/shared/*.ts"
   },
   "dependencies": {
-    "swiss-minimal": "file:.."
+    "@agentic-design-kits/swiss-minimal": "file:.."
   },
   "peerDependencies": {
     "astro": ">=7.0.0",

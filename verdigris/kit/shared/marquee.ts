@@ -1,2 +1,2 @@
 // Written by scripts/shared.mjs (npm run shared). Do not edit.
-export * from 'swiss-minimal/marquee.js';
+export * from '@agentic-design-kits/swiss-minimal/marquee.js';

@@ -1,0 +1,53 @@
+# Publishes both kits to npm when a release tag is pushed: @agentic-design-kits/swiss-minimal
+# and @agentic-design-kits/verdigris. `npm run release` pushes the tag (see "Releases" in
+# TOOLING.md).
+#
+# There is no npm token. Each package names this workflow as its trusted publisher (on
+# npmjs.com: the package, Settings, Trusted publishing), and npm accepts the publish from
+# GitHub's identity for this run. The file name is part of that setting: renaming this file
+# means setting the trusted publisher again on both packages.
+name: Publish
+
+on:
+  push:
+    tags: ['v*']
+  # To publish a tag again by hand, if a run failed part of the way.
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: The release tag to publish, such as v2026.11.13
+        required: true
+
+permissions:
+  contents: read
+  # Lets the run prove to npm which repository and workflow it is.
+  id-token: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    env:
+      TAG: ${{ inputs.tag || github.ref_name }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ env.TAG }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: demo/.nvmrc
+          registry-url: https://registry.npmjs.org
+      # Packing needs nothing installed: scripts/pack.ts only uses Node and npm.
+      - run: npm run pack -- --tag "$TAG"
+      # Swiss Minimal first: Verdigris depends on the same version of it. A version that is
+      # already on npm is skipped, so a run that failed after the first can be run again.
+      - name: Publish both kits
+        run: |
+          for file in swiss-minimal verdigris; do
+            name="@agentic-design-kits/$file"
+            version=$(tar -xOzf "packed/$file.tgz" package/package.json | node -p "JSON.parse(require('fs').readFileSync(0, 'utf8')).version")
+            if npm view "$name@$version" version >/dev/null 2>&1; then
+              echo "$name@$version is already on npm."
+            else
+              npm publish "packed/$file.tgz" --access public
+            fi
+          done
