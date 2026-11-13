@@ -38,6 +38,7 @@ jobs:
           registry-url: https://registry.npmjs.org
       # Packing needs nothing installed: scripts/pack.ts only uses Node and npm.
       - run: npm run pack -- --tag "$TAG"
+      # The path starts with ./ because npm reads a bare folder/file.tgz as a GitHub user/repo.
       # Swiss Minimal first: Verdigris depends on the same version of it. A version that is
       # already on npm is skipped, so a run that failed after the first can be run again.
       - name: Publish both kits
@@ -48,6 +49,6 @@ jobs:
             if npm view "$name@$version" version >/dev/null 2>&1; then
               echo "$name@$version is already on npm."
             else
-              npm publish "packed/$file.tgz" --access public
+              npm publish "./packed/$file.tgz" --access public
             fi
           done
