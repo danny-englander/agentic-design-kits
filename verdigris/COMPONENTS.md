@@ -909,10 +909,12 @@ The top of a blog post, in place of a `Hero` or `PageTitle`: a small label back 
 
 In Astro, `<PostHeader title="…" lead="…" back={{ label: 'Blog', href: '/blog/' }} date="2026-10-20" author="…" minutes={4} tags={['Type']} />`. It writes Published, By, Reading and Topics, leaving out any you don't pass.
 
-- The label is the `label` style in `ink`, `accent-text` and underlined on hover. One or two words.
-- The title is bold and tight at `clamp(2.5rem, 6vw, 5rem)`, between `page-title` and `h2`, since post titles run longer. It stops at 18em wide, so a long title breaks into lines of a few words, and it wraps a long word.
-- The byline is a row of small `muted` labels over their values, under a scotch rule; it wraps on phones.
-- A cover image, if any, goes after the header: full width, 16:9 (`.media .media--16x9`), never behind the title.
+- Everything is centered, like a title page.
+- The label is 22px (`--size-300`) in `copper-text`, between two asterisms (⁂, hidden from screen readers), and turns `accent-text` and underlined on hover. One or two words.
+- The title is light at `--size-post-title` (`clamp(3.5rem, 7.4vw, 5.75rem)`), between `page-title` and `h2`, since post titles run longer. It stops at 18em wide, so a long title breaks into lines of a few words, and it wraps a long word.
+- The lead is italic at `clamp(1.625rem, 2.6vw, 2rem)`, at most 28em wide.
+- The byline is one 22px (`--size-300`) `muted` line of values with a copper lozenge (◆) between them, and no rule. Its labels (Published, By…) are hidden but stay in the markup for screen readers.
+- A cover image, if any, goes after the header: full width at 16:9 (`.media .media--16x9`) when it is landscape, centered at its own shape when it is not, never behind the title. A post with no picture takes a `.rule-fleuron` there instead, at the text's width.
 
 ## PostBody
 
@@ -920,13 +922,15 @@ Long-form text from Markdown: `.post-body` styles the plain elements inside it, 
 
 **Markup.** `<div class="post-body"><Content /></div>`, after the `PostHeader`.
 
-- A 42rem measure by default (`max-w-*` on the same element changes it). Paragraphs and blocks are 1.25rem apart.
+- A 45rem measure (`max-w-*` on the same element changes it); center it under the header with `mx-auto`. Paragraphs are `clamp(1.375rem, 2vw, 1.625rem)` on 1.52 leading, a step up from the page's text, and blocks are 1.25rem apart.
 - `h2` is bold at 1.75rem, 2.25rem from 768px, with `space-12` above it and no rule: inside one article, space and size mark a new part, and the 2px rule is kept for the page's own sections; `h3` is the `title` size. Don't skip from the post's `h1` to an `h3`.
 - Links underline and turn `accent-text` on hover, like `.link`.
 - Lists have square markers (`ul`) or tabular numbers (`ol`), in `muted`.
-- A quote is large and bold beside a 6px `accent` edge, the same edge as the active row. Keep quotes short; one or two per post.
-- `hr` is a scotch rule. Images fill the measure, square, on `rule` until they load. A table has small headings over a 2px rule and 1px rules between rows.
+- A quote is large, light and italic in `accent-text`, centered between two 1px `rule` lines. Keep quotes short; one or two per post.
+- `hr` is an asterism (⁂) in `copper-text`. Images fill the measure, square, on `rule` until they load. A table has small headings over a 2px rule and 1px rules between rows.
 - Code uses the kit's own `pre` and `code` styles.
+- Markdown footnotes (`[^1]`) are numbered in `accent-text`; the notes sit at the end in 20px `muted` text under a 1px `ink` rule, numbered in `copper-text`.
+- `.post-body--end` ends the piece with an asterism, above the notes when there are any.
 
 **Don't.** Set a whole paragraph in a quote to make it stand out, or add colored callout boxes.
 
@@ -945,7 +949,7 @@ The previous and next posts, at the end of a post.
 
 In Astro, `<PostNav prev={{ title, href }} next={{ title, href }} />` (`PostLink` in `kit/astro/types.ts`). Previous is the older post, Next the newer one; leave either off at the ends, and it draws nothing when both are off.
 
-- A scotch rule, then a small `muted` label over each post's title, which underlines on hover.
+- A scotch rule, then a 20px `copper-text` label over each post's title, set at 1.75rem in the reading weight, which underlines on hover.
 - Stacked on phones with a 1px `rule` between; two columns from 640px, Next always on the right.
 - The arrows are the font's own glyphs, hidden from screen readers.
 
