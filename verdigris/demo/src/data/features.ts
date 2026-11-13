@@ -8,6 +8,16 @@ import type { Feature } from '@agentic-design-kits/verdigris/types';
 export const features: Feature[] = [
   {
     date: '2026-11-13',
+    title: 'Posts set like a title page',
+    body: 'A blog post now opens on a centered axis: the label in copper between two asterisms, a larger title, the lead in italic and the byline as one line parted by lozenges. The text is a step larger, at a wider measure.',
+    details: [
+      'A post ends with an asterism. Markdown footnotes are styled, with the notes under a rule at the end.',
+      'A post with no picture takes a fleuron between its header and its text.',
+      'Code blocks are smaller beside the larger text, and the site name in the top bar is larger.',
+    ],
+  },
+  {
+    date: '2026-11-13',
     title: 'Verdigris is on npm',
     body: 'The kit is now a package on npm, so a site installs and updates it like any other dependency: `npm install @agentic-design-kits/verdigris`. Swiss Minimal still comes with it.',
     details: [
@@ -17,7 +27,7 @@ export const features: Feature[] = [
     ],
   },
   {
-    date: '2026-11-12',
+    date: '2026-11-13',
     title: 'Type and color',
     body: 'A new page at /type-and-color/ shows every type style and every color token, with its light and dark values and contrast. Copper now has its own utilities: `text-copper-text`, `text-copper-bright` and `text-copper`.',
   },

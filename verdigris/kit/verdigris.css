@@ -40,7 +40,7 @@
   --size-display-split: clamp(4rem, 9.5vw, 9.5rem);
   --size-page-title: clamp(3.5rem, 9vw, 8rem);
   --size-post-feature: clamp(2.75rem, 5.5vw, 5.25rem);
-  --size-post-title: clamp(3rem, 6vw, 5.5rem);
+  --size-post-title: clamp(3.5rem, 7.4vw, 5.75rem);
   --code-sample-size: var(--size-200); /* code on the Beautiful Code page: 20px, as --size-300 runs large here */
   --weight-body: 500;
   --weight-medium: 600;
@@ -105,6 +105,10 @@ body {
 .figure > figcaption, .post-body figcaption { font-style: italic; }
 /* Source Code Pro is far larger on its body than Cormorant, so code steps down to match. */
 code, kbd, samp { font-size: max(0.875rem, 0.8em); }
+/* A code block steps down further than theme.css's 0.9375em, or it reads nearly as large as
+   the text around it: about 20px beside 26px text, as on the Beautiful Code page, never under
+   the 18px floor. */
+pre { font-size: max(var(--size-100), 0.77em); }
 /* Numbers that line up need lining figures; old-style would wander. */
 .num, .chip-count, .panel-tab-num, .num-circle, .post-body ol { font-variant-numeric: lining-nums tabular-nums; }
 
@@ -161,6 +165,12 @@ code, kbd, samp { font-size: max(0.875rem, 0.8em); }
 .mark { flex: none; width: 1.625rem; height: 1.625rem; fill: none; stroke: currentColor; stroke-width: 1.25; stroke-linecap: round; stroke-linejoin: round; }
 
 /* ---------- Reading ---------- */
+/* The site name in the top bar: the shared layout sets it at 16px, under this kit's 18px floor
+   for Cormorant. It takes the floor on phones, where it shares the row with three buttons, and
+   the bar's own 20px from 640px. */
+.topbar-home { font-size: var(--size-100); }
+@media (min-width: 640px) { .topbar-home { font-size: var(--size-200); } }
+
 /* The drop cap is ::first-letter, so the word stays whole for screen readers. */
 .post-body--cap > p:first-of-type::first-letter {
   float: left; padding: 0.5rem 0.75rem 0 0;
@@ -175,3 +185,55 @@ code, kbd, samp { font-size: max(0.875rem, 0.8em); }
 }
 .post-body hr { border-top: 0; height: auto; overflow: visible; text-align: center; }
 .post-body hr::before { content: "\2042"; color: var(--copper-text); font-size: 2.125rem; line-height: 1; }
+
+/* A post is set on a centered axis, like a title page: the label in copper over the title,
+   the lead in italic, and the byline as one quiet line of values parted by lozenges. Its
+   labels (Published, By…) stay in the markup for screen readers. */
+.post-header { display: flex; flex-direction: column; align-items: center; text-align: center; }
+.post-header-label { margin-bottom: 1.25rem; font-size: var(--size-300); color: var(--copper-text); }
+a.post-header-label:hover { color: var(--accent-text); }
+/* An asterism each side of the label. Inline blocks, so the hover underline leaves them out. */
+.post-header-label::before, .post-header-label::after {
+  content: "\2042" / ""; display: inline-block; color: var(--copper-text); text-decoration: none;
+}
+.post-header-label::before { margin-right: 0.5em; }
+.post-header-label::after { margin-left: 0.5em; }
+.post-header-title { line-height: 0.98; letter-spacing: -0.015em; }
+.post-header-lead { max-width: 28em; margin-top: 1.25rem; font-size: clamp(1.625rem, 2.6vw, 2rem); line-height: 1.25; }
+.post-meta {
+  justify-content: center; gap: 0.25rem 1rem;
+  margin-top: 1.25rem; padding-top: 0; border-top: 0; background-image: none;
+  font-size: var(--size-300); color: var(--muted);
+}
+.post-meta > div { display: flex; gap: 1rem; align-items: baseline; }
+.post-meta > div + div::before { content: "\25C6" / ""; color: var(--copper-text); }
+.post-meta dt { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; }
+.post-meta dd { margin: 0; }
+
+/* Body text a step up from the page's, at a 45rem measure. */
+.post-body { max-width: 45rem; }
+.post-body p { font-size: clamp(1.375rem, 2vw, 1.625rem); line-height: 1.52; }
+.post-body blockquote p { font-size: inherit; line-height: inherit; }
+
+/* The end of a piece (.post-body--end): an asterism, then the notes, if any, under a rule. */
+.post-body--end::after, .post-body--end .footnotes::before {
+  content: "\2042" / ""; display: block; margin-top: 2.5rem; text-align: center;
+  color: var(--copper-text); font-size: 2.125rem; line-height: 1;
+}
+.post-body--end:has(.footnotes)::after { content: none; }
+.post-body .footnotes { margin: 0; font-size: var(--size-200); line-height: 1.4; color: var(--muted); }
+.post-body .footnotes::before { margin-bottom: 2rem; }
+.post-body .footnotes ol { margin: 0; padding: 0.75rem 0 0 0; border-top: 1px solid var(--ink); list-style: decimal inside; }
+.post-body .footnotes li::marker { color: var(--copper-text); }
+.post-body .footnotes p { display: inline; font-size: inherit; line-height: inherit; }
+/* The number in the text is a superscript, so it can drop the underline; the way back sits in
+   the note's own text, so it keeps one. */
+.post-body :is([data-footnote-ref], [data-footnote-backref]) { margin-left: 0.125rem; color: var(--accent-text); }
+.post-body [data-footnote-ref] { text-decoration: none; }
+.post-body :is([data-footnote-ref], [data-footnote-backref]):hover { color: var(--copper-text); }
+
+/* The previous and next posts: copper labels over the titles, set in the reading weight. */
+.post-nav { margin-top: 4.5rem; }
+.post-nav a { padding-top: 1.25rem; }
+.post-nav-label { font-size: var(--size-200); color: var(--copper-text); }
+.post-nav-title { font-size: var(--size-500); font-weight: var(--weight-body); letter-spacing: 0; }

@@ -40,7 +40,16 @@ const link = (e?: BlogEntry) => e && { title: e.data.title, href: href(e) };
       minutes={minutes(entry)}
       tags={entry.data.tags}
     />
-    {rosette === 'square' && <Rosette class="mb-12 max-w-2xl" />}
+    {
+      // A post with no picture takes a fleuron in its place: one pause between the header and
+      // the text. With a picture, the picture is that pause.
+      !cover && !rosette && (
+        <div class="rule-fleuron mx-auto mb-10 max-w-[45rem]" aria-hidden="true">
+          ❦
+        </div>
+      )
+    }
+    {rosette === 'square' && <Rosette class="mx-auto mb-12 max-w-2xl" />}
     {
       rosette === 'wide' && (
         <div class="media media--16x9 rosette-crop mb-12">
@@ -64,7 +73,7 @@ const link = (e?: BlogEntry) => e && { title: e.data.title, href: href(e) };
           />
         ) : (
           <Image
-            class="media mb-12 max-w-2xl"
+            class="media mx-auto mb-12 max-w-2xl"
             src={cover}
             alt={entry.data.coverAlt ?? ''}
             widths={[480, 800, 1200]}
@@ -73,7 +82,7 @@ const link = (e?: BlogEntry) => e && { title: e.data.title, href: href(e) };
           />
         ))
     }
-    <div class="post-body post-body--cap">
+    <div class="post-body post-body--cap post-body--end mx-auto">
       <Content />
     </div>
   </article>

@@ -6,7 +6,7 @@ tags: [Color]
 rosette: wide
 ---
 
-Leave copper beside a dish of vinegar and it will change color. The fumes raise a pale blue-green crust on the metal, and for centuries painters scraped that crust off and ground it into a pigment. The name came through French: *vert de Grèce*, the green of Greece.
+Leave copper beside a dish of vinegar and it will change color. The fumes raise a pale blue-green crust on the metal, and for centuries painters scraped that crust off and ground it into a pigment. The name came through French: *vert de Grèce*, the green of Greece.[^1]
 
 It made a brilliant color, and an unstable one. Painted in oil it could drift toward brown over the years, and painters learned to seal it in glazes to slow that down.
 
@@ -17,3 +17,5 @@ The green on an old roof or a bronze statue is a cousin of the pigment, not the 
 ## Two metals
 
 The kit has one accent, verdigris, for the thing that matters on a screen. Copper is the metal underneath it, and it does a smaller job: labels and ornament. Copper never marks an action, so the two never compete.
+
+[^1]: The English word settled into its present spelling long after the French phrase that gave it.
