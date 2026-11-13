@@ -347,12 +347,12 @@ const chips = [
       <p class="flex items-center gap-2 text-2xl"><NumCircle value={1} accent /> <NumCircle value={1} solid accent /></p>
       <p class="small muted mt-8 mb-3">In a list row, at <code>text-sm</code>:</p>
       <ul class="border-t border-rule">
-        <Row num={1} title="Copy the kit" meta="kit/ and fonts/, side by side in src/design/" numStyle="circle" />
+        <Row num={1} title="Install the kit" meta="One npm command, and npm update for the next release" numStyle="circle" />
         <Row num={2} title="Import the stylesheet" meta="One global stylesheet, starting with tailwind.css" numStyle="circle" active />
         <Row num={3} title="Build on BaseLayout" meta="A Hero or a PageTitle on every page" numStyle="circle" />
       </ul>
       <ul class="mt-8 border-t border-rule">
-        <Row num={1} title="Copy the kit" meta="kit/ and fonts/, side by side in src/design/" numStyle="solid" />
+        <Row num={1} title="Install the kit" meta="One npm command, and npm update for the next release" numStyle="solid" />
         <Row num={2} title="Import the stylesheet" meta="One global stylesheet, starting with tailwind.css" numStyle="solid" active />
         <Row num={3} title="Build on BaseLayout" meta="A Hero or a PageTitle on every page" numStyle="solid" />
       </ul>
@@ -394,7 +394,7 @@ const chips = [
   <Section id="text" title="Text and images" range="32–34">
     <ComponentEntry num={n()} name="Code block" classes="pre, .pre--bar">
       <Fragment slot="about">Code in Source Code Pro. Terminal output and logs go on the dark block, the same in both themes.</Fragment>
-      <pre class="mb-4" tabindex="0"><code>@import "../design/kit/tailwind.css";</code></pre>
+      <pre class="mb-4" tabindex="0"><code>@import "@agentic-design-kits/swiss-minimal/tailwind.css";</code></pre>
       <pre class="pre--bar" tabindex="0"><code><span class="pre-cmd">$ npm test</span>
 52 passed (15.7s)
 <span class="pre-err">1 failed: tests/forms.spec.ts</span></code></pre>

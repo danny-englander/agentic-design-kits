@@ -18,9 +18,9 @@ const requests = [
 // A starting AGENTS.md for a site built on the kit. Kept short: it points at the kit's own docs.
 const siteAgents = `# Notes for AI agents
 
-This site uses the Swiss Minimal design kit: src/design/kit,
-with its fonts in src/design/fonts. Before changing a page, read
-the kit's rules and component guide:
+This site uses the Swiss Minimal design kit, installed from npm
+as @agentic-design-kits/swiss-minimal. Before changing a page,
+read the kit's rules and component guide:
 
 - ${doc('DESIGN.md')}
 - ${doc('COMPONENTS.md')}
@@ -33,7 +33,8 @@ the kit's rules and component guide:
 - Colors only through the token utilities (text-muted, bg-bar,
   text-accent-text), never Tailwind's palette.
 - Check each change against the "Do not" list in DESIGN.md.
-- Don't edit src/design/. A fix there belongs in the kit's repository.
+- Don't edit the kit in node_modules/. A fix belongs in the kit's
+  repository.
 - Run the axe tests before calling a change done.`;
 
 const restylePrompt = `Restyle this site with the Swiss Minimal design kit.

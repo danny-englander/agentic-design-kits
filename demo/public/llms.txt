@@ -2,7 +2,7 @@
 
 > A Swiss / Bauhaus design kit for Astro and Tailwind v4: type-led, flat color, thick rules and one typeface (Overused Grotesk) on a cream page, with black ink and one accent, vermilion or verdigris.
 
-The kit is plain CSS (`kit/theme.css`, loaded through `kit/tailwind.css` on a Tailwind v4 site), a few small plain scripts and some Astro components. A site without Tailwind or Astro can link `theme.css` as a stylesheet and copy the components' markup. To use it, copy `kit/` and `fonts/` from the repository into a project's `src/design/`, side by side.
+The kit is plain CSS (`kit/theme.css`, loaded through `kit/tailwind.css` on a Tailwind v4 site), a few small plain scripts and some Astro components. A site without Tailwind or Astro can link `theme.css` as a stylesheet and copy the components' markup. To use it, install it from npm (`npm install @agentic-design-kits/swiss-minimal`) and import from `@agentic-design-kits/swiss-minimal`: `@agentic-design-kits/swiss-minimal/tailwind.css`, `@agentic-design-kits/swiss-minimal/astro/Hero.astro`.
 
 The kit is written for agents to follow: a set of rules, not a library of components to copy and paste. Agents: start with AGENTS.md. It covers the three tasks people bring, which are changing the kit, starting a new site with it and restyling an existing site, and says which other files to read for each one. Every token value is in tokens.json; if theme.css disagrees, tokens.json wins.
 

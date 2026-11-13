@@ -724,7 +724,7 @@ The top of a page: the name in `display`, a `lead` line, and an optional caption
 
   ```astro
   ---
-  import Hero from '../design/kit/astro/Hero.astro';
+  import Hero from '@agentic-design-kits/swiss-minimal/astro/Hero.astro';
   import art from '../assets/art.jpg';
   ---
   <Hero lead="One short line." image={art} alt="What it shows" caption="Credit">
