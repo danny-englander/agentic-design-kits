@@ -8,7 +8,7 @@
   "homepage": "https://verdigris.ch",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/danny-englander/swiss-minimal-design-kit.git",
+    "url": "git+https://github.com/danny-englander/agentic-design-kits.git",
     "directory": "verdigris"
   },
   "keywords": ["design-kit", "css", "astro", "astro-component", "tailwindcss"],

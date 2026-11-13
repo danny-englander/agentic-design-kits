@@ -10,10 +10,10 @@ A design kit your AI agent can implement, for Astro and Tailwind v4: Swiss Minim
 
 It is built on [Swiss Minimal](../README.md) and lives in a folder of its repository. See [Built on Swiss Minimal](#built-on-swiss-minimal).
 
-Each [release](https://github.com/danny-englander/swiss-minimal-design-kit/releases) has the kit attached as a file, `verdigris.tgz`, which npm installs by its address. Replace `TAG` with the newest release's tag, such as `v2026.11.10`:
+Each [release](https://github.com/danny-englander/agentic-design-kits/releases) has the kit attached as a file, `verdigris.tgz`, which npm installs by its address. Replace `TAG` with the newest release's tag, such as `v2026.11.10`:
 
 ```bash
-npm install https://github.com/danny-englander/swiss-minimal-design-kit/releases/download/TAG/verdigris.tgz
+npm install https://github.com/danny-englander/agentic-design-kits/releases/download/TAG/verdigris.tgz
 ```
 
 ```css

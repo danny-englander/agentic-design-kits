@@ -168,7 +168,7 @@ for (const kit of kits) {
   sections.push(`## ${kit.name}\n\n${body}`);
 }
 // How a site takes this release. The files are attached below, under Assets.
-const download = `https://github.com/danny-englander/swiss-minimal-design-kit/releases/download/${tag}`;
+const download = `https://github.com/danny-englander/agentic-design-kits/releases/download/${tag}`;
 sections.push(
   `## Install\n\n\`\`\`sh\nnpm install ${download}/swiss-minimal.tgz\n\`\`\`\n\n` +
     `\`\`\`sh\nnpm install ${download}/verdigris.tgz\n\`\`\`\n\nVerdigris brings Swiss Minimal with it.`,
