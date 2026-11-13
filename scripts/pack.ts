@@ -14,7 +14,7 @@ import { join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const repoRoot = fileURLToPath(new URL('../', import.meta.url));
-const releases = 'https://github.com/danny-englander/swiss-minimal-design-kit/releases/download';
+const releases = 'https://github.com/danny-englander/agentic-design-kits/releases/download';
 
 /** Each kit's folder in the repository, and the name of its file. */
 const kits = [
