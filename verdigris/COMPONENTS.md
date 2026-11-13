@@ -1,6 +1,6 @@
 # Verdigris components
 
-Markup and rules for each component. Sizes in these notes come from Swiss Minimal; `kit/verdigris.css` resets them through tokens, and any label "in capitals" is sentence case here. New parts are in the Ornament sections at the end. All classes live in Swiss Minimal's `theme.css` and in `kit/verdigris.css`, which a Tailwind site loads through `verdigris/tailwind.css`. Where these notes name a shared file as `kit/panel.js` or `kit/astro/Hero.astro`, it is Swiss Minimal's, and a site imports it as `verdigris/panel.js` or `verdigris/astro/Hero.astro`. Add Tailwind utilities beside a kit class for layout and spacing (`class="field mb-7"`); the utility wins.
+Markup and rules for each component. Sizes in these notes come from Swiss Minimal; `kit/verdigris.css` resets them through tokens, and any label "in capitals" is sentence case here. New parts are in the Ornament sections at the end. All classes live in Swiss Minimal's `theme.css` and in `kit/verdigris.css`, which a Tailwind site loads through `@agentic-design-kits/verdigris/tailwind.css`. Where these notes name a shared file as `kit/panel.js` or `kit/astro/Hero.astro`, it is Swiss Minimal's, and a site imports it as `@agentic-design-kits/verdigris/panel.js` or `@agentic-design-kits/verdigris/astro/Hero.astro`. Add Tailwind utilities beside a kit class for layout and spacing (`class="field mb-7"`); the utility wins.
 
 ## TopBar
 
@@ -724,7 +724,7 @@ The top of a page: the name in `display`, a `lead` line, and an optional caption
 
   ```astro
   ---
-  import Hero from 'verdigris/astro/Hero.astro';
+  import Hero from '@agentic-design-kits/verdigris/astro/Hero.astro';
   import art from '../assets/art.jpg';
   ---
   <Hero lead="One short line." image={art} alt="What it shows" caption="Credit">

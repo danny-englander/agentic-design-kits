@@ -1,4 +1,4 @@
-import type { MenuItem } from 'swiss-minimal/types';
+import type { MenuItem } from '@agentic-design-kits/swiss-minimal/types';
 
 // Every page address ends in a slash, as the built site serves it, so a link never costs a
 // redirect.

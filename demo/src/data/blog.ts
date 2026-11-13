@@ -1,5 +1,5 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
-import type { Post } from 'swiss-minimal/types';
+import type { Post } from '@agentic-design-kits/swiss-minimal/types';
 
 export type BlogEntry = CollectionEntry<'blog'>;
 

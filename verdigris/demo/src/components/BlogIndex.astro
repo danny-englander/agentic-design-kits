@@ -2,10 +2,10 @@
 // One page of the blog's index: the featured post on every page, then five of the rest and the
 // pager. /blog/ is page 1; /blog/page/2/ and on come from pages/blog/page/[page].astro.
 import SiteLayout from '../layouts/SiteLayout.astro';
-import PostFeature from 'verdigris/astro/PostFeature.astro';
-import Rosette from 'verdigris/astro/Rosette.astro';
-import PostList from 'verdigris/astro/PostList.astro';
-import Pager from 'verdigris/astro/Pager.astro';
+import PostFeature from '@agentic-design-kits/verdigris/astro/PostFeature.astro';
+import Rosette from '@agentic-design-kits/verdigris/astro/Rosette.astro';
+import PostList from '@agentic-design-kits/verdigris/astro/PostList.astro';
+import Pager from '@agentic-design-kits/verdigris/astro/Pager.astro';
 import { getIndex, pageUrl, toPost, PER_PAGE } from '../data/blog';
 
 interface Props {

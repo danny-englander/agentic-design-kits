@@ -2,7 +2,7 @@
 import SiteLayout from '../../layouts/SiteLayout.astro';
 import Row from '../../components/Row.astro';
 import Section from '../../components/Section.astro';
-import PageTitle from 'verdigris/astro/PageTitle.astro';
+import PageTitle from '@agentic-design-kits/verdigris/astro/PageTitle.astro';
 import { categories, work } from '../../data/work';
 
 const pad = (n: number) => String(n).padStart(2, '0');
@@ -69,7 +69,7 @@ const count = (id: string) => work.filter((w) => w.category === id).length;
 </SiteLayout>
 
 <script>
-  import { getFavorites } from 'verdigris/favorites.js';
+  import { getFavorites } from '@agentic-design-kits/verdigris/favorites.js';
 
   const chips = [...document.querySelectorAll<HTMLButtonElement>('[data-filter]')];
   const rows = [...document.querySelectorAll<HTMLElement>('.row[data-category]')];

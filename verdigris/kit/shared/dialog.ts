@@ -1,2 +1,2 @@
 // Written by scripts/shared.mjs (npm run shared). Do not edit.
-import 'swiss-minimal/dialog.js';
+import '@agentic-design-kits/swiss-minimal/dialog.js';

@@ -1,5 +1,5 @@
 {
-  "name": "swiss-minimal",
+  "name": "@agentic-design-kits/swiss-minimal",
   "version": "0.1.0",
   "private": true,
   "description": "A type-led design kit: plain CSS, a few small scripts and Astro components, for Tailwind v4 sites.",
@@ -11,6 +11,7 @@
     "url": "git+https://github.com/danny-englander/agentic-design-kits.git"
   },
   "keywords": ["design-kit", "css", "astro", "astro-component", "tailwindcss"],
+  "publishConfig": { "access": "public" },
   "type": "module",
   "workspaces": ["demo", "verdigris", "verdigris/demo"],
   "files": ["kit", "fonts", "DESIGN.md", "COMPONENTS.md", "TOOLING.md", "tokens.json"],

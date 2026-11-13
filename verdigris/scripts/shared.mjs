@@ -1,6 +1,6 @@
 // Writes kit/shared/: one small file for each component and script that Verdigris takes from
 // Swiss Minimal as it is, so a site imports everything from this package
-// (`verdigris/astro/Hero.astro`, `verdigris/output.js`) and never names Swiss Minimal.
+// (`@agentic-design-kits/verdigris/astro/Hero.astro`, `@agentic-design-kits/verdigris/output.js`) and never names Swiss Minimal.
 //
 //   npm run shared           write the files (after a component or script is added or removed)
 //   npm run shared:check     fail if they are out of date (CI runs this)
@@ -19,7 +19,7 @@ process.chdir(fileURLToPath(new URL('..', import.meta.url)));
 
 const check = process.argv.includes('--check');
 const require = createRequire(join(process.cwd(), 'package.json'));
-const source = join(dirname(require.resolve('swiss-minimal/package.json')), 'kit');
+const source = join(dirname(require.resolve('@agentic-design-kits/swiss-minimal/package.json')), 'kit');
 const out = 'kit/shared';
 const note = '// Written by scripts/shared.mjs (npm run shared). Do not edit.\n';
 
@@ -27,14 +27,14 @@ const files = new Map();
 const own = new Set(readdirSync('kit/astro').filter((f) => f.endsWith('.astro')));
 for (const f of readdirSync(join(source, 'astro')).filter((f) => f.endsWith('.astro')).sort()) {
   if (own.has(f)) continue;
-  files.set('astro/' + f.replace(/\.astro$/, '.ts'), `${note}export { default } from 'swiss-minimal/astro/${f}';\n`);
+  files.set('astro/' + f.replace(/\.astro$/, '.ts'), `${note}export { default } from '@agentic-design-kits/swiss-minimal/astro/${f}';\n`);
 }
 for (const f of readdirSync(source).filter((f) => f.endsWith('.js')).sort()) {
   // A script with exports passes them on; the others only need to run.
   const exports = /^export /m.test(readFileSync(join(source, f), 'utf8'));
   files.set(
     f.replace(/\.js$/, '.ts'),
-    `${note}${exports ? 'export * from' : 'import'} 'swiss-minimal/${f}';\n`,
+    `${note}${exports ? 'export * from' : 'import'} '@agentic-design-kits/swiss-minimal/${f}';\n`,
   );
 }
 

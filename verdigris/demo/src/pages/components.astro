@@ -5,22 +5,22 @@ import SiteLayout from '../layouts/SiteLayout.astro';
 import Section from '../components/Section.astro';
 import Row from '../components/Row.astro';
 import ComponentEntry from '../components/ComponentEntry.astro';
-import Hero from 'verdigris/astro/Hero.astro';
-import Ellipse from 'verdigris/astro/Ellipse.astro';
-import Mark, { marks } from 'verdigris/astro/Mark.astro';
-import Rosette from 'verdigris/astro/Rosette.astro';
-import NumCircle from 'verdigris/astro/NumCircle.astro';
-import Footer from 'verdigris/astro/Footer.astro';
-import Cta from 'verdigris/astro/Cta.astro';
-import CardGrid from 'verdigris/astro/CardGrid.astro';
-import FilePicker from 'verdigris/astro/FilePicker.astro';
-import SummaryList from 'verdigris/astro/SummaryList.astro';
-import OutputPanel from 'verdigris/astro/OutputPanel.astro';
-import Dialog from 'verdigris/astro/Dialog.astro';
-import FavoriteButton from 'verdigris/astro/FavoriteButton.astro';
-import FeaturesList from 'verdigris/astro/FeaturesList.astro';
-import MenuItems from 'verdigris/astro/MenuItems.astro';
-import type { MenuItem } from 'verdigris/types';
+import Hero from '@agentic-design-kits/verdigris/astro/Hero.astro';
+import Ellipse from '@agentic-design-kits/verdigris/astro/Ellipse.astro';
+import Mark, { marks } from '@agentic-design-kits/verdigris/astro/Mark.astro';
+import Rosette from '@agentic-design-kits/verdigris/astro/Rosette.astro';
+import NumCircle from '@agentic-design-kits/verdigris/astro/NumCircle.astro';
+import Footer from '@agentic-design-kits/verdigris/astro/Footer.astro';
+import Cta from '@agentic-design-kits/verdigris/astro/Cta.astro';
+import CardGrid from '@agentic-design-kits/verdigris/astro/CardGrid.astro';
+import FilePicker from '@agentic-design-kits/verdigris/astro/FilePicker.astro';
+import SummaryList from '@agentic-design-kits/verdigris/astro/SummaryList.astro';
+import OutputPanel from '@agentic-design-kits/verdigris/astro/OutputPanel.astro';
+import Dialog from '@agentic-design-kits/verdigris/astro/Dialog.astro';
+import FavoriteButton from '@agentic-design-kits/verdigris/astro/FavoriteButton.astro';
+import FeaturesList from '@agentic-design-kits/verdigris/astro/FeaturesList.astro';
+import MenuItems from '@agentic-design-kits/verdigris/astro/MenuItems.astro';
+import type { MenuItem } from '@agentic-design-kits/verdigris/types';
 import { features } from '../data/features';
 import hero from '../assets/hero.jpg';
 
@@ -396,7 +396,7 @@ const chips = [
   <Section id="text" title="Text and images" range="32–34">
     <ComponentEntry num={n()} name="Code block" classes="pre, .pre--bar">
       <Fragment slot="about">Code in Source Code Pro. Terminal output and logs go on the dark block, the same in both themes.</Fragment>
-      <pre class="mb-4" tabindex="0"><code>@import "verdigris/tailwind.css";</code></pre>
+      <pre class="mb-4" tabindex="0"><code>@import "@agentic-design-kits/verdigris/tailwind.css";</code></pre>
       <pre class="pre--bar" tabindex="0"><code><span class="pre-cmd">$ npm test</span>
 52 passed (15.7s)
 <span class="pre-err">1 failed: tests/forms.spec.ts</span></code></pre>
