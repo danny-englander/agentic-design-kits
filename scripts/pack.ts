@@ -7,7 +7,8 @@
 //   npm run pack -- --tag v2026.11.10 --out dir  writes them somewhere else
 //
 // Each file holds what the kit's package.json lists under "files", plus its README and the
-// license. The version is the release's date, and Verdigris's copy depends on the Swiss Minimal
+// license. Swiss Minimal's README is kit/README.md, since the one at the repository's root is
+// about both kits; it is the page npmjs.com shows for the package. The version is the release's date, and Verdigris's copy depends on the Swiss Minimal
 // of the same release, so one install brings both. To try the files in a site before they are
 // published, install both at once: npm install ./swiss-minimal.tgz ./verdigris.tgz
 import { execFileSync } from 'node:child_process';
@@ -19,10 +20,10 @@ import { fileURLToPath } from 'node:url';
 const repoRoot = fileURLToPath(new URL('../', import.meta.url));
 const swissMinimal = '@agentic-design-kits/swiss-minimal';
 
-/** Each kit's file name, and its folder in the repository. */
+/** Each kit's file name, its folder in the repository, and its README in that folder. */
 const kits = [
-  { file: 'swiss-minimal', dir: '.' },
-  { file: 'verdigris', dir: 'verdigris' },
+  { file: 'swiss-minimal', dir: '.', readme: 'kit/README.md' },
+  { file: 'verdigris', dir: 'verdigris', readme: 'README.md' },
 ];
 
 /**
@@ -41,13 +42,15 @@ export function versionFor(tag: string): string {
 export function packKits(tag: string, out: string): string[] {
   const version = versionFor(tag);
   mkdirSync(out, { recursive: true });
-  return kits.map(({ file, dir }) => {
+  return kits.map(({ file, dir, readme }) => {
     const from = join(repoRoot, dir);
     const stage = mkdtempSync(join(tmpdir(), `pack-${file}-`));
     try {
       const pkg = JSON.parse(readFileSync(join(from, 'package.json'), 'utf8'));
       for (const entry of pkg.files) cpSync(join(from, entry), join(stage, entry), { recursive: true });
-      cpSync(join(from, 'README.md'), join(stage, 'README.md'));
+      cpSync(join(from, readme), join(stage, 'README.md'));
+      // A README copied in with a folder above moves to the top, so there is only one.
+      if (readme !== 'README.md') rmSync(join(stage, readme), { force: true });
       cpSync(join(repoRoot, 'LICENSE'), join(stage, 'LICENSE'));
       // What only makes sense inside the repository stays out of the packed package.json.
       // "private" is there so that `npm publish` in the repository itself is refused.

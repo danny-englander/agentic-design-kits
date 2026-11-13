@@ -41,7 +41,7 @@ The repository is one npm workspace. Each demo installs its kit as a package thr
 **Swiss Minimal**, at the root:
 
 - [`DESIGN.md`](DESIGN.md), [`COMPONENTS.md`](COMPONENTS.md), [`AGENTS.md`](AGENTS.md) and [`tokens.json`](tokens.json).
-- [`kit/`](kit): `tailwind.css`, `theme.css`, the scripts (`panel.js`, `new-dot.js`, `drawer.js`, `jump.js`, `marquee.js`, `file-pick.js`, `output.js`, `dialog.js`, `favorites.js`, `icon-controls.js`) and the Astro components.
+- [`kit/`](kit): [`README.md`](kit/README.md) (the package's page on npm), `tailwind.css`, `theme.css`, the scripts (`panel.js`, `new-dot.js`, `drawer.js`, `jump.js`, `marquee.js`, `file-pick.js`, `output.js`, `dialog.js`, `favorites.js`, `icon-controls.js`) and the Astro components.
 - [`fonts/`](fonts): Overused Grotesk, and Source Code Pro for code (both SIL OFL 1.1).
 - [`demo/`](demo): the site at swissminimal.ch.
 
