@@ -27,7 +27,7 @@ export const features: Feature[] = [
     ],
   },
   {
-    date: '2026-11-12',
+    date: '2026-11-13',
     title: 'Type and color',
     body: 'A new page at /type-and-color/ shows every type style and every color token, with its light and dark values and contrast. Copper now has its own utilities: `text-copper-text`, `text-copper-bright` and `text-copper`.',
   },
