@@ -101,6 +101,8 @@ body {
 .display, .h2, .page-title-text, .post-feature-title, .post-header-title {
   font-feature-settings: "kern", "liga", "dlig";
 }
+/* Cormorant's tall ascenders and descenders need more room than Swiss Minimal's tight 0.9. */
+.page-title-text { line-height: 1.1; }
 .lead { font-style: italic; font-weight: 300; line-height: 1.22; }
 .figure > figcaption, .post-body figcaption { font-style: italic; }
 /* Source Code Pro is far larger on its body than Cormorant, so code steps down to match. */
