@@ -7,6 +7,11 @@ import type { Feature } from '@agentic-design-kits/verdigris/types';
  */
 export const features: Feature[] = [
   {
+    date: '2026-11-14',
+    title: 'A wide featured post',
+    body: 'The blog now opens with its featured post across the full width, over a 16:9 picture. PostFeature picks this layout for a landscape image and keeps text beside a square one.',
+  },
+  {
     date: '2026-11-13',
     title: 'Every OpenType feature in Cormorant',
     body: 'The Type and color page now shows each of Cormorant’s OpenType features off and on, a playground for trying them together, and the font’s ornaments, arrows and signs.',

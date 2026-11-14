@@ -4,7 +4,8 @@ date: '2026-10-20'
 summary: Verdigris sets everything in Cormorant, and gets its range from light, italic and semibold. Here is what each voice is for.
 tags: [Type]
 featured: true
-rosette: square
+cover: ../../assets/hero-16x9.png
+coverAlt: 'Hand-printed shapes on verdigris-green paper: cream ovals, black bands, a carved column of faces, an orange stripe over fine black lines and a ladder of black bars'
 ---
 
 This kit uses one family, Cormorant, for everything but code. It has more range than that sounds, because a good book face holds several voices.
