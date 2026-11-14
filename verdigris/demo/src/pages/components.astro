@@ -149,7 +149,7 @@ const chips = [
       <CardGrid
         columns={2}
         cards={[
-          { title: 'A type specimen', href: '/work/type-specimen/', summary: 'A one-page specimen for a serif family, set at every size the system uses, from 14px captions up to the display hero. Each line is live text.', tags: ['Design', 'Web'] },
+          { title: 'Type and color', href: '/type-and-color/', summary: 'Every type style and every color token the kit offers, with each token\'s light and dark values and its contrast ratio. Drawn with the kit\'s own classes.', tags: ['Type', 'Color'] },
           { title: 'Field notes', href: '/work/field-notes/', summary: 'A short essay on working with a single typeface, from notes kept over a year of small projects. What one family can carry when weight and size do all the work.', tags: ['Writing'] },
           { title: 'One family, many voices', href: '/blog/one-family/', summary: 'Verdigris sets everything in Cormorant, and gets its range from light, italic and semibold.' },
           { title: 'The green that copper grows', href: '/blog/copper-green/', summary: 'How a pigment made with vinegar gave this theme its name.' },
@@ -405,14 +405,14 @@ const chips = [
       <Fragment slot="about">A plain rectangle on the grid, cropped to a fixed shape, with the caption below.</Fragment>
       <figure class="figure max-w-md">
         <Image
-          class="media media--4x3"
+          class="media media--1x1"
           src={hero}
-          alt="Abstract composition of black, grey and red circles and rectangles divided by black rules"
+          alt="An engine-turned rosette: rings of fine cyan line work around a ring of orange, on a dark ground"
           widths={[480, 800]}
           sizes="(min-width: 1024px) 28rem, 100vw"
           loading="lazy"
         />
-        <figcaption>The home page artwork, cropped to 4:3.</figcaption>
+        <figcaption>The rosette as a picture, cropped to 1:1.</figcaption>
       </figure>
     </ComponentEntry>
     <ComponentEntry num={n()} name="Oval badge" classes=".ellipse, .ellipse--solid, text-sm to text-4xl">

@@ -74,6 +74,43 @@ One family, `--font-sans` (Overused Grotesk, falling back to Helvetica Neue, Hel
 - Long labels that would otherwise be caps take `.prose-sentence`.
 - Code is plain HTML, no class: inline `<code>` sits in the line with no tint behind it; a `<pre>` block is square with a 1px `rule` border and `space-4` padding, and scrolls sideways rather than wrapping (give a long one `tabindex="0"` so the keyboard can scroll it); `<kbd>` is outlined in `currentColor`, like the top-bar buttons. Terminal output and logs go on a dark block (`.pre--bar`), with commands in bold and errors in the accent; see CodeBlock in `COMPONENTS.md`. Monospace never goes beyond code: not for labels, numbers or headings.
 
+### OpenType features
+
+Overused Grotesk has alternate letters, boxed and circled figures and a few numeric features. The kit sets only tabular figures, in `.num`; everything else is off. The demo's Type and color page shows each one off and on.
+
+| Feature | What it changes | Use |
+| --- | --- | --- |
+| `ss01` | Single-storey a | Site-wide, if the site wants a friendlier a |
+| `ss02` | Bottom-curled l | Where l, I and 1 must be told apart: codes, names, tables |
+| `ss03` | Round dots on i, j, umlauts and punctuation | Site-wide, if chosen |
+| `ss04` | Spurless G | Site-wide, if chosen |
+| `ss05` | Straight-legged R | Site-wide, if chosen |
+| `ss06` | Alternative J | Site-wide, if chosen |
+| `ss07` | Alternative y | Site-wide, if chosen |
+| `ss08` | Arcless t | Site-wide, if chosen |
+| `ss09` | Alternative asterisk | Site-wide, if chosen |
+| `ss10` | u with no stem | Site-wide, if chosen |
+| `ss11` | Serif I | With `ss02`, where I and l must be told apart |
+| `cv01`, `cv02` | Figures in solid or outlined squares | Keys and step numbers only, never running text |
+| `cv03`, `cv04` | Figures in solid or outlined circles | Keys and step numbers only, never running text |
+| `cv05` | a with a spur | Site-wide, if chosen; works with `ss01` |
+| `tnum` | Tabular figures | Through `.num`, on numbers that line up in a column |
+| `zero` | Slashed zero | Where 0 and O could be confused: codes, IDs |
+| `frac` | Fractions | On the fraction only |
+| `sups`, `subs` | Superscript, subscript figures | On the figures only |
+
+- **Choose alternates once.** Set a site's alternate letters on `body`, so a letter has one shape everywhere. Don't switch them word by word.
+- **Prefer `font-variant-*`** where it exists: `font-variant-numeric: tabular-nums`, `slashed-zero` or `diagonal-fractions`, and `font-variant-position: super` or `sub`. These combine on their own. Stylistic sets and character variants have no such property, so they need `font-feature-settings`.
+- **`font-feature-settings` replaces, it doesn't add.** Setting it on an element drops every feature it inherited. To let features stack, give each its own custom property and list them all in one rule:
+
+  ```css
+  body { font-feature-settings: var(--ff-ss01, "ss01" 0), var(--ff-ss02, "ss02" 0), var(--ff-zero, "zero" 0); }
+  .codes { --ff-ss02: "ss02" 1; --ff-zero: "zero" 1; }
+  ```
+
+- **Features change looks, not text.** A screen reader reads, and copy and paste gives, the characters typed: a boxed 3 is still "3". Never let a box or circle carry meaning on its own.
+- **Not available:** ligatures, case-sensitive forms, old-style figures and small caps; the font has none. `ss12` changes Bulgarian Cyrillic only. Don't use the slant axis (`slnt`): in this version of the font only some letters slant.
+
 ## Layout
 
 - Content width `page-max` (88rem), centered in `.page`, with `gutter` side padding (1rem, 2rem from 640px).
@@ -89,7 +126,7 @@ One family, `--font-sans` (Overused Grotesk, falling back to Helvetica Neue, Hel
 
 ## Iconography
 
-- **Type and CSS come first.** Draw UI chrome in CSS: the plus/minus is two bars (`.acc-icon`), the menu button is three bars (`.burger`). Use the font's own glyphs where they exist: "Site ↗" (the arrow at 1.3em of the label size), the ▲ / ▼ of a jump button.
+- **Type and CSS come first.** Draw UI chrome in CSS: the plus/minus is two bars (`.acc-icon`), the menu button is three bars (`.burger`). Use the font's own glyphs where they exist: "Site ↗" (the arrow at 1.3em of the label size), the ▲ / ▼ of a jump button. Overused Grotesk has 22 arrows (← ↑ → ↓ ↔ ↕ ↖ ↗ ↘ ↙ ↺ ↻ ⇄ ⇆ ⇋ ⇌ ⇐ ⇑ ⇒ ⇓ ⇔ ⇕) and 23 shapes (▲ △ ▶ ▷ ▼ ▽ ◀ ◁ ■ □ ◆ ◇ ◊ ● ○ ◐ ◑ ◒ ◓ ◢ ◣ ◤ ◥), plus fractions, math signs, currency and typographic marks; the demo's Type and color page shows them all. Use one of these before reaching for an icon set, and give a glyph that acts as a control an `aria-label`, as screen readers read glyphs by their Unicode names.
 - **An icon set is allowed for two things only:**
   1. Third-party brand marks (YouTube, Spotify, Apple Music) where the mark is the clearest label. Use Simple Icons.
   2. A few action icons with no good glyph, such as copy and remove. Use Material Symbols, outline style.

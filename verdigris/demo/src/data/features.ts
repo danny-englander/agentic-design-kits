@@ -7,6 +7,20 @@ import type { Feature } from '@agentic-design-kits/verdigris/types';
  */
 export const features: Feature[] = [
   {
+    date: '2026-11-14',
+    title: 'A wide featured post',
+    body: 'The blog now opens with its featured post across the full width, over a 16:9 picture. PostFeature picks this layout for a landscape image and keeps text beside a square one.',
+  },
+  {
+    date: '2026-11-13',
+    title: 'Every OpenType feature in Cormorant',
+    body: 'The Type and color page now shows each of Cormorant’s OpenType features off and on, a playground for trying them together, and the font’s ornaments, arrows and signs.',
+    details: [
+      'Cormorant is now one variable font file for upright and one for italic, in place of six, so a page downloads about half as much font, and any weight from 300 to 700 is there.',
+      'Sites on the kit get the new font files when they update. Nothing to change in your CSS.',
+    ],
+  },
+  {
     date: '2026-11-13',
     title: 'Posts set like a title page',
     body: 'A blog post now opens on a centered axis: the label in copper between two asterisms, a larger title, the lead in italic and the byline as one line parted by lozenges. The text is a step larger, at a wider measure.',

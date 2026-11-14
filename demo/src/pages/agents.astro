@@ -32,6 +32,9 @@ read the kit's rules and component guide:
   the kit's code colors.
 - Colors only through the token utilities (text-muted, bg-bar,
   text-accent-text), never Tailwind's palette.
+- Before setting font-feature-settings, read "OpenType
+  features" in DESIGN.md: it replaces what an element inherits,
+  so features have to stack.
 - Check each change against the "Do not" list in DESIGN.md.
 - Don't edit the kit in node_modules/. A fix belongs in the kit's
   repository.

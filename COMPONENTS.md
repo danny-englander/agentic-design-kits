@@ -289,6 +289,7 @@ A row of outlined buttons that narrows a list to one category. One choice at a t
 - Announce the result in a polite live region outside the accordion: `<p class="sr-only" aria-live="polite">Showing 5 Writing items</p>`.
 - With `FavoriteStar`, add a **Favorites** chip after All, its count in `<span class="chip-count" data-favorites-count>0</span>`. It filters like a category, using the starred ids. When it shows nothing, say how to add some in a `muted` line under the accordion.
 - Listen for `filter:reset` and go back to All (`JumpToCurrent` sends it when the current item is filtered out).
+- A chip that can't be chosen right now takes `disabled`: it fades to 60% and doesn't fill on hover. Say why near the row.
 
 ## FavoriteStar
 
@@ -833,7 +834,7 @@ In Astro, `<PostList posts={posts} />`, each a `Post` (`title`, `href`, `date`, 
 
 ## PostFeature
 
-One post at the top of a blog's index, set like a split `Hero`: the text and a square image 50/50 from 768px, text first on phones. The `PostList` of the other posts follows it.
+One post at the top of a blog's index, in one of two layouts. **Split**, like a split `Hero`: the text and a square image 50/50 from 768px, text first on phones. **Wide**: the text across the full width, then the image under it at 16:9. The `PostList` of the other posts follows it.
 
 **Markup.**
 
@@ -850,15 +851,15 @@ One post at the top of a blog's index, set like a split `Hero`: the text and a s
 </article>
 ```
 
-In Astro, `<PostFeature post={post} image={art} alt="What it shows" />`, with the same `Post` as `PostList` and an imported image. `label` (default "Featured") and `action` (default "Read post") change the two short labels; `level="h1"` when nothing else on the page is the `h1`.
+In Astro, `<PostFeature post={post} image={art} alt="What it shows" />`, with the same `Post` as `PostList` and an imported image. The image's shape picks the layout: wide for a landscape image, split for a square or portrait one. `layout="wide"` or `layout="split"` overrides it. `label` (default "Featured") and `action` (default "Read post") change the two short labels; `level="h1"` when nothing else on the page is the `h1`.
 
 - It takes a hero's place and space: `space-12` above, more from 768px. A page with a `PostFeature` has no `Hero` or `PageTitle`; give it an `h1` (visually hidden is fine) naming the page.
 - The label is small, bold and `accent-text`; the title is bold and tight at `clamp(2.5rem, 5.5vw, 5rem)`, and underlines (3px) on hover.
 - The primary button is the page's one main action. Its name adds the post's title, so it says where it goes.
-- The image is cropped square (`.media--1x1`) and loads eagerly, like a hero's. A square or portrait original crops best.
+- Split crops the image square (`.media--1x1`); wide crops it 16:9 (`.media--16x9`) and adds `post-feature--wide` to the article, which also gives the summary a longer measure. Either way it loads eagerly, like a hero's. Give wide a landscape original and split a square or portrait one, so the crop takes little.
 - Only one per page. Don't repeat the featured post in the list below it.
 
-**Other media.** `image` and `alt` are optional. To show something other than a raster image, such as an SVG that follows the theme, leave them out and fill the `media` slot: `<PostFeature post={post}><svg slot="media" …></svg></PostFeature>`. Keep it square, and give it its own text alternative if it says anything.
+**Other media.** `image` and `alt` are optional. To show something other than a raster image, such as an SVG that follows the theme, leave them out and fill the `media` slot: `<PostFeature post={post}><svg slot="media" …></svg></PostFeature>`. Keep it square, or 16:9 with `layout="wide"`, and give it its own text alternative if it says anything.
 
 ## Pager
 

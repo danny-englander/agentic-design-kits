@@ -11,16 +11,18 @@
   --ink: #10201f;          /* text and rules, a green-black (14.4:1) */
   --muted: #566460;        /* secondary text (5.3:1) */
   --rule: #c9c5b4;         /* thin row dividers, decorative */
-  --accent: #0f8f8c;       /* verdigris: large shapes and the focus ring only (3.4:1) */
+  --accent: #328f6c;       /* verdigris: large shapes and the focus ring only (3.4:1) */
   --accent-ink: #ffffff;   /* text on a verdigris fill (6.3:1) */
-  --accent-text: #0b6b69;  /* small verdigris text (5.4:1) */
-  --accent-bright: #5fd4cc;/* small verdigris text on bar (8.5:1) */
+  --accent-text: #256a50;  /* small verdigris text (5.5:1) */
+  --accent-bright: #51c297;/* small verdigris text on bar (6.9:1) */
   --copper: #b0612f;       /* large ornament only (3.9:1) */
-  --copper-text: #8f4a22;  /* small ornament and labels (5.7:1) */
-  --copper-bright: #e39a68;/* ornament and labels on bar (6.6:1) */
+  --copper-text: #8f4c1e;  /* small ornament and labels (5.6:1) */
+  --copper-bright: #db8b54;/* ornament and labels on bar (5.7:1) */
   --bar: #0e2a29;          /* dark surfaces stay dark in both themes */
   --bar-ink: #f2ede1;      /* text on bar (13:1) */
   --rosette-line: 0.9;     /* dark lines on paper read thinner than light lines on dark */
+  --rosette-verdigris: #016a41; /* the rosette's outer ring and core; decorative, so no contrast floor */
+  --rosette-copper: #f75b00;    /* the rosette's inner ring */
   --row-hover-bg: var(--bar);
   --row-active-bg: var(--bar);
   --row-fg: var(--bar-ink);
@@ -41,7 +43,7 @@
   --size-page-title: clamp(3.5rem, 9vw, 8rem);
   --size-post-feature: clamp(2.75rem, 5.5vw, 5.25rem);
   --size-post-title: clamp(3.5rem, 7.4vw, 5.75rem);
-  --code-sample-size: var(--size-200); /* code on the Beautiful Code page: 20px, as --size-300 runs large here */
+  --code-sample-size: var(--size-100); /* code on the Beautiful Code page: 18px, as larger sizes run large here */
   --weight-body: 500;
   --weight-medium: 600;
   --weight-strong: 600;
@@ -58,15 +60,18 @@
     --ink: #ece6d8;
     --muted: #a6b5b0;
     --rule: #3a4a47;
-    --accent: #5fd4cc;
+    --accent: #51c297;
     --accent-ink: #0b1716;
-    --accent-text: #5fd4cc;
-    --accent-bright: #5fd4cc;
+    --accent-text: #51c297;
+    --accent-bright: #51c297;
     --copper: #e39a68;
-    --copper-text: #e39a68;
+    --copper-text: #db8b54;
+    --copper-bright: #db8b54;
     --bar: #132c2a;
     --bar-ink: #ece6d8;
     --rosette-line: 0.6;
+    --rosette-verdigris: #43f6b3;
+    --rosette-copper: #f15900;
     --row-hover-bg: #132c2a;
     --row-active-bg: var(--bar);
     --row-fg: var(--ink);
@@ -78,15 +83,18 @@
   --ink: #ece6d8;
   --muted: #a6b5b0;
   --rule: #3a4a47;
-  --accent: #5fd4cc;
+  --accent: #51c297;
   --accent-ink: #0b1716;
-  --accent-text: #5fd4cc;
-  --accent-bright: #5fd4cc;
+  --accent-text: #51c297;
+  --accent-bright: #51c297;
   --copper: #e39a68;
-  --copper-text: #e39a68;
+  --copper-text: #db8b54;
+  --copper-bright: #db8b54;
   --bar: #132c2a;
   --bar-ink: #ece6d8;
   --rosette-line: 0.6;
+  --rosette-verdigris: #43f6b3;
+  --rosette-copper: #f15900;
   --row-hover-bg: #132c2a;
   --row-active-bg: var(--bar);
   --row-fg: var(--ink);
@@ -101,14 +109,16 @@ body {
 .display, .h2, .page-title-text, .post-feature-title, .post-header-title {
   font-feature-settings: "kern", "liga", "dlig";
 }
+/* Cormorant's tall ascenders and descenders need more room than Swiss Minimal's tight 0.9. */
+.page-title-text { line-height: 1.1; }
 .lead { font-style: italic; font-weight: 300; line-height: 1.22; }
 .figure > figcaption, .post-body figcaption { font-style: italic; }
 /* Source Code Pro is far larger on its body than Cormorant, so code steps down to match. */
-code, kbd, samp { font-size: max(0.875rem, 0.8em); }
+code, kbd, samp { font-size: max(0.875rem, 0.72em); }
 /* A code block steps down further than theme.css's 0.9375em, or it reads nearly as large as
-   the text around it: about 20px beside 26px text, as on the Beautiful Code page, never under
+   the text around it: about 18px beside 26px text, as on the Beautiful Code page, never under
    the 18px floor. */
-pre { font-size: max(var(--size-100), 0.77em); }
+pre { font-size: max(var(--size-100), 0.7em); }
 /* Numbers that line up need lining figures; old-style would wander. */
 .num, .chip-count, .panel-tab-num, .num-circle, .post-body ol { font-variant-numeric: lining-nums tabular-nums; }
 
@@ -145,13 +155,13 @@ pre { font-size: max(var(--size-100), 0.77em); }
 .rosette { fill: none; stroke-width: var(--rosette-line); }
 .rosette svg { display: block; width: 100%; height: auto; }
 .rosette-disc { overflow: hidden; }   /* the square's corners swing wider than the page on a phone */
-.rosette-outer, .rosette-core { stroke: var(--accent-text); }
-.rosette-inner { stroke: var(--copper-text); }
+.rosette-outer, .rosette-core { stroke: var(--rosette-verdigris); }
+.rosette-inner { stroke: var(--rosette-copper); }
 /* Under no-preference, so Reduce Motion never starts it. The switch is hidden there too. */
 .rosette-switch { display: none; }
 @media (prefers-reduced-motion: no-preference) {
   .rosette--spin .rosette-switch { display: inline-flex; margin-top: 0.5rem; }
-  .rosette--spin svg { animation: rosette-turn 120s linear infinite; will-change: transform; }
+  .rosette--spin svg { animation: rosette-turn 30s linear infinite; will-change: transform; }
   .rosette--spin:has(.switch:not(:checked)) svg { animation-play-state: paused; }
 }
 @keyframes rosette-turn { to { transform: rotate(360deg); } }

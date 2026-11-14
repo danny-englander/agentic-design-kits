@@ -1,9 +1,10 @@
 ---
-// One post at the top of a blog's index (PostFeature in COMPONENTS.md): text and a square image
-// 50/50 from 768px, stacked text first on phones. Put it where a Hero would go, before the
-// PostList of the other posts. Import the image so Astro knows its size; it is cropped square.
-// For something other than a raster image, such as an SVG that follows the theme, leave out
-// image and alt and fill the media slot instead.
+// One post at the top of a blog's index (PostFeature in COMPONENTS.md), where a Hero would go,
+// before the PostList of the other posts. Two layouts, picked by the image's shape unless
+// `layout` says otherwise: a square or portrait image sits beside the text, 50/50 from 768px and
+// cropped square; a landscape image goes under text that runs the full width, cropped 16:9.
+// Import the image so Astro knows its size. For something other than a raster image, such as an
+// SVG that follows the theme, leave out image and alt and fill the media slot instead.
 import { Image } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 import type { Post } from './types';
@@ -18,8 +19,12 @@ interface Props {
   /** The button's text. One or two words. */
   action?: string;
   level?: 'h1' | 'h2';
+  /** 'split': text beside a square image. 'wide': full-width text over a 16:9 image. By default,
+   * wide for a landscape image and split for any other. */
+  layout?: 'split' | 'wide';
 }
 const { post, image, alt, label = 'Featured', action = 'Read post', level: Title = 'h2' } = Astro.props;
+const wide = (Astro.props.layout ?? (image && image.width > image.height ? 'wide' : 'split')) === 'wide';
 
 // Dates are plain days, so format them in UTC or they can slip back a day.
 const date = new Date(post.date).toLocaleDateString('en-US', {
@@ -30,7 +35,7 @@ const date = new Date(post.date).toLocaleDateString('en-US', {
 });
 ---
 
-<article class="post-feature">
+<article class:list={['post-feature', { 'post-feature--wide': wide }]}>
   <div>
     <p class="post-feature-label">{label}</p>
     <Title class="post-feature-title">
@@ -46,11 +51,11 @@ const date = new Date(post.date).toLocaleDateString('en-US', {
     {
       image && (
         <Image
-          class="media media--1x1"
+          class:list={['media', wide ? 'media--16x9' : 'media--1x1']}
           src={image}
           alt={alt ?? ''}
-          widths={[480, 800, 1200, 1600].filter((w) => w <= image.width)}
-          sizes="(min-width: 768px) 50vw, 100vw"
+          widths={[480, 800, 1200, 1600, 2000].filter((w) => w <= image.width)}
+          sizes={wide ? '(min-width: 88rem) 88rem, 100vw' : '(min-width: 768px) 50vw, 100vw'}
           loading="eager"
           fetchpriority="high"
         />

@@ -420,6 +420,8 @@ html[data-drawer-open] .topbar { --tb-bg: var(--bar); --tb-fg: var(--bar-ink); }
   transition: background-color 150ms, color 150ms;
 }
 .chip:hover, .chip[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.chip:disabled { opacity: 0.6; }                                   /* faded like a disabled .choice */
+.chip:disabled:hover { background: transparent; color: var(--ink); }  /* and it doesn't fill */
 .chip-count { font-size: var(--size-100); font-variant-numeric: tabular-nums; opacity: 0.75; }  /* how many items it shows */
 .chip-group { display: flex; flex-wrap: wrap; gap: 0.5rem; }
 
@@ -729,7 +731,7 @@ html[data-drawer-open] { overflow: hidden; }  /* stop the page scrolling behind 
 .post-list > li:last-child { border-bottom: 0; }
 @media (min-width: 640px) { .post-list > li { grid-template-columns: 10rem minmax(0, 1fr); } }
 .post-list time {
-  font-size: var(--size-100); font-weight: var(--weight-medium); line-height: 1.375;
+  font-size: var(--size-200); font-weight: var(--weight-medium); line-height: 1.375;
   font-variant-numeric: tabular-nums; color: var(--muted);
 }
 @media (min-width: 640px) { .post-list time { padding-top: 0.5rem; } }
@@ -770,7 +772,7 @@ html[data-drawer-open] { overflow: hidden; }  /* stop the page scrolling behind 
 
 /* ---------- Post feature: one post at the top of a blog's index ---------- */
 /* Built like .hero--split: text and a square image 50/50 from 768px, stacked text first on
-   phones, with a hero's space around it. A small accent-text label, the title as a link, the
+   phones, with a hero's space around it (.post-feature--wide, below, stacks it at every width). A small accent-text label, the title as a link, the
    summary in lead size, a meta line and the primary button. The image is cropped square. */
 .post-feature { display: grid; gap: 2.5rem; padding: 3rem 0 4rem 0; }
 @media (min-width: 768px) {
@@ -778,7 +780,7 @@ html[data-drawer-open] { overflow: hidden; }  /* stop the page scrolling behind 
 }
 .post-feature-label {
   margin: 0;
-  font-size: var(--size-100); font-weight: var(--weight-strong); letter-spacing: var(--label-tracking); text-transform: var(--label-case);
+  font-size: var(--size-200); font-weight: var(--weight-strong); letter-spacing: var(--label-tracking); text-transform: var(--label-case);
   color: var(--accent-text);
 }
 .post-feature-title {
@@ -789,8 +791,12 @@ html[data-drawer-open] { overflow: hidden; }  /* stop the page scrolling behind 
 .post-feature-title a { color: inherit; text-decoration: none; }
 .post-feature-title a:hover { text-decoration: underline; text-decoration-thickness: 3px; text-underline-offset: 0.12em; }
 .post-feature-summary { margin: 1.5rem 0 0 0; max-width: 32rem; }
-.post-feature-meta { margin: 1rem 0 0 0; font-size: var(--size-100); line-height: 1.375; color: var(--muted); }
+.post-feature-meta { margin: 1rem 0 0 0; font-size: var(--size-200); line-height: 1.375; color: var(--muted); }
 .post-feature .btn { margin-top: 2rem; text-decoration: none; }
+/* Wide: the text runs the full width, the summary at a longer measure, and the image goes under
+   it cropped 16:9. For a landscape image. */
+@media (min-width: 768px) { .post-feature--wide { grid-template-columns: minmax(0, 1fr); gap: 3.5rem; } }
+.post-feature--wide .post-feature-summary { max-width: 48rem; }
 
 /* ---------- Post header: the top of an article ---------- */
 /* A small label back to the index, the title (between page-title and h2 in size, since titles

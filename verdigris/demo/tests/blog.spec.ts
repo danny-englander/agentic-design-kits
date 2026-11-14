@@ -11,8 +11,7 @@ async function expectFeature(page: import('@playwright/test').Page) {
     'href',
     '/blog/one-family/',
   );
-  // The live rosette, drawn in the theme's colors and hidden from screen readers.
-  await expect(feature.locator('.rosette svg')).toHaveAttribute('aria-hidden', 'true');
+  await expect(feature.locator('img')).toHaveAttribute('alt', /verdigris-green paper/);
 }
 
 test('the index opens with the featured post, then lists five of the rest newest first', async ({ page }) => {
@@ -60,14 +59,24 @@ test('the pager sits under the list on phones, with the numbers under the steps'
   expect(numbers!.y).toBeGreaterThan(step!.y);
 });
 
-test('the feature stacks on a phone and splits 50/50 from 768px', async ({ page }) => {
-  const columns = () =>
-    page.locator('.post-feature').evaluate((el) => getComputedStyle(el).gridTemplateColumns.split(' ').length);
+test('with a landscape cover, the feature runs wide over a 16:9 image', async ({ page }) => {
+  const feature = page.locator('.post-feature');
+  const columns = () => feature.evaluate((el) => getComputedStyle(el).gridTemplateColumns.split(' ').length);
   await page.setViewportSize({ width: 375, height: 812 });
   await page.goto('/blog');
+  await expect(feature).toHaveClass(/post-feature--wide/);
   expect(await columns()).toBe(1);
   await page.setViewportSize({ width: 1024, height: 800 });
-  expect(await columns()).toBe(2);
+  expect(await columns()).toBe(1);
+  // The text runs past the middle, and the image under it keeps 16:9.
+  const [box, title, image] = await Promise.all([
+    feature.boundingBox(),
+    feature.locator('.post-feature-title').boundingBox(),
+    feature.locator('img').boundingBox(),
+  ]);
+  expect(title!.width).toBeGreaterThan(box!.width / 2);
+  expect(image!.y).toBeGreaterThan(title!.y);
+  expect(image!.width / image!.height).toBeCloseTo(16 / 9, 1);
 });
 
 test('a post has its header, byline and body', async ({ page }) => {

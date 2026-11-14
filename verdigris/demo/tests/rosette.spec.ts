@@ -8,7 +8,7 @@ test.describe('with motion allowed', () => {
 
   test('the rosette turns, and its switch stops it', async ({ page }) => {
     await page.goto('/');
-    const toggle = page.getByRole('switch', { name: 'Turn the rosette slowly' });
+    const toggle = page.getByRole('switch', { name: 'Turn the rosette' });
     await expect(toggle).toBeChecked();
     expect(await turning(page)).toBe('running');
     await toggle.uncheck();

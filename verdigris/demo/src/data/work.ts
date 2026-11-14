@@ -32,18 +32,6 @@ const items: WorkItem[] = [
   },
   { title: 'On grids', category: 'writing', year: 2026, meta: 'Essay, 2026' },
   { title: 'Release notes helper', category: 'tools', year: 2026, meta: 'Tool, 2026' },
-  {
-    title: 'A type specimen',
-    category: 'design',
-    year: 2025,
-    slug: 'type-specimen',
-    meta: 'Design, 2025 · Web',
-    site: 'https://example.com/type-specimen',
-    body: [
-      'A one-page specimen for a serif family, set at every size the system uses, from 18px captions up to the display hero.',
-      'Each line is live text, so the specimen doubles as a check that nothing on the page falls under the 18px floor.',
-    ],
-  },
   { title: 'Small tools', category: 'tools', year: 2025, meta: 'Code, 2025' },
   { title: 'Reading list', category: 'writing', year: 2025, meta: 'Notes, 2025' },
   { title: 'Contrast checker', category: 'tools', year: 2025, meta: 'Tool, 2025' },

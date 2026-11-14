@@ -12,7 +12,6 @@ const menu: MenuItem[] = [
         label: 'Projects',
         children: [
           { label: 'Field notes', href: '/work/field-notes/' },
-          { label: 'A type specimen', href: '/work/type-specimen/' },
         ],
       },
     ],
