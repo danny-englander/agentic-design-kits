@@ -289,6 +289,7 @@ A row of outlined buttons that narrows a list to one category. One choice at a t
 - Announce the result in a polite live region outside the accordion: `<p class="sr-only" aria-live="polite">Showing 5 Writing items</p>`.
 - With `FavoriteStar`, add a **Favorites** chip after All, its count in `<span class="chip-count" data-favorites-count>0</span>`. It filters like a category, using the starred ids. When it shows nothing, say how to add some in a `muted` line under the accordion.
 - Listen for `filter:reset` and go back to All (`JumpToCurrent` sends it when the current item is filtered out).
+- A chip that can't be chosen right now takes `disabled`: it fades to 60% and doesn't fill on hover. Say why near the row.
 
 ## FavoriteStar
 
