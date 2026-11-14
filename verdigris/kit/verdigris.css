@@ -11,10 +11,10 @@
   --ink: #10201f;          /* text and rules, a green-black (14.4:1) */
   --muted: #566460;        /* secondary text (5.3:1) */
   --rule: #c9c5b4;         /* thin row dividers, decorative */
-  --accent: #0f8f8c;       /* verdigris: large shapes and the focus ring only (3.4:1) */
+  --accent: #328f6c;       /* verdigris: large shapes and the focus ring only (3.4:1) */
   --accent-ink: #ffffff;   /* text on a verdigris fill (6.3:1) */
-  --accent-text: #0b6b69;  /* small verdigris text (5.4:1) */
-  --accent-bright: #5fd4cc;/* small verdigris text on bar (8.5:1) */
+  --accent-text: #256a50;  /* small verdigris text (5.5:1) */
+  --accent-bright: #51c297;/* small verdigris text on bar (6.9:1) */
   --copper: #b0612f;       /* large ornament only (3.9:1) */
   --copper-text: #8f4a22;  /* small ornament and labels (5.7:1) */
   --copper-bright: #e39a68;/* ornament and labels on bar (6.6:1) */
@@ -60,10 +60,10 @@
     --ink: #ece6d8;
     --muted: #a6b5b0;
     --rule: #3a4a47;
-    --accent: #5fd4cc;
+    --accent: #51c297;
     --accent-ink: #0b1716;
-    --accent-text: #5fd4cc;
-    --accent-bright: #5fd4cc;
+    --accent-text: #51c297;
+    --accent-bright: #51c297;
     --copper: #e39a68;
     --copper-text: #e39a68;
     --bar: #132c2a;
@@ -82,10 +82,10 @@
   --ink: #ece6d8;
   --muted: #a6b5b0;
   --rule: #3a4a47;
-  --accent: #5fd4cc;
+  --accent: #51c297;
   --accent-ink: #0b1716;
-  --accent-text: #5fd4cc;
-  --accent-bright: #5fd4cc;
+  --accent-text: #51c297;
+  --accent-bright: #51c297;
   --copper: #e39a68;
   --copper-text: #e39a68;
   --bar: #132c2a;
