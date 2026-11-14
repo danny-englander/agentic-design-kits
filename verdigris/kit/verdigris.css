@@ -16,12 +16,12 @@
   --accent-text: #256a50;  /* small verdigris text (5.5:1) */
   --accent-bright: #51c297;/* small verdigris text on bar (6.9:1) */
   --copper: #b0612f;       /* large ornament only (3.9:1) */
-  --copper-text: #8f4a22;  /* small ornament and labels (5.7:1) */
-  --copper-bright: #e39a68;/* ornament and labels on bar (6.6:1) */
+  --copper-text: #8f4c1e;  /* small ornament and labels (5.6:1) */
+  --copper-bright: #db8b54;/* ornament and labels on bar (5.7:1) */
   --bar: #0e2a29;          /* dark surfaces stay dark in both themes */
   --bar-ink: #f2ede1;      /* text on bar (13:1) */
   --rosette-line: 0.9;     /* dark lines on paper read thinner than light lines on dark */
-  --rosette-verdigris: #0b6b69; /* the rosette's outer ring and core; decorative, so no contrast floor */
+  --rosette-verdigris: #0b6b46; /* the rosette's outer ring and core; decorative, so no contrast floor */
   --rosette-copper: #f75b00;    /* the rosette's inner ring */
   --row-hover-bg: var(--bar);
   --row-active-bg: var(--bar);
@@ -65,11 +65,12 @@
     --accent-text: #51c297;
     --accent-bright: #51c297;
     --copper: #e39a68;
-    --copper-text: #e39a68;
+    --copper-text: #db8b54;
+    --copper-bright: #db8b54;
     --bar: #132c2a;
     --bar-ink: #ece6d8;
     --rosette-line: 0.6;
-    --rosette-verdigris: #09f4ef;
+    --rosette-verdigris: #09f49b;
     --rosette-copper: #f15900;
     --row-hover-bg: #132c2a;
     --row-active-bg: var(--bar);
@@ -87,11 +88,12 @@
   --accent-text: #51c297;
   --accent-bright: #51c297;
   --copper: #e39a68;
-  --copper-text: #e39a68;
+  --copper-text: #db8b54;
+  --copper-bright: #db8b54;
   --bar: #132c2a;
   --bar-ink: #ece6d8;
   --rosette-line: 0.6;
-  --rosette-verdigris: #09f4ef;
+  --rosette-verdigris: #09f49b;
   --rosette-copper: #f15900;
   --row-hover-bg: #132c2a;
   --row-active-bg: var(--bar);
