@@ -8,6 +8,12 @@ import type { Feature } from '@agentic-design-kits/swiss-minimal/types';
 export const features: Feature[] = [
   {
     date: '2026-11-14',
+    title: 'Footnotes in posts',
+    body: 'A blog post can now carry Markdown footnotes (`[^1]`). The number sits in the text in the accent color, and the notes come at the end of the post under a rule, each with an arrow back to its place.',
+    details: ['The post “Why one typeface is enough” has two: one on a single word, mid-sentence, and one at the end of a sentence.'],
+  },
+  {
+    date: '2026-11-14',
     title: 'A wide featured post',
     body: 'The blog now opens with its featured post across the full width, over a 16:9 picture. PostFeature picks this layout for a landscape image and keeps text beside a square one.',
     details: ['The featured post’s label and date, and the dates in the list of posts, are a step larger.'],
