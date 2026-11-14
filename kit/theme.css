@@ -420,6 +420,8 @@ html[data-drawer-open] .topbar { --tb-bg: var(--bar); --tb-fg: var(--bar-ink); }
   transition: background-color 150ms, color 150ms;
 }
 .chip:hover, .chip[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.chip:disabled { opacity: 0.6; }                                   /* faded like a disabled .choice */
+.chip:disabled:hover { background: transparent; color: var(--ink); }  /* and it doesn't fill */
 .chip-count { font-size: var(--size-100); font-variant-numeric: tabular-nums; opacity: 0.75; }  /* how many items it shows */
 .chip-group { display: flex; flex-wrap: wrap; gap: 0.5rem; }
 
