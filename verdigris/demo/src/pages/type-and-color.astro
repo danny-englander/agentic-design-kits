@@ -4,7 +4,8 @@
 import SiteLayout from '../layouts/SiteLayout.astro';
 import PageTitle from '@agentic-design-kits/verdigris/astro/PageTitle.astro';
 import tokens from '../../../tokens.json';
-import { groups as otGroups, features, cssFor, leftOut, type Feature } from '../data/opentype';
+import { groups as otGroups, features, leftOut, type Feature } from '../data/opentype';
+import { doc } from '../data/prompts';
 
 /** Aa Bb … Zz, for the cards that change letters across the alphabet. */
 const alphabet = Array.from({ length: 26 }, (_, i) => String.fromCharCode(65 + i) + String.fromCharCode(97 + i)).join(' ');
@@ -234,7 +235,7 @@ const groups: { title: string; swatches: Swatch[] }[] = [
           OpenType features are optional glyphs built into the font: ligatures, alternate letters, other kinds of
           figures. CSS switches them on with <code>font-feature-settings</code>, or with a
           <code>font-variant-*</code> property where there is one. Each card shows a feature off and on, then one
-          sample you can switch between the two, then the CSS.
+          sample you can switch between the two.
         </p>
         <p>
           Verdigris already sets a few: <code>ss02</code> on body text, <code>dlig</code> on headings, old-style
@@ -244,6 +245,12 @@ const groups: { title: string; swatches: Swatch[] }[] = [
         <p class="notice">
           Keep ligatures and other heavy features to display text. A ligature can confuse a screen reader, and
           copy and paste, when it stands for more than one letter.
+        </p>
+        <p>
+          <span class="font-semibold">Building a site with an agent?</span> The rules for these features, and how to
+          set them so they stack, are in
+          <a class="link" href={`${doc('DESIGN.md')}#opentype-features`}>DESIGN.md, under OpenType features</a>.
+          Point your agent there rather than copying CSS from this page.
         </p>
       </div>
 
@@ -313,13 +320,6 @@ const groups: { title: string; swatches: Swatch[] }[] = [
                   </div>
                 )}
 
-                <div class="ot-code mt-4">
-                  <pre><code>{cssFor(f)}</code></pre>
-                  <div class="mt-2 flex items-center gap-4">
-                    <button class="btn-outline btn-outline--tertiary" type="button" data-copy>Copy the CSS</button>
-                    <span class="small text-muted" role="status"></span>
-                  </div>
-                </div>
               </article>
             ))}
           </div>
@@ -339,7 +339,7 @@ const groups: { title: string; swatches: Swatch[] }[] = [
       <p class="label text-copper-text">Playground</p>
       <h2 class="h2 mb-4" id="playground">Try them together</h2>
       <p class="mb-10 max-w-3xl">
-        Type something, set the weight and style, and switch features on. The CSS under the sample changes to match.
+        Type something, set the weight and style, and switch features on. The line under the sample shows how they stack.
       </p>
       <form class="grid gap-10 lg:grid-cols-[1fr_2fr]" data-play>
         <div class="flex flex-col gap-8">
@@ -373,13 +373,8 @@ const groups: { title: string; swatches: Swatch[] }[] = [
         </div>
         <div class="min-w-0">
           <p class="ot ot-play" data-play-sample aria-live="off">Agent &amp; Art</p>
-          <div class="ot-code mt-8">
-            <pre><code data-play-code></code></pre>
-            <div class="mt-2 flex items-center gap-4">
-              <button class="btn-outline btn-outline--tertiary" type="button" data-copy>Copy the CSS</button>
-              <span class="small text-muted" role="status"></span>
-            </div>
-          </div>
+          <p class="label mt-8 mb-2">CSS for this sample</p>
+          <pre><code data-play-code></code></pre>
         </div>
       </form>
     </section>
@@ -387,22 +382,6 @@ const groups: { title: string; swatches: Swatch[] }[] = [
 </SiteLayout>
 
 <script>
-  // Copy buttons: copy the code block beside them, and say so.
-  for (const btn of document.querySelectorAll<HTMLButtonElement>('[data-copy]')) {
-    btn.addEventListener('click', async () => {
-      const box = btn.closest('.ot-code');
-      const status = box?.querySelector('[role="status"]');
-      const code = box?.querySelector('code')?.textContent ?? '';
-      try {
-        await navigator.clipboard.writeText(code);
-        if (status) status.textContent = 'Copied';
-      } catch {
-        if (status) status.textContent = 'Could not copy: select the code and copy it';
-      }
-      setTimeout(() => status && (status.textContent = ''), 3000);
-    });
-  }
-
   // Each card's single sample: the button switches it between the font's default and the feature.
   for (const box of document.querySelectorAll<HTMLElement>('[data-ot-compare]')) {
     const btn = box.querySelector<HTMLButtonElement>('[data-ot-toggle]')!;

@@ -16,8 +16,6 @@ export interface Feature {
   sample: Part[];
   /** Which file has it. */
   face: 'both' | 'upright' | 'italic';
-  /** The `font-variant-*` line that does the same, where CSS has one. */
-  variant?: string;
   /** For a feature that is on by default: the card shows it turned off. */
   onByDefault?: boolean;
   /** What the card compares against, when the font's own default already looks like the feature. */
@@ -50,7 +48,6 @@ export const groups: Group[] = [
         does: 'Joins c and t, s and t, s and p, r and t, t and t, f and u, and Q and y. Verdigris sets it on headings already; keep it to display sizes.',
         sample: all('Art, Act, Rest, Aspen, Attic, fun, effusive, Qy, ſt'),
         face: 'both',
-        variant: 'font-variant-ligatures: discretionary-ligatures;',
       },
       {
         tag: 'hlig',
@@ -58,7 +55,6 @@ export const groups: Group[] = [
         does: 'Two old joins: long s with t, and t with z. Display sizes only.',
         sample: all('Blitz, Waltz, Ritz, ſt'),
         face: 'both',
-        variant: 'font-variant-ligatures: historical-ligatures;',
       },
       {
         tag: 'liga',
@@ -67,7 +63,6 @@ export const groups: Group[] = [
         sample: all('office, flight, waffle, affluent'),
         face: 'both',
         onByDefault: true,
-        variant: 'font-variant-ligatures: no-common-ligatures;',
       },
     ],
   },
@@ -189,7 +184,6 @@ export const groups: Group[] = [
         sample: all('Founded in 1984, rebuilt in 2026'),
         baseline: { label: 'Lining figures', value: '"lnum" 1' },
         face: 'both',
-        variant: 'font-variant-numeric: oldstyle-nums;',
       },
       {
         tag: 'lnum',
@@ -197,7 +191,6 @@ export const groups: Group[] = [
         does: 'Figures all the height of a capital.',
         sample: all('Founded in 1984, rebuilt in 2026'),
         face: 'both',
-        variant: 'font-variant-numeric: lining-nums;',
       },
       {
         tag: 'tnum',
@@ -206,7 +199,6 @@ export const groups: Group[] = [
         sample: all(''),
         table: true,
         face: 'both',
-        variant: 'font-variant-numeric: tabular-nums;',
       },
       {
         tag: 'frac',
@@ -214,7 +206,6 @@ export const groups: Group[] = [
         does: 'Sets a figure, a slash and a figure as one fraction.',
         sample: all('1/2 cup, 3/4 inch, 7/8 mile'),
         face: 'both',
-        variant: 'font-variant-numeric: diagonal-fractions;',
       },
       {
         tag: 'zero',
@@ -222,7 +213,6 @@ export const groups: Group[] = [
         does: 'A zero with a slash, so it never reads as the letter O.',
         sample: all('0 O 10 100'),
         face: 'both',
-        variant: 'font-variant-numeric: slashed-zero;',
       },
       {
         tag: 'ordn',
@@ -230,7 +220,6 @@ export const groups: Group[] = [
         does: 'Raises the a and o after a figure, and turns No. into the numero sign.',
         sample: all('No. 5, 1a 2o'),
         face: 'both',
-        variant: 'font-variant-numeric: ordinal;',
       },
       {
         tag: 'sups',
@@ -238,7 +227,6 @@ export const groups: Group[] = [
         does: 'Smaller, raised figures drawn for the job. Apply it to the figures only.',
         sample: [{ text: 'E=mc' }, { text: '2', on: true }, { text: ', 10' }, { text: '6', on: true }],
         face: 'both',
-        variant: 'font-variant-position: super;',
       },
       {
         tag: 'subs',
@@ -246,7 +234,6 @@ export const groups: Group[] = [
         does: 'Smaller, lowered figures drawn for the job. Apply it to the figures only.',
         sample: [{ text: 'H' }, { text: '2', on: true }, { text: 'O, CO' }, { text: '2', on: true }],
         face: 'both',
-        variant: 'font-variant-position: sub;',
       },
     ],
   },
@@ -291,15 +278,6 @@ export const groups: Group[] = [
 
 /** Every feature, in page order, for the playground. */
 export const features = groups.flatMap((g) => g.features);
-
-/** The CSS for one feature: font-feature-settings, and the font-variant line where there is one. */
-export function cssFor(f: Feature): string {
-  const value = f.onByDefault ? 0 : 1;
-  const lines = [`font-feature-settings: "${f.tag}" ${value};`];
-  if (f.variant) lines.push(`/* or */`, f.variant);
-  const target = f.sample.some((p) => p.on) ? '/* On the figures only */\n' : '';
-  return target + lines.join('\n');
-}
 
 /** Present in the font but left off this page, and why. */
 export const leftOut: { tags: string; why: string }[] = [
