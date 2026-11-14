@@ -742,7 +742,7 @@ A title banner in place of a hero, for pages that need a name but not an introdu
 
 **Markup.** `<header class="page-title"><h1 class="page-title-text">All work</h1></header>`. Add `page-title--bar` to set it on a dark `bar` block with `bar-ink` text and an 8px `accent` rule along its bottom edge (plain `accent`, since it is a large shape; vermilion or verdigris with the site).
 
-- Bold, tight, `clamp(3rem, 9vw, 7.5rem)`: smaller than `display`, still the biggest thing on the page. A long word wraps instead of pushing the page sideways.
+- Light (300), `clamp(3.5rem, 9vw, 8rem)`, line height 1.1 to give Cormorant's ascenders and descenders room: smaller than `display`, still the biggest thing on the page. A long word wraps instead of pushing the page sideways.
 - Space like a hero's: `space-12` above, a little less below (more from 768px). No rule under it; the section below starts with its own 2px rule.
 - The bar version spans the container, not the window, and keeps a margin above and below so it reads as a block on the page.
 - One per page, and only on pages without a `Hero`.
