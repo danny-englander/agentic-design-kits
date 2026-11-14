@@ -930,7 +930,7 @@ Long-form text from Markdown: `.post-body` styles the plain elements inside it, 
 - A quote is large, light and italic in `accent-text`, centered between two 1px `rule` lines. Keep quotes short; one or two per post.
 - `hr` is an asterism (⁂) in `copper-text`. Images fill the measure, square, on `rule` until they load. A table has small headings over a 2px rule and 1px rules between rows.
 - Code uses the kit's own `pre` and `code` styles.
-- Markdown footnotes (`[^1]`) are numbered in `accent-text`; the notes sit at the end in 20px `muted` text under a 1px `ink` rule, numbered in `copper-text`.
+- Markdown footnotes (`[^1]`) are numbered in `accent-text`; the notes sit at the end in 20px `muted` text under a 1px `ink` rule, numbered in `copper-text`. A note about one word goes straight after it, mid-sentence and before any punctuation (`seal it in glazes[^2] to slow that down`); a note about a whole sentence goes after its full stop.
 - `.post-body--end` ends the piece with an asterism, above the notes when there are any.
 
 **Don't.** Set a whole paragraph in a quote to make it stand out, or add colored callout boxes.

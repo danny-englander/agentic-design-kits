@@ -928,6 +928,7 @@ Long-form text from Markdown: `.post-body` styles the plain elements inside it, 
 - A quote is large and bold beside a 6px `accent` edge, the same edge as the active row. Keep quotes short; one or two per post.
 - `hr` is a 2px `ink` rule. Images fill the measure, square, on `rule` until they load. A table has small uppercase headings over a 2px rule and 1px rules between rows.
 - Code uses the kit's own `pre` and `code` styles.
+- Markdown footnotes (`[^1]`) are numbered in `accent-text`, with no underline until hover; the notes sit at the end in 16px `muted` text under a 2px `ink` rule, each ending in an underlined `accent-text` arrow back to its number. A note about one word goes straight after it, mid-sentence and before any punctuation (`Overused Grotesk[^1], at two weights`); a note about a whole sentence goes after its full stop.
 
 **Don't.** Set a whole paragraph in a quote to make it stand out, or add colored callout boxes.
 
