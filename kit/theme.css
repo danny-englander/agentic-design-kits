@@ -772,7 +772,7 @@ html[data-drawer-open] { overflow: hidden; }  /* stop the page scrolling behind 
 
 /* ---------- Post feature: one post at the top of a blog's index ---------- */
 /* Built like .hero--split: text and a square image 50/50 from 768px, stacked text first on
-   phones, with a hero's space around it. A small accent-text label, the title as a link, the
+   phones, with a hero's space around it (.post-feature--wide, below, stacks it at every width). A small accent-text label, the title as a link, the
    summary in lead size, a meta line and the primary button. The image is cropped square. */
 .post-feature { display: grid; gap: 2.5rem; padding: 3rem 0 4rem 0; }
 @media (min-width: 768px) {
@@ -793,6 +793,10 @@ html[data-drawer-open] { overflow: hidden; }  /* stop the page scrolling behind 
 .post-feature-summary { margin: 1.5rem 0 0 0; max-width: 32rem; }
 .post-feature-meta { margin: 1rem 0 0 0; font-size: var(--size-200); line-height: 1.375; color: var(--muted); }
 .post-feature .btn { margin-top: 2rem; text-decoration: none; }
+/* Wide: the text runs the full width, the summary at a longer measure, and the image goes under
+   it cropped 16:9. For a landscape image. */
+@media (min-width: 768px) { .post-feature--wide { grid-template-columns: minmax(0, 1fr); gap: 3.5rem; } }
+.post-feature--wide .post-feature-summary { max-width: 48rem; }
 
 /* ---------- Post header: the top of an article ---------- */
 /* A small label back to the index, the title (between page-title and h2 in size, since titles
