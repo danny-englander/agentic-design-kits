@@ -21,7 +21,7 @@
   --bar: #0e2a29;          /* dark surfaces stay dark in both themes */
   --bar-ink: #f2ede1;      /* text on bar (13:1) */
   --rosette-line: 0.9;     /* dark lines on paper read thinner than light lines on dark */
-  --rosette-verdigris: #0b6b46; /* the rosette's outer ring and core; decorative, so no contrast floor */
+  --rosette-verdigris: #016a41; /* the rosette's outer ring and core; decorative, so no contrast floor */
   --rosette-copper: #f75b00;    /* the rosette's inner ring */
   --row-hover-bg: var(--bar);
   --row-active-bg: var(--bar);
@@ -70,7 +70,7 @@
     --bar: #132c2a;
     --bar-ink: #ece6d8;
     --rosette-line: 0.6;
-    --rosette-verdigris: #09f49b;
+    --rosette-verdigris: #43f6b3;
     --rosette-copper: #f15900;
     --row-hover-bg: #132c2a;
     --row-active-bg: var(--bar);
@@ -93,7 +93,7 @@
   --bar: #132c2a;
   --bar-ink: #ece6d8;
   --rosette-line: 0.6;
-  --rosette-verdigris: #09f49b;
+  --rosette-verdigris: #43f6b3;
   --rosette-copper: #f15900;
   --row-hover-bg: #132c2a;
   --row-active-bg: var(--bar);
