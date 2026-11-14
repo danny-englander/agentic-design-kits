@@ -99,7 +99,7 @@ const groups: { title: string; swatches: Swatch[] }[] = [
     </p>
 
     <section class="rule-thick mb-20 pt-6" aria-labelledby="type">
-      <p class="label text-copper-text">Type</p>
+      <p class="label section-label text-copper-text">Type</p>
       <h2 class="h2 mb-8" id="type">Cormorant, set larger and heavier</h2>
       <dl class="border-t border-ink">
         <div class="type-row">
@@ -162,7 +162,7 @@ const groups: { title: string; swatches: Swatch[] }[] = [
     </section>
 
     <section class="rule-thick mb-20 pt-6" aria-labelledby="color">
-      <p class="label text-copper-text">Color</p>
+      <p class="label section-label text-copper-text">Color</p>
       <h2 class="h2 mb-4" id="color">Patina and copper</h2>
       <p class="mb-10 max-w-3xl">
         Each swatch is drawn with its token's utility, so it shows this theme's value. Both values are listed under it,
@@ -197,7 +197,7 @@ const groups: { title: string; swatches: Swatch[] }[] = [
     </section>
 
     <section class="rule-thick mb-20 pt-6" aria-labelledby="in-use">
-      <p class="label text-copper-text">In use</p>
+      <p class="label section-label text-copper-text">In use</p>
       <h2 class="h2 mb-8" id="in-use">Each color doing its job</h2>
       <div class="grid gap-8 md:grid-cols-2">
         <div class="border border-rule p-6">
@@ -229,7 +229,7 @@ const groups: { title: string; swatches: Swatch[] }[] = [
     </section>
 
     <section class="rule-thick mb-20 pt-6" aria-labelledby="opentype">
-      <p class="label text-copper-text">OpenType</p>
+      <p class="label section-label text-copper-text">OpenType</p>
       <h2 class="h2 mb-4" id="opentype">Every feature, off and on</h2>
       <div class="mb-10 max-w-3xl [&>p]:mb-4">
         <p>
@@ -341,7 +341,7 @@ const groups: { title: string; swatches: Swatch[] }[] = [
     </section>
 
     <section class="rule-thick mb-20 pt-6" aria-labelledby="playground">
-      <p class="label text-copper-text">Playground</p>
+      <p class="label section-label text-copper-text">Playground</p>
       <h2 class="h2 mb-4" id="playground">Try them together</h2>
       <p class="mb-10 max-w-3xl">
         Type something, set the weight and style, and switch features on. The line under the sample shows how they stack.
@@ -385,7 +385,7 @@ const groups: { title: string; swatches: Swatch[] }[] = [
     </section>
 
     <section class="rule-thick pt-6" aria-labelledby="glyphs">
-      <p class="label text-copper-text">Glyphs</p>
+      <p class="label section-label text-copper-text">Glyphs</p>
       <h2 class="h2 mb-4" id="glyphs">Ornaments, arrows and signs</h2>
       <p class="mb-10 max-w-3xl">
         Cormorant draws a few ornaments of its own, and the usual arrows, shapes and signs. These are all in the
@@ -476,6 +476,9 @@ const groups: { title: string; swatches: Swatch[] }[] = [
 </script>
 
 <style>
+  /* The label over each section: two steps up from .label's 18px, so it reads at a glance. */
+  .section-label { font-size: var(--size-300); }
+
   .type-row {
     display: grid;
     gap: 0.25rem 2rem;
