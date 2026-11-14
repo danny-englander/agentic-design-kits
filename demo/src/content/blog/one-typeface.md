@@ -4,8 +4,8 @@ date: '2026-10-20'
 summary: A site set in a single grotesque, at two weights, has fewer decisions to get wrong and a clearer voice. Here is what the constraint buys.
 tags: [Type]
 featured: true
-cover: ../../assets/hero.jpg
-coverAlt: An abstract composition of a red circle, black and grey shapes and thin black rules on white
+cover: ../../assets/hero-16x9.png
+coverAlt: A red-and-white house with a white Swiss cross on its gable, on a ridge of rust-red grass, in front of snow-covered peaks under a clear blue sky
 ---
 
 Most sites that look busy are not busy with content. They are busy with type: a display face for headings, a serif for body copy, a third family for buttons, and a scatter of weights in between. Every one of those choices is a small claim on the reader's attention.

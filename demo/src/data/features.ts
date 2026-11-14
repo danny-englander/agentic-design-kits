@@ -7,6 +7,11 @@ import type { Feature } from '@agentic-design-kits/swiss-minimal/types';
  */
 export const features: Feature[] = [
   {
+    date: '2026-11-14',
+    title: 'A wide featured post',
+    body: 'The blog now opens with its featured post across the full width, over a 16:9 picture. PostFeature picks this layout for a landscape image and keeps text beside a square one.',
+  },
+  {
     date: '2026-11-13',
     title: 'Type and color',
     body: 'A new page at /type-and-color/ shows every type style and every color token, with its light and dark values and contrast, for both accents.',
