@@ -10,6 +10,9 @@ export const features: Feature[] = [
     date: '2026-11-13',
     title: 'Type and color',
     body: 'A new page at /type-and-color/ shows every type style and every color token, with its light and dark values and contrast, for both accents.',
+    details: [
+      'It also shows each of Overused Grotesk’s OpenType features off and on, a playground for trying them together at any weight, and the font’s arrows, shapes and other signs.',
+    ],
   },
   {
     date: '2026-11-13',

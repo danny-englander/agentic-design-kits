@@ -4,6 +4,20 @@
 import SiteLayout from '../layouts/SiteLayout.astro';
 import PageTitle from '@agentic-design-kits/swiss-minimal/astro/PageTitle.astro';
 import tokens from '../../../tokens.json';
+import { groups as otGroups, features, leftOut, type Feature } from '../data/opentype';
+import { doc } from '../data/prompts';
+import { glyphGroups, codePoint } from '../data/glyphs';
+
+/** Whether the feature applies to the whole sample, or only to its marked parts. */
+const partial = (f: Feature) => f.sample.some((p) => p.on);
+const on = (f: Feature) => `"${f.tag}" 1`;
+const prices = [
+  ['Coffee', '3.50'],
+  ['Bread', '11.20'],
+  ['Cheese', '7.85'],
+  ['Wine', '18.00'],
+  ['Olives', '4.10'],
+];
 
 type Theme = 'light' | 'dark';
 type Accent = 'vermilion' | 'verdigris';
@@ -126,7 +140,9 @@ const groups: { title: string; accent?: boolean; swatches: Swatch[] }[] = [
           <h3 class="label mb-2">Figures</h3>
           <p class="text-4xl font-bold">1234567890</p>
           <p class="num text-4xl font-bold">1234567890</p>
-          <p class="small muted mt-2">Proportional in text, tabular with <code>.num</code>.</p>
+          <p class="small muted mt-2">
+            Proportional in text, tabular with <code>.num</code>. <a class="link" href="#opentype">Every OpenType feature</a>.
+          </p>
         </div>
         <div class="border-t-2 border-ink pt-3">
           <h3 class="label mb-2">Three weights</h3>
@@ -188,7 +204,7 @@ const groups: { title: string; accent?: boolean; swatches: Swatch[] }[] = [
       }
     </section>
 
-    <section class="rule-thick pt-6" aria-labelledby="in-use">
+    <section class="rule-thick mb-20 pt-6" aria-labelledby="in-use">
       <p class="label text-accent-text">In use</p>
       <h2 class="h2 mb-8" id="in-use">Each color doing its job</h2>
       <div class="grid gap-8 md:grid-cols-2">
@@ -215,8 +231,228 @@ const groups: { title: string; accent?: boolean; swatches: Swatch[] }[] = [
         </div>
       </div>
     </section>
+
+    <section class="rule-thick mb-20 pt-6" aria-labelledby="opentype">
+      <p class="label text-accent-text">OpenType</p>
+      <h2 class="h2 mb-4" id="opentype">Every feature, off and on</h2>
+      <div class="mb-10 max-w-3xl [&>p]:mb-4">
+        <p>
+          OpenType features are optional glyphs built into the font: alternate letters, other kinds of figures,
+          fractions. CSS switches them on with <code>font-feature-settings</code>, or with a
+          <code>font-variant-*</code> property where there is one. Each card shows a feature off and on, then one
+          sample you can switch between the two.
+        </p>
+        <p>
+          The kit sets none of them on text, except tabular figures in <code>.num</code>, so each card starts from
+          the font's own defaults.
+        </p>
+        <p>
+          <span class="font-bold">Features change how text looks, not what it says.</span> A screen reader still
+          reads, and copy and paste still gives, the characters typed. So boxed and circled figures read as plain
+          figures: don't rely on the box or circle to carry meaning.
+        </p>
+        <p>
+          <span class="font-bold">Building a site with an agent?</span> The rules for these features, and how to set
+          them so they stack, are in
+          <a class="link" href={`${doc('DESIGN.md')}#opentype-features`}>DESIGN.md, under OpenType features</a>. Point
+          your agent there rather than copying CSS from this page.
+        </p>
+      </div>
+
+      {
+        otGroups.map((g) => (
+          <div class="mb-16 border-t-2 border-ink pt-4" aria-labelledby={g.id}>
+            <h3 class="title" id={g.id}>{g.title}</h3>
+            {g.intro && <p class="mt-1 max-w-3xl">{g.intro}</p>}
+            {g.compare && (
+              <dl class="ot mt-6 border-b border-rule pb-6">
+                {[undefined, ...g.compare.tags].map((tag) => (
+                  <div class="ot-compare-row">
+                    <dt class="small muted">{tag ? <code>{tag}</code> : 'Default'}</dt>
+                    <dd class="ot-compare-text" style={tag && `font-feature-settings: "${tag}" 1`}>{g.compare!.text}</dd>
+                  </div>
+                ))}
+              </dl>
+            )}
+            {g.features.map((f) => (
+              <article class="ot-card" aria-labelledby={`ot-${f.tag}`}>
+                <h4 class="font-bold" id={`ot-${f.tag}`}>
+                  <code>{f.tag}</code> {f.name}
+                </h4>
+                <p class="mt-1 max-w-3xl">{f.does}</p>
+
+                <div class="mt-5 grid gap-6 md:grid-cols-2">
+                  {[['Off', 'normal'], ['On', on(f)]].map(([label, value]) => (
+                    <div class="border-t border-rule pt-3">
+                      <p class="small mb-2 font-bold">{label}</p>
+                      <div class="ot" style={`--ot-ff: ${value}`}>
+                        {f.table ? (
+                          <table class="ot-table">
+                            <caption class="sr-only">Prices, {label.toLowerCase()}</caption>
+                            <tbody>
+                              {prices.map(([item, price]) => (
+                                <tr>
+                                  <th scope="row">{item}</th>
+                                  <td class="ot-f">{price}</td>
+                                </tr>
+                              ))}
+                            </tbody>
+                          </table>
+                        ) : (
+                          <p class="ot-sample">
+                            {partial(f) ? f.sample.map((p) => (p.on ? <span class="ot-f">{p.text}</span> : p.text)) : <span class="ot-f">{f.sample[0].text}</span>}
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {!f.table && (
+                  <div class="mt-6 border border-rule p-5 md:p-6" data-ot-compare data-on={on(f)}>
+                    <div class="mb-3 flex flex-wrap items-center gap-x-4 gap-y-2">
+                      <button class="chip" type="button" aria-pressed="false" data-ot-toggle>
+                        <code>{f.tag}</code> on
+                      </button>
+                      <span class="small" data-ot-state>Showing: off</span>
+                    </div>
+                    <div class="ot" style="--ot-ff: normal" data-ot-sample>
+                      <p class="ot-sample ot-sample--big">
+                        {partial(f) ? f.sample.map((p) => (p.on ? <span class="ot-f">{p.text}</span> : p.text)) : <span class="ot-f">{f.sample[0].text}</span>}
+                      </p>
+                    </div>
+                  </div>
+                )}
+
+              </article>
+            ))}
+          </div>
+        ))
+      }
+
+      <div class="max-w-3xl border-t-2 border-ink pt-4">
+        <h3 class="title">Left out</h3>
+        <ul class="mt-3 list-disc pl-6">
+          {leftOut.map((l) => <li class="mb-2"><span class="font-bold">{l.tags}.</span> {l.why}</li>)}
+        </ul>
+      </div>
+    </section>
+
+    <section class="rule-thick mb-20 pt-6" aria-labelledby="playground">
+      <p class="label text-accent-text">Playground</p>
+      <h2 class="h2 mb-4" id="playground">Try them together</h2>
+      <p class="mb-10 max-w-3xl">
+        Type something, set the weight, and switch features on. The line under the sample shows how they stack.
+        Overused Grotesk is one variable font, so every weight from 300 to 900 is there.
+      </p>
+      <form class="grid gap-10 lg:grid-cols-[1fr_2fr]" data-play>
+        <div class="flex flex-col gap-8">
+          <div>
+            <label class="field-label" for="play-text">Sample text</label>
+            <input class="field" id="play-text" type="text" value="Agent & Art" autocomplete="off" data-play-text />
+          </div>
+          <div>
+            <label class="field-label" for="play-weight">Weight <output for="play-weight" data-play-weight-out>400</output></label>
+            <input class="mt-3 w-full accent-accent-text" id="play-weight" type="range" min="300" max="900" step="10" value="400" data-play-weight />
+          </div>
+          <fieldset class="min-w-0 border-0 p-0">
+            <legend class="field-label mb-3">Features</legend>
+            <div class="chip-group">
+              {
+                features.map((f) => (
+                  <button class="chip" type="button" aria-pressed="false" data-play-tag={f.tag}>
+                    <code>{f.tag}</code>
+                  </button>
+                ))
+              }
+            </div>
+          </fieldset>
+        </div>
+        <div class="min-w-0">
+          <p class="ot ot-play" data-play-sample>Agent &amp; Art</p>
+          <p class="label mt-8 mb-2">CSS for this sample</p>
+          <pre><code data-play-code></code></pre>
+        </div>
+      </form>
+    </section>
+
+    <section class="rule-thick pt-6" aria-labelledby="glyphs">
+      <p class="label text-accent-text">Glyphs</p>
+      <h2 class="h2 mb-4" id="glyphs">Arrows, shapes and signs</h2>
+      <p class="mb-10 max-w-3xl">
+        Overused Grotesk draws more than letters and figures. These are all in the font, so they match the text
+        around them in weight and size. Reach for an arrow or a triangle here before an icon.
+      </p>
+      {
+        glyphGroups.map((g) => (
+          <div class="mb-12 border-t-2 border-ink pt-4" aria-labelledby={g.id}>
+            <h3 class="title" id={g.id}>{g.title}</h3>
+            <p class="mt-1 max-w-3xl">{g.use}</p>
+            <ul class="glyph-grid mt-5">
+              {[...g.chars].map((c) => (
+                <li>
+                  <span class="glyph">{c}</span>
+                  <span class="small muted num">{codePoint(c)}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+    </section>
   </div>
 </SiteLayout>
+
+<script>
+  // Each card's single sample: the button switches it between the font's default and the feature.
+  for (const box of document.querySelectorAll<HTMLElement>('[data-ot-compare]')) {
+    const btn = box.querySelector<HTMLButtonElement>('[data-ot-toggle]')!;
+    const sample = box.querySelector<HTMLElement>('[data-ot-sample]')!;
+    const state = box.querySelector('[data-ot-state]')!;
+    btn.addEventListener('click', () => {
+      const on = btn.getAttribute('aria-pressed') !== 'true';
+      btn.setAttribute('aria-pressed', String(on));
+      sample.style.setProperty('--ot-ff', on ? box.dataset.on! : 'normal');
+      state.textContent = `Showing: ${on ? 'on' : 'off'}`;
+    });
+  }
+
+  // The playground. Each feature sets its own custom property, and .ot-play lists them all in one
+  // font-feature-settings, so they stack.
+  const form = document.querySelector<HTMLFormElement>('[data-play]');
+  if (form) {
+    const text = form.querySelector<HTMLInputElement>('[data-play-text]')!;
+    const weight = form.querySelector<HTMLInputElement>('[data-play-weight]')!;
+    const weightOut = form.querySelector('[data-play-weight-out]')!;
+    const sample = form.querySelector<HTMLElement>('[data-play-sample]')!;
+    const code = form.querySelector('[data-play-code]')!;
+    const chips = [...form.querySelectorAll<HTMLButtonElement>('[data-play-tag]')];
+
+    const render = () => {
+      for (const chip of chips) {
+        const prop = `--ot-${chip.dataset.playTag}`;
+        if (chip.getAttribute('aria-pressed') === 'true') sample.style.setProperty(prop, `"${chip.dataset.playTag}" 1`);
+        else sample.style.removeProperty(prop);
+      }
+      sample.textContent = text.value || ' ';
+      sample.style.fontWeight = weight.value;
+      weightOut.textContent = weight.value;
+      const on = chips.filter((c) => c.getAttribute('aria-pressed') === 'true');
+      const settings = on.length ? on.map((c) => `"${c.dataset.playTag}" 1`).join(', ') : 'normal';
+      code.textContent = `font-weight: ${weight.value};\nfont-feature-settings: ${settings};`;
+    };
+
+    for (const chip of chips) {
+      chip.addEventListener('click', () => {
+        chip.setAttribute('aria-pressed', String(chip.getAttribute('aria-pressed') !== 'true'));
+        render();
+      });
+    }
+    form.addEventListener('input', render);
+    form.addEventListener('submit', (e) => e.preventDefault());
+    render();
+  }
+</script>
 
 <style>
   .type-row {
@@ -231,4 +467,40 @@ const groups: { title: string; accent?: boolean; swatches: Swatch[] }[] = [
     .type-row { grid-template-columns: 1fr 2fr 1fr; }
   }
   .type-row .display { font-size: clamp(4rem, 9vw, 7rem); }
+
+  /* OpenType samples start from the font's own defaults. .ot-f is the text a feature applies to;
+     its value comes from --ot-ff on the sample. */
+  .ot { font-variant: normal; font-feature-settings: normal; }
+  .ot-f { font-feature-settings: var(--ot-ff, normal); }
+  .ot-card { padding: 2rem 0; border-bottom: 1px solid var(--rule); }
+  .ot-card:last-child { border-bottom: 0; }
+  .ot-sample { font-size: 2.25rem; line-height: 1.2; overflow-wrap: anywhere; }
+  .ot-sample--big { font-size: clamp(2.75rem, 6vw, 4.5rem); line-height: 1.1; }
+  .ot-table { font-size: 2.25rem; line-height: 1.25; border-collapse: collapse; }
+  .ot-table th { padding-right: 2rem; text-align: left; font-weight: inherit; }
+  .ot-table td { text-align: right; }
+  .ot-compare-row { display: grid; align-items: baseline; padding-top: 0.5rem; }
+  @media (min-width: 640px) { .ot-compare-row { grid-template-columns: 5rem 1fr; gap: 1rem; } }
+  /* Boxed and circled figures are about 1em wide each, so ten fit a phone at 7.5vw. */
+  .ot-compare-text { font-size: clamp(1.75rem, 7.5vw, 6rem); font-weight: 700; line-height: 1.15; white-space: nowrap; }
+
+  /* Glyphs: a grid of cells, each the glyph large with its code point under it. */
+  .glyph-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(5.5rem, 1fr)); border-top: 1px solid var(--rule); border-left: 1px solid var(--rule); }
+  .glyph-grid li { display: flex; flex-direction: column; align-items: center; gap: 0.25rem; padding: 0.75rem 0.25rem; border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+  .glyph { font-size: 2.5rem; line-height: 1.2; }
+
+  /* The playground's features stack: each sets its own property, and this lists them all. */
+  .ot-play {
+    font-size: clamp(3rem, 9vw, 7rem);
+    line-height: 1.1;
+    overflow-wrap: anywhere;
+    font-feature-settings:
+      var(--ot-ss01, "ss01" 0), var(--ot-ss02, "ss02" 0), var(--ot-ss03, "ss03" 0), var(--ot-ss04, "ss04" 0),
+      var(--ot-ss05, "ss05" 0), var(--ot-ss06, "ss06" 0), var(--ot-ss07, "ss07" 0), var(--ot-ss08, "ss08" 0),
+      var(--ot-ss09, "ss09" 0), var(--ot-ss10, "ss10" 0), var(--ot-ss11, "ss11" 0),
+      var(--ot-cv01, "cv01" 0), var(--ot-cv02, "cv02" 0), var(--ot-cv03, "cv03" 0), var(--ot-cv04, "cv04" 0),
+      var(--ot-cv05, "cv05" 0),
+      var(--ot-tnum, "tnum" 0), var(--ot-zero, "zero" 0), var(--ot-frac, "frac" 0), var(--ot-sups, "sups" 0),
+      var(--ot-subs, "subs" 0);
+  }
 </style>
