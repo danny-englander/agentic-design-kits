@@ -100,7 +100,7 @@ Cormorant has many optional glyphs. Verdigris already sets these: `kern`, `liga`
 | `onum` / `lnum` | Old-style or lining figures | Old-style is already the default in text; `.num` sets lining |
 | `tnum` | Tabular figures | Through `.num` |
 | `frac` | Fractions | On the fraction only |
-| `zero` | Slashed zero | Where 0 and O could be confused |
+| `zero` | A dot in the zero (Cormorant's form of the slashed zero) | Where 0 and O could be confused |
 | `ordn` | Raised a and o after a figure; No. becomes № | Where the text calls for it |
 | `sups`, `subs` | Superscript, subscript figures | On the figures only |
 | `cv03`, `cv04`, `ss07`, `ss08` | Italic only: two more Q tails, another a, the long-tailed Q before u | In italic, at display sizes |
