@@ -1,17 +1,8 @@
 ---
 // The engraved rosette (see Ornament in DESIGN.md): line work in the two metals, for a page with
 // no picture of its own. Drawn at build time, so it follows the theme. Decorative: aria-hidden.
-function wave(radius: number, depth: number, waves: number, phase: number, points: number) {
-  const at: string[] = [];
-  for (let i = 0; i < points; i += 1) {
-    const angle = (2 * Math.PI * i) / points;
-    const r = radius + depth * Math.sin(waves * angle + phase);
-    at.push(`${(300 + r * Math.cos(angle)).toFixed(1)} ${(300 + r * Math.sin(angle)).toFixed(1)}`);
-  }
-  return `M${at.join('L')}Z`;
-}
-const band = (curves: number, radius: number, depth: number, waves: number, points: number) =>
-  Array.from({ length: curves }, (_, i) => wave(radius, depth, waves, (2 * Math.PI * i) / curves, points)).join('');
+import { rosettePaths } from './rosette.ts';
+
 interface Props {
   class?: string;
   spin?: boolean; // Turns slowly, with a switch to stop it (WCAG 2.2.2). Never with Reduce Motion.
@@ -22,9 +13,9 @@ const { class: className, spin = false } = Astro.props;
 <div class:list={['rosette', { 'rosette--spin': spin }, className]}>
   <div class="rosette-disc">
     <svg viewBox="0 0 600 600" aria-hidden="true">
-      <path class="rosette-outer" d={band(12, 262, 24, 18, 216)}></path>
-      <path class="rosette-inner" d={band(12, 150, 46, 9, 126)}></path>
-      <path class="rosette-core" d={band(8, 52, 20, 6, 72)}></path>
+      <path class="rosette-outer" d={rosettePaths.outer}></path>
+      <path class="rosette-inner" d={rosettePaths.inner}></path>
+      <path class="rosette-core" d={rosettePaths.core}></path>
     </svg>
   </div>
   {spin && <label class="choice rosette-switch"><input class="switch" type="checkbox" role="switch" checked /> Turn the rosette</label>}
