@@ -305,13 +305,17 @@ const groups: { title: string; swatches: Swatch[] }[] = [
                 </div>
 
                 {!f.table && (
-                  <div class="mt-6 border border-rule p-5 md:p-6" data-ot-compare data-off={states(f)[0].value} data-on={states(f)[1].value} data-label-off={states(f)[0].label} data-label-on={states(f)[1].label}>
-                    <div class="mb-3 flex flex-wrap items-center gap-x-4 gap-y-2">
-                      <button class="chip" type="button" aria-pressed="false" data-ot-toggle>
-                        <code>{f.tag}</code> {f.onByDefault ? 'off' : 'on'}
-                      </button>
-                      <span class="small" data-ot-state>Showing: {states(f)[0].label.toLowerCase()}</span>
-                    </div>
+                  <div
+                    class="mt-6 border border-rule p-5 md:p-6"
+                    data-ot-compare
+                    data-on={f.onByDefault ? states(f)[0].value : states(f)[1].value}
+                    data-off={f.onByDefault ? states(f)[1].value : states(f)[0].value}
+                  >
+                    <label class="choice mb-3">
+                      <input class="switch" type="checkbox" role="switch" checked={f.onByDefault} data-ot-toggle />
+                      <code>{f.tag}</code>
+                      <span class="sr-only">{f.name}</span>
+                    </label>
                     <div class:list={['ot', f.face === 'italic' && 'italic']} style={`--ot-ff: ${states(f)[0].value}`} data-ot-sample>
                       <p class="ot-sample ot-sample--big">
                         {partial(f) ? f.sample.map((p) => (p.on ? <span class="ot-f">{p.text}</span> : p.text)) : <span class="ot-f">{f.sample[0].text}</span>}
@@ -382,17 +386,14 @@ const groups: { title: string; swatches: Swatch[] }[] = [
 </SiteLayout>
 
 <script>
-  // Each card's single sample: the button switches it between the font's default and the feature.
+  // Each card's single sample: the switch turns the feature on and off. Set from the switch on
+  // load too, in case the browser restored a switch's state from an earlier visit.
   for (const box of document.querySelectorAll<HTMLElement>('[data-ot-compare]')) {
-    const btn = box.querySelector<HTMLButtonElement>('[data-ot-toggle]')!;
+    const toggle = box.querySelector<HTMLInputElement>('[data-ot-toggle]')!;
     const sample = box.querySelector<HTMLElement>('[data-ot-sample]')!;
-    const state = box.querySelector('[data-ot-state]')!;
-    btn.addEventListener('click', () => {
-      const on = btn.getAttribute('aria-pressed') !== 'true';
-      btn.setAttribute('aria-pressed', String(on));
-      sample.style.setProperty('--ot-ff', on ? box.dataset.on! : box.dataset.off!);
-      state.textContent = `Showing: ${(on ? box.dataset.labelOn : box.dataset.labelOff)!.toLowerCase()}`;
-    });
+    const apply = () => sample.style.setProperty('--ot-ff', toggle.checked ? box.dataset.on! : box.dataset.off!);
+    toggle.addEventListener('change', apply);
+    apply();
   }
 
   // The playground. Each feature sets its own custom property, and .ot-play lists them all in one

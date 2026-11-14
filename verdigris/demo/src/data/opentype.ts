@@ -209,8 +209,8 @@ export const groups: Group[] = [
       },
       {
         tag: 'zero',
-        name: 'Slashed zero',
-        does: 'A zero with a slash, so it never reads as the letter O.',
+        name: 'Dotted zero',
+        does: 'A zero with a dot in its middle, so it never reads as the letter O. The feature is called slashed zero, but Cormorant marks its zero with a dot.',
         sample: all('0 O 10 100'),
         face: 'both',
       },
