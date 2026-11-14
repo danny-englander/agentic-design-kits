@@ -791,7 +791,7 @@ html[data-drawer-open] { overflow: hidden; }  /* stop the page scrolling behind 
 .post-feature-title a { color: inherit; text-decoration: none; }
 .post-feature-title a:hover { text-decoration: underline; text-decoration-thickness: 3px; text-underline-offset: 0.12em; }
 .post-feature-summary { margin: 1.5rem 0 0 0; max-width: 32rem; }
-.post-feature-meta { margin: 1rem 0 0 0; font-size: var(--size-100); line-height: 1.375; color: var(--muted); }
+.post-feature-meta { margin: 1rem 0 0 0; font-size: var(--size-200); line-height: 1.375; color: var(--muted); }
 .post-feature .btn { margin-top: 2rem; text-decoration: none; }
 
 /* ---------- Post header: the top of an article ---------- */
