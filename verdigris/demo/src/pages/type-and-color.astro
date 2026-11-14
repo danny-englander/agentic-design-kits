@@ -4,6 +4,24 @@
 import SiteLayout from '../layouts/SiteLayout.astro';
 import PageTitle from '@agentic-design-kits/verdigris/astro/PageTitle.astro';
 import tokens from '../../../tokens.json';
+import { groups as otGroups, features, cssFor, leftOut, type Feature } from '../data/opentype';
+
+/** Aa Bb … Zz, for the cards that change letters across the alphabet. */
+const alphabet = Array.from({ length: 26 }, (_, i) => String.fromCharCode(65 + i) + String.fromCharCode(97 + i)).join(' ');
+/** A feature's two states: the font's default, then the card's change. */
+const states = (f: Feature) => [
+  f.baseline ?? { label: f.onByDefault ? 'On, the default' : 'Off', value: 'normal' },
+  { label: f.onByDefault ? 'Off' : f.baseline ? `${f.name}, on` : 'On', value: `"${f.tag}" ${f.onByDefault ? 0 : 1}` },
+];
+/** Whether the feature applies to the whole sample, or only to its marked parts. */
+const partial = (f: Feature) => f.sample.some((p) => p.on);
+const prices = [
+  ['Coffee', '3.50'],
+  ['Bread', '11.20'],
+  ['Cheese', '7.85'],
+  ['Wine', '18.00'],
+  ['Olives', '4.10'],
+];
 
 type Theme = 'light' | 'dark';
 const values = new Map(tokens.color.tokens.map((t) => [t.name, t.value as Record<Theme, string>]));
@@ -134,7 +152,9 @@ const groups: { title: string; swatches: Swatch[] }[] = [
           <h3 class="label mb-2">Letterforms</h3>
           <p class="text-4xl font-light [font-feature-settings:'hlig','dlig','liga']">fifth, strict, act</p>
           <p class="text-4xl font-light [font-feature-settings:'ss01']">Queen Quartz</p>
-          <p class="small text-muted mt-2">Ligatures and calligraphic forms, for display sizes only.</p>
+          <p class="small text-muted mt-2">
+            Ligatures and calligraphic forms, for display sizes only. <a class="link" href="#opentype">Every feature, off and on</a>.
+          </p>
         </div>
       </div>
     </section>
@@ -174,7 +194,7 @@ const groups: { title: string; swatches: Swatch[] }[] = [
       }
     </section>
 
-    <section class="rule-thick pt-6" aria-labelledby="in-use">
+    <section class="rule-thick mb-20 pt-6" aria-labelledby="in-use">
       <p class="label text-copper-text">In use</p>
       <h2 class="h2 mb-8" id="in-use">Each color doing its job</h2>
       <div class="grid gap-8 md:grid-cols-2">
@@ -205,8 +225,249 @@ const groups: { title: string; swatches: Swatch[] }[] = [
         </div>
       </div>
     </section>
+
+    <section class="rule-thick mb-20 pt-6" aria-labelledby="opentype">
+      <p class="label text-copper-text">OpenType</p>
+      <h2 class="h2 mb-4" id="opentype">Every feature, off and on</h2>
+      <div class="mb-10 max-w-3xl [&>p]:mb-4">
+        <p>
+          OpenType features are optional glyphs built into the font: ligatures, alternate letters, other kinds of
+          figures. CSS switches them on with <code>font-feature-settings</code>, or with a
+          <code>font-variant-*</code> property where there is one. Each card shows a feature off and on, then one
+          sample you can switch between the two, then the CSS.
+        </p>
+        <p>
+          Verdigris already sets a few: <code>ss02</code> on body text, <code>dlig</code> on headings, old-style
+          figures in text and lining tabular figures in <code>.num</code>. The samples here start from the font's
+          own defaults, so each card shows one feature alone.
+        </p>
+        <p class="notice">
+          Keep ligatures and other heavy features to display text. A ligature can confuse a screen reader, and
+          copy and paste, when it stands for more than one letter.
+        </p>
+      </div>
+
+      {
+        otGroups.map((g) => (
+          <div class="mb-16 border-t-2 border-ink pt-4" aria-labelledby={g.id}>
+            <h3 class="title" id={g.id}>{g.title}</h3>
+            {g.intro && <p class="mt-1 max-w-3xl">{g.intro}</p>}
+            {g.trio && (
+              <ul class:list={['ot ot-trio mt-6 grid grid-cols-3 gap-4 border-b border-rule pb-6 text-center', g.trio.italic && 'italic']}>
+                {[undefined, ...g.trio.tags].map((tag) => (
+                  <li>
+                    <span class="ot-trio-glyph" style={tag && `font-feature-settings: "${tag}" 1`}>{g.trio!.glyph}</span>
+                    <span class="small block text-muted">{tag ? <code>{tag}</code> : 'Default'}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
+            {g.features.map((f) => (
+              <article class="ot-card" aria-labelledby={`ot-${f.tag}`}>
+                <h4 class="font-semibold" id={`ot-${f.tag}`}>
+                  <code>{f.tag}</code> {f.name}
+                </h4>
+                <p class="mt-1 max-w-3xl">{f.does}</p>
+
+                <div class="mt-5 grid gap-6 md:grid-cols-2">
+                  {states(f).map((s) => (
+                    <div class="border-t border-rule pt-3">
+                      <p class="small mb-2 font-semibold">{s.label}</p>
+                      <div class:list={['ot', f.face === 'italic' && 'italic']} style={`--ot-ff: ${s.value}`}>
+                        {f.table ? (
+                          <table class="ot-table">
+                            <caption class="sr-only">Prices, {s.label.toLowerCase()}</caption>
+                            <tbody>
+                              {prices.map(([item, price]) => (
+                                <tr>
+                                  <th scope="row">{item}</th>
+                                  <td class="ot-f">{price}</td>
+                                </tr>
+                              ))}
+                            </tbody>
+                          </table>
+                        ) : (
+                          <p class="ot-sample">
+                            {partial(f) ? f.sample.map((p) => (p.on ? <span class="ot-f">{p.text}</span> : p.text)) : <span class="ot-f">{f.sample[0].text}</span>}
+                          </p>
+                        )}
+                        {f.alphabet && <p class="ot-alpha ot-f">{alphabet}</p>}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {!f.table && (
+                  <div class="mt-6 border border-rule p-5 md:p-6" data-ot-compare data-off={states(f)[0].value} data-on={states(f)[1].value} data-label-off={states(f)[0].label} data-label-on={states(f)[1].label}>
+                    <div class="mb-3 flex flex-wrap items-center gap-x-4 gap-y-2">
+                      <button class="chip" type="button" aria-pressed="false" data-ot-toggle>
+                        <code>{f.tag}</code> {f.onByDefault ? 'off' : 'on'}
+                      </button>
+                      <span class="small" data-ot-state>Showing: {states(f)[0].label.toLowerCase()}</span>
+                    </div>
+                    <div class:list={['ot', f.face === 'italic' && 'italic']} style={`--ot-ff: ${states(f)[0].value}`} data-ot-sample>
+                      <p class="ot-sample ot-sample--big">
+                        {partial(f) ? f.sample.map((p) => (p.on ? <span class="ot-f">{p.text}</span> : p.text)) : <span class="ot-f">{f.sample[0].text}</span>}
+                      </p>
+                    </div>
+                  </div>
+                )}
+
+                <div class="ot-code mt-4">
+                  <pre><code>{cssFor(f)}</code></pre>
+                  <div class="mt-2 flex items-center gap-4">
+                    <button class="btn-outline btn-outline--tertiary" type="button" data-copy>Copy the CSS</button>
+                    <span class="small text-muted" role="status"></span>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        ))
+      }
+
+      <div class="max-w-3xl border-t-2 border-ink pt-4">
+        <h3 class="title">Left out</h3>
+        <p class="mt-1">The font has these too. They are not on this page:</p>
+        <ul class="mt-3 list-disc pl-6">
+          {leftOut.map((l) => <li class="mb-2"><span class="font-semibold">{l.tags}.</span> {l.why}</li>)}
+        </ul>
+      </div>
+    </section>
+
+    <section class="rule-thick pt-6" aria-labelledby="playground">
+      <p class="label text-copper-text">Playground</p>
+      <h2 class="h2 mb-4" id="playground">Try them together</h2>
+      <p class="mb-10 max-w-3xl">
+        Type something, set the weight and style, and switch features on. The CSS under the sample changes to match.
+      </p>
+      <form class="grid gap-10 lg:grid-cols-[1fr_2fr]" data-play>
+        <div class="flex flex-col gap-8">
+          <div>
+            <label class="field-label" for="play-text">Sample text</label>
+            <input class="field" id="play-text" type="text" value="Agent & Art" autocomplete="off" data-play-text />
+          </div>
+          <div>
+            <label class="field-label" for="play-weight">Weight <output for="play-weight" data-play-weight-out>300</output></label>
+            <input class="mt-3 w-full accent-accent-text" id="play-weight" type="range" min="300" max="700" step="10" value="300" data-play-weight />
+          </div>
+          <fieldset class="choice-group choice-group--row">
+            <legend class="field-label">Style</legend>
+            <label class="choice"><input class="radio" type="radio" name="play-style" value="normal" checked data-play-style /> Upright</label>
+            <label class="choice"><input class="radio" type="radio" name="play-style" value="italic" data-play-style /> Italic</label>
+          </fieldset>
+          <fieldset class="min-w-0 border-0 p-0">
+            <legend class="field-label mb-3">Features</legend>
+            <div class="chip-group">
+              {
+                features.map((f) => (
+                  <button class="chip" type="button" aria-pressed="false" data-play-tag={f.tag} data-face={f.face} data-value={f.onByDefault ? 0 : 1}>
+                    <code>{f.tag}</code>
+                    {f.onByDefault && ' off'}
+                  </button>
+                ))
+              }
+            </div>
+            <p class="small mt-3 text-muted" data-play-note aria-live="polite"></p>
+          </fieldset>
+        </div>
+        <div class="min-w-0">
+          <p class="ot ot-play" data-play-sample aria-live="off">Agent &amp; Art</p>
+          <div class="ot-code mt-8">
+            <pre><code data-play-code></code></pre>
+            <div class="mt-2 flex items-center gap-4">
+              <button class="btn-outline btn-outline--tertiary" type="button" data-copy>Copy the CSS</button>
+              <span class="small text-muted" role="status"></span>
+            </div>
+          </div>
+        </div>
+      </form>
+    </section>
   </div>
 </SiteLayout>
+
+<script>
+  // Copy buttons: copy the code block beside them, and say so.
+  for (const btn of document.querySelectorAll<HTMLButtonElement>('[data-copy]')) {
+    btn.addEventListener('click', async () => {
+      const box = btn.closest('.ot-code');
+      const status = box?.querySelector('[role="status"]');
+      const code = box?.querySelector('code')?.textContent ?? '';
+      try {
+        await navigator.clipboard.writeText(code);
+        if (status) status.textContent = 'Copied';
+      } catch {
+        if (status) status.textContent = 'Could not copy: select the code and copy it';
+      }
+      setTimeout(() => status && (status.textContent = ''), 3000);
+    });
+  }
+
+  // Each card's single sample: the button switches it between the font's default and the feature.
+  for (const box of document.querySelectorAll<HTMLElement>('[data-ot-compare]')) {
+    const btn = box.querySelector<HTMLButtonElement>('[data-ot-toggle]')!;
+    const sample = box.querySelector<HTMLElement>('[data-ot-sample]')!;
+    const state = box.querySelector('[data-ot-state]')!;
+    btn.addEventListener('click', () => {
+      const on = btn.getAttribute('aria-pressed') !== 'true';
+      btn.setAttribute('aria-pressed', String(on));
+      sample.style.setProperty('--ot-ff', on ? box.dataset.on! : box.dataset.off!);
+      state.textContent = `Showing: ${(on ? box.dataset.labelOn : box.dataset.labelOff)!.toLowerCase()}`;
+    });
+  }
+
+  // The playground. Each feature sets its own custom property, and .ot-play lists them all in one
+  // font-feature-settings, so they stack.
+  const form = document.querySelector<HTMLFormElement>('[data-play]');
+  if (form) {
+    const text = form.querySelector<HTMLInputElement>('[data-play-text]')!;
+    const weight = form.querySelector<HTMLInputElement>('[data-play-weight]')!;
+    const weightOut = form.querySelector('[data-play-weight-out]')!;
+    const sample = form.querySelector<HTMLElement>('[data-play-sample]')!;
+    const code = form.querySelector('[data-play-code]')!;
+    const note = form.querySelector('[data-play-note]')!;
+    const chips = [...form.querySelectorAll<HTMLButtonElement>('[data-play-tag]')];
+    const style = () => form.querySelector<HTMLInputElement>('[data-play-style]:checked')!.value;
+
+    const render = () => {
+      const italic = style() === 'italic';
+      const missing: string[] = [];
+      for (const chip of chips) {
+        const face = chip.dataset.face;
+        const absent = (italic && face === 'upright') || (!italic && face === 'italic');
+        chip.disabled = absent;
+        if (absent) {
+          chip.setAttribute('aria-pressed', 'false');
+          missing.push(chip.dataset.playTag!);
+        }
+        const on = chip.getAttribute('aria-pressed') === 'true';
+        const prop = `--ot-${chip.dataset.playTag}`;
+        if (on) sample.style.setProperty(prop, `"${chip.dataset.playTag}" ${chip.dataset.value}`);
+        else sample.style.removeProperty(prop);
+      }
+      note.textContent = missing.length
+        ? `Not in the ${italic ? 'italic' : 'upright'}: ${missing.join(', ')}.`
+        : '';
+      sample.textContent = text.value || ' ';
+      sample.style.fontWeight = weight.value;
+      sample.style.fontStyle = style();
+      weightOut.textContent = weight.value;
+      const on = chips.filter((c) => c.getAttribute('aria-pressed') === 'true');
+      const settings = on.length ? on.map((c) => `"${c.dataset.playTag}" ${c.dataset.value}`).join(', ') : 'normal';
+      code.textContent = `font-weight: ${weight.value};\nfont-style: ${style()};\nfont-feature-settings: ${settings};`;
+    };
+
+    for (const chip of chips) {
+      chip.addEventListener('click', () => {
+        chip.setAttribute('aria-pressed', String(chip.getAttribute('aria-pressed') !== 'true'));
+        render();
+      });
+    }
+    form.addEventListener('input', render);
+    form.addEventListener('submit', (e) => e.preventDefault());
+    render();
+  }
+</script>
 
 <style>
   .type-row {
@@ -221,4 +482,34 @@ const groups: { title: string; swatches: Swatch[] }[] = [
     .type-row { grid-template-columns: 1fr 2fr 1fr; }
   }
   .type-row .display { font-size: clamp(4.75rem, 9vw, 7rem); }
+
+  /* OpenType samples start from the font's own defaults: no inherited ss02 or old-style figures.
+     .ot-f is the text a feature applies to; its value comes from --ot-ff on the sample. */
+  .ot { font-variant: normal; font-feature-settings: normal; }
+  .ot-f { font-feature-settings: var(--ot-ff, normal); }
+  .ot-card { padding: 2rem 0; border-bottom: 1px solid var(--rule); }
+  .ot-card:last-child { border-bottom: 0; }
+  .ot-sample { font-size: 2.25rem; font-weight: 300; line-height: 1.2; overflow-wrap: anywhere; }
+  .ot-sample--big { font-size: clamp(2.75rem, 6vw, 4.5rem); line-height: 1.1; }
+  .ot-alpha { margin-top: 1rem; font-size: 1.875rem; font-weight: 300; line-height: 1.35; }
+  .ot-table { font-size: 2.25rem; font-weight: 300; line-height: 1.25; border-collapse: collapse; }
+  .ot-table th { padding-right: 2rem; text-align: left; font-weight: 300; }
+  .ot-table td { text-align: right; }
+  .ot-trio-glyph { display: block; font-size: clamp(6rem, 18vw, 11rem); font-weight: 300; line-height: 1.1; }
+
+  /* The playground's features stack: each sets its own property, and this lists them all. */
+  .ot-play {
+    font-size: clamp(3rem, 9vw, 7rem);
+    line-height: 1.1;
+    overflow-wrap: anywhere;
+    font-feature-settings:
+      var(--ot-dlig, "dlig" 0), var(--ot-hlig, "hlig" 0), var(--ot-liga, "liga" 1),
+      var(--ot-ss01, "ss01" 0), var(--ot-ss02, "ss02" 0), var(--ot-ss03, "ss03" 0), var(--ot-ss04, "ss04" 0),
+      var(--ot-ss13, "ss13" 0), var(--ot-ss15, "ss15" 0),
+      var(--ot-cv01, "cv01" 0), var(--ot-cv02, "cv02" 0), var(--ot-cv05, "cv05" 0), var(--ot-cv06, "cv06" 0),
+      var(--ot-cv07, "cv07" 0), var(--ot-case, "case" 0),
+      var(--ot-onum, "onum" 0), var(--ot-lnum, "lnum" 0), var(--ot-tnum, "tnum" 0), var(--ot-frac, "frac" 0),
+      var(--ot-zero, "zero" 0), var(--ot-ordn, "ordn" 0), var(--ot-sups, "sups" 0), var(--ot-subs, "subs" 0),
+      var(--ot-cv03, "cv03" 0), var(--ot-cv04, "cv04" 0), var(--ot-ss07, "ss07" 0), var(--ot-ss08, "ss08" 0);
+  }
 </style>
