@@ -987,9 +987,9 @@ One note a reader must not miss. The manicule is the font's, drawn in CSS, so it
 
 ## Rosette
 
-Engraved line work in the two metals, for a page with no picture of its own. It follows the theme, and is `aria-hidden`. No text on it, and never a background. `<Rosette />` draws it at build time; `.rosette` sets its strokes, in `accent-text` and `copper-text`, so it holds up on paper. `--rosette-line` is thicker in light than in dark, because dark lines on paper read thinner.
+Engraved line work in the two metals, for a page with no picture of its own. It follows the theme, and is `aria-hidden`. No text on it, and never a background. `<Rosette />` draws it at build time; `.rosette` sets its strokes in `--rosette-verdigris` and `--rosette-copper`, a verdigris and a bright copper orange with their own light and dark values. `--rosette-line` is thicker in light than in dark, because dark lines on paper read thinner.
 
-`<Rosette spin />` turns it once every two minutes and adds a switch, on by default, that stops it. Moving content needs a way to stop it (WCAG 2.2.2), so never remove the switch. With Reduce Motion it stays still and the switch is hidden. Use `spin` once a page at most.
+`<Rosette spin />` turns it once every 30 seconds and adds a switch, on by default, that stops it. Moving content needs a way to stop it (WCAG 2.2.2), so never remove the switch. With Reduce Motion it stays still and the switch is hidden. Use `spin` once a page at most.
 
 For a wide crop, put it in a `.media` box with `.rosette-crop`: `<div class="media media--16x9 rosette-crop"><Rosette /></div>`.
 
