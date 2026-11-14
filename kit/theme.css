@@ -731,7 +731,7 @@ html[data-drawer-open] { overflow: hidden; }  /* stop the page scrolling behind 
 .post-list > li:last-child { border-bottom: 0; }
 @media (min-width: 640px) { .post-list > li { grid-template-columns: 10rem minmax(0, 1fr); } }
 .post-list time {
-  font-size: var(--size-100); font-weight: var(--weight-medium); line-height: 1.375;
+  font-size: var(--size-200); font-weight: var(--weight-medium); line-height: 1.375;
   font-variant-numeric: tabular-nums; color: var(--muted);
 }
 @media (min-width: 640px) { .post-list time { padding-top: 0.5rem; } }
