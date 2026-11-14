@@ -134,7 +134,7 @@ Cormorant has many optional glyphs. Verdigris already sets these: `kern`, `liga`
 
 ## Iconography
 
-- **Glyphs come first.** Use the font's own: ❦ ⁂ † ‡ § ☞ ◆ and the arrows. CSS draws the menu bars and the plus and minus.
+- **Glyphs come first.** Use the font's own: ❦ ⁂ † ‡ § ☞ ☜ ◆ ◇ ◊ and the arrows. The demo's Type and color page shows every ornament, arrow, shape and sign Cormorant has. A glyph that acts as a control needs an `aria-label`, as screen readers read glyphs by their Unicode names. CSS draws the menu bars and the plus and minus.
 - **Marks are the icon set.** `Mark.astro` holds twelve drawn icons (menu, search, next, open, close, journal, write, letter, save, leaf, date, place): 24px grid, 1.25px line, round ends. Add new ones in the same pen.
 - **A mark may stand beside its label,** which Swiss Minimal did not allow. It should add recognition, not repeat a whole row of the same picture.
 - Third-party brand marks (YouTube, Spotify) still use Simple Icons, and a few actions Material Symbols, through `astro-icon`.
