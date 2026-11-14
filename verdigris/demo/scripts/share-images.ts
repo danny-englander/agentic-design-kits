@@ -8,7 +8,7 @@ import { chromium } from '@playwright/test';
 
 const dataUrl = (path: string, type: string) =>
   `data:${type};base64,${readFileSync(new URL(path, import.meta.url)).toString('base64')}`;
-const font = dataUrl('../../fonts/Cormorant-Light.woff2', 'font/woff2');
+const font = dataUrl('../../fonts/Cormorant-VF.woff2', 'font/woff2');
 const art = dataUrl('../src/assets/hero.jpg', 'image/jpeg');
 
 // paper and ink from tokens.json
@@ -19,7 +19,7 @@ const themes = {
 
 const card = ({ paper, ink }: { paper: string; ink: string }) => `<!doctype html>
 <style>
-  @font-face { font-family: "Cormorant"; src: url(${font}) format("woff2"); font-weight: 300; }
+  @font-face { font-family: "Cormorant"; src: url(${font}) format("woff2"); font-weight: 300 700; }
   * { box-sizing: border-box; margin: 0; }
   body { width: 1200px; height: 630px; display: flex; background: ${paper}; color: ${ink};
          font-family: "Cormorant", sans-serif; }

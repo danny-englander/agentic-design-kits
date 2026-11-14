@@ -12,7 +12,7 @@ Verdigris is a package, built for **Astro with Tailwind v4** (no React needed). 
 - `panel.js` (Swiss Minimal, imported as `@agentic-design-kits/verdigris/panel.js`): the slide-down panel's behavior, tabs included. Plain JavaScript, no dependencies, like the other scripts: `new-dot.js` (the "new" dot), `drawer.js` (the second, non-modal panel), `jump.js` (jump to the current item), `marquee.js` (a scrolling title), `file-pick.js` (the file picker), `output.js` (live output), `dialog.js` (fills in for the native dialog where a browser is behind), `favorites.js` (favorite stars) and `icon-controls.js` (icon buttons for rows built in the browser).
 - The Astro components, imported as `@agentic-design-kits/verdigris/astro/Name.astro`. `BaseLayout`, `Mark` and `Rosette` are written here (`kit/astro/`); the rest are Swiss Minimal's, passed on by `kit/shared/`: BaseLayout, Hero, PageTitle, Mark, Rosette, PostList, PostFeature, Pager, PostHeader, PostNav, Footer, BottomBar, FilePicker, SummaryList, OutputPanel, Dialog, Ellipse, NumCircle, MenuButton, MenuPanel, MenuItems, ThemeToggle, Drawer, DrawerButton, FavoriteButton, FeaturesList, IconTemplates (needs `astro-icon`) and the types (`MenuItem`, `PanelTab`, `NewDot`, `Feature`, `Post`, `PostLink`). They use Tailwind utilities for layout and the kit classes for components.
 - `kit/example.html`: a one-page demo using only `theme.css` and `verdigris.css`. Open it from the repository (it reads Swiss Minimal's `theme.css` from the `kit/` at the root) to see what "correct" looks like.
-- `fonts/Cormorant-*.woff2` (six files) and `fonts/Cormorant-LICENSE.txt`, SIL OFL 1.1. Keep the license beside the fonts. Source Code Pro, for code, comes with Swiss Minimal.
+- `fonts/Cormorant-VF.woff2` and `fonts/Cormorant-Italic-VF.woff2` (variable, weights 300 to 700) and `fonts/Cormorant-LICENSE.txt`, SIL OFL 1.1. Keep the license beside the fonts. Source Code Pro, for code, comes with Swiss Minimal.
 - `tokens.json`: the token values as data. If a value in `theme.css` ever differs, `tokens.json` wins.
 
 Put this in `<head>` before first paint so a saved theme does not flash:
@@ -77,6 +77,46 @@ One family, `--font-sans` (Cormorant, falling back to Garamond, Iowan Old Style,
 - Ligatures (`dlig`, `hlig`) and calligraphic forms (`ss01`) are for display sizes only.
 - Every size, weight, body line height and label style is a token at the top of `theme.css`, set for Verdigris in `verdigris.css`. A new rule uses these tokens, never a raw value.
 - Code is plain HTML, no class, as in Swiss Minimal; see CodeBlock in `COMPONENTS.md`. Monospace never goes beyond code.
+
+### OpenType features
+
+Cormorant has many optional glyphs. Verdigris already sets these: `kern`, `liga` and `ss02` (Garamond forms) on body text, `dlig` on headings, old-style figures in text, and lining tabular figures in `.num`. The demo's Type and color page shows every feature off and on.
+
+| Feature | What it changes | Use |
+| --- | --- | --- |
+| `dlig` | Joins c t, s t, s p, r t, t t, f u, Q y | Display sizes only; already on in headings |
+| `hlig` | Joins ſ t and t z | Display sizes only |
+| `liga` | Joins f with i, l, f | Leave on (the default) |
+| `ss01` | Calligraphic A B J K Q R U, and g | Display sizes only |
+| `ss02` | Garamond forms: A C G R, a e g, 1 | Already on in body text |
+| `ss03` | U W, single-storey a and g, w y | Site-wide in place of `ss02`, if chosen; the two both change a and g, so use one |
+| `ss04` | Umlaut dots | Site-wide, for German text, if chosen |
+| `ss13` | Accents on capitals | Site-wide, if chosen |
+| `ss15` | Dagger | Upright only |
+| `cv01`, `cv02` | Tail of a Q on its own (not before u) | Display sizes |
+| `cv05` | f | Site-wide, if chosen |
+| `cv06`, `cv07` | Long s (ſ) | Upright only, for old spellings |
+| `case` | Brackets, dashes, colon and @ raised to sit with capitals; lining figures | Around acronyms: "(NASA)" |
+| `onum` / `lnum` | Old-style or lining figures | Old-style is already the default in text; `.num` sets lining |
+| `tnum` | Tabular figures | Through `.num` |
+| `frac` | Fractions | On the fraction only |
+| `zero` | A dot in the zero (Cormorant's form of the slashed zero) | Where 0 and O could be confused |
+| `ordn` | Raised a and o after a figure; No. becomes № | Where the text calls for it |
+| `sups`, `subs` | Superscript, subscript figures | On the figures only |
+| `cv03`, `cv04`, `ss07`, `ss08` | Italic only: two more Q tails, another a, the long-tailed Q before u | In italic, at display sizes |
+
+- **Choose alternates once.** Set a site's alternate letters on `body`, or on the heading styles, so a letter has one shape everywhere. Don't switch them word by word.
+- **Prefer `font-variant-*`** where it exists: `font-variant-ligatures` (`discretionary-ligatures`, `historical-ligatures`), `font-variant-numeric` (`oldstyle-nums`, `lining-nums`, `tabular-nums`, `diagonal-fractions`, `slashed-zero`, `ordinal`) and `font-variant-position` (`super`, `sub`). These combine on their own. Stylistic sets, character variants and `case` have no such property, so they need `font-feature-settings`.
+- **`font-feature-settings` replaces, it doesn't add.** Setting it on an element drops every feature it inherited, including Verdigris's `ss02` on body text and `dlig` on headings. To let features stack, give each its own custom property, keep the kit's own in the list, and set only the one that changes:
+
+  ```css
+  body { font-feature-settings: "kern", "liga", var(--ff-ss02, "ss02" 1), var(--ff-ss04, "ss04" 0), var(--ff-zero, "zero" 0); }
+  .codes { --ff-zero: "zero" 1; }
+  ```
+
+- **Ligatures stay in display text.** A ligature can confuse a screen reader, and copy and paste, when it stands for more than one letter.
+- **The italic has fewer.** It has no `ss15`, `cv06` or `cv07`, and adds `cv03`, `cv04`, `ss07` and `ss08` of its own.
+- **Never used:** `smcp`, `c2sc` and `ss05` (small caps, all small caps, unicase), as Verdigris has no capitals. `ss06` and `ss12` change only small caps. `ss09`, `ss10` and `ss14` change Cyrillic only.
 
 ## Layout
 
