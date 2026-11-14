@@ -6,6 +6,7 @@ import PageTitle from '@agentic-design-kits/verdigris/astro/PageTitle.astro';
 import tokens from '../../../tokens.json';
 import { groups as otGroups, features, leftOut, type Feature } from '../data/opentype';
 import { doc } from '../data/prompts';
+import { glyphGroups, codePoint } from '../data/glyphs';
 
 /** Aa Bb … Zz, for the cards that change letters across the alphabet. */
 const alphabet = Array.from({ length: 26 }, (_, i) => String.fromCharCode(65 + i) + String.fromCharCode(97 + i)).join(' ');
@@ -339,7 +340,7 @@ const groups: { title: string; swatches: Swatch[] }[] = [
       </div>
     </section>
 
-    <section class="rule-thick pt-6" aria-labelledby="playground">
+    <section class="rule-thick mb-20 pt-6" aria-labelledby="playground">
       <p class="label text-copper-text">Playground</p>
       <h2 class="h2 mb-4" id="playground">Try them together</h2>
       <p class="mb-10 max-w-3xl">
@@ -381,6 +382,31 @@ const groups: { title: string; swatches: Swatch[] }[] = [
           <pre><code data-play-code></code></pre>
         </div>
       </form>
+    </section>
+
+    <section class="rule-thick pt-6" aria-labelledby="glyphs">
+      <p class="label text-copper-text">Glyphs</p>
+      <h2 class="h2 mb-4" id="glyphs">Ornaments, arrows and signs</h2>
+      <p class="mb-10 max-w-3xl">
+        Cormorant draws a few ornaments of its own, and the usual arrows, shapes and signs. These are all in the
+        font, so they match the text around them. Reach for one here before an icon or a drawing.
+      </p>
+      {
+        glyphGroups.map((g) => (
+          <div class="mb-12 border-t-2 border-ink pt-4" aria-labelledby={g.id}>
+            <h3 class="title" id={g.id}>{g.title}</h3>
+            <p class="mt-1 max-w-3xl">{g.use}</p>
+            <ul class="glyph-grid mt-5">
+              {[...g.chars].map((c) => (
+                <li>
+                  <span class="glyph">{c}</span>
+                  <span class="small num text-muted">{codePoint(c)}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
     </section>
   </div>
 </SiteLayout>
@@ -476,6 +502,11 @@ const groups: { title: string; swatches: Swatch[] }[] = [
   .ot-table th { padding-right: 2rem; text-align: left; font-weight: 300; }
   .ot-table td { text-align: right; }
   .ot-trio-glyph { display: block; font-size: clamp(6rem, 18vw, 11rem); font-weight: 300; line-height: 1.1; }
+
+  /* Glyphs: a grid of cells, each the glyph large with its code point under it. */
+  .glyph-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(6rem, 1fr)); border-top: 1px solid var(--rule); border-left: 1px solid var(--rule); }
+  .glyph-grid li { display: flex; flex-direction: column; align-items: center; gap: 0.25rem; padding: 0.75rem 0.25rem; border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+  .glyph { font-size: 2.75rem; line-height: 1.2; }
 
   /* The playground's features stack: each sets its own property, and this lists them all. */
   .ot-play {

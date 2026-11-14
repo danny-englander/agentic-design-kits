@@ -9,7 +9,7 @@ export const features: Feature[] = [
   {
     date: '2026-11-13',
     title: 'Every OpenType feature in Cormorant',
-    body: 'The Type and color page now shows each of Cormorant’s OpenType features off and on, with the CSS to copy, and ends with a playground for trying them together.',
+    body: 'The Type and color page now shows each of Cormorant’s OpenType features off and on, a playground for trying them together, and the font’s ornaments, arrows and signs.',
     details: [
       'Cormorant is now one variable font file for upright and one for italic, in place of six, so a page downloads about half as much font, and any weight from 300 to 700 is there.',
       'Sites on the kit get the new font files when they update. Nothing to change in your CSS.',
