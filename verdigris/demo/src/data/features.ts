@@ -8,11 +8,22 @@ import type { Feature } from '@agentic-design-kits/verdigris/types';
 export const features: Feature[] = [
   {
     date: '2026-11-14',
-    title: 'A wide featured post',
-    body: 'The blog now opens with its featured post across the full width, over a 16:9 picture. PostFeature picks this layout for a landscape image and keeps text beside a square one.',
+    title: 'A truer verdigris',
+    body: 'The accent is now the green of weathered copper in place of teal, the copper is warmer, and the rosette turns in a brighter green and orange, every pairing passing WCAG AA in both themes.',
+    details: [
+      'The rosette has its own color tokens, `--rosette-verdigris` and `--rosette-copper`, and turns once every 30 seconds. Its switch now reads “Turn the rosette”.',
+      'Code is a step smaller beside the text, and the page title’s lines sit a little closer.',
+      'Sites on the kit get the new colors when they update. Nothing to change in your CSS.',
+    ],
   },
   {
-    date: '2026-11-13',
+    date: '2026-11-14',
+    title: 'A wide featured post',
+    body: 'The blog now opens with its featured post across the full width, over a 16:9 picture. PostFeature picks this layout for a landscape image and keeps text beside a square one.',
+    details: ['The featured post’s label and date, and the dates in the list of posts, are a step larger.'],
+  },
+  {
+    date: '2026-11-14',
     title: 'Every OpenType feature in Cormorant',
     body: 'The Type and color page now shows each of Cormorant’s OpenType features off and on, a playground for trying them together, and the font’s ornaments, arrows and signs.',
     details: [
