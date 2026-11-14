@@ -21,6 +21,8 @@
   --bar: #0e2a29;          /* dark surfaces stay dark in both themes */
   --bar-ink: #f2ede1;      /* text on bar (13:1) */
   --rosette-line: 0.9;     /* dark lines on paper read thinner than light lines on dark */
+  --rosette-verdigris: #0b6b69; /* the rosette's outer ring and core; decorative, so no contrast floor */
+  --rosette-copper: #f75b00;    /* the rosette's inner ring */
   --row-hover-bg: var(--bar);
   --row-active-bg: var(--bar);
   --row-fg: var(--bar-ink);
@@ -67,6 +69,8 @@
     --bar: #132c2a;
     --bar-ink: #ece6d8;
     --rosette-line: 0.6;
+    --rosette-verdigris: #09f4ef;
+    --rosette-copper: #f15900;
     --row-hover-bg: #132c2a;
     --row-active-bg: var(--bar);
     --row-fg: var(--ink);
@@ -87,6 +91,8 @@
   --bar: #132c2a;
   --bar-ink: #ece6d8;
   --rosette-line: 0.6;
+  --rosette-verdigris: #09f4ef;
+  --rosette-copper: #f15900;
   --row-hover-bg: #132c2a;
   --row-active-bg: var(--bar);
   --row-fg: var(--ink);
@@ -147,13 +153,13 @@ pre { font-size: max(var(--size-100), 0.77em); }
 .rosette { fill: none; stroke-width: var(--rosette-line); }
 .rosette svg { display: block; width: 100%; height: auto; }
 .rosette-disc { overflow: hidden; }   /* the square's corners swing wider than the page on a phone */
-.rosette-outer, .rosette-core { stroke: var(--accent-text); }
-.rosette-inner { stroke: var(--copper-text); }
+.rosette-outer, .rosette-core { stroke: var(--rosette-verdigris); }
+.rosette-inner { stroke: var(--rosette-copper); }
 /* Under no-preference, so Reduce Motion never starts it. The switch is hidden there too. */
 .rosette-switch { display: none; }
 @media (prefers-reduced-motion: no-preference) {
   .rosette--spin .rosette-switch { display: inline-flex; margin-top: 0.5rem; }
-  .rosette--spin svg { animation: rosette-turn 120s linear infinite; will-change: transform; }
+  .rosette--spin svg { animation: rosette-turn 30s linear infinite; will-change: transform; }
   .rosette--spin:has(.switch:not(:checked)) svg { animation-play-state: paused; }
 }
 @keyframes rosette-turn { to { transform: rotate(360deg); } }
