@@ -10,7 +10,7 @@ coverAlt: A red-and-white house with a white Swiss cross on its gable, on a ridg
 
 Most sites that look busy are not busy with content. They are busy with type: a display face for headings, a serif for body copy, a third family for buttons, and a scatter of weights in between. Every one of those choices is a small claim on the reader's attention.
 
-This kit uses one family, Overused Grotesk, at two weights. It sounds like a limit. In practice it is the opposite.
+This kit uses one family, Overused Grotesk[^1], at two weights. It sounds like a limit. In practice it is the opposite.
 
 ## What you give up
 
@@ -28,7 +28,7 @@ The only exception is code, which needs fixed-width characters to line up. That 
 
 The obvious gain is speed: one variable font file, preloaded, and the page is ready. The less obvious one is consistency. With two weights, nobody on a team has to decide whether a subheading is semibold or medium. The answer is already made.
 
-There is also a voice. A page set in one grotesque reads as one speaker. Swiss posters of the 1950s and 60s worked this way, often with a single size of Akzidenz-Grotesk doing the work of a whole type case.
+There is also a voice. A page set in one grotesque reads as one speaker. Swiss posters of the 1950s and 60s worked this way, often with a single size of Akzidenz-Grotesk doing the work of a whole type case.[^2]
 
 ### A test for any new style
 
@@ -37,3 +37,7 @@ Before adding a style, ask whether size, weight or space already says it. If one
 ---
 
 None of this makes type less interesting. It makes each choice count for more.
+
+[^1]: Grotesk is the German form of grotesque, the old name for a typeface without serifs. The London type founder William Thorowgood gave the name to one of his in 1832. It stuck, most likely because letters stripped of their serifs looked odd, even ugly, to readers of the time.
+
+[^2]: Akzidenz-Grotesk came from the Berthold foundry in Berlin in 1898. Helvetica and Univers, the two faces most people picture as Swiss, both followed in 1957.

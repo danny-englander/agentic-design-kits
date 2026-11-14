@@ -829,7 +829,7 @@ a.post-header-label:hover { color: var(--accent-text); text-decoration: underlin
 
 /* ---------- Post body: long-form text from Markdown ---------- */
 /* Markdown can't take classes, so this styles plain elements inside it: paragraphs, h2 and h3,
-   lists, quotes, rules, images, tables and code. A 42rem measure by default; a utility on the
+   lists, quotes, rules, images, tables, footnotes and code. A 42rem measure by default; a utility on the
    same element changes it. An h2 has no rule over it: inside one article, space and size mark a
    new part, and the thick rule is kept for sections of the page. A quote is set
    large and bold beside a 6px accent edge, the same edge the active row has. */
@@ -867,6 +867,21 @@ a.post-header-label:hover { color: var(--accent-text); text-decoration: underlin
   font-size: var(--size-100); font-weight: var(--weight-medium); letter-spacing: var(--label-tracking); text-transform: var(--label-case);
 }
 .post-body td { padding: 0.625rem 1rem 0.625rem 0; border-bottom: 1px solid var(--rule); vertical-align: top; }
+/* Markdown footnotes ([^1]). The number in the text is a superscript in the accent, with no
+   underline (it gets one on hover); line-height 0 keeps it from pushing its line down. The notes
+   are a part of their own at the end, so they start under a 2px rule, in small muted text; the
+   arrow back to the number is in the accent too, underlined, and turns ink on hover. A jump
+   to a note or back to its number stops clear of the top bar. */
+.post-body sup { line-height: 0; }
+.post-body [data-footnote-ref] { color: var(--accent-text); text-decoration: none; font-variant-numeric: tabular-nums; }
+.post-body [data-footnote-ref]:hover { text-decoration: underline; }
+.post-body .footnotes { margin-top: 3rem; font-size: var(--size-200); line-height: 1.375; color: var(--muted); }
+.post-body .footnotes ol { margin: 0; padding: 0.75rem 0 0 1.5rem; border-top: 2px solid var(--ink); }
+.post-body .footnotes p { margin: 0; }
+.post-body .footnotes p + p { margin-top: 0.5rem; }
+.post-body [data-footnote-backref] { margin-left: 0.25rem; color: var(--accent-text); }
+.post-body [data-footnote-backref]:hover { color: var(--ink); }
+.post-body :is([data-footnote-ref], .footnotes li) { scroll-margin-top: 5rem; }
 
 /* ---------- Post nav: the previous and next posts, at the end of one ---------- */
 /* A 2px rule, then two links: a small label over the post's title. Stacked on phones; side by
