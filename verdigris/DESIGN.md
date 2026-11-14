@@ -58,7 +58,7 @@ Light is the default. Dark keeps the same roles.
 
 ## Type
 
-One family, `--font-sans` (Cormorant, falling back to Garamond, Iowan Old Style, Georgia). Code is the only exception: `code`, `pre`, `kbd` and `samp` use `--font-mono`, Source Code Pro at 400, scaled to 0.8em because it is far larger on its body than Cormorant.
+One family, `--font-sans` (Cormorant, falling back to Garamond, Iowan Old Style, Georgia). Code is the only exception: `code`, `pre`, `kbd` and `samp` use `--font-mono`, Source Code Pro at 400, scaled to 0.72em (code blocks 0.7em) because it is far larger on its body than Cormorant.
 
 | Style | Use |
 | --- | --- |
@@ -69,7 +69,7 @@ One family, `--font-sans` (Cormorant, falling back to Garamond, Iowan Old Style,
 | `body` | Body copy, 1.375rem then 1.625rem from 768px, 500, line height 1.55, Garamond forms on (`ss02`) |
 | `small` | Meta, sublines, counts, 1.125rem |
 | `label` | 1 to 2 words, sentence case, 600 |
-| `code` | Code, file names, commands, keys: `--font-mono` at 0.8em, never under 0.875rem |
+| `code` | Code, file names, commands, keys: `--font-mono` at 0.72em, never under 0.875rem; a code block at 0.7em, never under 18px |
 
 - **18px is the floor.** Cormorant's x-height is 0.386 of its size against Overused Grotesk's 0.5, so 18px reads about as tall as 14px there. Code is the exception, as its x-height is large.
 - **Weight follows size.** Light at display sizes, medium for reading, semibold for names. Never light under 1.75rem: the hairlines disappear.
