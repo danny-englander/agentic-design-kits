@@ -7,6 +7,15 @@ import type { Feature } from '@agentic-design-kits/verdigris/types';
  */
 export const features: Feature[] = [
   {
+    date: '2026-11-15',
+    title: 'Larger captions, and rows that fill only when they lead somewhere',
+    body: 'Captions under pictures are now 22px, up from 18px. A list row fills under the pointer only when it holds a link or a button, so a row of plain text no longer looks like something to click.',
+    details: [
+      'The row examples on Components now have linked titles.',
+      'The post on copper green has a new picture.',
+    ],
+  },
+  {
     date: '2026-11-14',
     title: 'Steps for your agent, in the package',
     body: 'The package now carries `USING.md`: the steps for starting a new site with the kit, and for restyling an existing one. Your agent finds it in `node_modules/@agentic-design-kits/verdigris/`, beside the rules, with no trip to GitHub.',

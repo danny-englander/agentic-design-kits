@@ -15,7 +15,7 @@ A kit here is not a library of components to copy and paste. It is a set of rule
 
 | Kit | Demo | The look | Source |
 | --- | --- | --- | --- |
-| **Swiss Minimal** | [swissminimal.ch](https://www.swissminimal.ch) | Swiss / Bauhaus: type-led, flat color, thick rules, one typeface (Overused Grotesk). One accent for each site, vermilion or verdigris. | the repository's root |
+| **Swiss Minimal** | [swissminimal.ch](https://www.swissminimal.ch) | Swiss / Bauhaus: type-led, flat color, thick rules, one typeface (Overused Grotesk). One accent for each site, vermilion or azure. | the repository's root |
 | **Verdigris** | [verdigris.ch](https://verdigris.ch) | Swiss Minimal's strict grid, set in Cormorant, in copper green and copper, with engraved line work. No capitals anywhere. | [`verdigris/`](verdigris) |
 
 Swiss Minimal is the base. Verdigris is built on it: it uses Swiss Minimal's stylesheet, scripts and components as they are, and adds its own tokens, typeface and ornament on top. A fix to a shared component is made once, in Swiss Minimal, and both kits have it.

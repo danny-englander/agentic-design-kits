@@ -1,6 +1,6 @@
 # Swiss Minimal
 
-A Swiss / Bauhaus look for any site: type-led, flat color, thick rules, almost no decoration. One typeface, a cream page, black ink, and a single accent, vermilion or verdigris, used sparingly. It works for a portfolio, a blog, a directory, a nonprofit or a product site; nothing in it assumes a subject.
+A Swiss / Bauhaus look for any site: type-led, flat color, thick rules, almost no decoration. One typeface, a cream page, black ink, and a single accent, vermilion or azure, used sparingly. It works for a portfolio, a blog, a directory, a nonprofit or a product site; nothing in it assumes a subject.
 
 ## What to load
 
@@ -43,14 +43,14 @@ Put this in `<head>` before first paint so a saved theme does not flash:
 Light is the default. Dark keeps the same roles.
 
 - Page: `paper` ground, `ink` text and thick rules, `muted` for secondary text, `rule` for thin dividers.
-- **One accent per site: vermilion or verdigris,** named on the page: `<html data-accent="vermilion">` or `<html data-accent="verdigris">`. In Astro, `<BaseLayout accent="vermilion">` or `accent="verdigris"` writes it; vermilion is the default, so leaving `accent` off gives vermilion too. Two historic pigments: vermilion is a red leaning toward orange, the red of Swiss posters; verdigris is the blue-green patina of old copper roofs and bronze. Only the four accent tokens change; paper, ink and the dark bars stay the same, and every rule below holds for either. A site never mixes the two, and visitors don't switch between them. (The demo has a gear on its right edge for previewing both; that switcher is demo-only, not a kit component.)
+- **One accent per site: vermilion or azure,** named on the page: `<html data-accent="vermilion">` or `<html data-accent="azure">`. In Astro, `<BaseLayout accent="vermilion">` or `accent="azure"` writes it; vermilion is the default, so leaving `accent` off gives vermilion too. Vermilion is a red leaning toward orange, the red of Swiss posters; azure is a blue leaning toward green. Only the four accent tokens change; paper, ink and the dark bars stay the same, and every rule below holds for either. A site never mixes the two, and visitors don't switch between them. (The demo has a gear on its right edge for previewing both; that switcher is demo-only, not a kit component.)
 - **The accent has three tokens, by size and ground.** `accent` is for large shapes and the focus ring only. Small accent text on `paper` uses `accent-text`; small accent text on a dark surface uses `accent-bright`. Never set small text in plain `accent` (3.9:1 vermilion, 3.5:1 verdigris on light `paper`).
 - The primary button is `accent-text` with `accent-ink` text.
 - **Dark surfaces stay dark in both themes.** The panel, the drawer, the top bar while either is open, a bottom bar and the toast are `bar` with `bar-ink` text. These black blocks are what make the light page feel Swiss.
 - Small labels on `bar` (a definition term, an accordion heading) are bold `accent-bright`, never faded white.
 - List rows fill on hover and when active: `row-hover-bg` / `row-active-bg` with every piece of text (muted too) in `row-fg`. The active row also gets a 6px `row-edge` on its left (the accent, in dark).
-- **Code colors are the second code exception.** As code is the one place a second family appears, highlighted code is the one place more color appears: magenta (`code-keyword`) for keywords, teal (`code-string`) for strings and tags, orange (`code-constant`) for numbers, constants and names, and `muted` for comments. Only inside `pre` and `code`, never on a label, link, heading or icon. Each passes 4.5:1 in both themes, with `-bright` versions for a dark `.pre--bar` block; teal and orange are shifted off verdigris and vermilion so code never reads as the accent. See CodeBlock in `COMPONENTS.md`.
-- Never add a color. A new state reuses these roles. A new accent must pass every contrast check vermilion and verdigris pass (see `tokens.json`), and needs a dark version too.
+- **Code colors are the second code exception.** As code is the one place a second family appears, highlighted code is the one place more color appears: magenta (`code-keyword`) for keywords, teal (`code-string`) for strings and tags, orange (`code-constant`) for numbers, constants and names, and `muted` for comments. Only inside `pre` and `code`, never on a label, link, heading or icon. Each passes 4.5:1 in both themes, with `-bright` versions for a dark `.pre--bar` block; teal and orange are shifted off azure and vermilion so code never reads as the accent. See CodeBlock in `COMPONENTS.md`.
+- Never add a color. A new state reuses these roles. A new accent must pass every contrast check vermilion and azure pass (see `tokens.json`), and needs a dark version too.
 
 ## Type
 
@@ -150,7 +150,7 @@ Photos, artwork, screenshots and product shots are welcome. The test is whether 
 - **Fixed shapes.** Use one of 1:1, 4:3, 3:2 or 16:9 and crop to fill (`.media` with `--ratio`). Images in one list share a ratio.
 - **Color stays.** An image keeps its own colors; they do not count as adding a color to the palette. Do not recolor or desaturate to match.
 - **No text on images.** Titles and captions go beside or below. If text must sit on an image, put it on a solid `bar` block, never straight on the picture.
-- **Captions** go below in `small muted`, left aligned, sentence case. Credits use the same style.
+- **Captions** go below in `size-300` and `muted`, left aligned, sentence case. Credits use the same style.
 - **Dark mode.** Do not dim or invert images. A light image on the dark page reads as a light block, which is fine; if the art has a dark version, swap it with the theme.
 - **Loading.** Give every image its width and height (or a ratio) so the page does not jump. The empty box fills with `rule` until it loads. Lazy-load everything except the hero.
 - **Alt text** says what the image shows in one sentence. An image that only repeats the text beside it gets `alt=""`.

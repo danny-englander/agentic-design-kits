@@ -17,4 +17,4 @@ Captions and titles sit below or beside an image, never on it. If text must over
 
 ## Color stays
 
-An image's colors don't count against the one-accent rule. A red photo on a verdigris site is fine; it is content, not interface.
+An image's colors don't count against the one-accent rule. A red photo on a azure site is fine; it is content, not interface.

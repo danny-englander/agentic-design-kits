@@ -7,6 +7,20 @@ import type { Feature } from '@agentic-design-kits/swiss-minimal/types';
  */
 export const features: Feature[] = [
   {
+    date: '2026-11-15',
+    title: 'The verdigris accent is now azure',
+    body: 'The cool accent has a new name and the same colors. It read as blue more than green, and it shared its name with the Verdigris kit.',
+    details: [
+      'Sites on the kit: change `verdigris` to `azure` wherever the accent is set (`<html data-accent="azure">`, or `accent="azure"` on `BaseLayout`). The old name no longer works.',
+    ],
+  },
+  {
+    date: '2026-11-15',
+    title: 'Larger captions, and rows that fill only when they lead somewhere',
+    body: 'Captions under pictures are now 18px, up from 14px. A list row fills under the pointer only when it holds a link or a button, so a row of plain text no longer looks like something to click.',
+    details: ['The row examples on Components now have linked titles.'],
+  },
+  {
     date: '2026-11-14',
     title: 'Steps for your agent, in the package',
     body: 'The package now carries `USING.md`: the steps for starting a new site with the kit, and for restyling an existing one. Your agent finds it in `node_modules/@agentic-design-kits/swiss-minimal/`, beside the rules, with no trip to GitHub.',

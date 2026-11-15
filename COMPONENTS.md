@@ -247,7 +247,7 @@ An on/off control for a setting that takes effect as a yes or no: a square track
 **Markup.** `<label class="choice"><input class="switch" type="checkbox" role="switch" name="updates"> Email me when something is added</label>`
 
 - **A real checkbox** with `role="switch"`: Space toggles it, it submits with a form, and screen readers say "on" / "off". No script.
-- **On is the accent.** Off is a `currentColor` outline with a solid thumb on the left. On fills the track with `accent-text` and an `accent-ink` thumb; inside a panel or drawer, `accent-bright` with a `bar` thumb. It follows the site's accent, vermilion or verdigris. The colors come from `--choice-on` and `--choice-thumb` on `.choice`.
+- **On is the accent.** Off is a `currentColor` outline with a solid thumb on the left. On fills the track with `accent-text` and an `accent-ink` thumb; inside a panel or drawer, `accent-bright` with a `bar` thumb. It follows the site's accent, vermilion or azure. The colors come from `--choice-on` and `--choice-thumb` on `.choice`.
 - The whole `.choice` label is the target, at least 2.75rem tall. The thumb slides in 200ms; not under Reduce Motion.
 - In Windows High Contrast, on fills with the system highlight color.
 - The label says what "on" means ("Send a monthly digest"), never "Enable" or "On/Off".
@@ -318,13 +318,13 @@ An accordion on the page itself (not in the panel), built on native `<details>`:
 
 ## ListRow
 
-A section of numbered rows: a 2px `ink` rule, a header on the shared grid, then rows divided by 1px `rule` that fill on hover and when active.
+A section of numbered rows: a 2px `ink` rule, a header on the shared grid, then rows divided by 1px `rule` that fill when active, and on hover if they hold a link or button.
 
 **Markup.** `<li class="row">` (add `data-active="true"` for the current one) laid out by your page's grid, e.g. `grid-template-columns: 3rem 1fr 1.75rem`: a `.num.small.muted` number, a `title` name over a `small muted` subline, and an optional end slot (an activity indicator, an arrow).
 
 - **One grid.** The section header uses the same columns, so the range label ("01–03") sits over the numbers and the `h2` over the names.
 - The number sits `space-4` in from the left (1.25rem from 768px), clear of the active row's 6px `row-edge`.
-- On hover and when active, the row fills (`row-hover-bg` / `row-active-bg`) and all text, muted included, turns `row-fg`. In dark mode the fill is a raised dark, never a cream slab, and the active row shows an accent edge.
+- **A row fills on hover only if it holds a link or button.** A row of plain text stays still, since a fill would promise a click. The fill is `row-hover-bg` (`row-active-bg` when active), and all text, muted included, turns `row-fg`. In dark mode the fill is a raised dark, never a cream slab, and the active row shows an accent edge.
 - Rows stack on phones; switch to columns from 768px.
 - Keep the numbers when filtering; don't renumber.
 
@@ -492,7 +492,7 @@ Load `kit/drawer.js`. In Astro, `<DrawerButton slot="topbar" label="Recent pages
 - **Full height, like the panel.** It reaches from the top down to the bottom bar (`bar-h`, or the bottom of the screen without one), so the menu and the drawer open the same way.
 - **Only the list scrolls.** The page is locked (`<html data-drawer-open>`, which also turns the top bar dark) and the heading and closing note stay put.
 - **Closes** on its button, Escape, `drawer:close`, a click outside, or keyboard focus moving outside it (Tab past the last row would otherwise land on the page hidden behind it). Opening it sends `menu:close`, and opening the menu sends `drawer:close`: one at a time.
-- **Focus** goes to the heading on open (retried under Reduce Motion) and back to the button when closed by the button or Escape. While it is open, its button's outline and text turn `accent-bright` (vermilion or verdigris, whichever the site uses), matching the drawer's heading; hovering fills it with the accent.
+- **Focus** goes to the heading on open (retried under Reduce Motion) and back to the button when closed by the button or Escape. While it is open, its button's outline and text turn `accent-bright` (vermilion or azure, whichever the site uses), matching the drawer's heading; hovering fills it with the accent.
 - **"More below" arrow.** A 2.75rem round `accent` button centered over the bottom of the list, shown while the list overflows and has not been scrolled. It scrolls most of a screen; from the keyboard it also moves focus to the first row that comes into view, since it is about to disappear. No shadow. Rows can be added and removed from a script; it re-checks on its own.
 - Rows: `drawer-title` (1.125rem, 500) over `drawer-meta` (14px, 75%), with 1px rules at 25% of `bar-ink` between them. Set text from data with `textContent`, never as HTML.
 - Slides in 450ms; not under Reduce Motion.
@@ -694,7 +694,7 @@ A photo, artwork or screenshot as a plain rectangle on the grid: square corners,
 - Add `media--1x1`, `media--4x3`, `media--3x2` or `media--16x9` to crop to a fixed shape. Images in one list share a ratio.
 - Always set `width`/`height` (or a ratio class) so nothing jumps; `loading="lazy"` on all but the hero.
 - In Astro, use `<Image>` from `astro:assets` with `class="media"`; it adds the size and responsive sources.
-- Captions are `small muted` (the `figcaption` style). Never put text on the image itself.
+- Captions are `size-300` (18px) in `muted` (the `figcaption` style). Never put text on the image itself.
 - **Don't** round it, outline it, tint it, or animate it on scroll.
 
 ## Hero
@@ -740,7 +740,7 @@ The top of a page: the name in `display`, a `lead` line, and an optional caption
 
 A title banner in place of a hero, for pages that need a name but not an introduction (a list, a form, a settings page): one `h1` across the full width of `.page`.
 
-**Markup.** `<header class="page-title"><h1 class="page-title-text">All work</h1></header>`. Add `page-title--bar` to set it on a dark `bar` block with `bar-ink` text and an 8px `accent` rule along its bottom edge (plain `accent`, since it is a large shape; vermilion or verdigris with the site).
+**Markup.** `<header class="page-title"><h1 class="page-title-text">All work</h1></header>`. Add `page-title--bar` to set it on a dark `bar` block with `bar-ink` text and an 8px `accent` rule along its bottom edge (plain `accent`, since it is a large shape; vermilion or azure with the site).
 
 - Bold, tight, `clamp(3rem, 9vw, 7.5rem)`: smaller than `display`, still the biggest thing on the page. A long word wraps instead of pushing the page sideways.
 - Space like a hero's: `space-12` above, a little less below (more from 768px). No rule under it; the section below starts with its own 2px rule.

@@ -318,13 +318,13 @@ An accordion on the page itself (not in the panel), built on native `<details>`:
 
 ## ListRow
 
-A section of numbered rows: a scotch rule, a header on the shared grid, then rows divided by 1px `rule` that fill on hover and when active.
+A section of numbered rows: a scotch rule, a header on the shared grid, then rows divided by 1px `rule` that fill when active, and on hover if they hold a link or button.
 
 **Markup.** `<li class="row">` (add `data-active="true"` for the current one) laid out by your page's grid, e.g. `grid-template-columns: 3rem 1fr 1.75rem`: a `.num.small.muted` number, a `title` name over a `small muted` subline, and an optional end slot (an activity indicator, an arrow).
 
 - **One grid.** The section header uses the same columns, so the range label ("01–03") sits over the numbers and the `h2` over the names.
 - The number sits `space-4` in from the left (1.25rem from 768px), clear of the active row's 6px `row-edge`.
-- On hover and when active, the row fills (`row-hover-bg` / `row-active-bg`) and all text, muted included, turns `row-fg`. In dark mode the fill is a raised dark, never a cream slab, and the active row shows an accent edge.
+- **A row fills on hover only if it holds a link or button.** A row of plain text stays still, since a fill would promise a click. The fill is `row-hover-bg` (`row-active-bg` when active), and all text, muted included, turns `row-fg`. In dark mode the fill is a raised dark, never a cream slab, and the active row shows an accent edge.
 - Rows stack on phones; switch to columns from 768px.
 - Keep the numbers when filtering; don't renumber.
 
@@ -694,7 +694,7 @@ A photo, artwork or screenshot as a plain rectangle on the grid: square corners,
 - Add `media--1x1`, `media--4x3`, `media--3x2` or `media--16x9` to crop to a fixed shape. Images in one list share a ratio.
 - Always set `width`/`height` (or a ratio class) so nothing jumps; `loading="lazy"` on all but the hero.
 - In Astro, use `<Image>` from `astro:assets` with `class="media"`; it adds the size and responsive sources.
-- Captions are `small muted` (the `figcaption` style). Never put text on the image itself.
+- Captions are `size-300` (22px) in `muted` (the `figcaption` style). Never put text on the image itself.
 - **Don't** round it, outline it, tint it, or animate it on scroll.
 
 ## Hero

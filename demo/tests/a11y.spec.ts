@@ -6,9 +6,9 @@ import AxeBuilder from '@axe-core/playwright';
 // that broke it.
 
 const THEMES = ['light', 'dark'] as const;
-// The demo is vermilion; verdigris is checked by setting <html data-accent="verdigris">, as a
-// verdigris site would.
-const ACCENTS = ['vermilion', 'verdigris'] as const;
+// The demo is vermilion; azure is checked by setting <html data-accent="azure">, as a
+// azure site would.
+const ACCENTS = ['vermilion', 'azure'] as const;
 const PAGES = ['/', '/work', '/work/field-notes', '/blog', '/blog/page/2', '/blog/one-typeface', '/blog/two-pigments', '/about', '/forms', '/components', '/agents', '/beautiful-code', '/type-and-color'];
 const TABS = ['menu', 'contact', 'features'];
 
