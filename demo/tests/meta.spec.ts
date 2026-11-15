@@ -56,3 +56,10 @@ test('the sitemap lists every page with its slash, and robots.txt points to it',
   // Nothing in it without www or without its slash.
   expect(listed.filter((l) => !l.startsWith(`${SITE}/`) || !l.endsWith('/'))).toEqual([]);
 });
+
+test('the home page title says what the kit is, and Recent still calls it Home', async ({ page }) => {
+  await page.goto('/');
+  await expect(page).toHaveTitle('Swiss Minimal · An agentic design kit for Astro and Tailwind');
+  await expect(page.locator('meta[name="description"]')).toHaveAttribute('content', /agentic design kit/);
+  await expect(page.locator('meta[name="page-name"]')).toHaveAttribute('content', 'Home');
+});
