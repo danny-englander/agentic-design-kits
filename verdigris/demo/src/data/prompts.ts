@@ -6,6 +6,6 @@ export const doc = (file: string) => `${repo}/blob/main/${file === 'TOOLING.md' 
 
 export const newSitePrompt = `Start a new Astro site with the Verdigris design kit.
 Follow "Starting a new site with the kit" in
-${doc('AGENTS.md')}
+${doc('USING.md')}
 Pages: Home, Work, About and Contact. Accent: verdigris.
 Add an AGENTS.md for the site that points at the kit's docs.`;

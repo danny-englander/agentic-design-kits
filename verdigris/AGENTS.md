@@ -1,10 +1,10 @@
 # Verdigris: notes for AI agents
 
-A design kit (CSS, a few plain scripts, Astro components) plus a demo site that uses all of it, built on Swiss Minimal. It lives in the `verdigris/` folder of Swiss Minimal's repository; paths in this file start from that folder unless they say otherwise. Three kinds of task come here: changing the kit, starting a new site with it, and restyling an existing site with it. Each has a section below.
+A design kit (CSS, a few plain scripts, Astro components) plus a demo site that uses all of it, built on Swiss Minimal. It lives in the `verdigris/` folder of Swiss Minimal's repository; paths in this file start from that folder unless they say otherwise. This file is for changing the kit. Starting a new site with it, or restyling an existing one, is in [`USING.md`](USING.md), which also comes with the npm package.
 
 Read first, whatever the task: [`DESIGN.md`](DESIGN.md) (the rules, and its "Do not" list) and the parts of [`COMPONENTS.md`](COMPONENTS.md) you will touch. [`tokens.json`](tokens.json) holds every token value; if `theme.css` disagrees, `tokens.json` wins.
 
-Check the Node version before running `node`, `npm` or `npx` in any project, this one or a site you are styling: look for an `.nvmrc` (here `demo/.nvmrc`) and use the version it names (`nvm use` in that folder). Don't rely on whichever Node the shell happens to have.
+Check the Node version before running `node`, `npm` or `npx` in this project: look for an `.nvmrc` (here `demo/.nvmrc`) and use the version it names (`nvm use` in that folder). Don't rely on whichever Node the shell happens to have.
 
 ## Verdigris is built on Swiss Minimal
 
@@ -27,32 +27,6 @@ Verdigris is its own package, `@agentic-design-kits/verdigris`, and Swiss Minima
 - **Commits:** a short imperative subject ("Add a plate frame for quotations"), a body saying what and why. Kit, docs and demo changes go in separate commits.
 - **Releasing:** never `git push` main by hand. Add an entry at the top of `demo/src/data/features.ts` for anything a visitor would notice, dated the release day, then `npm run release -- --dry-run` and `npm run release` at the repository's root (see Releases in the root [`README`](../README.md)). One release covers both kits and deploys both sites. The owner approves each release.
 
-## Starting a new site with the kit
+## Starting a new site, or restyling one
 
-1. Make an Astro project with Tailwind v4 (`tailwindcss`, `@tailwindcss/vite`), Node 24 or later.
-2. Install the kit: `npm install @agentic-design-kits/verdigris`. Swiss Minimal comes with it. To update later, run `npm update`. Add `astro-icon` if the site uses `IconTemplates`.
-3. Make `src/styles/global.css` start with `@import "@agentic-design-kits/verdigris/tailwind.css";` and import it in your layout. Don't import `tailwindcss` or `theme.css` anywhere else.
-4. Build pages on `@agentic-design-kits/verdigris/astro/BaseLayout.astro`, and import every other component the same way (`@agentic-design-kits/verdigris/astro/Hero.astro`), types from `@agentic-design-kits/verdigris/types` and scripts as `@agentic-design-kits/verdigris/output.js`. Give the layout a `menu` (`MenuItem[]`, current page marked), and `barHeight` on pages with a `BottomBar` (it is optional). Open each page with a `Hero` or a `PageTitle`, and end it with a `Footer` in the `footer` slot, given the same `menu`.
-5. Page layout is Tailwind utilities; components are kit classes. Colors only through the token utilities (`text-muted`, `bg-bar`, `text-accent-text`, …), never Tailwind's palette.
-6. **A blog:** keep posts in a content collection, one Markdown file each. The index opens with a `PostFeature` (one post beside a square image) in place of a hero, then a `PostList` of the rest and a `Pager` when there are more than fit a page; the feature stays on top of every page. A post opens with a `PostHeader`, puts its Markdown in a `.post-body` and ends with a `PostNav`. See the Post* and Pager sections of `COMPONENTS.md`.
-7. **Code in Markdown:** set `markdown: { shikiConfig: { theme: 'css-variables' } }` in `astro.config.mjs`, so code takes the kit's code colors. Without it, Astro's default theme puts GitHub's dark colors and background on every code block.
-8. Copy the tests from Swiss Minimal's `TOOLING.md`. Don't edit the kit's files in `node_modules/`; a fix belongs back in the kit's repository.
-
-The demo (`demo/src/layouts/SiteLayout.astro`, `demo/src/pages/`) is the worked example of all of this.
-
-## Restyling an existing site with the kit
-
-Restyling is mostly removing: the kit only works when it is the site's only visual system.
-
-1. **Survey before changing anything.** Note the framework, how CSS is loaded (Tailwind and its version, CSS modules, a preprocessor, a UI library), how dark mode works, the fonts, the icon set, and the pieces each page uses (navigation, forms, lists, cards, modals). Map each piece to a kit component, and list the ones with no match. Show that map to the owner before restyling.
-2. **Check for class name clashes.** The kit uses short, generic class names, including `.page`, `.row`, `.title`, `.label`, `.lead`, `.small`, `.muted`, `.num`, `.link`, `.btn`, `.chip`, `.field`, `.media`, `.figure`, `.icon`, `.panel`, `.drawer`, `.toast` and `.pager`. Search the site for each one first; an existing `.btn` or `.title` picks up the kit's styles the moment `theme.css` loads. Rename the site's own class, or move that markup onto the kit component. A code highlighter (Prism, highlight.js, a Shiki theme) clashes the same way, bringing its own colors and background: switch it to Shiki's css-variables theme, or remove it.
-3. **Know what `theme.css` does globally:** `box-sizing` on everything, the `html`/`body` background, font and color, a 3px accent focus ring on every focusable element, and the hand cursor on buttons, summaries and labels. Expect every page to shift a little the moment it loads.
-4. **Load it in the way that fits the site:**
-   - *Tailwind v4:* replace the site's `@import "tailwindcss"` with the kit's `tailwind.css`, as for a new site.
-   - *Tailwind v3:* `tailwind.css` needs v4. Upgrade (`npx @tailwindcss/upgrade`) first, or load `theme.css` on its own and leave the site's Tailwind alone.
-   - *No Tailwind, or not Astro:* link Swiss Minimal's `theme.css` (`node_modules/@agentic-design-kits/swiss-minimal/kit/theme.css`, with its `fonts/` beside its `kit/`) and then `kit/verdigris.css` and `kit/fonts.css` as plain stylesheets (with this package's `fonts/` beside its `kit/`). The plain scripts (`panel.js`, `drawer.js`, …) work in any framework. The Astro components don't, so copy their markup from `COMPONENTS.md` or read it off the `.astro` files.
-5. **Set up theming:** add the no-flash script from `DESIGN.md` to `<head>`, and replace the site's dark mode switch (a `.dark` class, say) with `<html data-theme>`; the kit's colors only follow `data-theme` and the system setting. 
-6. **Remove the old system as each part moves over:** its color palette and custom properties, other font families and weights, shadows, rounded corners, gradients, icon fonts, and a UI library's components. `theme.css` sits in a CSS layer (under Tailwind) or loads before the site's own CSS, so leftover unlayered site CSS wins every conflict and quietly undoes the kit.
-7. **Go a page type at a time:** tokens, type and the top bar first (they touch every page), then lists and forms, then the rest. Commit after each step, so a problem can be traced to one step.
-8. **Leave the content as it is:** don't rewrite copy, change URLs, or remove features to fit a component. Where the content and a rule conflict (an image with text set on it, a three-word all-caps label), raise it with the owner.
-9. **Check** each page against the "Do not" list in `DESIGN.md`, add the axe tests from Swiss Minimal's `TOOLING.md`, and run the manual checks in both themes at phone and desktop widths.
+Those steps are in [`USING.md`](USING.md). It is in the npm package too (`node_modules/@agentic-design-kits/verdigris/USING.md`), so an agent working on a site has it beside `DESIGN.md` and `COMPONENTS.md`. Change the steps there, not here.

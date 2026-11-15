@@ -42,7 +42,7 @@ read the kit's rules and component guide:
 
 const restylePrompt = `Restyle this site with the Swiss Minimal design kit.
 Follow "Restyling an existing site with the kit" in
-${doc('AGENTS.md')}
+${doc('USING.md')}
 Start with the survey, and show me the map of our pages to kit
 components before you change anything.`;
 ---
@@ -73,20 +73,20 @@ components before you change anything.`;
     <section class="mb-14 border-t-2 border-ink pt-8 [&>p]:mb-5" aria-labelledby="agents-file">
       <h2 class="h2 mb-6" id="agents-file">The agents file</h2>
       <p>Coding agents such as Claude Code, Codex and Cursor look for a file called <code>AGENTS.md</code> in the folder they work in, and read it before they start. Claude Code reads the same notes as <code>CLAUDE.md</code>. The kit's repository has both, with the same text.</p>
-      <p>It covers the three jobs people bring: changing the kit, starting a new site with it, and restyling a site that already exists. For each, it lists the steps in order and the files to read first: <a class="link" href={doc('DESIGN.md')}>DESIGN.md</a> for the rules and its "Do not" list, <a class="link" href={doc('COMPONENTS.md')}>COMPONENTS.md</a> for each component's markup, and <a class="link" href={doc('tokens.json')}>tokens.json</a> for every color and size.</p>
-      <p>Read it yourself first: <a class="link" href={doc('AGENTS.md')}>AGENTS.md on GitHub</a>.</p>
+      <p>That file is for changing the kit. The two jobs most people bring, starting a new site and restyling one that already exists, are in <code>USING.md</code>. It comes with the npm package, so your agent finds it in <code>node_modules/@agentic-design-kits/swiss-minimal/</code>, beside the rules. For each job, it lists the steps in order and the files to read first: <a class="link" href={doc('DESIGN.md')}>DESIGN.md</a> for the rules and its "Do not" list, <a class="link" href={doc('COMPONENTS.md')}>COMPONENTS.md</a> for each component's markup, and <a class="link" href={doc('tokens.json')}>tokens.json</a> for every color and size.</p>
+      <p>Read it yourself first: <a class="link" href={doc('USING.md')}>USING.md on GitHub</a>.</p>
     </section>
 
     <section class="mb-14 border-t-2 border-ink pt-8 [&>p]:mb-5" aria-labelledby="agents-new">
       <h2 class="h2 mb-6" id="agents-new">Start a new site</h2>
       <p>One request is enough. Name the pages and the accent, and point the agent at the kit:</p>
       <pre class="mb-5" tabindex="0"><code>{newSitePrompt}</code></pre>
-      <p>The agent sets up an Astro site with Tailwind, copies the kit into it, builds each page from the components and adds the accessibility tests. It leaves the kit's own files untouched, so a newer kit can be dropped in later.</p>
+      <p>The agent sets up an Astro site with Tailwind, installs the kit from npm, builds each page from the components and adds the accessibility tests. It leaves the kit's own files untouched, so <code>npm update</code> brings a newer kit later.</p>
     </section>
 
     <section class="mb-14 border-t-2 border-ink pt-8 [&>p]:mb-5" aria-labelledby="agents-site-file">
       <h2 class="h2 mb-6" id="agents-site-file">Give your site its own file</h2>
-      <p>The kit's <code>AGENTS.md</code> stays in the kit's repository. Your site needs its own, so the next agent that opens the project, next week or next year, knows the rules without being told. This is enough to start, and it grows with your own notes:</p>
+      <p>The kit's notes are about the kit. Your site needs a file of its own, so the next agent that opens the project, next week or next year, knows the rules without being told. This is enough to start, and it grows with your own notes:</p>
       <pre class="mb-5" tabindex="0"><code>{siteAgents}</code></pre>
       <p>Save it as <code>AGENTS.md</code> at the top of the project. If you use Claude Code, save a copy as <code>CLAUDE.md</code> too, or a <code>CLAUDE.md</code> that only says <code>@AGENTS.md</code>.</p>
     </section>
