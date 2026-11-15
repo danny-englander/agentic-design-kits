@@ -52,6 +52,16 @@ test('where supported, the select opens the kit’s own list and still picks by 
 const iso = (d: Date) =>
   `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
 
+test('a required field’s label has the mark, and data-required-marks="off" drops it', async ({ page }) => {
+  await page.goto('/forms');
+  const mark = () =>
+    page.locator('label[for="forms-name"]').evaluate((el) => getComputedStyle(el, '::after').content);
+  expect(await mark()).toContain('⁕');
+  // As on a form where every field is required, which says so once in words instead.
+  await page.locator('form:has(#forms-name)').evaluate((el) => el.setAttribute('data-required-marks', 'off'));
+  expect(await mark()).toBe('none');
+});
+
 test('the date and time fields are the browser’s own inputs', async ({ page }) => {
   await page.goto('/forms');
   await expect(page.getByLabel('Start date')).toHaveAttribute('type', 'date');
