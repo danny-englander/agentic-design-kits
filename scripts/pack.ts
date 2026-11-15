@@ -7,8 +7,9 @@
 //   npm run pack -- --tag v2026.11.10 --out dir  writes them somewhere else
 //
 // Each file holds what the kit's package.json lists under "files", plus its README and the
-// license. Swiss Minimal's README is kit/README.md, since the one at the repository's root is
-// about both kits; it is the page npmjs.com shows for the package. The version is the release's date, and Verdigris's copy depends on the Swiss Minimal
+// license. Each kit's README here is its kit/README.md, written for someone installing the
+// package: it is the page npmjs.com shows. The READMEs at the repository's root and in
+// verdigris/ are about the repository, and their links only work there. The version is the release's date, and Verdigris's copy depends on the Swiss Minimal
 // of the same release, so one install brings both. To try the files in a site before they are
 // published, install both at once: npm install ./swiss-minimal.tgz ./verdigris.tgz
 import { execFileSync } from 'node:child_process';
@@ -23,7 +24,7 @@ const swissMinimal = '@agentic-design-kits/swiss-minimal';
 /** Each kit's file name, its folder in the repository, and its README in that folder. */
 const kits = [
   { file: 'swiss-minimal', dir: '.', readme: 'kit/README.md' },
-  { file: 'verdigris', dir: 'verdigris', readme: 'README.md' },
+  { file: 'verdigris', dir: 'verdigris', readme: 'kit/README.md' },
 ];
 
 /**
