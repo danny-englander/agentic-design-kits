@@ -70,6 +70,7 @@
   --badge-tracking: 0.04em;      /* the ellipse badge */
   --page-max: 88rem;       /* content width */
   --gutter: 1rem;          /* page side padding; 2rem from 640px up */
+  --row-num: 3rem;         /* the number column of a list row and its section header, from 768px */
   --bar-h: 5rem;           /* fixed bottom bar height, if you have one */
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   color-scheme: light;
@@ -1102,7 +1103,8 @@ a.post-header-label:hover { color: var(--accent-text); text-decoration: underlin
 /* Required: the font's own flower asterisk (⁕, U+2055) in the accent, after the label of a
    required field. No markup: it appears when the label is followed by a :required field (or a
    select-wrap holding one), or on a choice-group's legend when one of its inputs is required.
-   Add data-required to a label the selectors can't reach. Screen readers skip the mark (the
+   Add data-required to a label the selectors can't reach, and data-required-marks="off" to a
+   form (or any wrapper) where every field is required. Screen readers skip the mark (the
    empty alt text after the slash); the field's own `required` is what they announce.
    .required-mark puts the same mark in running text, for the "⁕ Required" note atop a form. */
 .field-label:is(:has(+ :required), :has(+ .select-wrap > :required), :has(+ .file-pick > :required), [data-required])::after,
@@ -1116,6 +1118,8 @@ a.post-header-label:hover { color: var(--accent-text); text-decoration: underlin
 .field-label:is(:has(+ :required), :has(+ .select-wrap > :required), :has(+ .file-pick > :required), [data-required])::after,
 .choice-group:has(:required) > legend::after { margin-left: 0.35em; }
 .required-mark::before { margin-right: 0.35em; }
+/* A form where every field is required says so once in words, and drops the marks. */
+[data-required-marks="off"] :is(.field-label, legend)::after { content: none !important; }
 .panel, .drawer { --required-ink: var(--accent-bright); }
 
 /* Select: the same underline field with a chevron drawn from two borders (no icon). The chevron

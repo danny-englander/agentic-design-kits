@@ -1,18 +1,24 @@
 ---
-// One numbered list row (ListRow in COMPONENTS.md). The end slot takes an indicator or arrow.
+// One numbered list row (ListRow in COMPONENTS.md), for inside a <Section>. The default slot
+// is the end slot: an indicator or an arrow.
 // Phones: number and end slot share the first line, the name stacks under them.
 // From 768px: one line on the section's grid (number, name, end slot).
 // With `favorite`, a star sits in the end slot, beside the title link rather than inside it.
 // `numStyle` sets the number in a circle, outlined or solid (NumberCircle in COMPONENTS.md).
-import FavoriteButton from '@agentic-design-kits/swiss-minimal/astro/FavoriteButton.astro';
-import NumCircle from '@agentic-design-kits/swiss-minimal/astro/NumCircle.astro';
+// The number column is the --row-num token (3rem), shared with Section's header.
+import FavoriteButton from './FavoriteButton.astro';
+import NumCircle from './NumCircle.astro';
 
 interface Props {
   num: number;
   title: string;
+  /** A quieter line under the title. */
   meta?: string;
+  /** Makes the title a link, and the row fill on hover. */
   href?: string;
+  /** The current row: filled, with `aria-current`. */
   active?: boolean;
+  /** Written as `data-category`, for a filter script to read. */
   category?: string;
   /** A stable id for the item; needed for `favorite` and to find the row from a script. */
   id?: string;
@@ -25,8 +31,10 @@ const { num, title, meta, href, active, category, id, favorite, numStyle = 'plai
 <li
   class:list={[
     'row grid grid-cols-[1fr_auto] gap-y-1 p-4 md:items-baseline md:gap-x-2 md:px-0',
-    // A circled number is wider, so its column is too: room for the circle clear of the edge.
-    numStyle === 'plain' ? 'md:grid-cols-[3rem_1fr_2.75rem]' : 'md:grid-cols-[4rem_1fr_2.75rem]',
+    // A circled number is wider, so its column is at least 4rem: room for the circle clear of the edge.
+    numStyle === 'plain'
+      ? 'md:grid-cols-[var(--row-num)_1fr_2.75rem]'
+      : 'md:grid-cols-[max(var(--row-num),4rem)_1fr_2.75rem]',
   ]}
   data-active={active ? 'true' : undefined}
   aria-current={active ? 'true' : undefined}

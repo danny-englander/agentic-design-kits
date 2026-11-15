@@ -10,6 +10,8 @@ A sticky bar on `paper` that holds the site name, the menu button and the theme 
 
 **Behavior.** It is `position: sticky; top: 0; z-index: 50`. While the slide-down panel is open (`<html data-menu="open">`) it flips to `bar` / `bar-ink` so bar and panel read as one black block, and it stays above the panel (z-index 50 over 30) so the burger-turned-X stays reachable.
 
+**In Astro,** `BaseLayout` writes the bar. Its `tagline` prop is the site name: the text at the left, and the home link's name. There is no separate name prop; a longer line about the site belongs in the page's `Hero`, not here.
+
 **Home link.** On a site with more than one page, the name links to the home page: `<a class="topbar-home" href="/">Site name</a>` inside that text. It is plain text in the bar's color, underlined on hover, and carries `aria-current="page"` on the home page itself. `BaseLayout` does this whenever it has a menu; pass `home="/en/"` for another home, or `home={false}` to leave the name unlinked. A one-page site keeps the name as plain text.
 
 **Mark.** A site may put one small symbol before the name: an inline SVG in `BaseLayout`'s `mark` slot, which sits inside the home link. Draw it at 1.25rem (`width`/`height` 20), in `currentColor` so it follows the bar when it turns dark, with at most one accent touch, or as one flat shape all in the accent. The accent is `accent-text`, switching to `accent-bright` while `html[data-menu="open"]` or `[data-drawer-open]`. Give it `aria-hidden="true"`: the link's name is the site name. When the name wraps on a phone, set the link to `inline-flex` with a 0.5rem gap so the second line hangs beside the mark. The demo's Swiss cross is in `demo/src/components/SiteMark.astro`.
@@ -182,7 +184,11 @@ An underline-only text field in large type: no box, no radius, a 2px `currentCol
 
 **Don't** add borders around the input or a background fill.
 
-**Required fields** get the font's own flower asterisk (⁕, U+2055) in the accent after the label: `accent-text` on the page, `accent-bright` on dark. There is no markup to add. Put `required` on the field and the mark appears on the label just before it, on the label before a `select-wrap` that holds one, and on a `choice-group`'s legend when one of its radios is required. For a label the CSS can't reach, add `data-required`. Screen readers skip the mark, because the field's own `required` already says it. Say once what the mark means, at the top of the form: `<p class="small muted"><span class="required-mark"></span>Required</p>`. Mark the required fields, not the optional ones, and leave the mark off a form where every field is required.
+**Required fields** get the font's own flower asterisk (⁕, U+2055) in the accent after the label: `accent-text` on the page, `accent-bright` on dark. There is no markup to add. Put `required` on the field and the mark appears on the label just before it, on the label before a `select-wrap` that holds one, and on a `choice-group`'s legend when one of its radios is required. For a label the CSS can't reach, add `data-required`. Screen readers skip the mark, because the field's own `required` already says it. Say once what the mark means, at the top of the form: `<p class="small muted"><span class="required-mark"></span>Required</p>`. Mark the required fields, not the optional ones, and leave the mark off a form where every field is required: put `data-required-marks="off"` on the `<form>` (or any wrapper), keep `required` on each field, and say it once in words in place of the mark's note: `<p class="small muted mb-6">Every field is required.</p>`.
+
+**A longer answer** is a `<textarea>` with the same class: `<textarea class="field min-h-24 resize-y" id="message" name="message" rows="3"></textarea>` under its own `field-label`. It keeps the underline and the type, grows downward only (`resize-y`), and starts about three lines tall. No box around it either.
+
+**A form with nowhere to send.** The kit styles a form; it does not send one. A form that submits confirms with a `Toast` ("Message sent."), and only once the send has really worked; a failure is said in words beside the button (`<p class="small" role="alert">`), with what was typed left in place. So a contact form needs somewhere to send to before it is built: the host's own forms (Netlify Forms, say), a form service, or the site's own endpoint. With none of those, don't build a form that pretends: no toast for a message that went nowhere, and no `action` that leads to an error page. Use a plain link in place of the form, `<a class="btn" href="mailto:hello@example.com">Write to us</a>`, and tell the owner the form is waiting on an address to send to.
 
 ## Select
 
@@ -320,13 +326,70 @@ An accordion on the page itself (not in the panel), built on native `<details>`:
 
 A section of numbered rows: a 2px `ink` rule, a header on the shared grid, then rows divided by 1px `rule` that fill when active, and on hover if they hold a link or button.
 
-**Markup.** `<li class="row">` (add `data-active="true"` for the current one) laid out by your page's grid, e.g. `grid-template-columns: 3rem 1fr 1.75rem`: a `.num.small.muted` number, a `title` name over a `small muted` subline, and an optional end slot (an activity indicator, an arrow).
+**In Astro,** `kit/astro/Section.astro` and `kit/astro/Row.astro` write all of it:
 
-- **One grid.** The section header uses the same columns, so the range label ("01–03") sits over the numbers and the `h2` over the names.
-- The number sits `space-4` in from the left (1.25rem from 768px), clear of the active row's 6px `row-edge`.
+```astro
+---
+import Section from '@agentic-design-kits/swiss-minimal/astro/Section.astro';
+import Row from '@agentic-design-kits/swiss-minimal/astro/Row.astro';
+---
+<Section id="work" title="Selected work" range="01–03">
+  <Row num={1} title="Field notes" meta="Writing · 2026" href="/work/field-notes/" />
+  <Row num={2} title="Signal" meta="Identity · 2025" href="/work/signal/" active>
+    <span class="eq" aria-hidden="true"><i></i><i></i><i></i></span>
+  </Row>
+  <Row num={3} title="Harbor" meta="Website · 2024" />
+</Section>
+```
+
+- **`Section`** takes `id` (the `h2`'s id), `title` and `range` (the label over the numbers, "01–03"; write it yourself). Its default slot goes in a `<ul>`, so it holds `Row`s or `<li>`s of your own. The `intro` slot puts a line or two between the header and the rows. `filterable` writes `data-filter-section`, for a filter script that hides a section with no matching rows.
+- **`Row`** takes `num`, `title`, and optionally `meta` (the subline), `href` (makes the title a link), `active` (the current row), `id` and `category` (written as `data-item` and `data-category`, for scripts), `favorite` (a `FavoriteStar` in the end slot; needs `id`) and `numStyle="circle" | "solid"` (the number in a `NumberCircle`). Its default slot is the end slot: an activity indicator or an arrow.
+
+**Markup,** as those two write it, for a site without Astro:
+
+```html
+<section class="rule-thick mb-16 pt-8" aria-labelledby="work">
+  <div class="grid gap-1 pb-6 md:grid-cols-[var(--row-num)_1fr_2.75rem] md:items-baseline md:gap-x-2">
+    <p class="num small muted whitespace-nowrap font-medium md:pl-2">01–03</p>
+    <h2 class="h2" id="work">Selected work</h2>
+  </div>
+  <ul>
+    <li class="row grid grid-cols-[1fr_auto] gap-y-1 p-4 md:grid-cols-[var(--row-num)_1fr_2.75rem] md:items-baseline md:gap-x-2 md:px-0">
+      <span class="num small muted col-start-1 row-start-1 font-medium md:pl-5">01</span>
+      <span class="col-span-2 row-start-2 md:col-span-1 md:col-start-2 md:row-start-1">
+        <a class="title block underline-offset-4 hover:underline" href="/work/field-notes/">Field notes</a>
+        <span class="small muted block">Writing · 2026</span>
+      </span>
+      <span class="col-start-2 row-start-1 -my-2.5 flex items-center justify-center self-center md:col-start-3"><!-- end slot --></span>
+    </li>
+  </ul>
+</section>
+```
+
+The current row adds `data-active="true" aria-current="true"` to its `<li>`. A row that is not a link has `<span class="title block">` in place of the `<a>`.
+
+- **One grid.** The section header uses the same columns as the rows, so the range label sits over the numbers and the `h2` over the names. The columns are the number (3rem, the `--row-num` token), the name, and a 2.75rem end slot, wide enough for a 44px touch target. A circled number takes a number column of at least 4rem.
+- The number sits `space-4` in from the left (1.25rem from 768px, `md:pl-5`), clear of the active row's 6px `row-edge`. The range label sits nearer the edge (`md:pl-2`), as "01–06" is wider than one number.
 - **A row fills on hover only if it holds a link or button.** A row of plain text stays still, since a fill would promise a click. The fill is `row-hover-bg` (`row-active-bg` when active), and all text, muted included, turns `row-fg`. In dark mode the fill is a raised dark, never a cream slab, and the active row shows an accent edge.
-- Rows stack on phones; switch to columns from 768px.
+- Rows stack on phones (number and end slot on the first line, the name under them); they switch to columns from 768px.
 - Keep the numbers when filtering; don't renumber.
+
+## Section
+
+A part of a page that is not a numbered list: a form, a few paragraphs, a `CardGrid`, a `DatedList`. It starts with the same a 2px `ink` rule as a list section, and its heading sits at the left edge of `.page`, where the range label would be. It is not indented to the names column, because there are no numbers for it to clear.
+
+**Markup.** There is no component; it is three utilities and a heading:
+
+```html
+<section class="rule-thick mb-16 pt-8" aria-labelledby="about-studio">
+  <h2 class="h2 mb-6" id="about-studio">The studio</h2>
+  <p class="max-w-2xl">…</p>
+</section>
+```
+
+- `mb-16` (`space-16`) between sections, none after the last. `mb-6` under the heading, or `mb-3` when a `small muted` line follows it.
+- Keep running text to a measure (`max-w-2xl`); a list, grid or form may use the full width.
+- One `h2` per section, named by `aria-labelledby`. Don't add a range label to a section with nothing numbered in it, and don't use `Section.astro` for it: that one wraps its content in a `<ul>`.
 
 ## JumpToCurrent
 
@@ -460,7 +523,7 @@ A short confirmation on a `bar` block with a 6px `accent-bright` left edge, bott
 
 **Markup.** `<div class="toast" role="status">Message sent.</div>`; set `data-show="true"` to fade it in (350ms) and remove it to hide. It sits at `left: gutter; bottom: calc(bar-h + 1rem)`, max 28rem wide, 1rem weight 500.
 
-**Use** for one-line confirmations that need no action. Hide it after a few seconds. **Don't** stack several or put buttons in it.
+**Use** for one-line confirmations that need no action, after the thing has really happened: a form's "Message sent." only once the send worked (see "A form with nowhere to send" under Field). Hide it after a few seconds. **Don't** stack several or put buttons in it.
 
 ## Drawer
 
@@ -734,6 +797,7 @@ The top of a page: the name in `display`, a `lead` line, and an optional caption
   ```
 
   Use `title="About"` instead of the slot for a one-line name, and `layout="split" | "wide"` to override the shape. The default slot adds text under the lead and before the image, such as a second lead paragraph: `<p class="lead hero-lead">…</p>`. Keep it to one or two short paragraphs; longer text belongs on the page below.
+- **Art that is not an image file** (an inline SVG, a drawn component) goes in the `art` slot, with `image` left off. It takes the image's place in the figure, over the `caption`: `<Hero title="About" lead="…" caption="Credit"><svg slot="art" …>…</svg></Hero>`. The layout is `split` unless `layout="wide"` says otherwise, as there is no file to read a shape from. `image` itself takes only an imported file, never a URL string or a component.
 - The hero image loads eagerly with high priority; it is the one image on a page that is not lazy.
 
 ## PageTitle
@@ -825,7 +889,7 @@ A blog's index, newest first: each post's date beside its linked title, with a s
 In Astro, `<PostList posts={posts} />`, each a `Post` (`title`, `href`, `date`, optional `summary` and `meta`; the type is in `kit/astro/types.ts`). `level="h3"` when the list sits under a section's `h2`.
 
 - A 2px `ink` rule on top, 1px `rule` between posts, like the dated list.
-- Date over the post on phones; a 10rem date column beside it from 640px. The date is 14px, 500, `muted`, tabular: the title is what stands out, not the date.
+- Date over the post on phones; a 10rem date column beside it from 640px. The date is 16px, 500, `muted`, tabular: the title is what stands out, not the date.
 - The title is 1.5rem, 2rem from 768px, bold; it underlines (2px) on hover. Only the title is a link, with the font's arrow after it, as on a card.
 - **Format dates in UTC**, as for the dated list.
 - Meta is a short line: topics and reading time, joined with " · ".

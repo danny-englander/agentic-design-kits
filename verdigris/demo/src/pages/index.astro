@@ -1,7 +1,8 @@
 ---
 import SiteLayout from '../layouts/SiteLayout.astro';
-import Row from '../components/Row.astro';
-import Section from '../components/Section.astro';
+import Row from '@agentic-design-kits/verdigris/astro/Row.astro';
+import Section from '@agentic-design-kits/verdigris/astro/Section.astro';
+import Hero from '@agentic-design-kits/verdigris/astro/Hero.astro';
 import Rosette from '@agentic-design-kits/verdigris/astro/Rosette.astro';
 import Cta from '@agentic-design-kits/verdigris/astro/Cta.astro';
 import CardGrid from '@agentic-design-kits/verdigris/astro/CardGrid.astro';
@@ -39,16 +40,13 @@ const cards = [featured, ...rest].filter((post) => post !== undefined).slice(0, 
   headline="Verdigris · An agentic design kit for Astro and Tailwind"
   description="Verdigris is an agentic design kit for Astro and Tailwind v4: design rules, tokens and components your AI coding agent reads, then builds a site from."
 >
-  <header class="hero hero--split">
-    <div class="hero-text">
-      <h1 class="display">Verdigris</h1>
-      <p class="lead hero-lead">A design kit your AI agent can implement: the discipline of a Swiss grid and the warmth of a printed book.</p>
-    </div>
-    <figure class="figure hero-figure">
-      <Rosette spin />
-      <figcaption>Engine-turned rosette, drawn in verdigris and copper. Example artwork.</figcaption>
-    </figure>
-  </header>
+  <Hero
+    title="Verdigris"
+    lead="A design kit your AI agent can implement: the discipline of a Swiss grid and the warmth of a printed book."
+    caption="Engine-turned rosette, drawn in verdigris and copper. Example artwork."
+  >
+    <Rosette slot="art" spin />
+  </Hero>
 
   <p class="rule-fleuron mb-12" aria-hidden="true">❦</p>
 

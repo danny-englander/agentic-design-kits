@@ -4,7 +4,7 @@ Two setups that came from Dial Hopping and suit any site built on this kit: acce
 
 ## Accessibility tests: Playwright and axe
 
-[Playwright](https://playwright.dev) drives a real browser; [`@axe-core/playwright`](https://github.com/dequelabs/axe-core-npm) scans each page it opens for WCAG problems. The demo has a working copy: `demo/playwright.config.ts` and `demo/tests/a11y.spec.ts`.
+[Playwright](https://playwright.dev) drives a real browser; [`@axe-core/playwright`](https://github.com/dequelabs/axe-core-npm) scans each page it opens for WCAG problems. Both files are written out in full below: the config goes in `playwright.config.ts` at the top of the site, the scan in `tests/a11y.spec.ts`. (The kit's demo has a working copy of each, in `demo/` in the kit's repository.)
 
 ### Set up
 
@@ -14,6 +14,10 @@ npx playwright install chromium
 ```
 
 Add `"test": "playwright test"` to `package.json` scripts, and `test-results/` and `playwright-report/` to `.gitignore`.
+
+- **The browser is kept outside the project.** `npx playwright install chromium` downloads it to the user's cache folder (`~/Library/Caches/ms-playwright` on a Mac, `~/.cache/ms-playwright` on Linux). An agent that may only write inside the project can't run it, and `npm test` then fails with "Executable doesn't exist". Ask the owner to run that one command, or use the Chrome already on the machine, which needs no download: in the config below, write the project as `{ name: 'chrome', use: { ...devices['Desktop Chrome'], channel: 'chrome' } }`. If neither is possible, say that the tests are written but have not run.
+- **Don't pin `@playwright/test` to an older version** to match a browser already in that cache. `@axe-core/playwright` asks for `playwright-core` as well, and a pin can leave two copies of it at different versions, which shows up as a type error on `new AxeBuilder({ page })`. If the versions have already split, `npm dedupe` puts them back on one copy.
+- **Type checking** is separate: `npm install --save-dev @astrojs/check typescript`, then `npx astro check`. Run it before the tests; it is quicker and catches a wrong prop.
 
 ### The config, and why
 
@@ -57,9 +61,9 @@ export default defineConfig({
 
 ### What to scan
 
-A one-page site has few URLs but many states. Scan each one that changes what is on screen, in **both themes** (contrast differs):
+A one-page site has few URLs but many states. Scan each one that changes what is on screen, in **both themes** (contrast differs). Skip the lines for parts the site doesn't have: a new site of plain pages scans every page in light and dark, and that is all.
 
-- every page;
+- every page (for pages built from one template, such as blog posts, one of each is enough);
 - each tab of the panel (open it with its deep link, `/#contact`, or a click);
 - the drawer, open;
 - a filtered list, and the Favorites filter with something starred (`page.addInitScript` to put it in localStorage first);
@@ -95,7 +99,21 @@ for (const theme of ['light', 'dark'] as const) {
 }
 ```
 
-The report lists each rule that failed and the elements that broke it, so a failure says what to fix.
+For more than one page, loop over a list inside the `describe`:
+
+```ts
+const PAGES = ['/', '/work', '/about', '/contact'];
+
+for (const path of PAGES) {
+  test(`${path} has no violations`, async ({ page }) => {
+    await page.goto(path);
+    await settle(page);
+    await scan(page);
+  });
+}
+```
+
+The report lists each rule that failed and the elements that broke it, so a failure says what to fix. Add each new page to `PAGES` as it is made.
 
 ### Beyond axe
 

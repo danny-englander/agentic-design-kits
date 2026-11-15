@@ -12,7 +12,7 @@ Swiss Minimal is an agentic design kit: a set of rules for you to follow, not a 
 Look for `node_modules/@agentic-design-kits/swiss-minimal/`.
 
 - **It is there:** read its `llms.txt`, the index of the package's files.
-- **It is not there:** install it with `npm install @agentic-design-kits/swiss-minimal`, in an Astro project with Tailwind v4 and Node 24 or later. Check the project's `.nvmrc` before running `node`, `npm` or `npx`.
+- **It is not there:** install it with `npm install @agentic-design-kits/swiss-minimal`, in an Astro project with Tailwind v4 and Node 24 or later. Check the project's `.nvmrc` before running `node`, `npm` or `npx`. With no site at all yet, make the project first: `USING.md`'s new-site steps begin with the command for it, and that file is in the kit's repository until the package is installed.
 
 If the project has `@agentic-design-kits/verdigris` installed, it is a Verdigris site: use the `verdigris` skill and import from that package, never from Swiss Minimal.
 

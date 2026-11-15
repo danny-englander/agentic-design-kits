@@ -9,7 +9,7 @@ Swiss Minimal is a package, built for **Astro with Tailwind v4** (no React neede
 - `kit/tailwind.css`: the entry point for a Tailwind site. Imports Tailwind, loads `theme.css` into the `components` layer and maps the tokens to utilities. See "With Tailwind v4".
 - `kit/theme.css`: every token (light and dark), the base styles and every component class, in plain CSS. It imports `kit/fonts.css`, which holds the `@font-face` rules and `--font-sans`; `kit/astro/font.ts` names the font `BaseLayout` preloads, unless its `preloadFont` prop names another (a URL, or `false` for none). It also works on its own, without Tailwind. Dark mode follows the system unless `<html data-theme="light|dark">` is set.
 - `kit/panel.js`: the slide-down panel's behavior, tabs included. Plain JavaScript, no dependencies, like the other scripts: `new-dot.js` (the "new" dot), `drawer.js` (the second, non-modal panel), `jump.js` (jump to the current item), `marquee.js` (a scrolling title), `file-pick.js` (the file picker), `output.js` (live output), `dialog.js` (fills in for the native dialog where a browser is behind), `favorites.js` (favorite stars) and `icon-controls.js` (icon buttons for rows built in the browser).
-- `kit/astro/`: BaseLayout, Hero, PageTitle, PostList, PostFeature, Pager, PostHeader, PostNav, Footer, BottomBar, FilePicker, SummaryList, OutputPanel, Dialog, Ellipse, NumCircle, MenuButton, MenuPanel, MenuItems, ThemeToggle, Drawer, DrawerButton, FavoriteButton, FeaturesList, IconTemplates (needs `astro-icon`) and the types (`MenuItem`, `PanelTab`, `NewDot`, `Feature`, `Post`, `PostLink`). They use Tailwind utilities for layout and the kit classes for components.
+- `kit/astro/`: BaseLayout, Hero, PageTitle, Section, Row, PostList, PostFeature, Pager, PostHeader, PostNav, Footer, BottomBar, FilePicker, SummaryList, OutputPanel, Dialog, Ellipse, NumCircle, MenuButton, MenuPanel, MenuItems, ThemeToggle, Drawer, DrawerButton, FavoriteButton, FeaturesList, IconTemplates (needs `astro-icon`) and the types (`MenuItem`, `PanelTab`, `NewDot`, `Feature`, `Post`, `PostLink`). They use Tailwind utilities for layout and the kit classes for components.
 - `kit/example.html`: a one-page demo using only `theme.css`. Open it to see what "correct" looks like.
 - `fonts/OverusedGrotesk-VF.woff2` and `fonts/LICENSE.txt`, and `fonts/SourceCodePro-VF.woff2` (for code) and `fonts/SourceCodePro-LICENSE.txt`, all SIL OFL 1.1. Keep each license beside its font.
 - `tokens.json`: the token values as data. If a value in `theme.css` ever differs, `tokens.json` wins.
@@ -37,6 +37,20 @@ Put this in `<head>` before first paint so a saved theme does not flash:
 - **All caps only for one or two words** (a top-bar button, a tiny label like `ARCHIVE`). Anything longer is sentence case, because caps are slow to read. Tab names are title case, however short.
 - A filtered view always says what it shows: "All items", "Writing · 7 items".
 - Write the site's name in `display`, weight 700, tight, stacked on two lines when large. The name set in type is the mark. A site may put one small symbol before it in the top bar (the demo's is a Swiss cross): 1.25rem, drawn in `currentColor` with at most one accent touch, or as one flat shape all in the accent. Never a logo image or a wordmark.
+- **Favicon.** The kit ships none, and a starter's own (Astro's logo) has to go. Draw a 24-unit square SVG: `paper` behind, and the top-bar mark in the accent, or with no mark, one flat square of the accent. Square corners, no letters, no gradient. Write the colors as hex, since a favicon can't read the page's variables, and swap them for dark inside the file:
+
+  ```html
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <style>
+      .bg { fill: #f3f0e9 } .mark { fill: #e5301b }
+      @media (prefers-color-scheme: dark) { .bg { fill: #0c0c0c } .mark { fill: #ff4b2b } }
+    </style>
+    <rect class="bg" width="24" height="24"/>
+    <rect class="mark" x="6" y="6" width="12" height="12"/>
+  </svg>
+  ```
+
+  Those are vermilion's `accent`; an azure site uses `#0f8f8c` and `#3fc9c4` (`tokens.json`). Save it as `public/favicon.svg` and link it with `<link rel="icon" type="image/svg+xml" href="/favicon.svg">`, in `BaseLayout`'s `head` slot.
 
 ## Color
 
@@ -115,7 +129,7 @@ Overused Grotesk has alternate letters, boxed and circled figures and a few nume
 
 - Content width `page-max` (88rem), centered in `.page`, with `gutter` side padding (1rem, 2rem from 640px).
 - Hero with generous space (`space-12`, `space-20` from 768px), then sections separated by `space-16`. A hero image takes its layout from its shape: square or portrait sits beside the text, 50/50 from 768px; landscape goes under the text at the full page width. Below 768px it stacks, text first; a square or portrait image is then 60% wide and centered.
-- Section header: 2px `ink` top rule, then the grid row (range label, `h2` title, blurb).
+- Section header: 2px `ink` top rule, then the grid row (range label, `h2` title, blurb). A section with nothing numbered in it has no range label, and its `h2` sits at the left edge of `.page`; see Section in `COMPONENTS.md`.
 - List rows: 1px `rule` bottom border, none on the last row, `space-4` vertical padding. The row number sits `space-4` in from the left (1.25rem from 768px) so it stays clear of the active row's 6px edge.
 - Mobile first. Rows stack on phones and become a column grid from 768px.
 - Pages end with a `Footer`: the 2px rule, the site name and its links.
@@ -178,13 +192,13 @@ Photos, artwork, screenshots and product shots are welcome. The test is whether 
 
 ## Components
 
-Every component is a plain CSS class in `kit/theme.css` (loaded through `kit/tailwind.css`); there is no JavaScript bundle, only a few small plain scripts for the pieces that need behavior. In short: **Skip link** (`.skip-link`), **Top bar** (`.topbar`), **Outlined button** (`.topbar-btn`, `.burger`), **Hover label** (`data-tip`), **Primary button** (`.btn`), **Secondary button** (`.btn-outline`, `.btn-group`), **Tertiary button** (`.btn-outline--tertiary`), **Slide-down panel** (`.panel`, with `kit/panel.js`), **Menu** (`.menu-list`, `.acc`, `.submenu`), **Panel tabs** (`.panel-tabs`, `.panel-tab`), **"New" dot** (`.new-dot`, with `kit/new-dot.js`), **Field** (`.field`), **Select** (`.select-wrap`, `.select`), **Date and time** (`.field` on `type="date"`, `time`…), **File picker** (`.file-pick`, with `kit/file-pick.js`), **Switch** (`.choice`, `.switch`), **Radio** (`.choice-group`, `.radio`), **Filter buttons** (`.chip`), **Favorite star** (`.fav-btn`, with `kit/favorites.js`), **Page accordion** (`.page-acc`), **List row** (`.row`), **Bottom bar** (`.bottom-bar`, optional), **Jump to current** (`.jump-btn`, with `kit/jump.js`), **Scrolling title** (`.marquee`, with `kit/marquee.js`), **Dialog** (`.dialog` on `<dialog>`, with `kit/dialog.js`), **Toast** (`.toast`), **Drawer** (`.drawer`, with `kit/drawer.js`), **Icon actions** (`.icon-row`, `.icon-btn`, with `kit/icon-controls.js`), **Closing note** (`.closing-note`), **Dated list** (`.dated-list`), **Summary list** (`.summary-list`), **Output panel** (`.output`, with `kit/output.js`), **Code block** (`pre`, `.pre--bar`, `.pre-cmd`, `.pre-err`, `.tok-*`), **Ellipse** (`.ellipse`, `.ellipse--solid`), **Number circle** (`.num-circle`, `.num-circle--solid`, `.num-circle--accent`), **Activity indicators** (`.eq`, `.spinner`), **Image** (`.media`, `.figure`), **Hero** (`.hero`, `.hero--split`, `.hero--wide`), **Page title** (`.page-title`, `.page-title--bar`), **CTA** (`.cta`), **Card grid** (`.card-grid`, `.card`), **Post list** (`.post-list`), **Post feature** (`.post-feature`), **Pager** (`.pager`), **Post header** (`.post-header`, `.post-meta`), **Post body** (`.post-body`), **Post nav** (`.post-nav`), **Footer** (`.site-footer`, `.site-footer--bar`).
+Every component is a plain CSS class in `kit/theme.css` (loaded through `kit/tailwind.css`); there is no JavaScript bundle, only a few small plain scripts for the pieces that need behavior. In short: **Skip link** (`.skip-link`), **Top bar** (`.topbar`), **Outlined button** (`.topbar-btn`, `.burger`), **Hover label** (`data-tip`), **Primary button** (`.btn`), **Secondary button** (`.btn-outline`, `.btn-group`), **Tertiary button** (`.btn-outline--tertiary`), **Slide-down panel** (`.panel`, with `kit/panel.js`), **Menu** (`.menu-list`, `.acc`, `.submenu`), **Panel tabs** (`.panel-tabs`, `.panel-tab`), **"New" dot** (`.new-dot`, with `kit/new-dot.js`), **Field** (`.field`), **Select** (`.select-wrap`, `.select`), **Date and time** (`.field` on `type="date"`, `time`…), **File picker** (`.file-pick`, with `kit/file-pick.js`), **Switch** (`.choice`, `.switch`), **Radio** (`.choice-group`, `.radio`), **Filter buttons** (`.chip`), **Favorite star** (`.fav-btn`, with `kit/favorites.js`), **Page accordion** (`.page-acc`), **List row** (`.row`, with `Section.astro` and `Row.astro`), **Section** (`.rule-thick` and an `h2`), **Bottom bar** (`.bottom-bar`, optional), **Jump to current** (`.jump-btn`, with `kit/jump.js`), **Scrolling title** (`.marquee`, with `kit/marquee.js`), **Dialog** (`.dialog` on `<dialog>`, with `kit/dialog.js`), **Toast** (`.toast`), **Drawer** (`.drawer`, with `kit/drawer.js`), **Icon actions** (`.icon-row`, `.icon-btn`, with `kit/icon-controls.js`), **Closing note** (`.closing-note`), **Dated list** (`.dated-list`), **Summary list** (`.summary-list`), **Output panel** (`.output`, with `kit/output.js`), **Code block** (`pre`, `.pre--bar`, `.pre-cmd`, `.pre-err`, `.tok-*`), **Ellipse** (`.ellipse`, `.ellipse--solid`), **Number circle** (`.num-circle`, `.num-circle--solid`, `.num-circle--accent`), **Activity indicators** (`.eq`, `.spinner`), **Image** (`.media`, `.figure`), **Hero** (`.hero`, `.hero--split`, `.hero--wide`), **Page title** (`.page-title`, `.page-title--bar`), **CTA** (`.cta`), **Card grid** (`.card-grid`, `.card`), **Post list** (`.post-list`), **Post feature** (`.post-feature`), **Pager** (`.pager`), **Post header** (`.post-header`, `.post-meta`), **Post body** (`.post-body`), **Post nav** (`.post-nav`), **Footer** (`.site-footer`, `.site-footer--bar`).
 
 ## With Tailwind v4
 
 This is the default setup, and how Dial Hopping is built.
 
-1. Install `tailwindcss` and `@tailwindcss/vite`, and add the plugin in `astro.config.mjs`:
+1. Install `tailwindcss` and `@tailwindcss/vite`, and add the plugin in `astro.config.mjs` (`USING.md` has the whole file, and the command that makes the project):
    ```js
    import tailwindcss from '@tailwindcss/vite';
    export default defineConfig({ vite: { plugins: [tailwindcss()] } });
@@ -197,7 +211,7 @@ This is the default setup, and how Dial Hopping is built.
    Don't also `@import "tailwindcss"` or `theme.css` anywhere else; `tailwind.css` does both.
 3. Pass `barHeight="5rem"` to `BaseLayout` if the site has a fixed bottom bar.
 
-**Who does what.** Components with state, motion or several parts are kit classes (`.row`, `.chip`, `.panel`, `.toast`, `.hero`, `.media`, the type styles). Page layout is utilities in the markup: grids, spacing, widths, which column a piece sits in. Mix them freely: `class="row grid gap-y-1 md:grid-cols-[3rem_1fr_1.75rem]"`.
+**Who does what.** Components with state, motion or several parts are kit classes (`.row`, `.chip`, `.panel`, `.toast`, `.hero`, `.media`, the type styles). Page layout is utilities in the markup: grids, spacing, widths, which column a piece sits in. Mix them freely: `class="row grid gap-y-1 md:grid-cols-[var(--row-num)_1fr_2.75rem]"`.
 
 **Layers.** `theme.css` sits in Tailwind's `components` layer, so a utility always beats a kit class it is paired with (`class="field mb-7"` sets the margin). Your own unlayered CSS beats both.
 
