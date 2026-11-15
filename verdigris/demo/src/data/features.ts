@@ -8,6 +8,15 @@ import type { Feature } from '@agentic-design-kits/verdigris/types';
 export const features: Feature[] = [
   {
     date: '2026-11-14',
+    title: 'Steps for your agent, in the package',
+    body: 'The package now carries `USING.md`: the steps for starting a new site with the kit, and for restyling an existing one. Your agent finds it in `node_modules/@agentic-design-kits/verdigris/`, beside the rules, with no trip to GitHub.',
+    details: [
+      'The prompts on the home page and on Agents now point at it.',
+      'The package’s page on npm is now written for someone installing it, with links that work there.',
+    ],
+  },
+  {
+    date: '2026-11-14',
     title: 'A truer verdigris',
     body: 'The accent is now the green of weathered copper in place of teal, the copper is warmer, and the rosette turns in a brighter green and orange, every pairing passing WCAG AA in both themes.',
     details: [

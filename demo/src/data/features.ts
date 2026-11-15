@@ -8,6 +8,14 @@ import type { Feature } from '@agentic-design-kits/swiss-minimal/types';
 export const features: Feature[] = [
   {
     date: '2026-11-14',
+    title: 'Steps for your agent, in the package',
+    body: 'The package now carries `USING.md`: the steps for starting a new site with the kit, and for restyling an existing one. Your agent finds it in `node_modules/@agentic-design-kits/swiss-minimal/`, beside the rules, with no trip to GitHub.',
+    details: [
+      'The prompts on the home page and on Agents now point at it.',
+    ],
+  },
+  {
+    date: '2026-11-14',
     title: 'Footnotes in posts',
     body: 'A blog post can now carry Markdown footnotes (`[^1]`). The number sits in the text in the accent color, and the notes come at the end of the post under a rule, each with an arrow back to its place.',
     details: ['The post “Why one typeface is enough” has two: one on a single word, mid-sentence, and one at the end of a sentence.'],
