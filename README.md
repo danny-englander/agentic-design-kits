@@ -28,7 +28,8 @@ Each kit has the same parts, written so that an agent can read them and a person
 
 - **`DESIGN.md`:** the rules (color, type, layout, images, motion, accessibility, the Tailwind setup) and a "Do not" list.
 - **`COMPONENTS.md`:** the markup, behavior and do's and don'ts for each component.
-- **`AGENTS.md`** (also `CLAUDE.md`): notes for AI agents on three tasks: working on the kit, starting a new site with it, and restyling an existing one.
+- **`USING.md`:** notes for AI agents on starting a new site with the kit and restyling an existing one. It comes with the npm package.
+- **`AGENTS.md`** (also `CLAUDE.md`): notes for AI agents on working on the kit itself.
 - **`tokens.json`:** every token value, light and dark, with a note on what each is for.
 - **`kit/`:** the CSS (plain, with a Tailwind v4 entry point), a few small plain scripts and the Astro components.
 - **`fonts/`:** the kit's typeface.
@@ -40,15 +41,15 @@ The repository is one npm workspace. Each demo installs its kit as a package thr
 
 **Swiss Minimal**, at the root:
 
-- [`DESIGN.md`](DESIGN.md), [`COMPONENTS.md`](COMPONENTS.md), [`AGENTS.md`](AGENTS.md) and [`tokens.json`](tokens.json).
+- [`DESIGN.md`](DESIGN.md), [`COMPONENTS.md`](COMPONENTS.md), [`USING.md`](USING.md), [`AGENTS.md`](AGENTS.md) and [`tokens.json`](tokens.json).
 - [`kit/`](kit): [`README.md`](kit/README.md) (the package's page on npm), `tailwind.css`, `theme.css`, the scripts (`panel.js`, `new-dot.js`, `drawer.js`, `jump.js`, `marquee.js`, `file-pick.js`, `output.js`, `dialog.js`, `favorites.js`, `icon-controls.js`) and the Astro components.
 - [`fonts/`](fonts): Overused Grotesk, and Source Code Pro for code (both SIL OFL 1.1).
 - [`demo/`](demo): the site at swissminimal.ch.
 
 **Verdigris**, in [`verdigris/`](verdigris), with its own [`README`](verdigris/README.md):
 
-- [`DESIGN.md`](verdigris/DESIGN.md), [`COMPONENTS.md`](verdigris/COMPONENTS.md), [`AGENTS.md`](verdigris/AGENTS.md) and [`tokens.json`](verdigris/tokens.json).
-- [`verdigris/kit/`](verdigris/kit): only what makes it Verdigris: `tailwind.css`, `verdigris.css`, `fonts.css` and the components written there (`BaseLayout`, `Mark`, `Rosette`). `kit/shared/` passes on Swiss Minimal's components and scripts, so a site imports all of them from `@agentic-design-kits/verdigris`.
+- [`DESIGN.md`](verdigris/DESIGN.md), [`COMPONENTS.md`](verdigris/COMPONENTS.md), [`USING.md`](verdigris/USING.md), [`AGENTS.md`](verdigris/AGENTS.md) and [`tokens.json`](verdigris/tokens.json).
+- [`verdigris/kit/`](verdigris/kit): [`README.md`](verdigris/kit/README.md) (the package's page on npm), and only what makes it Verdigris: `tailwind.css`, `verdigris.css`, `fonts.css` and the components written there (`BaseLayout`, `Mark`, `Rosette`). `kit/shared/` passes on Swiss Minimal's components and scripts, so a site imports all of them from `@agentic-design-kits/verdigris`.
 - [`verdigris/fonts/`](verdigris/fonts): Cormorant (SIL OFL 1.1).
 - [`verdigris/demo/`](verdigris/demo): the site at verdigris.ch.
 
@@ -81,7 +82,7 @@ npm install @agentic-design-kits/verdigris
 @import "@agentic-design-kits/verdigris/tailwind.css";
 ```
 
-To update, run `npm update`, or the same command again. Versions follow the release date: `2026.1113.0` is the first release on 13 November 2026, and `2026.1113.1` a second that day. The steps after that (the layout, the menu, a blog, code in Markdown) are under "Starting a new site with the kit" in each kit's `AGENTS.md`.
+To update, run `npm update`, or the same command again. Versions follow the release date: `2026.1113.0` is the first release on 13 November 2026, and `2026.1113.1` a second that day. The steps after that (the layout, the menu, a blog, code in Markdown) are under "Starting a new site with the kit" in each kit's `USING.md`, which comes with the package.
 
 ## Run a demo
 
