@@ -150,7 +150,7 @@ const chips = [
           { title: 'Type and color', href: '/type-and-color/', summary: 'Every type style and every color token the kit offers, with each token\'s light and dark values and its contrast ratio. Drawn with the kit\'s own classes.', tags: ['Type', 'Color'] },
           { title: 'Field notes', href: '/work/field-notes/', summary: 'A short essay on working with a single typeface, from notes kept over a year of small projects. What one family can carry when weight and size do all the work.', tags: ['Writing'] },
           { title: 'Why one typeface is enough', href: '/blog/one-typeface/', summary: 'A site set in a single grotesque, at two weights, has fewer decisions to get wrong and a clearer voice. Here is what the constraint buys.', tags: ['Type'] },
-          { title: 'Notes on vermilion and verdigris', href: '/blog/two-pigments/', summary: 'The kit offers two accents, both old pigments. Why each one, and why a site only ever uses one of them.', tags: ['Color'] },
+          { title: 'Notes on vermilion and azure', href: '/blog/two-pigments/', summary: 'The kit offers two accents, one warm and one cool. Why each one, and why a site only ever uses one of them.', tags: ['Color'] },
         ]}
       />
     </ComponentEntry>
@@ -289,13 +289,13 @@ const chips = [
       </div>
     </ComponentEntry>
     <ComponentEntry num={n()} name="List row" classes=".row">
-      <Fragment slot="about">Numbered rows that fill on hover. The active one stays filled, with an edge on its left.</Fragment>
+      <Fragment slot="about">Numbered rows. One that holds a link or button fills on hover; plain text stays still. The active one stays filled, with an edge on its left.</Fragment>
       <ul class="border-t border-rule">
-        <Row num={1} title="One typeface" meta="Weights 400, 500 and 700 only" />
-        <Row num={2} title="Flat color" meta="Cream, ink and one accent" active>
+        <Row num={1} title="One typeface" href="/type-and-color/" meta="Weights 400, 500 and 700 only" />
+        <Row num={2} title="Flat color" href="/type-and-color/" meta="Cream, ink and one accent" active>
           <span class="eq" aria-hidden="true"><i></i><i></i><i></i></span>
         </Row>
-        <Row num={3} title="Thick rules" meta="A 2px line opens every section" />
+        <Row num={3} title="Thick rules" href="/components/" meta="A 2px line opens every section" />
       </ul>
     </ComponentEntry>
     <ComponentEntry num={n()} name="Page accordion" classes=".page-acc">
@@ -347,14 +347,14 @@ const chips = [
       <p class="flex items-center gap-2 text-2xl"><NumCircle value={1} accent /> <NumCircle value={1} solid accent /></p>
       <p class="small muted mt-8 mb-3">In a list row, at <code>text-sm</code>:</p>
       <ul class="border-t border-rule">
-        <Row num={1} title="Install the kit" meta="One npm command, and npm update for the next release" numStyle="circle" />
-        <Row num={2} title="Import the stylesheet" meta="One global stylesheet, starting with tailwind.css" numStyle="circle" active />
-        <Row num={3} title="Build on BaseLayout" meta="A Hero or a PageTitle on every page" numStyle="circle" />
+        <Row num={1} title="Install the kit" href="/agents/" meta="One npm command, and npm update for the next release" numStyle="circle" />
+        <Row num={2} title="Import the stylesheet" href="/agents/" meta="One global stylesheet, starting with tailwind.css" numStyle="circle" active />
+        <Row num={3} title="Build on BaseLayout" href="/agents/" meta="A Hero or a PageTitle on every page" numStyle="circle" />
       </ul>
       <ul class="mt-8 border-t border-rule">
-        <Row num={1} title="Install the kit" meta="One npm command, and npm update for the next release" numStyle="solid" />
-        <Row num={2} title="Import the stylesheet" meta="One global stylesheet, starting with tailwind.css" numStyle="solid" active />
-        <Row num={3} title="Build on BaseLayout" meta="A Hero or a PageTitle on every page" numStyle="solid" />
+        <Row num={1} title="Install the kit" href="/agents/" meta="One npm command, and npm update for the next release" numStyle="solid" />
+        <Row num={2} title="Import the stylesheet" href="/agents/" meta="One global stylesheet, starting with tailwind.css" numStyle="solid" active />
+        <Row num={3} title="Build on BaseLayout" href="/agents/" meta="A Hero or a PageTitle on every page" numStyle="solid" />
       </ul>
     </ComponentEntry>
   </Section>

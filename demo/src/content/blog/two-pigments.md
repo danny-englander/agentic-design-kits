@@ -1,13 +1,13 @@
 ---
-title: Notes on vermilion and verdigris
+title: Notes on vermilion and azure
 date: '2026-09-02'
-summary: The kit offers two accents, both old pigments. Why each one, and why a site only ever uses one of them.
+summary: The kit offers two accents, one warm and one cool. Why each one, and why a site only ever uses one of them.
 tags: [Color]
 cover: ../../assets/landscape.jpg
 coverAlt: Wide crop of an abstract composition, a red circle, black and grey shapes and thin black rules
 ---
 
-Both of the kit's accents are named after pigments people have made for centuries. Vermilion is a red that leans toward orange, the red of Swiss posters and railway signs. Verdigris is the blue-green that copper turns as it weathers on old roofs and statues.
+The kit has two accents, one warm and one cool. Vermilion is named after a pigment people have made for centuries: a red that leans toward orange, the red of Swiss posters and railway signs. Azure is an old word for the blue of a clear sky; the kit's azure leans toward green.
 
 ## One accent, used rarely
 

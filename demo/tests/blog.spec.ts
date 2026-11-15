@@ -20,7 +20,7 @@ test('the index opens with the featured post, then lists five of the rest newest
   const titles = page.locator('.post-list-title a');
   await expect(titles).toHaveText([
     'Setting a grid before the words →',
-    'Notes on vermilion and verdigris →',
+    'Notes on vermilion and azure →',
     'Thick rule, thin rule →',
     'Labels in two words or fewer →',
     'Why the bars stay dark →',

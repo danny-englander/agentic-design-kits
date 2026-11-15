@@ -80,8 +80,10 @@ const tabs = [
   <script is:inline slot="head">
     // Demo only: apply the accent picked in the gear switcher before first paint.
     try {
-      const accent = localStorage.getItem('swiss-demo:accent');
-      if (accent === 'vermilion' || accent === 'verdigris') document.documentElement.dataset.accent = accent;
+      // 'verdigris' is azure's old name, still saved in some browsers.
+      const saved = localStorage.getItem('swiss-demo:accent');
+      const accent = saved === 'verdigris' ? 'azure' : saved;
+      if (accent === 'vermilion' || accent === 'azure') document.documentElement.dataset.accent = accent;
     } catch {}
   </script>
 

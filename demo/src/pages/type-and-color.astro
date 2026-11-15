@@ -20,16 +20,16 @@ const prices = [
 ];
 
 type Theme = 'light' | 'dark';
-type Accent = 'vermilion' | 'verdigris';
+type Accent = 'vermilion' | 'azure';
 type Values = Record<Theme, string>;
 const values = new Map(tokens.color.tokens.map((t) => [t.name, t.value as Values]));
-/** The accent tokens Verdigris swaps in; every other token stays. */
-const verdigris = new Map(
-  Object.entries(tokens.color.accents.find((a) => a.id === 'verdigris')?.tokens ?? {}) as [string, Values][],
+/** The accent tokens Azure swaps in; every other token stays. */
+const azure = new Map(
+  Object.entries(tokens.color.accents.find((a) => a.id === 'azure')?.tokens ?? {}) as [string, Values][],
 );
 /** A token's color in one theme and accent, following references such as "{bar}". */
 const hex = (name: string, theme: Theme, accent: Accent = 'vermilion'): string => {
-  const v = (accent === 'verdigris' && verdigris.get(name)?.[theme]) || values.get(name)?.[theme] || '';
+  const v = (accent === 'azure' && azure.get(name)?.[theme]) || values.get(name)?.[theme] || '';
   return v.startsWith('{') ? hex(v.slice(1, -1), theme, accent) : v;
 };
 const luminance = (h: string) => {
@@ -165,7 +165,7 @@ const groups: { title: string; accent?: boolean; swatches: Swatch[] }[] = [
       <p class="mb-10 max-w-3xl">
         Each swatch is drawn with its token's utility, so it shows this theme and accent. Both theme values are listed
         under it, with the contrast against the color it is read on. Accent swatches list vermilion's values and
-        verdigris's.
+        azure's.
       </p>
       {
         groups.map(({ title, accent, swatches }) => (
@@ -178,9 +178,9 @@ const groups: { title: string; accent?: boolean; swatches: Swatch[] }[] = [
                   <p class="mt-3 font-bold">{s.name}</p>
                   <p class="small"><code>{s.utilities}</code></p>
                   {accent ? (
-                    (['vermilion', 'verdigris'] as const).map((a) => (
+                    (['vermilion', 'azure'] as const).map((a) => (
                       <p class="small num muted">
-                        {a === 'vermilion' ? 'Vermilion' : 'Verdigris'}
+                        {a === 'vermilion' ? 'Vermilion' : 'Azure'}
                         <br />
                         {line(s, 'light', a)}
                         <br />
