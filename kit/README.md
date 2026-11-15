@@ -32,7 +32,7 @@ import type { MenuItem } from '@agentic-design-kits/swiss-minimal/types';
 
 To update, run `npm update`. Versions follow the release date: `2026.1113.0` is the first release on 13 November 2026, and `2026.1113.1` a second that day.
 
-Each site picks one accent: vermilion (the default, a red leaning toward orange) or verdigris (the blue-green of copper patina), with `<BaseLayout accent="verdigris">` or `<html data-accent="verdigris">`.
+Each site picks one accent: vermilion (the default, a red leaning toward orange) or azure (a blue leaning toward green), with `<BaseLayout accent="azure">` or `<html data-accent="azure">`.
 
 ## In the package
 
