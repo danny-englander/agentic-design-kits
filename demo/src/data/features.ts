@@ -8,6 +8,19 @@ import type { Feature } from '@agentic-design-kits/swiss-minimal/types';
 export const features: Feature[] = [
   {
     date: '2026-11-15',
+    title: 'List rows and sections, ready to import',
+    body: 'Numbered rows and their section header are now components in the kit, `Row` and `Section`, so an agent no longer copies them from this demo. The instructions for a new site now start from an empty folder and need nothing from GitHub.',
+    details: [
+      'Import them as `@agentic-design-kits/swiss-minimal/astro/Row.astro` and `Section.astro`. ListRow in `COMPONENTS.md` has their props and the full markup.',
+      '`Hero` takes art that is not an image file, such as an inline SVG, in its new `art` slot.',
+      'A form where every field is required drops the required marks with `data-required-marks="off"`.',
+      'The number column of a row is a new token, `--row-num`.',
+      '`USING.md` now gives the command that makes the project, the Tailwind setup, the favicon and which pages to test. `TOOLING.md` says what to do when the test browser can’t be downloaded.',
+      '`COMPONENTS.md` now covers a section with nothing numbered, a `textarea`, and a contact form with nowhere to send.',
+    ],
+  },
+  {
+    date: '2026-11-15',
     title: 'An agent built a site, and I timed it',
     body: 'A new post records one run of the prompt on Agents, in an empty folder: what the agent built, how long it took, and where the kit’s instructions let it down.',
     details: ['Two slips it found are fixed: a stale accent name in `DESIGN.md`, and a missing package in the test setup in `TOOLING.md`.'],
