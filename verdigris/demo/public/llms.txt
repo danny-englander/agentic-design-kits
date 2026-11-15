@@ -25,15 +25,15 @@ The kit is written for agents to follow: a set of rules, not a library of compon
 
 ## Demo
 
-- [Components](https://verdigris.ch/components/): Every component in the kit on one page.
-- [Agents](https://verdigris.ch/agents/): How to build or restyle a site with the kit using an AI coding agent.
-- [Forms](https://verdigris.ch/forms/): Fields, a select, radios, switches, date fields and a file picker in working forms, with an export task that streams live output.
-- [Blog](https://verdigris.ch/blog/): A featured post beside its image, the rest by date and numbered pages; each post has a byline, Markdown body text, highlighted code and links to the posts before and after.
+- [Components](https://www.verdigris.ch/components/): Every component in the kit on one page.
+- [Agents](https://www.verdigris.ch/agents/): How to build or restyle a site with the kit using an AI coding agent.
+- [Forms](https://www.verdigris.ch/forms/): Fields, a select, radios, switches, date fields and a file picker in working forms, with an export task that streams live output.
+- [Blog](https://www.verdigris.ch/blog/): A featured post beside its image, the rest by date and numbered pages; each post has a byline, Markdown body text, highlighted code and links to the posts before and after.
 
 ## Optional
 
 - [README](https://raw.githubusercontent.com/danny-englander/agentic-design-kits/main/verdigris/README.md): What is in the repository, and how to run, test and release the demo.
 - [Repository](https://github.com/danny-englander/agentic-design-kits/tree/main/verdigris): The source, in the verdigris/ folder of Swiss Minimal's repository, including the demo site in verdigris/demo/.
-- [Home](https://verdigris.ch/): The demo's home page, with a split hero and list rows.
-- [Work](https://verdigris.ch/work/): A filterable list with favorites and a dark page title.
-- [About](https://verdigris.ch/about/): Running text and code blocks.
+- [Home](https://www.verdigris.ch/): The demo's home page, with a split hero and list rows.
+- [Work](https://www.verdigris.ch/work/): A filterable list with favorites and a dark page title.
+- [About](https://www.verdigris.ch/about/): Running text and code blocks.

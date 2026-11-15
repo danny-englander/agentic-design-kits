@@ -4,7 +4,7 @@ import { test, expect } from '@playwright/test';
 // the share card itself, the XML sitemap and robots.txt. Every address is the live one, with
 // www, and every page address ends in a slash, as the site serves it.
 
-const SITE = 'https://verdigris.ch';
+const SITE = 'https://www.verdigris.ch';
 const PAGES = ['/', '/work/', '/work/field-notes/', '/blog/', '/blog/page/2/', '/blog/one-family/', '/about/', '/forms/', '/components/', '/agents/'];
 
 for (const path of PAGES) {

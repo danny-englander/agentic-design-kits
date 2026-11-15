@@ -10,7 +10,7 @@ test('llms.txt is served as plain text and every demo page it lists exists', asy
   expect(text.startsWith('# Verdigris\n')).toBe(true);
 
   // Links to this site are written with the live domain; check each path on the local build.
-  const paths = [...text.matchAll(/\]\(https:\/\/verdigris\.ch(\/[^)]*)\)/g)].map((m) => m[1]);
+  const paths = [...text.matchAll(/\]\(https:\/\/www\.verdigris\.ch(\/[^)]*)\)/g)].map((m) => m[1]);
   expect(paths.length).toBeGreaterThan(0);
   for (const path of paths) {
     // Written as the site serves them, with a slash at the end.
