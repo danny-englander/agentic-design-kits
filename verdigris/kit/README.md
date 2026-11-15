@@ -1,12 +1,12 @@
-[![An engine-turned rosette, line work in verdigris and copper on a dark ground](https://raw.githubusercontent.com/danny-englander/agentic-design-kits/main/verdigris/docs/rosette-dark.svg)](https://verdigris.ch)
+[![An engine-turned rosette, line work in verdigris and copper on a dark ground](https://raw.githubusercontent.com/danny-englander/agentic-design-kits/main/verdigris/docs/rosette-dark.svg)](https://www.verdigris.ch)
 
-[verdigris.ch](https://verdigris.ch)
+[verdigris.ch](https://www.verdigris.ch)
 
 # Verdigris Design Kit
 
 A design kit your AI agent can implement, for Astro and Tailwind v4: Swiss Minimal's strict grid, set in Cormorant, in verdigris and copper, with ornament that earns its place. No capitals anywhere, for accessibility.
 
-It is not a library of components to copy and paste. It is a set of rules, and an agent that follows them: what each color is for, which weights to use, where a rule goes, and when not to add anything at all. Say what the site should do, and a coding agent picks the components, writes the code and checks it against the rules. See [Agents](https://verdigris.ch/agents/) on the demo site.
+It is not a library of components to copy and paste. It is a set of rules, and an agent that follows them: what each color is for, which weights to use, where a rule goes, and when not to add anything at all. Say what the site should do, and a coding agent picks the components, writes the code and checks it against the rules. See [Agents](https://www.verdigris.ch/agents/) on the demo site.
 
 Verdigris is one of the [Agentic Design Kits](https://github.com/danny-englander/agentic-design-kits). It is built on [Swiss Minimal](https://www.npmjs.com/package/@agentic-design-kits/swiss-minimal), which is installed with it.
 
@@ -45,7 +45,7 @@ Recipes for accessibility tests (Playwright and axe) and a manual checklist are 
 
 ## For AI agents
 
-Read `USING.md` in this package (`node_modules/@agentic-design-kits/verdigris/USING.md`): it covers starting a new site with the kit and restyling an existing one, step by step, and names the other files to read. The same file is [on GitHub](https://github.com/danny-englander/agentic-design-kits/blob/main/verdigris/USING.md), for reading before the kit is installed. The demo site's [Agents](https://verdigris.ch/agents/) page has prompts to start from.
+Read `USING.md` in this package (`node_modules/@agentic-design-kits/verdigris/USING.md`): it covers starting a new site with the kit and restyling an existing one, step by step, and names the other files to read. The same file is [on GitHub](https://github.com/danny-englander/agentic-design-kits/blob/main/verdigris/USING.md), for reading before the kit is installed. The demo site's [Agents](https://www.verdigris.ch/agents/) page has prompts to start from.
 
 ## License
 

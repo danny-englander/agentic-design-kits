@@ -19,7 +19,7 @@ Check the Node version before running `node`, `npm` or `npx` in the site: look f
 7. **Code in Markdown:** set `markdown: { shikiConfig: { theme: 'css-variables' } }` in `astro.config.mjs`, so code takes the kit's code colors. Without it, Astro's default theme puts GitHub's dark colors and background on every code block.
 8. Copy the tests from Swiss Minimal's `TOOLING.md` (`node_modules/@agentic-design-kits/swiss-minimal/TOOLING.md`). Don't edit the kit's files in `node_modules/`; a fix belongs back in [the kit's repository](https://github.com/danny-englander/agentic-design-kits).
 
-The kit's demo site is the worked example of all of this: [`verdigris/demo/`](https://github.com/danny-englander/agentic-design-kits/tree/main/verdigris/demo) in the kit's repository (`src/layouts/SiteLayout.astro`, `src/pages/`), live at [verdigris.ch](https://verdigris.ch).
+The kit's demo site is the worked example of all of this: [`verdigris/demo/`](https://github.com/danny-englander/agentic-design-kits/tree/main/verdigris/demo) in the kit's repository (`src/layouts/SiteLayout.astro`, `src/pages/`), live at [verdigris.ch](https://www.verdigris.ch).
 
 ## Restyling an existing site with the kit
 

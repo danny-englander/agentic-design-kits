@@ -2,7 +2,7 @@
   <img src="docs/rosette-dark.svg" width="360" alt="An engine-turned rosette, line work in verdigris and copper on a dark ground.">
 </p>
 
-<p align="center"><a href="https://verdigris.ch">verdigris.ch</a></p>
+<p align="center"><a href="https://www.verdigris.ch">verdigris.ch</a></p>
 
 # Verdigris Design Kit
 
