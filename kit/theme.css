@@ -44,9 +44,9 @@
 
   /* Type: every size, weight and label style below reads these, so a theme built on this kit
      can change its type here rather than rule by rule. */
-  --size-100: 0.875rem;    /* the floor: labels, meta, captions */
+  --size-100: 0.875rem;    /* the floor: labels, meta */
   --size-200: 1rem;        /* chrome: top bar, panel, drawer, toast */
-  --size-300: 1.125rem;    /* body on phones */
+  --size-300: 1.125rem;    /* body on phones; captions */
   --size-400: 1.25rem;     /* body from 768px; list titles */
   --size-500: 1.375rem;    /* lead on phones; pull quotes */
   --size-600: 1.5rem;      /* lead from 768px; list titles from 768px */
@@ -120,27 +120,27 @@
   color-scheme: dark;
 }
 
-/* ---------- Accent: vermilion (the default) or verdigris ---------- */
+/* ---------- Accent: vermilion (the default) or azure ---------- */
 /* Each site names its one accent on <html>: data-accent="vermilion" (a red leaning toward
-   orange, the values in :root above, also used when the attribute is missing) or "verdigris"
-   (below: the blue-green patina of old copper). BaseLayout sets it. Only the four accent tokens change; paper, ink and the dark bars stay
+   orange, the values in :root above, also used when the attribute is missing) or "azure"
+   (below: a blue leaning toward green). BaseLayout sets it. Only the four accent tokens change; paper, ink and the dark bars stay
    the same. Each value passes the same contrast checks as the vermilion it replaces (see
    tokens.json). */
-:root[data-accent="verdigris"] {
+:root[data-accent="azure"] {
   --accent: #0f8f8c;       /* large shapes and the focus ring (3.5:1 on paper) */
-  --accent-ink: #ffffff;   /* text on a verdigris fill (6.3:1 on accent-text) */
-  --accent-text: #0b6b69;  /* small verdigris text on cream (5.6:1) */
-  --accent-bright: #3fc9c4;/* small verdigris text on dark surfaces (9.5:1) */
+  --accent-ink: #ffffff;   /* text on an azure fill (6.3:1 on accent-text) */
+  --accent-text: #0b6b69;  /* small azure text on cream (5.6:1) */
+  --accent-bright: #3fc9c4;/* small azure text on dark surfaces (9.5:1) */
 }
 @media (prefers-color-scheme: dark) {
-  :root[data-accent="verdigris"]:not([data-theme="light"]) {
+  :root[data-accent="azure"]:not([data-theme="light"]) {
     --accent: #3fc9c4;
     --accent-ink: #0c0c0c;
     --accent-text: #3fc9c4;
     --accent-bright: #3fc9c4;
   }
 }
-:root[data-accent="verdigris"][data-theme="dark"] {
+:root[data-accent="azure"][data-theme="dark"] {
   --accent: #3fc9c4;
   --accent-ink: #0c0c0c;
   --accent-text: #3fc9c4;
@@ -298,15 +298,16 @@ kbd {                            /* a key: outlined like the top-bar buttons */
 /* ---------- Rules and rows ---------- */
 .rule-thick { border-top: 2px solid var(--ink); }
 .rule-thin { border-bottom: 1px solid var(--rule); }
-.row {                           /* list row: fills on hover or when active (black on cream; raised dark with an accent edge in dark mode) */
+.row {                           /* list row: fills when active, and on hover if it holds a link or button (black on cream; raised dark with an accent edge in dark mode) */
   border-bottom: 1px solid var(--rule);
   transition: background-color 150ms, color 150ms;
 }
 /* The last row a reader can see has no rule, even when a filter has hidden the ones after it */
 .row:not(:has(~ .row:not([hidden]))) { border-bottom: 0; }
-.row:hover { background: var(--row-hover-bg); color: var(--row-fg); }
+/* A row of plain text stays still under the pointer: a fill would promise a click */
+.row:has(a, button):hover { background: var(--row-hover-bg); color: var(--row-fg); }
 .row[data-active="true"] { background: var(--row-active-bg); color: var(--row-fg); box-shadow: inset 6px 0 0 var(--row-edge); }
-.row:hover .muted, .row[data-active="true"] .muted { color: var(--row-fg); }
+.row:has(a, button):hover .muted, .row[data-active="true"] .muted { color: var(--row-fg); }
 a.link { color: inherit; text-decoration: underline; text-underline-offset: 4px; }
 a.link:hover { color: var(--accent-text); }
 
@@ -491,7 +492,7 @@ html[data-drawer-open] .topbar { --tb-bg: var(--bar); --tb-fg: var(--bar-ink); }
 .media--3x2 { aspect-ratio: 3 / 2; }
 .media--16x9 { aspect-ratio: 16 / 9; }
 .figure { margin: 0; }
-.figure > figcaption { margin-top: 0.75rem; font-size: var(--size-100); line-height: 1.375; color: var(--muted); }
+.figure > figcaption { margin-top: 0.75rem; font-size: var(--size-300); line-height: 1.375; color: var(--muted); }
 
 /* ---------- Slide-down panel (dark surface) ---------- */
 .panel {
@@ -676,12 +677,12 @@ html[data-drawer-open] { overflow: hidden; }  /* stop the page scrolling behind 
 .num-circle--solid { background: currentColor; }
 .num-circle--solid > * { color: var(--nc-cut); }
 .panel .num-circle, .drawer .num-circle, .page-title--bar .num-circle { --nc-cut: var(--bar); }
-.row:hover .num-circle { --nc-cut: var(--row-hover-bg); }
+.row:has(a, button):hover .num-circle { --nc-cut: var(--row-hover-bg); }
 .row[data-active="true"] .num-circle { --nc-cut: var(--row-active-bg); }
 .num-circle--accent { color: var(--accent-text); }
 .num-circle--accent.num-circle--solid { --nc-cut: var(--accent-ink); }
 :is(.panel, .drawer, .page-title--bar) .num-circle--accent { --nc-cut: var(--bar); color: var(--accent-bright); }
-.row:hover .num-circle--accent, .row[data-active="true"] .num-circle--accent { color: var(--accent-bright); }
+.row:has(a, button):hover .num-circle--accent, .row[data-active="true"] .num-circle--accent { color: var(--accent-bright); }
 
 /* ---------- Summary list: a few results, label beside value ---------- */
 /* A <dl> of rows: a small uppercase label and its value, thin rules between. Label over value
@@ -860,7 +861,7 @@ a.post-header-label:hover { color: var(--accent-text); text-decoration: underlin
 .post-body hr { height: 0; margin: 3rem 0; border: 0; border-top: 2px solid var(--ink); }
 .post-body img { display: block; width: 100%; height: auto; background: var(--rule); }
 .post-body figure { margin: 2rem 0; }
-.post-body figcaption { margin-top: 0.75rem; font-size: var(--size-100); line-height: 1.375; color: var(--muted); }
+.post-body figcaption { margin-top: 0.75rem; font-size: var(--size-300); line-height: 1.375; color: var(--muted); }
 .post-body table { width: 100%; border-collapse: collapse; }
 .post-body th {
   padding: 0 1rem 0.5rem 0; border-bottom: 2px solid var(--ink); text-align: left;
@@ -1038,8 +1039,8 @@ a.post-header-label:hover { color: var(--accent-text); text-decoration: underlin
 .fav-btn:hover { color: var(--ink); }
 .fav-btn[aria-pressed="true"] { color: var(--accent-text); }
 .fav-btn[aria-pressed="true"] svg { fill: currentColor; }
-.row:hover .fav-btn, .row[data-active="true"] .fav-btn { color: var(--row-fg); }
-.row:hover .fav-btn[aria-pressed="true"], .row[data-active="true"] .fav-btn[aria-pressed="true"] { color: var(--accent-bright); }
+.row:has(a, button):hover .fav-btn, .row[data-active="true"] .fav-btn { color: var(--row-fg); }
+.row:has(a, button):hover .fav-btn[aria-pressed="true"], .row[data-active="true"] .fav-btn[aria-pressed="true"] { color: var(--accent-bright); }
 
 /* ---------- Menu list: links, accordions and submenus (inside .panel) ---------- */
 .menu-list {
