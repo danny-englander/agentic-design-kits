@@ -3,7 +3,8 @@ title: The green that copper grows
 date: '2026-09-02'
 summary: How a pigment made with vinegar gave this theme its name, and why the kit keeps copper beside it.
 tags: [Color]
-rosette: wide
+cover: ../../assets/hero-copper-green.png
+coverAlt: 'Marbled bands of verdigris green winding across a near-black ground, with pale copper edges where the green thins out'
 ---
 
 Leave copper beside a dish of vinegar and it will change color. The fumes raise a pale blue-green crust on the metal, and for centuries painters scraped that crust off and ground it into a pigment. The name came through French: *vert de Grèce*, the green of Greece.[^1]
