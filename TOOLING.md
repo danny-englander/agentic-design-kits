@@ -9,7 +9,7 @@ Two setups that came from Dial Hopping and suit any site built on this kit: acce
 ### Set up
 
 ```bash
-npm install --save-dev @playwright/test @axe-core/playwright
+npm install --save-dev @playwright/test @axe-core/playwright @types/node
 npx playwright install chromium
 ```
 
@@ -111,7 +111,7 @@ Write them with Playwright's role locators (`page.getByRole('tab', { name: /Cont
 
 ## Manual checks
 
-What the automated tests can't see. Run through it in a real browser at about 390px and 1280px wide, in light and dark, before a release or after restyling a site. Skip the lines for components the site doesn't use.
+What the automated tests can't see. Run through it in a real browser at about 375px and 1280px wide, in light and dark, before a release or after restyling a site. Skip the lines for components the site doesn't use.
 
 - [ ] The first Tab on a page shows Skip to main content at the top left; Enter moves past the top bar, and the next Tab lands in the page.
 - [ ] Menu button opens the panel; the top bar turns dark with it; the page behind doesn't scroll.
@@ -126,7 +126,7 @@ What the automated tests can't see. Run through it in a real browser at about 39
 - [ ] Jump: scroll the current item away (or filter it out) and the triangle in the bottom bar brings it back and focuses it.
 - [ ] Accordions: only one open per level; nested level works; plus becomes minus.
 - [ ] Current page is underlined in the accent in the menu.
-- [ ] With `data-accent="azure"`, every accent mark turns azure in light and dark, and nothing else changes.
+- [ ] Swiss Minimal only: with `data-accent="azure"`, every accent mark turns azure in light and dark, and nothing else changes. (Verdigris has one palette.)
 - [ ] Theme toggle switches and remembers; reloading in dark shows no flash of light.
 - [ ] Filters: hide/show, keep numbers, status line updates, URL updates and is read on load, live region announces.
 - [ ] Forms: switches and radios work from the keyboard and show the accent when on; required fields show ⁕; a form that submits confirms with a toast above any bottom bar.
