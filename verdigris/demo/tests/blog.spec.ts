@@ -19,16 +19,16 @@ test('the index opens with the featured post, then lists five of the rest newest
   await expectFeature(page);
   const titles = page.locator('.post-list-title a');
   await expect(titles).toHaveText([
+    'I gave an agent the prompt and timed it →',
     'Setting a grid before the words →',
     'The green that copper grows →',
     'The scotch rule →',
     'Why there are no capitals →',
-    'Why the bars stay dark →',
   ]);
-  await expect(titles.first()).toHaveAttribute('href', '/blog/grid-before-words/');
+  await expect(titles.first()).toHaveAttribute('href', '/blog/an-agent-built-this/');
   // The arrow is for the eye: screen readers get the title alone.
   await expect(page.getByRole('link', { name: 'The scotch rule', exact: true })).toBeVisible();
-  await expect(page.locator('.post-list time').first()).toHaveAttribute('datetime', '2026-09-30');
+  await expect(page.locator('.post-list time').first()).toHaveAttribute('datetime', '2026-11-15');
 });
 
 test('the pager leads to page 2, which keeps the feature and lists the older posts', async ({ page }) => {
@@ -41,7 +41,7 @@ test('the pager leads to page 2, which keeps the feature and lists the older pos
   await expect(page).toHaveURL(/\/blog\/page\/2\/$/);
   await expect(page).toHaveTitle('Blog · Page 2 · Verdigris');
   await expectFeature(page);
-  await expect(page.locator('.post-list-title a')).toHaveText(['Images are content, not filler →', 'Motion that stops →']);
+  await expect(page.locator('.post-list-title a')).toHaveText(['Why the bars stay dark →', 'Images are content, not filler →', 'Motion that stops →']);
   await expect(pager.getByRole('link', { name: 'Page 2 of 2' })).toHaveAttribute('aria-current', 'page');
   await expect(pager.locator('[rel="next"]')).toHaveCount(0);
   await expect(pager.getByRole('link', { name: 'Newer' })).toHaveAttribute('href', '/blog/');
@@ -92,9 +92,9 @@ test('a post has its header, byline and body', async ({ page }) => {
 });
 
 test('the newest post links only back, the oldest only forward', async ({ page }) => {
-  await page.goto('/blog/one-family');
+  await page.goto('/blog/an-agent-built-this');
   const nav = page.getByRole('navigation', { name: 'More posts' });
-  await expect(nav.locator('[rel="prev"]')).toHaveAttribute('href', '/blog/grid-before-words/');
+  await expect(nav.locator('[rel="prev"]')).toHaveAttribute('href', '/blog/one-family/');
   await expect(nav.locator('[rel="next"]')).toHaveCount(0);
 
   await page.goto('/blog/motion-that-stops');
@@ -141,6 +141,6 @@ test('each card on the home page has a button named for its title', async ({ pag
   await page.goto('/');
   const buttons = page.locator('.card > .btn-outline');
   await expect(buttons).toHaveCount(4);
-  await expect(page.getByRole('link', { name: 'Read this: The scotch rule' })).toHaveAttribute('href', /scotch-rule/);
+  await expect(page.getByRole('link', { name: 'Read this: The green that copper grows' })).toHaveAttribute('href', /copper-green/);
   await expect(page.locator('.card-title a').first()).not.toContainText('→');
 });

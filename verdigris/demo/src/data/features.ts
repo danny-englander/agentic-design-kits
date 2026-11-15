@@ -8,6 +8,12 @@ import type { Feature } from '@agentic-design-kits/verdigris/types';
 export const features: Feature[] = [
   {
     date: '2026-11-15',
+    title: 'An agent built a site, and I timed it',
+    body: 'A new post records one run of the prompt on Agents, in an empty folder: what the agent built, how long it took, and where the kit’s instructions let it down.',
+    details: ['The prompt no longer ends with “Accent: verdigris”: the kit has one palette, so there was nothing to set.'],
+  },
+  {
+    date: '2026-11-15',
     title: 'The kit as a skill for your agent',
     body: 'The kit can now be installed as an agent skill. With it, your agent finds the kit’s rules by itself whenever a task calls for them, with no pointer to the docs in your prompt.',
     details: [

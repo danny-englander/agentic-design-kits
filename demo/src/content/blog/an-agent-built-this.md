@@ -60,7 +60,7 @@ I have already fixed the stale word and the install line. The rest are on my lis
 
 And there you have it: a four-page site that builds, passes the type check and follows the rules, in about five and a half minutes from one prompt. I would venture to say that backs up the claim on the home page, with a caveat. The agent got there partly by reading the demo's source on GitHub, which tells me the kit's own docs still have gaps, and it left the testing half done.
 
-Of course this was one run with one agent, and I have not tried other tools or models yet. I plan to do the same for Verdigris next.
+Of course this was one run with one agent, and I have not tried other tools or models yet. I did the same for Verdigris, the kit built on this one, and [wrote that run up too](https://www.verdigris.ch/blog/an-agent-built-this/).
 
 ## Resources
 
