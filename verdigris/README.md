@@ -26,6 +26,7 @@ Swiss Minimal comes with it. To update, run `npm update`. Versions follow the re
 - [`COMPONENTS.md`](COMPONENTS.md): markup and rules for each component.
 - [`TOOLING.md`](../TOOLING.md) (Swiss Minimal's, for both kits): recipes for accessibility tests (Playwright and axe) and date-tagged releases, and a manual checklist.
 - [`USING.md`](USING.md): notes for AI agents on starting a new site with the kit and restyling an existing one. It comes with the npm package.
+- [`llms.txt`](llms.txt): the index of the npm package's files for AI agents. (The demo site serves its own, from `demo/public/`.)
 - [`AGENTS.md`](AGENTS.md): notes for AI agents (also `CLAUDE.md`) on working on this repository.
 - [`kit/`](kit): [`README.md`](kit/README.md) (the package's page on npm), and what makes this Verdigris: `tailwind.css`, `verdigris.css`, `fonts.css` and the components written here (`BaseLayout`, `Mark`, `Rosette`). `kit/shared/` passes on Swiss Minimal's components and scripts, so a site imports all of them from `@agentic-design-kits/verdigris`.
 - [`fonts/`](fonts): Cormorant (SIL OFL 1.1). Source Code Pro, for code, comes with Swiss Minimal.

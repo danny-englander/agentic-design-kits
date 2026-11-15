@@ -29,6 +29,8 @@ Each kit has the same parts, written so that an agent can read them and a person
 - **`DESIGN.md`:** the rules (color, type, layout, images, motion, accessibility, the Tailwind setup) and a "Do not" list.
 - **`COMPONENTS.md`:** the markup, behavior and do's and don'ts for each component.
 - **`USING.md`:** notes for AI agents on starting a new site with the kit and restyling an existing one. It comes with the npm package.
+- **`skills/`:** each kit as an agent skill (`skills/swiss-minimal/`, `skills/verdigris/`), installed with `npx skills add danny-englander/agentic-design-kits --skill <name>`. A skill only points an agent at the docs in the installed package.
+- **`llms.txt`:** the index of the npm package's files for AI agents. Packing fails if it names a file the package lacks. (Each demo site serves its own `llms.txt`, from `demo/public/`.)
 - **`AGENTS.md`** (also `CLAUDE.md`): notes for AI agents on working on the kit itself.
 - **`tokens.json`:** every token value, light and dark, with a note on what each is for.
 - **`kit/`:** the CSS (plain, with a Tailwind v4 entry point), a few small plain scripts and the Astro components.

@@ -24,6 +24,7 @@ Verdigris is a second kit, built on this one, in [`verdigris/`](verdigris): its 
 - **Look at it** at about 375px and 1280px wide, in light and dark, and in azure as well as vermilion (the gear on the right edge, or `<html data-accent="azure">`). The manual checklist is under "Manual checks" in [`TOOLING.md`](TOOLING.md).
 - **Commits:** a short imperative subject ("Add a azure accent beside vermilion"), a body saying what and why. Kit, docs and demo changes go in separate commits.
 - **Releasing:** never `git push` main by hand. Add an entry at the top of `demo/src/data/features.ts` for anything a visitor would notice, dated the release day, then `npm run release -- --dry-run` and `npm run release` at the repository's root (see Releases in the [`README`](README.md)). One release covers both kits and deploys both sites. The owner approves each release.
+- **The skills** in `skills/` name the files an agent reads and the order. After renaming or adding a doc, or changing what `USING.md` covers, update `skills/swiss-minimal/SKILL.md` and `skills/verdigris/SKILL.md`, and each kit's `llms.txt`.
 
 ## Starting a new site, or restyling one
 

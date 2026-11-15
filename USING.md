@@ -1,10 +1,12 @@
 # Using Swiss Minimal: notes for AI agents
 
-How to start a new site with the kit, and how to restyle an existing site with it. Each has a section below. This file comes with the npm package (`node_modules/@agentic-design-kits/swiss-minimal/USING.md`), beside the other files it names. To change the kit itself, see `AGENTS.md` in [the kit's repository](https://github.com/danny-englander/agentic-design-kits).
+How to start a new site with the kit, and how to restyle an existing site with it. Each has a section below. This file comes with the npm package (`node_modules/@agentic-design-kits/swiss-minimal/USING.md`), beside the other files it names. [`llms.txt`](llms.txt), beside it, lists every file in the package. To change the kit itself, see `AGENTS.md` in [the kit's repository](https://github.com/danny-englander/agentic-design-kits).
 
 Read first, whichever the task: [`DESIGN.md`](DESIGN.md) (the rules, and its "Do not" list) and the parts of [`COMPONENTS.md`](COMPONENTS.md) you will use. [`tokens.json`](tokens.json) holds every token value; if `theme.css` disagrees, `tokens.json` wins.
 
 Check the Node version before running `node`, `npm` or `npx` in the site: look for an `.nvmrc` and use the version it names (`nvm use` in that folder). Don't rely on whichever Node the shell happens to have.
+
+**As a skill.** The kit is also an agent skill that points here: `npx skills add danny-englander/agentic-design-kits --skill swiss-minimal` (it lives in [`skills/swiss-minimal/`](https://github.com/danny-englander/agentic-design-kits/tree/main/skills/swiss-minimal) in the kit's repository). With it installed, an agent comes to this file by itself when a task calls for Swiss Minimal.
 
 ## Starting a new site with the kit
 
