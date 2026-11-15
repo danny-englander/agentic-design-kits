@@ -175,7 +175,7 @@ Photos, artwork, screenshots and product shots are welcome. The test is whether 
 ## Motion
 
 - Short and purposeful: 150ms hover swaps, 400 to 550ms slides with `--ease-out` (`cubic-bezier(0.22, 1, 0.36, 1)`).
-- Only the activity indicator, the spinner, the panel and drawer, a dialog, accordions and panel tabs, an overlong title, the jump flash and a turning rosette move. A title scrolls three rounds at most, then stops. A rosette turns once in two minutes, always beside a switch that stops it.
+- Only the activity indicator, the spinner, the panel and drawer, a dialog, accordions and panel tabs, an overlong title, the jump flash and a turning rosette move. A title scrolls three rounds at most, then stops. A rosette turns once in 30 seconds, always beside a switch that stops it.
 - Hover labels wait 350ms before they show, so passing the pointer over the top bar doesn't flicker them.
 - Always honor `prefers-reduced-motion`; `theme.css` switches slides, fades and loops off.
 
