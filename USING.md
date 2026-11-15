@@ -4,22 +4,86 @@ How to start a new site with the kit, and how to restyle an existing site with i
 
 Read first, whichever the task: [`DESIGN.md`](DESIGN.md) (the rules, and its "Do not" list) and the parts of [`COMPONENTS.md`](COMPONENTS.md) you will use. [`tokens.json`](tokens.json) holds every token value; if `theme.css` disagrees, `tokens.json` wins.
 
-Check the Node version before running `node`, `npm` or `npx` in the site: look for an `.nvmrc` and use the version it names (`nvm use` in that folder). Don't rely on whichever Node the shell happens to have.
+Check the Node version before running `node`, `npm` or `npx` in the site: look for an `.nvmrc` and use the version it names (`nvm use` in that folder). Don't rely on whichever Node the shell happens to have. A new site has no `.nvmrc` yet; step 1 below makes one.
 
 **As a skill.** The kit is also an agent skill that points here: `npx skills add danny-englander/agentic-design-kits --skill swiss-minimal` (it lives in [`skills/swiss-minimal/`](https://github.com/danny-englander/agentic-design-kits/tree/main/skills/swiss-minimal) in the kit's repository). With it installed, an agent comes to this file by itself when a task calls for Swiss Minimal.
 
 ## Starting a new site with the kit
 
-1. Make an Astro project with Tailwind v4 (`tailwindcss`, `@tailwindcss/vite`), Node 24 or later.
-2. Install the kit: `npm install @agentic-design-kits/swiss-minimal`. To update later, run `npm update`. Add `astro-icon` if the site uses `IconTemplates`.
-3. Make `src/styles/global.css` start with `@import "@agentic-design-kits/swiss-minimal/tailwind.css";` and import it in your layout. Don't import `tailwindcss` or `theme.css` anywhere else.
-4. Build pages on `@agentic-design-kits/swiss-minimal/astro/BaseLayout.astro`, and import every other component the same way (`@agentic-design-kits/swiss-minimal/astro/Hero.astro`), types from `@agentic-design-kits/swiss-minimal/types` and scripts as `@agentic-design-kits/swiss-minimal/output.js`. Give the layout a `menu` (`MenuItem[]`, current page marked), an `accent` if not vermilion, and `barHeight` on pages with a `BottomBar` (it is optional). Open each page with a `Hero` or a `PageTitle`, and end it with a `Footer` in the `footer` slot, given the same `menu`.
-5. Page layout is Tailwind utilities; components are kit classes. Colors only through the token utilities (`text-muted`, `bg-bar`, `text-accent-text`, …), never Tailwind's palette.
-6. **A blog:** keep posts in a content collection, one Markdown file each. The index opens with a `PostFeature` (one post beside a square image) in place of a hero, then a `PostList` of the rest and a `Pager` when there are more than fit a page; the feature stays on top of every page. A post opens with a `PostHeader`, puts its Markdown in a `.post-body` and ends with a `PostNav`. See the Post* and Pager sections of `COMPONENTS.md`.
-7. **Code in Markdown:** set `markdown: { shikiConfig: { theme: 'css-variables' } }` in `astro.config.mjs`, so code takes the kit's code colors. Without it, Astro's default theme puts GitHub's dark colors and background on every code block.
-8. Copy the tests from `TOOLING.md`. Don't edit the kit's files in `node_modules/`; a fix belongs back in [the kit's repository](https://github.com/danny-englander/agentic-design-kits).
+Everything these steps need is in the package or written out below; nothing has to be fetched from the kit's repository.
 
-The kit's demo site is the worked example of all of this: [`demo/`](https://github.com/danny-englander/agentic-design-kits/tree/main/demo) in the kit's repository (`src/layouts/SiteLayout.astro`, `src/pages/`), live at [swissminimal.ch](https://www.swissminimal.ch).
+1. **Make the project,** with Node 24 or later:
+
+   ```bash
+   npm create astro@latest my-site -- --template minimal --install --yes
+   ```
+
+   Add `--no-git` when the site sits inside an existing repository. Then, in the site's folder, write down the Node version, since a new site has no `.nvmrc` yet:
+
+   ```bash
+   node --version > .nvmrc
+   ```
+
+2. **Add Tailwind v4 and the type checker:**
+
+   ```bash
+   npm install tailwindcss @tailwindcss/vite
+   ```
+
+   ```bash
+   npm install --save-dev @astrojs/check typescript
+   ```
+
+   Then make `astro.config.mjs` read:
+
+   ```js
+   import { defineConfig } from 'astro/config';
+   import tailwindcss from '@tailwindcss/vite';
+
+   export default defineConfig({
+     markdown: { shikiConfig: { theme: 'css-variables' } },
+     vite: { plugins: [tailwindcss()] },
+   });
+   ```
+
+   The `markdown` line makes code in Markdown take the kit's code colors. Without it, Astro's default theme puts GitHub's dark colors and background on every code block.
+3. **Install the kit:** `npm install @agentic-design-kits/swiss-minimal`. To update later, run `npm update`. Add `astro-icon` if the site uses `IconTemplates`.
+4. **One stylesheet.** Make `src/styles/global.css` start with `@import "@agentic-design-kits/swiss-minimal/tailwind.css";` and import it in your layout (`import '../styles/global.css';`). Don't import `tailwindcss` or `theme.css` anywhere else.
+5. **Build pages on `BaseLayout`** (`@agentic-design-kits/swiss-minimal/astro/BaseLayout.astro`), and import every other component the same way (`@agentic-design-kits/swiss-minimal/astro/Hero.astro`), types from `@agentic-design-kits/swiss-minimal/types` and scripts as `@agentic-design-kits/swiss-minimal/output.js`. Give the layout a `title`, the site's name as `tagline` (it is the text at the left of the top bar), a `menu` (`MenuItem[]`, current page marked), an `accent` if not vermilion, and `barHeight` on pages with a `BottomBar` (it is optional). Open each page with a `Hero` or a `PageTitle`, and end it with a `Footer` in the `footer` slot, given the site's name and the same menu: `<Footer slot="footer" name="Site name" links={menu} />`. A site with several pages wraps this in one layout of its own (`src/layouts/SiteLayout.astro`), so the menu and footer are written once.
+6. **Sections and lists.** A numbered list is a `Section` holding `Row`s (ListRow in `COMPONENTS.md`). A section of anything else is plain markup with its heading at the page's left edge (Section in `COMPONENTS.md`). Page layout is Tailwind utilities; components are kit classes. Colors only through the token utilities (`text-muted`, `bg-bar`, `text-accent-text`, …), never Tailwind's palette.
+7. **A blog:** keep posts in a content collection, one Markdown file each. The index opens with a `PostFeature` (one post beside a square image) in place of a hero, then a `PostList` of the rest and a `Pager` when there are more than fit a page; the feature stays on top of every page. A post opens with a `PostHeader`, puts its Markdown in a `.post-body` and ends with a `PostNav`. See the Post* and Pager sections of `COMPONENTS.md`.
+8. **A form** needs somewhere to send to. See "A form with nowhere to send" under Field in `COMPONENTS.md` before building a contact page.
+9. **Replace the starter's favicon.** `public/favicon.svg` (and `favicon.ico`, if the starter made one) is Astro's logo. Draw the site's own as Favicon in `DESIGN.md` describes, and link it from `BaseLayout`'s `head` slot: `<link slot="head" rel="icon" type="image/svg+xml" href="/favicon.svg" />`. The layout writes no icon link itself.
+10. **The site's `AGENTS.md`.** The starter may have written one, with Astro's own notes. Keep those and add the site's part above them; don't replace the file, and don't make a second one. With no file there, make one. The part to add:
+
+    ```md
+    # Notes for AI agents
+
+    This site uses the Swiss Minimal design kit, installed from npm as
+    @agentic-design-kits/swiss-minimal. Before changing a page, read, in
+    node_modules/@agentic-design-kits/swiss-minimal/: USING.md, DESIGN.md
+    (the rules, and its "Do not" list) and the parts of COMPONENTS.md you
+    will use. llms.txt, beside them, lists every file in the package.
+
+    - Use the Node version in .nvmrc.
+    - Build pages on BaseLayout, and open each with a Hero or a PageTitle.
+    - Page layout is Tailwind utilities; components are kit classes.
+    - Colors only through the token utilities, never Tailwind's palette.
+    - Don't edit the kit in node_modules/. A fix belongs in the kit's repository.
+    - Before calling a change done: npx astro check, npm run build and npm test.
+    ```
+
+11. **Add the tests** from `TOOLING.md`: its Set up, the config, and the scan under "What to scan". For a new site, scan:
+    - every page, in light and dark. For pages built from one template (blog posts, a paged index), one of each is enough: one post, and page 2 of the index;
+    - each tab of the panel, if the layout has `panelTabs`, and the drawer open, if the site has one;
+    - a filtered list or a starred favorite, only if the site has them.
+
+    Add a behavior test only for a component the site uses that has behavior ("Beyond axe" lists them). A site of plain pages needs the scan alone. The tests need a browser: `TOOLING.md` says what to do when `npx playwright install chromium` can't be run.
+12. **Check before calling it done:** `npx astro check` (no errors), `npm run build` (no errors or warnings) and `npm test`. If the tests could not run, say so and why; don't report them as passing. Then go down the "Do not" list in `DESIGN.md` and the manual checks in `TOOLING.md`, at about 375px and 1280px wide, in light and dark.
+
+Don't edit the kit's files in `node_modules/`; a fix belongs back in [the kit's repository](https://github.com/danny-englander/agentic-design-kits).
+
+The kit's demo site is a worked example of all of this, for a person to look at; the steps above don't depend on it: [`demo/`](https://github.com/danny-englander/agentic-design-kits/tree/main/demo) in the kit's repository (`src/layouts/SiteLayout.astro`, `src/pages/`), live at [swissminimal.ch](https://www.swissminimal.ch).
 
 ## Restyling an existing site with the kit
 

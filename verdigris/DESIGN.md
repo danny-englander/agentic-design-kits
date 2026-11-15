@@ -10,7 +10,7 @@ Verdigris is a package, built for **Astro with Tailwind v4** (no React needed). 
 - `theme.css` (Swiss Minimal): every token (light and dark), the base styles and every component class, in plain CSS. It brings Swiss Minimal's own typeface; `kit/fonts.css` here sets `--font-sans` to Cormorant after it, and `kit/astro/font.ts` names the font Verdigris's `BaseLayout` preloads.
 - `kit/verdigris.css`: everything that makes this Verdigris: token overrides, type features and the new parts. `tailwind.css` loads it after `theme.css`; a plain page links it after `theme.css`. It also works on its own, without Tailwind. Dark mode follows the system unless `<html data-theme="light|dark">` is set.
 - `panel.js` (Swiss Minimal, imported as `@agentic-design-kits/verdigris/panel.js`): the slide-down panel's behavior, tabs included. Plain JavaScript, no dependencies, like the other scripts: `new-dot.js` (the "new" dot), `drawer.js` (the second, non-modal panel), `jump.js` (jump to the current item), `marquee.js` (a scrolling title), `file-pick.js` (the file picker), `output.js` (live output), `dialog.js` (fills in for the native dialog where a browser is behind), `favorites.js` (favorite stars) and `icon-controls.js` (icon buttons for rows built in the browser).
-- The Astro components, imported as `@agentic-design-kits/verdigris/astro/Name.astro`. `BaseLayout`, `Mark` and `Rosette` are written here (`kit/astro/`); the rest are Swiss Minimal's, passed on by `kit/shared/`: BaseLayout, Hero, PageTitle, Mark, Rosette, PostList, PostFeature, Pager, PostHeader, PostNav, Footer, BottomBar, FilePicker, SummaryList, OutputPanel, Dialog, Ellipse, NumCircle, MenuButton, MenuPanel, MenuItems, ThemeToggle, Drawer, DrawerButton, FavoriteButton, FeaturesList, IconTemplates (needs `astro-icon`) and the types (`MenuItem`, `PanelTab`, `NewDot`, `Feature`, `Post`, `PostLink`). They use Tailwind utilities for layout and the kit classes for components.
+- The Astro components, imported as `@agentic-design-kits/verdigris/astro/Name.astro`. `BaseLayout`, `Mark` and `Rosette` are written here (`kit/astro/`); the rest are Swiss Minimal's, passed on by `kit/shared/`: BaseLayout, Hero, PageTitle, Section, Row, Mark, Rosette, PostList, PostFeature, Pager, PostHeader, PostNav, Footer, BottomBar, FilePicker, SummaryList, OutputPanel, Dialog, Ellipse, NumCircle, MenuButton, MenuPanel, MenuItems, ThemeToggle, Drawer, DrawerButton, FavoriteButton, FeaturesList, IconTemplates (needs `astro-icon`) and the types (`MenuItem`, `PanelTab`, `NewDot`, `Feature`, `Post`, `PostLink`). They use Tailwind utilities for layout and the kit classes for components.
 - `kit/example.html`: a one-page demo using only `theme.css` and `verdigris.css`. Open it from the repository (it reads Swiss Minimal's `theme.css` from the `kit/` at the root) to see what "correct" looks like.
 - `fonts/Cormorant-VF.woff2` and `fonts/Cormorant-Italic-VF.woff2` (variable, weights 300 to 700) and `fonts/Cormorant-LICENSE.txt`, SIL OFL 1.1. Keep the license beside the fonts. Source Code Pro, for code, comes with Swiss Minimal.
 - `tokens.json`: the token values as data. If a value in `theme.css` ever differs, `tokens.json` wins.
@@ -41,6 +41,20 @@ Put this in `<head>` before first paint so a saved theme does not flash:
 - An oval badge holds a short lowercase word, never a country code.
 - A filtered view always says what it shows: "All items", "Writing · 7 items".
 - Write the site's name in `display`, weight 300. The name set in type is the mark. A site may put one small symbol before it in the top bar (the demo's is Cormorant's fleuron), in the accent. Never a logo image.
+- **Favicon.** The kit ships none, and a starter's own (Astro's logo) has to go. Draw a 24-unit square SVG: `paper` behind, and the top-bar mark in `accent-text`, or with no mark, one flat square of it. No letters, no gradient. Write the colors as hex, since a favicon can't read the page's variables, and swap them for dark inside the file:
+
+  ```html
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <style>
+      .bg { fill: #f2ede1 } .mark { fill: #256a50 }
+      @media (prefers-color-scheme: dark) { .bg { fill: #0b1716 } .mark { fill: #51c297 } }
+    </style>
+    <rect class="bg" width="24" height="24"/>
+    <rect class="mark" x="6" y="6" width="12" height="12"/>
+  </svg>
+  ```
+
+  Save it as `public/favicon.svg` and link it with `<link rel="icon" type="image/svg+xml" href="/favicon.svg">`, in `BaseLayout`'s `head` slot.
 
 ## Color
 
@@ -123,7 +137,7 @@ Cormorant has many optional glyphs. Verdigris already sets these: `kern`, `liga`
 - Content width `page-max` (88rem), centered in `.page`, with `gutter` side padding (1rem, 2rem from 640px).
 - A scotch rule opens each section (`.rule-thick`).
 - Hero with generous space (`space-12`, `space-20` from 768px), then sections separated by `space-16`. A hero image takes its layout from its shape: square or portrait sits beside the text, 50/50 from 768px; landscape goes under the text at the full page width. Phones always stack, text first.
-- Section header: scotch rule, then the grid row (range label, `h2` title, blurb).
+- Section header: scotch rule, then the grid row (range label, `h2` title, blurb). A section with nothing numbered in it has no range label, and its `h2` sits at the left edge of `.page`; see Section in `COMPONENTS.md`.
 - List rows: 1px `rule` bottom border, none on the last row, `space-4` vertical padding. The row number sits `space-4` in from the left (1.25rem from 768px) so it stays clear of the active row's 6px edge.
 - Mobile first. Rows stack on phones and become a column grid from 768px.
 - Pages end with a `Footer`: the scotch rule, the site name and its links.
@@ -151,11 +165,11 @@ Ornament is what separates this kit from Swiss Minimal, so it has its own limits
 - **Asterism** (⁂): the end of a piece (`.post-body--end`), or a Markdown `---` in a post.
 - **Dagger** (†): a footnote mark.
 - **Manicule** (☞): a `.notice`, for one note a reader must not miss.
-- **Lozenge** (◆): separates metadata.
+- **Lozenge** (◆): separates metadata. Typed between two values, it is wrapped so it is not read aloud: `Writing <span class="text-copper-text" aria-hidden="true">◆</span> 2026`. A `PostHeader`'s byline draws its own in CSS.
 - **Drop cap** (`.post-body--cap`): a post's first letter, through `::first-letter`, so screen readers still get the whole word.
 - **Plate** (`.plate`): a framed quotation or title. One to a page, never around an image or a control.
 - **Rosette** (`Rosette.astro`): engraved line work for a page with no picture of its own. It stays a figure on the grid: no text on it, and never a background.
-- Ornament is `aria-hidden="true"` and never the only way to say something. It is copper or verdigris, never both in one mark, the rosette aside.
+- Ornament is `aria-hidden="true"`, every time, a glyph typed inline between words included: a screen reader would otherwise read "black diamond" or "asterism" mid-sentence. It is never the only way to say something. It is copper or verdigris, never both in one mark, the rosette aside.
 
 ## Images
 
@@ -191,17 +205,17 @@ Photos, artwork, screenshots and product shots are welcome. The test is whether 
 - When a control is about to disappear with focus on it (a removed row, an arrow that hides once used), move focus to the next sensible place first.
 - Remember things in localStorage only as a convenience: wrap every read and write, and make the page work the same without it.
 - Text at 18px or more, contrast 4.5:1 or better in both themes.
-- No capitals, as a rule of the kit: `tests/no-capitals.spec.ts` fails on uppercase or small caps in the built CSS.
+- No capitals, as a rule of the kit. The stylesheet never uppercases (`--label-case` is `none`, and Tailwind's `uppercase` utility is not generated), so a site only breaks the rule in its own CSS or by typing capitals. `USING.md` has a test to copy that fails on uppercase or small caps in a site's built CSS.
 
 ## Components
 
-Every component is a plain CSS class in `kit/theme.css` (loaded through `kit/tailwind.css`); there is no JavaScript bundle, only a few small plain scripts for the pieces that need behavior. In short: **Skip link** (`.skip-link`), **Top bar** (`.topbar`), **Outlined button** (`.topbar-btn`, `.burger`), **Hover label** (`data-tip`), **Primary button** (`.btn`), **Secondary button** (`.btn-outline`, `.btn-group`), **Tertiary button** (`.btn-outline--tertiary`), **Slide-down panel** (`.panel`, with `kit/panel.js`), **Menu** (`.menu-list`, `.acc`, `.submenu`), **Panel tabs** (`.panel-tabs`, `.panel-tab`), **"New" dot** (`.new-dot`, with `kit/new-dot.js`), **Field** (`.field`), **Select** (`.select-wrap`, `.select`), **Date and time** (`.field` on `type="date"`, `time`…), **File picker** (`.file-pick`, with `kit/file-pick.js`), **Switch** (`.choice`, `.switch`), **Radio** (`.choice-group`, `.radio`), **Filter buttons** (`.chip`), **Favorite star** (`.fav-btn`, with `kit/favorites.js`), **Page accordion** (`.page-acc`), **List row** (`.row`), **Bottom bar** (`.bottom-bar`, optional), **Jump to current** (`.jump-btn`, with `kit/jump.js`), **Scrolling title** (`.marquee`, with `kit/marquee.js`), **Dialog** (`.dialog` on `<dialog>`, with `kit/dialog.js`), **Toast** (`.toast`), **Drawer** (`.drawer`, with `kit/drawer.js`), **Scotch rule** (`.rule-scotch`, `.rule-thick`), **Fleuron rule** (`.rule-fleuron`), **Plate** (`.plate`), **Notice** (`.notice`), **Rosette** (`.rosette`), **Mark** (`.mark`), **Drop cap** (`.post-body--cap`), **Ending** (`.post-body--end`), **Icon actions** (`.icon-row`, `.icon-btn`, with `kit/icon-controls.js`), **Closing note** (`.closing-note`), **Dated list** (`.dated-list`), **Summary list** (`.summary-list`), **Output panel** (`.output`, with `kit/output.js`), **Code block** (`pre`, `.pre--bar`, `.pre-cmd`, `.pre-err`, `.tok-*`), **Ellipse** (`.ellipse`, `.ellipse--solid`), **Number circle** (`.num-circle`, `.num-circle--solid`, `.num-circle--accent`), **Activity indicators** (`.eq`, `.spinner`), **Image** (`.media`, `.figure`), **Hero** (`.hero`, `.hero--split`, `.hero--wide`), **Page title** (`.page-title`, `.page-title--bar`), **CTA** (`.cta`), **Card grid** (`.card-grid`, `.card`), **Post list** (`.post-list`), **Post feature** (`.post-feature`), **Pager** (`.pager`), **Post header** (`.post-header`, `.post-meta`), **Post body** (`.post-body`), **Post nav** (`.post-nav`), **Footer** (`.site-footer`, `.site-footer--bar`).
+Every component is a plain CSS class in `kit/theme.css` (loaded through `kit/tailwind.css`); there is no JavaScript bundle, only a few small plain scripts for the pieces that need behavior. In short: **Skip link** (`.skip-link`), **Top bar** (`.topbar`), **Outlined button** (`.topbar-btn`, `.burger`), **Hover label** (`data-tip`), **Primary button** (`.btn`), **Secondary button** (`.btn-outline`, `.btn-group`), **Tertiary button** (`.btn-outline--tertiary`), **Slide-down panel** (`.panel`, with `kit/panel.js`), **Menu** (`.menu-list`, `.acc`, `.submenu`), **Panel tabs** (`.panel-tabs`, `.panel-tab`), **"New" dot** (`.new-dot`, with `kit/new-dot.js`), **Field** (`.field`), **Select** (`.select-wrap`, `.select`), **Date and time** (`.field` on `type="date"`, `time`…), **File picker** (`.file-pick`, with `kit/file-pick.js`), **Switch** (`.choice`, `.switch`), **Radio** (`.choice-group`, `.radio`), **Filter buttons** (`.chip`), **Favorite star** (`.fav-btn`, with `kit/favorites.js`), **Page accordion** (`.page-acc`), **List row** (`.row`, with `Section.astro` and `Row.astro`), **Section** (`.rule-thick` and an `h2`), **Bottom bar** (`.bottom-bar`, optional), **Jump to current** (`.jump-btn`, with `kit/jump.js`), **Scrolling title** (`.marquee`, with `kit/marquee.js`), **Dialog** (`.dialog` on `<dialog>`, with `kit/dialog.js`), **Toast** (`.toast`), **Drawer** (`.drawer`, with `kit/drawer.js`), **Scotch rule** (`.rule-scotch`, `.rule-thick`), **Fleuron rule** (`.rule-fleuron`), **Plate** (`.plate`), **Notice** (`.notice`), **Rosette** (`.rosette`), **Mark** (`.mark`), **Drop cap** (`.post-body--cap`), **Ending** (`.post-body--end`), **Icon actions** (`.icon-row`, `.icon-btn`, with `kit/icon-controls.js`), **Closing note** (`.closing-note`), **Dated list** (`.dated-list`), **Summary list** (`.summary-list`), **Output panel** (`.output`, with `kit/output.js`), **Code block** (`pre`, `.pre--bar`, `.pre-cmd`, `.pre-err`, `.tok-*`), **Ellipse** (`.ellipse`, `.ellipse--solid`), **Number circle** (`.num-circle`, `.num-circle--solid`, `.num-circle--accent`), **Activity indicators** (`.eq`, `.spinner`), **Image** (`.media`, `.figure`), **Hero** (`.hero`, `.hero--split`, `.hero--wide`), **Page title** (`.page-title`, `.page-title--bar`), **CTA** (`.cta`), **Card grid** (`.card-grid`, `.card`), **Post list** (`.post-list`), **Post feature** (`.post-feature`), **Pager** (`.pager`), **Post header** (`.post-header`, `.post-meta`), **Post body** (`.post-body`), **Post nav** (`.post-nav`), **Footer** (`.site-footer`, `.site-footer--bar`).
 
 ## With Tailwind v4
 
 This is the default setup, and the default.
 
-1. Install `tailwindcss` and `@tailwindcss/vite`, and add the plugin in `astro.config.mjs`:
+1. Install `tailwindcss` and `@tailwindcss/vite`, and add the plugin in `astro.config.mjs` (`USING.md` has the whole file, and the command that makes the project):
    ```js
    import tailwindcss from '@tailwindcss/vite';
    export default defineConfig({ vite: { plugins: [tailwindcss()] } });
@@ -214,7 +228,7 @@ This is the default setup, and the default.
    Don't also `@import "tailwindcss"` or `theme.css` anywhere else; `tailwind.css` does both.
 3. Pass `barHeight="5rem"` to `BaseLayout` if the site has a fixed bottom bar.
 
-**Who does what.** Components with state, motion or several parts are kit classes (`.row`, `.chip`, `.panel`, `.toast`, `.hero`, `.media`, the type styles). Page layout is utilities in the markup: grids, spacing, widths, which column a piece sits in. Mix them freely: `class="row grid gap-y-1 md:grid-cols-[3rem_1fr_1.75rem]"`.
+**Who does what.** Components with state, motion or several parts are kit classes (`.row`, `.chip`, `.panel`, `.toast`, `.hero`, `.media`, the type styles). Page layout is utilities in the markup: grids, spacing, widths, which column a piece sits in. Mix them freely: `class="row grid gap-y-1 md:grid-cols-[var(--row-num)_1fr_2.75rem]"`.
 
 **Layers.** `theme.css` sits in Tailwind's `components` layer, so a utility always beats a kit class it is paired with (`class="field mb-7"` sets the margin). Your own unlayered CSS beats both.
 

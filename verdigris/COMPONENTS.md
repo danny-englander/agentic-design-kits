@@ -1,14 +1,16 @@
 # Verdigris components
 
-Markup and rules for each component. Sizes in these notes come from Swiss Minimal; `kit/verdigris.css` resets them through tokens, and any label "in capitals" is sentence case here. New parts are in the Ornament sections at the end. All classes live in Swiss Minimal's `theme.css` and in `kit/verdigris.css`, which a Tailwind site loads through `@agentic-design-kits/verdigris/tailwind.css`. Where these notes name a shared file as `kit/panel.js` or `kit/astro/Hero.astro`, it is Swiss Minimal's, and a site imports it as `@agentic-design-kits/verdigris/panel.js` or `@agentic-design-kits/verdigris/astro/Hero.astro`. Add Tailwind utilities beside a kit class for layout and spacing (`class="field mb-7"`); the utility wins.
+Markup and rules for each component. The sizes and weights in these notes are Verdigris's own: `kit/verdigris.css` sets them through tokens, on an 18px floor, with 600 for labels and names and 300 for large titles. No label is in capitals. Spacing and box sizes are Swiss Minimal's. New parts are in the Ornament sections at the end. All classes live in Swiss Minimal's `theme.css` and in `kit/verdigris.css`, which a Tailwind site loads through `@agentic-design-kits/verdigris/tailwind.css`. Where these notes name a shared file as `kit/panel.js` or `kit/astro/Hero.astro`, it is Swiss Minimal's, and a site imports it as `@agentic-design-kits/verdigris/panel.js` or `@agentic-design-kits/verdigris/astro/Hero.astro`. Add Tailwind utilities beside a kit class for layout and spacing (`class="field mb-7"`); the utility wins.
 
 ## TopBar
 
 A sticky bar on `paper` that holds the site name, the menu button and the theme toggle, and ends in a scotch rule.
 
-**Markup.** `<div class="topbar"><div class="page">` then a flex row with `border-bottom: 2px solid currentColor; padding: 0.75rem 0`. Left: the site name at 1rem (16px) and weight 500. The bar sets `font-size: 1rem; line-height: 1.5` itself, so it stays that size when body text is larger. Right: a `.burger` and a `.topbar-btn--text` theme toggle, `space-2` apart.
+**Markup.** `<div class="topbar"><div class="page">` then a flex row with `border-bottom: 2px solid currentColor; padding: 0.75rem 0`. Left: the site name at 1.125rem (18px), 1.25rem (20px) from 640px, and weight 500. The bar sets `font-size: 1.25rem; line-height: 1.5` itself, so it stays that size when body text is larger. Right: a `.burger` and a `.topbar-btn--text` theme toggle, `space-2` apart.
 
 **Behavior.** It is `position: sticky; top: 0; z-index: 50`. While the slide-down panel is open (`<html data-menu="open">`) it flips to `bar` / `bar-ink` so bar and panel read as one black block, and it stays above the panel (z-index 50 over 30) so the burger-turned-X stays reachable.
+
+**In Astro,** `BaseLayout` writes the bar. Its `tagline` prop is the site name: the text at the left, and the home link's name. There is no separate name prop; a longer line about the site belongs in the page's `Hero`, not here.
 
 **Home link.** On a site with more than one page, the name links to the home page: `<a class="topbar-home" href="/">Site name</a>` inside that text. It is plain text in the bar's color, underlined on hover, and carries `aria-current="page"` on the home page itself. `BaseLayout` does this whenever it has a menu; pass `home="/en/"` for another home, or `home={false}` to leave the name unlinked. A one-page site keeps the name as plain text.
 
@@ -40,7 +42,7 @@ A link to the page's main content, the first thing the Tab key reaches, so a key
 
 The quiet button: 1px border in `currentColor`, transparent, inverts on hover. Used in the top bar for Menu, the theme toggle and the burger.
 
-- `.topbar-btn.topbar-btn--text`: a 2rem tall text button, 0.875rem, weight 500. One or two words only.
+- `.topbar-btn.topbar-btn--text`: a 2rem tall text button, 1.125rem (18px), weight 600. One or two words only.
 - `.topbar-btn.burger`: 2rem square, three 14×2px bars (`<i></i><i></i><i></i>`) that rotate into an X when `aria-expanded="true"`. No icon font.
 - `.label-stack`: put every label a button can show in one grid cell (extra ones `aria-hidden`) so swapping "Dark"/"Light" never changes its width.
 
@@ -53,7 +55,7 @@ A small label under a button saying what it does ("Menu", "Switch to dark theme"
 **Markup.** Add `data-tip="Menu"` to any `.topbar-btn`, `.btn` or `.btn-outline`. CSS draws it from the attribute; no script.
 
 - Shows after a 350ms pause on devices with a real hover (`@media (hover: hover)`), so it never sticks after a tap on a phone, and at once on `:focus-visible`.
-- Colors are the bar's, reversed (`--tb-fg` fill, `--tb-bg` text), so it reads on the paper bar and on the dark one while a panel is open. Primary and secondary buttons set those two themselves: `ink` and `paper` on the page, `bar-ink` and `bar` on a dark surface. 14px, weight 500, sentence case.
+- Colors are the bar's, reversed (`--tb-fg` fill, `--tb-bg` text), so it reads on the paper bar and on the dark one while a panel is open. Primary and secondary buttons set those two themselves: `ink` and `paper` on the page, `bar-ink` and `bar` on a dark surface. 18px, weight 600, sentence case.
 - In the top bar it is centered under its button, and the last button in the group (`:last-of-type`) is right-aligned so its label never runs off the screen. On a primary or secondary button it lines up with the button's left edge.
 - Keep it in step with the button: `MenuButton`, `DrawerButton` and `ThemeToggle` update `data-tip` with their `aria-label` ("Menu" / "Close menu").
 
@@ -61,7 +63,7 @@ A small label under a button saying what it does ("Menu", "Switch to dark theme"
 
 ## PrimaryButton
 
-The one filled button: `accent-text` fill, `accent-ink` text, sentence case, 1.125rem bold. It is the same size as a `SecondaryButton`, and the only place the accent fills a small area.
+The one filled button: `accent-text` fill, `accent-ink` text, sentence case, 1.375rem (22px) semibold. It is the same size as a `SecondaryButton`, and the only place the accent fills a small area.
 
 **Markup.** `<button class="btn">Send</button>`. At least 2.75rem tall, padding 0.6rem 1.25rem, a 1px border in the fill's color, square corners. Hover brightens it slightly (`filter: brightness(1.12)`); `:disabled` drops to 60% opacity with a progress cursor.
 
@@ -71,7 +73,7 @@ The one filled button: `accent-text` fill, `accent-ink` text, sentence case, 1.1
 
 ## SecondaryButton
 
-The button for every other action beside the `PrimaryButton`, at the same size: a 1px outline in the text's color, sentence case, 1.125rem bold, at least 2.75rem tall. It fills with the text color on hover. Presets that fill in a form ("This month", "Last month"), the Choose… of a `FilePicker`, "Open in Finder" under a result.
+The button for every other action beside the `PrimaryButton`, at the same size: a 1px outline in the text's color, sentence case, 1.375rem (22px) semibold, at least 2.75rem tall. It fills with the text color on hover. Presets that fill in a form ("This month", "Last month"), the Choose… of a `FilePicker`, "Open in Finder" under a result.
 
 **Markup.** `<button type="button" class="btn-outline">Last month</button>`. Several together go in `<div class="btn-group" role="group" aria-label="Date presets">`, `space-3` apart, which wraps on a phone.
 
@@ -79,11 +81,11 @@ The button for every other action beside the `PrimaryButton`, at the same size: 
 - It does what it says when pressed and keeps no state. A choice that stays chosen is a `FilterChips` button with `aria-pressed`, which is outlined too.
 - `:disabled` drops to 60%.
 
-**Don't.** Use it for the main action of the view (that is the `PrimaryButton`), or write it in capitals (that is the top bar's `OutlinedButton`).
+**Don't.** Use it for the main action of the view (that is the `PrimaryButton`).
 
 ## TertiaryButton
 
-A quieter `SecondaryButton`, for an action repeated many times on a page, such as the Read this on each `CardGrid` card, where bold outlines would compete with the content. The same box and outline, at 1rem weight 500.
+A quieter `SecondaryButton`, for an action repeated many times on a page, such as the Read this on each `CardGrid` card, where heavier buttons would compete with the content. The same box and outline, at 1.25rem (20px), weight 600.
 
 **Markup.** Add `btn-outline--tertiary` to a secondary button: `<button type="button" class="btn-outline btn-outline--tertiary">View details</button>`. Everything else comes from `.btn-outline`: the hover fill, the colors on a dark surface, `:disabled`, `.btn-group` and `data-tip`.
 
@@ -114,18 +116,18 @@ Load `kit/panel.js` (plain JavaScript, no dependencies). It:
 - with `data-label="Menu" data-label-open="Close menu"` on the button (as `MenuButton` has), keeps its `aria-label` and `data-tip` in step;
 - with `<html data-panel-hash="menu">`, shows `#menu` in the URL while open so Back closes it and a shared link opens it.
 
-The panel sits at z-index 30, under the top bar (50). Its bottom stops at `bar-h` (set by `BaseLayout`'s `barHeight`, `0rem` by default). Reduced motion turns the slide off. Small labels inside it are bold `accent-bright`.
+The panel sits at z-index 30, under the top bar (50). Its bottom stops at `bar-h` (set by `BaseLayout`'s `barHeight`, `0rem` by default). Reduced motion turns the slide off. Small labels inside it are semibold `accent-bright`.
 
 ## Menu
 
-The menu inside the slide-down panel: big bold lines separated by thin rules. An item with sub-items is a native `<details>` accordion with a plus that becomes a minus; sub-items are indented under a 2px `accent-bright` rule. Accordions can nest.
+The menu inside the slide-down panel: big light lines separated by thin rules. An item with sub-items is a native `<details>` accordion with a plus that becomes a minus; sub-items are indented under a 2px `accent-bright` rule. Accordions can nest.
 
 **Markup.** `<ul class="menu-list">` of `<li>`s holding either `<a class="menu-link">` or `<details class="acc" name="menu"><summary>Label <span class="acc-icon" aria-hidden="true"><i></i><i></i></span></summary><div class="acc-body"><ul class="submenu">…</ul></div></details>`.
 
 - **No JavaScript.** `<details>` gives keyboard support and open/closed state for free.
 - **One open per level:** siblings share a `name`; each nested level needs its own unique `name`.
 - **Current page:** `aria-current="page"` underlines in `accent-bright`.
-- **Sizes:** top level `menu-item` (1.75rem, 2.25rem from 768px) bold; sub-items and nested headings `submenu-item` (1.25rem) medium. Hover turns text `accent-bright`.
+- **Sizes:** top level `menu-item` (2.125rem, 2.75rem from 768px) light; sub-items and nested headings `submenu-item` (1.625rem) semibold. Hover turns text `accent-bright`.
 - Two levels read well; three is the limit.
 - Give in-page `#` links `data-panel-close` so the panel shuts.
 - In Astro, `kit/astro/MenuItems.astro` renders this from a plain `MenuItem[]` array.
@@ -148,7 +150,7 @@ Numbered tabs across the top of the slide-down panel ("01 Menu  02 Contact  03 F
 
 `kit/panel.js` finds the tabs and runs them. In Astro, pass `panelTabs={[{ id: 'menu', label: 'Menu' }, …]}` to `BaseLayout` (or `tabs` to `MenuPanel`) and put each tab's content in the slot named after its id (`<form slot="contact">`). The menu `items` sit at the top of the first tab.
 
-- **Labels are title case,** as you write them: the tabs set no capitals, at 1rem, weight 500.
+- **Labels are title case,** as you write them: the tabs set no capitals, at 1.25rem (20px), weight 600.
 - **Every tab is a Tab stop**, and Enter or Space opens it (they are real buttons). The arrow keys, Home and End also move between them. With three to five tabs, a keyboard user never has to discover the arrows.
 - **Each tab deep-links.** `#contact` in the URL opens the panel on Contact, the URL shows the open tab, and Back closes the panel. A plain `<a href="#contact">` anywhere on the page opens it. So no element on the page may use a tab's id.
 - On open, focus goes to the open tab, retried for a moment because Reduce Motion can refuse the first `focus()`. A link to another tab inside the open panel moves focus to that tab too, since the link hides with the tab it was in.
@@ -176,13 +178,17 @@ A small accent dot that tells a returning visitor something was added since they
 
 An underline-only text field in large type: no box, no radius, a 2px `currentColor` bottom border.
 
-**Markup.** `<label class="field-label" for="x">Your name</label><input class="field" id="x">`. The label is 0.875rem, weight 500; the input is `field-input` (1.25rem) and inherits its color, so it works on `paper` and on a `bar` surface alike.
+**Markup.** `<label class="field-label" for="x">Your name</label><input class="field" id="x">`. The label is 1.125rem (18px), weight 600; the input is `field-input` (1.625rem) and inherits its color, so it works on `paper` and on a `bar` surface alike.
 
 **Consumer provides** the label text, `id`/`for`, and any validation message (set it in `small` under the field). Placeholders sit at 45% of the text color: use them for examples, never instead of a label.
 
 **Don't** add borders around the input or a background fill.
 
-**Required fields** get the font's own flower asterisk (⁕, U+2055) in the accent after the label: `accent-text` on the page, `accent-bright` on dark. There is no markup to add. Put `required` on the field and the mark appears on the label just before it, on the label before a `select-wrap` that holds one, and on a `choice-group`'s legend when one of its radios is required. For a label the CSS can't reach, add `data-required`. Screen readers skip the mark, because the field's own `required` already says it. Say once what the mark means, at the top of the form: `<p class="small muted"><span class="required-mark"></span>Required</p>`. Mark the required fields, not the optional ones, and leave the mark off a form where every field is required.
+**Required fields** get the font's own flower asterisk (⁕, U+2055) in the accent after the label: `accent-text` on the page, `accent-bright` on dark. There is no markup to add. Put `required` on the field and the mark appears on the label just before it, on the label before a `select-wrap` that holds one, and on a `choice-group`'s legend when one of its radios is required. For a label the CSS can't reach, add `data-required`. Screen readers skip the mark, because the field's own `required` already says it. Say once what the mark means, at the top of the form: `<p class="small muted"><span class="required-mark"></span>Required</p>`. Mark the required fields, not the optional ones, and leave the mark off a form where every field is required: put `data-required-marks="off"` on the `<form>` (or any wrapper), keep `required` on each field, and say it once in words in place of the mark's note: `<p class="small muted mb-6">Every field is required.</p>`.
+
+**A longer answer** is a `<textarea>` with the same class: `<textarea class="field min-h-24 resize-y" id="message" name="message" rows="3"></textarea>` under its own `field-label`. It keeps the underline and the type, grows downward only (`resize-y`), and starts about three lines tall. No box around it either.
+
+**A form with nowhere to send.** The kit styles a form; it does not send one. A form that submits confirms with a `Toast` ("Message sent."), and only once the send has really worked; a failure is said in words beside the button (`<p class="small" role="alert">`), with what was typed left in place. So a contact form needs somewhere to send to before it is built: the host's own forms (Netlify Forms, say), a form service, or the site's own endpoint. With none of those, don't build a form that pretends: no toast for a message that went nowhere, and no `action` that leads to an error page. Use a plain link in place of the form, `<a class="btn" href="mailto:hello@example.com">Write to us</a>`, and tell the owner the form is waiting on an address to send to.
 
 ## Select
 
@@ -196,7 +202,7 @@ A `Field` that picks one item from a list: the same underline and type, with a c
 ```
 
 - The chevron sits on `.select-wrap`, since a `<select>` can't hold a pseudo-element. Put spacing utilities on the wrapper (`class="select-wrap mb-7"`), not the select.
-- **The open list** is drawn in the kit's style where the browser supports the customizable select (`appearance: base-select`; Chrome and Edge since 2025): square, a 2px rule in the text's color, on the surface it opens from (`paper`, or `bar` in a panel or drawer). The option under the pointer or keyboard fills like a chip; the chosen one is bold with a check in the accent, drawn from two straight 2px strokes like the chevron, not a font's curved glyph. The chevron turns up while it is open. Nothing to add: the same markup, still the real `<select>`, so the keyboard, screen readers, forms and phones' own pickers work as before.
+- **The open list** is drawn in the kit's style where the browser supports the customizable select (`appearance: base-select`; Chrome and Edge since 2025): square, a 2px rule in the text's color, on the surface it opens from (`paper`, or `bar` in a panel or drawer). The option under the pointer or keyboard fills like a chip; the chosen one is semibold with a check in the accent, drawn from two straight 2px strokes like the chevron, not a font's curved glyph. The chevron turns up while it is open. Nothing to add: the same markup, still the real `<select>`, so the keyboard, screen readers, forms and phones' own pickers work as before.
 - **Elsewhere** the browser's own list opens, always `ink` on `paper`, so it reads even when the field sits on a dark panel.
 - For "nothing chosen yet", make the first option an empty-valued prompt ("Choose a topic"). For two to four choices, use radios instead: they show every option at once.
 - `:disabled` drops to 60% with a not-allowed cursor.
@@ -282,7 +288,7 @@ A row of outlined buttons that narrows a list to one category. One choice at a t
 
 **Markup.** A `<div class="chip-group" role="group" aria-label="Category">` of `<button class="chip" aria-pressed="true|false">Label <span class="chip-count">12</span></button>`. "All" comes first and is pressed by default.
 
-- Sentence case, 1rem, weight 500; the count is 14px at 75% and tabular. Min height 2.75rem. Buttons wrap on a phone.
+- Sentence case, 1.25rem (20px), weight 600; the count is 18px at 75% and tabular. Min height 2.75rem. Buttons wrap on a phone.
 - Fold the row in a `PageAccordion` whose summary names the current choice ("All items", "Writing · 5 items").
 - Hide rows that don't match (and any section left empty) but keep their numbers.
 - Put the choice in the address (`?category=writing`), not a `#`.
@@ -308,7 +314,7 @@ A star in a list row that saves the item as a favorite on this device: an outlin
 
 ## PageAccordion
 
-An accordion on the page itself (not in the panel), built on native `<details>`: a bold `accent-text` heading, a `muted` status line saying what is chosen, and a plus that becomes a minus.
+An accordion on the page itself (not in the panel), built on native `<details>`: a semibold `accent-text` heading, a `muted` status line saying what is chosen, and a plus that becomes a minus.
 
 **Markup.** `<details class="page-acc"><summary><span><span class="page-acc-title">…</span><span class="page-acc-status">…</span></span><span class="acc-icon" aria-hidden="true"><i></i><i></i></span></summary><div class="page-acc-body">…</div></details>`. Max width 36rem.
 
@@ -320,13 +326,70 @@ An accordion on the page itself (not in the panel), built on native `<details>`:
 
 A section of numbered rows: a scotch rule, a header on the shared grid, then rows divided by 1px `rule` that fill when active, and on hover if they hold a link or button.
 
-**Markup.** `<li class="row">` (add `data-active="true"` for the current one) laid out by your page's grid, e.g. `grid-template-columns: 3rem 1fr 1.75rem`: a `.num.small.muted` number, a `title` name over a `small muted` subline, and an optional end slot (an activity indicator, an arrow).
+**In Astro,** `kit/astro/Section.astro` and `kit/astro/Row.astro` write all of it:
 
-- **One grid.** The section header uses the same columns, so the range label ("01–03") sits over the numbers and the `h2` over the names.
-- The number sits `space-4` in from the left (1.25rem from 768px), clear of the active row's 6px `row-edge`.
+```astro
+---
+import Section from '@agentic-design-kits/verdigris/astro/Section.astro';
+import Row from '@agentic-design-kits/verdigris/astro/Row.astro';
+---
+<Section id="work" title="Selected work" range="01–03">
+  <Row num={1} title="Field notes" meta="Writing · 2026" href="/work/field-notes/" />
+  <Row num={2} title="Signal" meta="Identity · 2025" href="/work/signal/" active>
+    <span class="eq" aria-hidden="true"><i></i><i></i><i></i></span>
+  </Row>
+  <Row num={3} title="Harbor" meta="Website · 2024" />
+</Section>
+```
+
+- **`Section`** takes `id` (the `h2`'s id), `title` and `range` (the label over the numbers, "01–03"; write it yourself). Its default slot goes in a `<ul>`, so it holds `Row`s or `<li>`s of your own. The `intro` slot puts a line or two between the header and the rows. `filterable` writes `data-filter-section`, for a filter script that hides a section with no matching rows.
+- **`Row`** takes `num`, `title`, and optionally `meta` (the subline), `href` (makes the title a link), `active` (the current row), `id` and `category` (written as `data-item` and `data-category`, for scripts), `favorite` (a `FavoriteStar` in the end slot; needs `id`) and `numStyle="circle" | "solid"` (the number in a `NumberCircle`). Its default slot is the end slot: an activity indicator or an arrow.
+
+**Markup,** as those two write it, for a site without Astro:
+
+```html
+<section class="rule-thick mb-16 pt-8" aria-labelledby="work">
+  <div class="grid gap-1 pb-6 md:grid-cols-[var(--row-num)_1fr_2.75rem] md:items-baseline md:gap-x-2">
+    <p class="num small muted whitespace-nowrap font-medium md:pl-2">01–03</p>
+    <h2 class="h2" id="work">Selected work</h2>
+  </div>
+  <ul>
+    <li class="row grid grid-cols-[1fr_auto] gap-y-1 p-4 md:grid-cols-[var(--row-num)_1fr_2.75rem] md:items-baseline md:gap-x-2 md:px-0">
+      <span class="num small muted col-start-1 row-start-1 font-medium md:pl-5">01</span>
+      <span class="col-span-2 row-start-2 md:col-span-1 md:col-start-2 md:row-start-1">
+        <a class="title block underline-offset-4 hover:underline" href="/work/field-notes/">Field notes</a>
+        <span class="small muted block">Writing · 2026</span>
+      </span>
+      <span class="col-start-2 row-start-1 -my-2.5 flex items-center justify-center self-center md:col-start-3"><!-- end slot --></span>
+    </li>
+  </ul>
+</section>
+```
+
+The current row adds `data-active="true" aria-current="true"` to its `<li>`. A row that is not a link has `<span class="title block">` in place of the `<a>`.
+
+- **One grid.** The section header uses the same columns as the rows, so the range label sits over the numbers and the `h2` over the names. The columns are the number (4.5rem here, the `--row-num` token), the name, and a 2.75rem end slot, wide enough for a 44px touch target. A circled number takes a number column of at least 4rem.
+- The number sits `space-4` in from the left (1.25rem from 768px, `md:pl-5`), clear of the active row's 6px `row-edge`. The range label sits nearer the edge (`md:pl-2`), as "01–06" is wider than one number.
 - **A row fills on hover only if it holds a link or button.** A row of plain text stays still, since a fill would promise a click. The fill is `row-hover-bg` (`row-active-bg` when active), and all text, muted included, turns `row-fg`. In dark mode the fill is a raised dark, never a cream slab, and the active row shows an accent edge.
-- Rows stack on phones; switch to columns from 768px.
+- Rows stack on phones (number and end slot on the first line, the name under them); they switch to columns from 768px.
 - Keep the numbers when filtering; don't renumber.
+
+## Section
+
+A part of a page that is not a numbered list: a form, a few paragraphs, a `CardGrid`, a `DatedList`. It starts with the same a scotch rule as a list section, and its heading sits at the left edge of `.page`, where the range label would be. It is not indented to the names column, because there are no numbers for it to clear.
+
+**Markup.** There is no component; it is three utilities and a heading:
+
+```html
+<section class="rule-thick mb-16 pt-8" aria-labelledby="about-studio">
+  <h2 class="h2 mb-6" id="about-studio">The studio</h2>
+  <p class="max-w-2xl">…</p>
+</section>
+```
+
+- `mb-16` (`space-16`) between sections, none after the last. `mb-6` under the heading, or `mb-3` when a `small muted` line follows it.
+- Keep running text to a measure (`max-w-2xl`); a list, grid or form may use the full width.
+- One `h2` per section, named by `aria-labelledby`. Don't add a range label to a section with nothing numbered in it, and don't use `Section.astro` for it: that one wraps its content in a `<ul>`.
 
 ## JumpToCurrent
 
@@ -341,7 +404,7 @@ A small solid triangle in the `BottomBar` that appears while the current item's 
 
 Load `kit/jump.js`; it measures against the nearest `[data-jump-bar]`. In Astro, pass `jump={{ target, name }}` to `BottomBar`. `data-jump-target` is a selector for the current row (default `.row[data-active="true"]`); with no match, the button stays hidden.
 
-- **The font's own glyphs:** ▲ when the row is above or hidden by a filter, ▼ when it is below. 14px, `accent-bright` on the bar, in a 2rem square target.
+- **The font's own glyphs:** ▲ when the row is above or hidden by a filter, ▼ when it is below. 18px, `accent-bright` on the bar, in a 2rem square target.
 - Shows only while the row is off the visible part of the page, between the top bar and the bottom bar (a sliver at the edge doesn't count). Re-checked on scroll, resize and any layout change.
 - A click closes the menu and the drawer, sends `filter:reset` if a filter hides the row, scrolls the row to the middle of the screen (instantly with Reduce Motion), puts keyboard focus on its first link or button, and flashes a 3px `accent` outline that fades over 1.6s.
 - **Name:** "Show Field notes in the list", plus "(shows all items)" when it will clear a filter. Hover label (`title`): "Show in the list".
@@ -377,12 +440,12 @@ An optional dark bar fixed along the bottom of the screen, for something that sh
 </section>
 ```
 
-The heading is optional (`heading` in Astro): a line above the row that says what the bar is when the label alone doesn't. It is the largest type in the bar, 1.25rem bold in `bar-ink`, and fits the 5rem bar with the row under it; a shorter bar should leave it out. It is an `h2`, or an `h3` with `headingLevel="h3"`; the class sets its look either way. With a heading the bar is a `section` named by it, so screen readers list it as a region, as they do the drawer. Without one it is a plain `div`.
+The heading is optional (`heading` in Astro): a line above the row that says what the bar is when the label alone doesn't. It is the largest type in the bar, 1.625rem semibold in `bar-ink`, and fits the 5rem bar with the row under it; a shorter bar should leave it out. It is an `h2`, or an `h3` with `headingLevel="h3"`; the class sets its look either way. With a heading the bar is a `section` named by it, so screen readers list it as a region, as they do the drawer. Without one it is a plain `div`.
 
 Load `kit/jump.js` and `kit/marquee.js`. In Astro, `<BottomBar slot="overlays" label="Now" title="…" jump={{ target: '[data-item="field-notes"]', name: 'Field notes' }} />` in `BaseLayout` writes it and loads both; the default slot adds to the end of the bar.
 
 - **Set the height once.** The bar is `--bar-h` tall, so give `BaseLayout` `barHeight="5rem"` on every page that shows it. The page then keeps that much space at its end, and the panel, the drawer and the toast stop above the bar. A page without the bar leaves `barHeight` out, and nothing is reserved.
-- **Dark in both themes:** `bar` with `bar-ink` text, like the panel. The label is bold `accent-bright`, the title 1.125rem weight 500.
+- **Dark in both themes:** `bar` with `bar-ink` text, like the panel. The label is semibold `accent-bright`, the title 1.375rem (22px), weight 600.
 - `data-drawer-keep` keeps it usable while the drawer is open.
 - With a `Footer` on the same page, the footer ends where the bar begins, so the bar never covers it.
 
@@ -413,7 +476,7 @@ In Astro, `<Footer name="Site name" description="…" links={menu}><Fragment slo
 
 - **The rule.** It opens with the 2px rule every section starts with, `space-16` below the page above it.
 - **`--bar`** (`tone="bar"`) sets it on a dark `bar` block instead, like `page-title--bar`: for a site whose pages end on a light section and want a firm end.
-- **Type.** The name is bold at 2.25rem; the links are 1rem weight 500, `accent-text` on hover (`accent-bright` on the dark block). The note is 14px, dimmed by color at 75%, not by opacity.
+- **Type.** The name is light at 2.75rem; the links are 1.25rem (20px), weight 600, `accent-text` on hover (`accent-bright` on the dark block). The note is 18px, dimmed by color at 75%, not by opacity.
 - **Names.** The links sit in a `nav`; give each footer on a page its own `label` if there is more than one.
 - Keep it to the site's own pages and one or two outside links. It is not a second menu with sections and headings.
 
@@ -450,7 +513,7 @@ Load `kit/dialog.js`. In Astro, `<Dialog id="confirm" title="Delete this export?
 - **Closing.** Every button in the `<form method="dialog">` closes it and leaves its `value` in `dialog.returnValue`; listen for `close` and act on it. `closedby="any"` closes it on a click outside too (the script fills in where that isn't supported); Escape and outside clicks return `""`, the X `"close"`.
 - **Focus.** Put `autofocus` on the safest choice (Cancel, not Delete), so Enter never destroys anything by accident.
 - **Actions** are one `PrimaryButton` for the choice the dialog is about and `SecondaryButton`s for the rest, primary one first.
-- **Shape.** Up to 34rem wide, `gutter` from the screen's edges on a phone; the title is 1.75rem bold; the X is two bars like the menu button's, `accent-text` on hover. It fades and rises in over 250ms and fades out; not under Reduce Motion. The backdrop is `bar` at 75%, flat, no blur.
+- **Shape.** Up to 34rem wide, `gutter` from the screen's edges on a phone; the title is 2.125rem light; the X is two bars like the menu button's, `accent-text` on hover. It fades and rises in over 250ms and fades out; not under Reduce Motion. The backdrop is `bar` at 75%, flat, no blur.
 
 **Don't.** Use it for something that could be a page or a `Toast`, open one from another, or put navigation in it.
 
@@ -458,9 +521,9 @@ Load `kit/dialog.js`. In Astro, `<Dialog id="confirm" title="Delete this export?
 
 A short confirmation on a `bar` block with a 6px `accent-bright` left edge, bottom-left above any bottom bar.
 
-**Markup.** `<div class="toast" role="status">Message sent.</div>`; set `data-show="true"` to fade it in (350ms) and remove it to hide. It sits at `left: gutter; bottom: calc(bar-h + 1rem)`, max 28rem wide, 1rem weight 500.
+**Markup.** `<div class="toast" role="status">Message sent.</div>`; set `data-show="true"` to fade it in (350ms) and remove it to hide. It sits at `left: gutter; bottom: calc(bar-h + 1rem)`, max 28rem wide, 1.25rem (20px), weight 600.
 
-**Use** for one-line confirmations that need no action. Hide it after a few seconds. **Don't** stack several or put buttons in it.
+**Use** for one-line confirmations that need no action, after the thing has really happened: a form's "Message sent." only once the send worked (see "A form with nowhere to send" under Field). Hide it after a few seconds. **Don't** stack several or put buttons in it.
 
 ## Drawer
 
@@ -494,7 +557,7 @@ Load `kit/drawer.js`. In Astro, `<DrawerButton slot="topbar" label="Recent pages
 - **Closes** on its button, Escape, `drawer:close`, a click outside, or keyboard focus moving outside it (Tab past the last row would otherwise land on the page hidden behind it). Opening it sends `menu:close`, and opening the menu sends `drawer:close`: one at a time.
 - **Focus** goes to the heading on open (retried under Reduce Motion) and back to the button when closed by the button or Escape. While it is open, its button's outline and text turn `accent-bright` (vermilion or verdigris, whichever the site uses), matching the drawer's heading; hovering fills it with the accent.
 - **"More below" arrow.** A 2.75rem round `accent` button centered over the bottom of the list, shown while the list overflows and has not been scrolled. It scrolls most of a screen; from the keyboard it also moves focus to the first row that comes into view, since it is about to disappear. No shadow. Rows can be added and removed from a script; it re-checks on its own.
-- Rows: `drawer-title` (1.125rem, 500) over `drawer-meta` (14px, 75%), with 1px rules at 25% of `bar-ink` between them. Set text from data with `textContent`, never as HTML.
+- Rows: `drawer-title` (1.375rem, 600) over `drawer-meta` (18px, 75%), with 1px rules at 25% of `bar-ink` between them. Set text from data with `textContent`, never as HTML.
 - Slides in 450ms; not under Reduce Motion.
 
 **Do.** Give it a short label heading and a closing note saying where the data lives. **Don't.** Put a form or a second level of navigation in it; that belongs in the panel.
@@ -537,7 +600,7 @@ A bold 2px rule that closes off a list, over one quiet line of text ("Kept on th
 **Markup.** `<p class="closing-note">…</p>` after the list.
 
 - The rule is `ink` on the page and `bar-ink` in the panel or a drawer, always solid.
-- The text is 14px, dimmed with `color-mix(in srgb, <ink> 70%, transparent)`, **not** `opacity`, which would also fade the rule.
+- The text is 18px, dimmed with `color-mix(in srgb, <ink> 70%, transparent)`, **not** `opacity`, which would also fade the rule.
 - One or two sentences. It says something true about the list (where it is kept, how it is sorted), not marketing.
 
 ## DatedList
@@ -555,7 +618,7 @@ What a site can do and when each part arrived, newest first: the "Features" tab 
 In Astro, `<FeaturesList features={features} />`, with the data in a typed file (`src/data/features.ts` exporting `features: Feature[]`, newest first; `Feature` is in `kit/astro/types.ts`).
 
 - A 2px `currentColor` rule on top, 1px rules at 25% between entries.
-- Date over the text on phones; a 10rem date column beside it from 640px. The date is 14px bold, `accent-text` on the page and `accent-bright` on dark.
+- Date over the text on phones; a 10rem date column beside it from 640px. The date is 18px semibold, `accent-text` on the page and `accent-bright` on dark.
 - **Format dates in UTC.** They are plain days, so `toLocaleDateString(…, { timeZone: 'UTC' })`; otherwise a visitor west of UTC sees the day before.
 - One entry per thing a visitor would notice, dated the day it went live; when a feature grows, edit its line rather than adding one. The newest date also drives `NewDot`.
 - An entry's optional `details` (a list of short sentences) are for release notes: what it does, where to see it, what a site needs to change. The list on the page shows only the `body`.
@@ -600,8 +663,8 @@ A section for a task's live output, the way a downloader or a build tool shows i
 
 In Astro, `<OutputPanel id="out" status="Not started" />`, with `title`, `running`, `headingLevel` and `height` (default 20rem). Stream into it with `kit/output.js`: `outputClear(panel)`, `outputLine(panel, text, 'cmd' | 'err')`, `outputStatus(panel, 'Running…', true)`.
 
-- **Status.** 14px at 75%, a polite live region: a screen reader hears "Running…" and "Finished", not every line. While running (`data-running`), the spinner shows beside it.
-- **The log** follows its newest line while the reader is at the bottom; once they scroll up to read, it stays put. Lines are set as text, never HTML. Commands in bold, errors in the accent, as in any `pre--bar`.
+- **Status.** 18px at 75%, a polite live region: a screen reader hears "Running…" and "Finished", not every line. While running (`data-running`), the spinner shows beside it.
+- **The log** follows its newest line while the reader is at the bottom; once they scroll up to read, it stays put. Lines are set as text, never HTML. Commands in semibold, errors in the accent, as in any `pre--bar`.
 - It scrolls inside its fixed height, and sideways for long lines; `tabindex="0"` lets the keyboard scroll it.
 - Put a `SummaryList` of the results after it.
 
@@ -614,7 +677,7 @@ A block of code, commands or program output in Source Code Pro: square, with a t
 **Markup.** `<pre tabindex="0"><code>…</code></pre>`. For output, add `pre--bar`: `<pre class="pre--bar" tabindex="0">`. Inside either, wrap a command line in `<span class="pre-cmd">` and an error line in `<span class="pre-err">`.
 
 - **Plain** is a 1px `rule` border and `space-4` padding, no tint behind it. **`.pre--bar`** is `bar` with `bar-ink` text in both themes, like the panel, the drawer and the toast, so output reads as a separate surface from the page.
-- **Lines.** `.pre-cmd` is bold (700, one of the kit's two weights). `.pre-err` is the accent: `accent-text` on the paper, `accent-bright` on `.pre--bar`. Output isn't syntax-colored.
+- **Lines.** `.pre-cmd` is semibold (600). `.pre-err` is the accent: `accent-text` on the paper, `accent-bright` on `.pre--bar`. Output isn't syntax-colored.
 - **Syntax colors** are for source code only, the kit's second code exception (see Color in `DESIGN.md`):
 
   | Token | Color | For |
@@ -640,9 +703,9 @@ A block of code, commands or program output in Source Code Pro: square, with a t
 
 ## Ellipse
 
-An oval badge holding a short code, like the "CH" sticker on the back of a Swiss car: bold capitals inside a thin oval rule.
+An oval badge holding one short word in lowercase, never a country code or other capitals: semibold letters inside a thin oval rule.
 
-**Markup.** `<span class="ellipse" title="Switzerland"><span aria-hidden="true">CH</span><span class="sr-only">Switzerland</span></span>`. In Astro, `<Ellipse code="CH" label="Switzerland" />`; add `solid` for the filled version.
+**Markup.** `<span class="ellipse" title="New this week"><span aria-hidden="true">new</span><span class="sr-only">New this week</span></span>`. In Astro, `<Ellipse code="new" label="New this week" />`; add `solid` for the filled version.
 
 - **Shape.** 2em tall, at least 3em wide, `border-radius: 50%`, so it stays a true ellipse when a third letter widens it. The border is 2px, or 0.07em on a big one, so it keeps its weight as it scales.
 - **Type.** 600, in the font size of the text around it. Size it with a text utility: `text-base` beside body text, `text-4xl` or more as a mark on its own. Never under 0.875rem.
@@ -658,7 +721,7 @@ A number set in a circle, for when a number should read as a mark of its own: th
 
 **Markup.** `<span class="num-circle"><span>02</span></span>`; add `num-circle--solid` to fill it, and `num-circle--accent` to draw either one in the accent. The inner span is needed: it carries the cut-out color of the solid version. In Astro, `<NumCircle value={2} />` (a number is padded to "02"), with `solid` for the filled one and `accent` for the accent.
 
-- **Shape.** A 2.25em circle (`radius-round`, at 50%) with a 1px rule, or 0.06em on a big one. Weight 500, tabular numerals.
+- **Shape.** A 2.25em circle (`radius-round`, at 50%) with a 1px rule, or 0.06em on a big one. Weight 600, tabular numerals.
 - **Color.** All `currentColor`, so it takes the color of the text it sits in: put `muted` on it beside a row's name, leave it `ink` as a step marker. The solid version fills with that color and cuts the digits out in the surface's own: `paper` on the page, `bar` in the panel, drawer and `page-title--bar`, the row's fill when a `ListRow` is hovered or active.
 - **Accent.** `.num-circle--accent` sets numbers apart: the one that matters on a screen, or the outlined numbers of the one list a page is built around. It is `accent-text` on the page, with `accent-ink` digits when solid, and `accent-bright` on a `bar` surface and in a hovered or active `ListRow`, with the digits cut out as usual.
 - **Size.** Like the `Ellipse`, it takes its text's size: `small` in a list row, a text utility (`text-2xl`) for a step marker on its own. Never under 0.875rem.
@@ -734,6 +797,7 @@ The top of a page: the name in `display`, a `lead` line, and an optional caption
   ```
 
   Use `title="About"` instead of the slot for a one-line name, and `layout="split" | "wide"` to override the shape. The default slot adds text under the lead and before the image, such as a second lead paragraph: `<p class="lead hero-lead">…</p>`. Keep it to one or two short paragraphs; longer text belongs on the page below.
+- **Art that is not an image file** (an inline SVG, a drawn component) goes in the `art` slot, with `image` left off. It takes the image's place in the figure, over the `caption`. This is where a `Rosette` goes: `<Hero title="About" lead="…" caption="Engine-turned rosette."><Rosette slot="art" /></Hero>`. The layout is `split` unless `layout="wide"` says otherwise, as there is no file to read a shape from. `image` itself takes only an imported file, never a URL string or a component.
 - The hero image loads eagerly with high priority; it is the one image on a page that is not lazy.
 
 ## PageTitle
@@ -768,7 +832,7 @@ One thing to go and look at, inside a section: a thin rule, a small label, a tit
 In Astro, `<Cta title="Field notes" text="A short essay…" href="/work/field-notes/" action="Read it" />`. `label` (default "Featured") and `action` (default "View") change the two short labels; `level="h2"` when it isn't inside a section with its own `h2`.
 
 - A 1px `rule` on top, not the 2px `ink` of a section: it belongs to the section it sits in.
-- The title is 1.5rem, 2rem from 768px, bold. It isn't a link: the button is.
+- The title is 1.875rem, 2.5rem from 768px, light. It isn't a link: the button is.
 - The primary button is the page's one main action. Its name adds the title, so it says where it goes.
 
 **Don't.** Put two on a page, or use one in place of a `PostFeature` at the top of a blog's index. A title with an image and a hero's space is a `PostFeature`.
@@ -796,9 +860,9 @@ A few linked things side by side, each with a number, a title, a short teaser, u
 In Astro, `<CardGrid cards={cards} />`, each a `Card` (`title`, `href`, `summary`, optional `tags` and `action`; the type is in `kit/astro/types.ts`). `columns={2}` (`.card-grid--2`) makes two across from 768px: use it for two or four cards. `start={2}` starts the numbers at 2, for cards that carry on from something numbered before them. `level="h2"` under a `PageTitle`.
 
 - No box. Each card opens with a scotch rule, the same as a section, with the number in a 3rem column beside the text.
-- The title is 1.5rem and bold, and underlines (2px) on hover. It links to the same place as the button.
+- The title is 1.875rem and light, and underlines (2px) on hover. It links to the same place as the button.
 - The button is a `TertiaryButton` on a link, "Read this" unless `action` says otherwise. Its `aria-label` adds the title ("Read this: Why one typeface is enough"), so each one says where it goes.
-- The summary is 16px and `muted`. Write it as a teaser of two or three lines, so the cards stay close in height.
+- The summary is 20px and `muted`. Write it as a teaser of two or three lines, so the cards stay close in height.
 - Two, three or four cards, so a row never ends with a gap. Leave out `columns` for three, which stack until 1024px: three in two columns would leave one alone.
 
 **Don't.** Add a border, a tint or a shadow, or make the whole card a link. A long list of things to choose is a `ListRow`, and dated posts are a `PostList`.
@@ -825,8 +889,8 @@ A blog's index, newest first: each post's date beside its linked title, with a s
 In Astro, `<PostList posts={posts} />`, each a `Post` (`title`, `href`, `date`, optional `summary` and `meta`; the type is in `kit/astro/types.ts`). `level="h3"` when the list sits under a section's `h2`.
 
 - A scotch rule on top, 1px `rule` between posts, like the dated list.
-- Date over the post on phones; a 10rem date column beside it from 640px. The date is 14px, 500, `muted`, tabular: the title is what stands out, not the date.
-- The title is 1.5rem, 2rem from 768px, bold; it underlines (2px) on hover. Only the title is a link, with the font's arrow after it, as on a card.
+- Date over the post on phones; a 10rem date column beside it from 640px. The date is 20px, 600, `muted`, tabular: the title is what stands out, not the date.
+- The title is 1.875rem, 2.5rem from 768px, light; it underlines (2px) on hover. Only the title is a link, with the font's arrow after it, as on a card.
 - **Format dates in UTC**, as for the dated list.
 - Meta is a short line: topics and reading time, joined with " · ".
 
@@ -854,7 +918,7 @@ One post at the top of a blog's index, in one of two layouts. **Split**, like a 
 In Astro, `<PostFeature post={post} image={art} alt="What it shows" />`, with the same `Post` as `PostList` and an imported image. The image's shape picks the layout: wide for a landscape image, split for a square or portrait one. `layout="wide"` or `layout="split"` overrides it. `label` (default "Featured") and `action` (default "Read post") change the two short labels; `level="h1"` when nothing else on the page is the `h1`.
 
 - It takes a hero's place and space: `space-12` above, more from 768px. A page with a `PostFeature` has no `Hero` or `PageTitle`; give it an `h1` (visually hidden is fine) naming the page.
-- The label is small, bold and `accent-text`; the title is bold and tight at `clamp(2.5rem, 5.5vw, 5rem)`, and underlines (3px) on hover.
+- The label is 20px, semibold and `accent-text`; the title is light at `clamp(2.75rem, 5.5vw, 5.25rem)`, and underlines (3px) on hover.
 - The primary button is the page's one main action. Its name adds the post's title, so it says where it goes.
 - Split crops the image square (`.media--1x1`); wide crops it 16:9 (`.media--16x9`) and adds `post-feature--wide` to the article, which also gives the summary a longer measure. Either way it loads eagerly, like a hero's. Give wide a landscape original and split a square or portrait one, so the crop takes little.
 - Only one per page. Don't repeat the featured post in the list below it.
@@ -924,7 +988,7 @@ Long-form text from Markdown: `.post-body` styles the plain elements inside it, 
 **Markup.** `<div class="post-body"><Content /></div>`, after the `PostHeader`.
 
 - A 45rem measure (`max-w-*` on the same element changes it); center it under the header with `mx-auto`. Paragraphs are `clamp(1.375rem, 2vw, 1.625rem)` on 1.52 leading, a step up from the page's text, and blocks are 1.25rem apart.
-- `h2` is bold at 1.75rem, 2.25rem from 768px, with `space-12` above it and no rule: inside one article, space and size mark a new part, and the 2px rule is kept for the page's own sections; `h3` is the `title` size. Don't skip from the post's `h1` to an `h3`.
+- `h2` is light at 2.125rem, 2.75rem from 768px, with `space-12` above it and no rule: inside one article, space and size mark a new part, and the 2px rule is kept for the page's own sections; `h3` is the `title` size. Don't skip from the post's `h1` to an `h3`.
 - Links underline and turn `accent-text` on hover, like `.link`.
 - Lists have square markers (`ul`) or tabular numbers (`ol`), in `muted`.
 - A quote is large, light and italic in `accent-text`, centered between two 1px `rule` lines. Keep quotes short; one or two per post.
@@ -990,6 +1054,8 @@ One note a reader must not miss. The manicule is the font's, drawn in CSS, so it
 Engraved line work in the two metals, for a page with no picture of its own. It follows the theme, and is `aria-hidden`. No text on it, and never a background. `<Rosette />` draws it at build time; `.rosette` sets its strokes in `--rosette-verdigris` and `--rosette-copper`, a verdigris and a bright copper orange with their own light and dark values. `--rosette-line` is thicker in light than in dark, because dark lines on paper read thinner.
 
 `<Rosette spin />` turns it once every 30 seconds and adds a switch, on by default, that stops it. Moving content needs a way to stop it (WCAG 2.2.2), so never remove the switch. With Reduce Motion it stays still and the switch is hidden. Use `spin` once a page at most.
+
+**In a hero,** put it in `Hero`'s `art` slot: `<Hero title="Verdigris" lead="…" caption="…"><Rosette slot="art" spin /></Hero>`. It sits beside the title from 768px, as a square image would; there is no need to write the `.hero` markup by hand.
 
 For a wide crop, put it in a `.media` box with `.rosette-crop`: `<div class="media media--16x9 rosette-crop"><Rosette /></div>`.
 
