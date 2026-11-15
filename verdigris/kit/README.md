@@ -1,4 +1,4 @@
-![An engine-turned rosette, line work in verdigris and copper on a dark ground](https://raw.githubusercontent.com/danny-englander/agentic-design-kits/main/verdigris/docs/rosette-dark.svg)
+[![An engine-turned rosette, line work in verdigris and copper on a dark ground](https://raw.githubusercontent.com/danny-englander/agentic-design-kits/main/verdigris/docs/rosette-dark.svg)](https://verdigris.ch)
 
 [verdigris.ch](https://verdigris.ch)
 

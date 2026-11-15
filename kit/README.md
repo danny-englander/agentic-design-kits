@@ -1,4 +1,4 @@
-![The demo's home page in dark mode: "Swiss Minimal" in large bold type beside an abstract composition of black, grey and red shapes](https://raw.githubusercontent.com/danny-englander/agentic-design-kits/main/docs/home-dark.webp)
+[![The demo's home page in dark mode: "Swiss Minimal" in large bold type beside an abstract composition of black, grey and red shapes](https://raw.githubusercontent.com/danny-englander/agentic-design-kits/main/docs/home-dark.webp)](https://www.swissminimal.ch)
 
 [swissminimal.ch](https://www.swissminimal.ch)
 
