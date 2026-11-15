@@ -8,6 +8,16 @@ import type { Feature } from '@agentic-design-kits/swiss-minimal/types';
 export const features: Feature[] = [
   {
     date: '2026-11-15',
+    title: 'The kit as a skill for your agent',
+    body: 'The kit can now be installed as an agent skill. With it, your agent finds the kit’s rules by itself whenever a task calls for them, with no pointer to the docs in your prompt.',
+    details: [
+      'Install it with `npx skills add danny-englander/agentic-design-kits --skill swiss-minimal`. Agents has the line to copy.',
+      'The package now carries an `llms.txt`: an index of its files for agents, beside `USING.md`.',
+      'Blog posts are now shared with their own picture, and search engines are told what the site and each post are.',
+    ],
+  },
+  {
+    date: '2026-11-15',
     title: 'The verdigris accent is now azure',
     body: 'The cool accent has a new name and the same colors. It read as blue more than green, and it shared its name with the Verdigris kit.',
     details: [

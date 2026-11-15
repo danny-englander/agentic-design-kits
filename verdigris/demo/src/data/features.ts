@@ -8,6 +8,16 @@ import type { Feature } from '@agentic-design-kits/verdigris/types';
 export const features: Feature[] = [
   {
     date: '2026-11-15',
+    title: 'The kit as a skill for your agent',
+    body: 'The kit can now be installed as an agent skill. With it, your agent finds the kit’s rules by itself whenever a task calls for them, with no pointer to the docs in your prompt.',
+    details: [
+      'Install it with `npx skills add danny-englander/agentic-design-kits --skill verdigris`. Agents has the line to copy.',
+      'The package now carries an `llms.txt`: an index of its files for agents, beside `USING.md`.',
+      'Blog posts are now shared with their own picture, and search engines are told what the site and each post are.',
+    ],
+  },
+  {
+    date: '2026-11-15',
     title: 'Larger captions, and rows that fill only when they lead somewhere',
     body: 'Captions under pictures are now 22px, up from 18px. A list row fills under the pointer only when it holds a link or a button, so a row of plain text no longer looks like something to click.',
     details: [

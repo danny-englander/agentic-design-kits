@@ -15,7 +15,9 @@ for (const path of PAGES) {
     await expect(page.locator('meta[property="og:url"]')).toHaveAttribute('content', url);
     await expect(page.locator('meta[property="og:title"]')).toHaveAttribute('content', await page.title());
     await expect(page.locator('meta[property="og:description"]')).toHaveAttribute('content', /\S/);
-    await expect(page.locator('meta[property="og:image"]')).toHaveAttribute('content', `${SITE}/share-dark.png`);
+    // A post is shared with its own cover (checked below); every other page with the site's card.
+    const post = /^\/blog\/(?!page\/)[^/]+\/$/.test(path);
+    await expect(page.locator('meta[property="og:image"]')).toHaveAttribute('content', post ? /\/_astro\// : `${SITE}/share-dark.png`);
     await expect(page.locator('meta[name="twitter:card"]')).toHaveAttribute('content', 'summary_large_image');
   });
 
@@ -62,4 +64,25 @@ test('the home page title says what the kit is, and Recent still calls it Home',
   await expect(page).toHaveTitle('Verdigris · An agentic design kit for Astro and Tailwind');
   await expect(page.locator('meta[name="description"]')).toHaveAttribute('content', /agentic design kit/);
   await expect(page.locator('meta[name="page-name"]')).toHaveAttribute('content', 'Home');
+});
+
+test('the home page describes the site and the kit as structured data', async ({ page }) => {
+  await page.goto('/');
+  const blocks = await page.locator('script[type="application/ld+json"]').allTextContents();
+  const types = blocks.map((b) => JSON.parse(b)['@type']);
+  expect(types).toEqual(['WebSite', 'SoftwareSourceCode']);
+  await expect(page.locator('meta[property="og:type"]')).toHaveAttribute('content', 'website');
+});
+
+test('a post is shared as an article, with its own picture', async ({ page }) => {
+  await page.goto('/blog/copper-green/');
+  await expect(page.locator('meta[property="og:type"]')).toHaveAttribute('content', 'article');
+  await expect(page.locator('meta[property="article:published_time"]')).toHaveAttribute('content', /^\d{4}-\d{2}-\d{2}$/);
+  const image = await page.locator('meta[property="og:image"]').getAttribute('content');
+  expect(image).toMatch(new RegExp(`^${SITE}/_astro/`));
+  expect((await page.request.get(new URL(image!).pathname)).ok()).toBe(true);
+  const post = JSON.parse(await page.locator('script[type="application/ld+json"]').textContent() ?? '');
+  expect(post['@type']).toBe('BlogPosting');
+  expect(post.headline).toBe(await page.locator('h1').textContent());
+  expect(post.image).toBe(image);
 });
