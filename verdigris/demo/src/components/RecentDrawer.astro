@@ -143,7 +143,9 @@ import IconTemplates from '@agentic-design-kits/verdigris/astro/IconTemplates.as
   const slash = (path: string) => (path.endsWith('/') ? path : `${path}/`);
   const here: Visit = {
     path: slash(location.pathname),
-    title: document.title.replace(/ · Verdigris$/, ''),
+    title:
+      document.querySelector<HTMLMetaElement>('meta[name="page-name"]')?.content ||
+      document.title.replace(/ · Verdigris$/, ''),
     at: Date.now(),
   };
   const visits = [here, ...load().filter((v) => slash(v.path) !== here.path)].slice(0, MAX);

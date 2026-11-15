@@ -35,7 +35,11 @@ const cards = [featured, ...rest].filter((post) => post !== undefined).slice(0, 
 }));
 ---
 
-<SiteLayout title="Home" description="Swiss Minimal, a design kit your AI agent can implement.">
+<SiteLayout
+  title="Home"
+  headline="Swiss Minimal · An agentic design kit for Astro and Tailwind"
+  description="Swiss Minimal is an agentic design kit for Astro and Tailwind v4: design rules, tokens and components your AI coding agent reads, then builds a site from."
+>
   <Hero
     lead="A design kit your AI agent can implement: flat color, thick rules, one grotesque typeface."
     image={hero}
