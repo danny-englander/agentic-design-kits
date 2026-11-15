@@ -6,6 +6,9 @@
 // Import the image (`import art from '../assets/art.jpg'`) so Astro knows its size
 // and serves resized, modern formats. The default slot adds text under the lead, before the
 // image: a second lead paragraph (`<p class="lead hero-lead">`), say.
+// For art that is not an image file (an inline SVG, a drawn component), leave `image` off and
+// put it in the "art" slot: it takes the image's place in the figure, over the caption. The
+// layout is then "split" unless `layout` says "wide".
 import { Image } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 
@@ -13,6 +16,7 @@ interface Props {
   /** Plain-text title. For a stacked title with a line break, use the "title" slot instead. */
   title?: string;
   lead?: string;
+  /** An imported image file. For other art, use the "art" slot. */
   image?: ImageMetadata;
   /** Required with an image: one sentence on what it shows ("" only if the text already says it). */
   alt?: string;
@@ -22,7 +26,9 @@ interface Props {
 }
 const { title, lead, image, alt = '', caption, layout = 'auto' } = Astro.props;
 
-const shape = image && (layout === 'auto' ? (image.width / image.height > 1 ? 'wide' : 'split') : layout);
+const hasArt = !image && Astro.slots.has('art');
+const auto = image && image.width / image.height > 1 ? 'wide' : 'split';
+const shape = (image || hasArt) && (layout === 'auto' ? auto : layout);
 const sizes = shape === 'split' ? '(min-width: 768px) 50vw, 60vw' : '(min-width: 88rem) 88rem, 100vw';
 ---
 
@@ -44,6 +50,14 @@ const sizes = shape === 'split' ? '(min-width: 768px) 50vw, 60vw' : '(min-width:
           loading="eager"
           fetchpriority="high"
         />
+        {caption && <figcaption>{caption}</figcaption>}
+      </figure>
+    )
+  }
+  {
+    hasArt && (
+      <figure class="figure hero-figure">
+        <slot name="art" />
         {caption && <figcaption>{caption}</figcaption>}
       </figure>
     )
