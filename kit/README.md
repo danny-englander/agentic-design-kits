@@ -37,6 +37,7 @@ Each site picks one accent: vermilion (the default, a red leaning toward orange)
 ## In the package
 
 - `USING.md`: the steps for starting a new site with the kit, and for restyling an existing one. Agents start here.
+- `llms.txt`: an index of the files below for AI agents, with one line on what each is for.
 - `DESIGN.md`: the rules (color, type, layout, images, motion, accessibility, the Tailwind setup) and a "Do not" list. Read it first.
 - `COMPONENTS.md`: the markup, behavior and do's and don'ts for each component.
 - `TOOLING.md`: recipes for accessibility tests (Playwright and axe), and a manual checklist.
@@ -47,6 +48,14 @@ Each site picks one accent: vermilion (the default, a red leaning toward orange)
 ## For AI agents
 
 Read `USING.md` in this package (`node_modules/@agentic-design-kits/swiss-minimal/USING.md`): it covers starting a new site with the kit and restyling an existing one, step by step, and names the other files to read. The same file is [on GitHub](https://github.com/danny-englander/agentic-design-kits/blob/main/USING.md), for reading before the kit is installed. The demo site's [Agents](https://www.swissminimal.ch/agents/) page has prompts to start from.
+
+The kit is also an agent skill, so an agent picks it up when a task calls for it, with no pointer to the docs in the prompt:
+
+```bash
+npx skills add danny-englander/agentic-design-kits --skill swiss-minimal
+```
+
+The skill holds no rules of its own. It sends the agent to the files in this package, so it never falls behind the version that is installed.
 
 ## License
 

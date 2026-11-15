@@ -1,0 +1,26 @@
+# Swiss Minimal
+
+> An agentic design kit for Astro and Tailwind v4: a Swiss / Bauhaus look, written as rules for an AI coding agent to read and build from. Type-led, flat color, thick rules and one typeface (Overused Grotesk), with one accent, vermilion or azure.
+
+This file is the index of what the npm package holds (`node_modules/@agentic-design-kits/swiss-minimal/`). Every path below is in the package, at the version that is installed. Start with USING.md. Don't edit these files in `node_modules`; a fix belongs in the kit's repository.
+
+## Docs
+
+- [USING.md](USING.md): Start here. The steps for starting a new site with the kit, and for restyling an existing site.
+- [DESIGN.md](DESIGN.md): The rules: color, type, layout, iconography, images, motion, accessibility, the Tailwind setup and the "Do not" list.
+- [COMPONENTS.md](COMPONENTS.md): Markup, behavior and do's and don'ts for each component. Read the parts you will use.
+- [tokens.json](tokens.json): Every token value, light and dark, for both accents, with a note on what each is for. If theme.css disagrees, tokens.json wins.
+- [TOOLING.md](TOOLING.md): Accessibility tests with Playwright and axe to copy into a site, and a manual checklist.
+
+## Kit
+
+- [kit/tailwind.css](kit/tailwind.css): The one stylesheet a Tailwind v4 site imports, as `@agentic-design-kits/swiss-minimal/tailwind.css`.
+- [kit/theme.css](kit/theme.css): Every token, the base styles and every component class, in plain CSS.
+- [kit/astro/](kit/astro/): The Astro components, imported as `@agentic-design-kits/swiss-minimal/astro/Name.astro`. `BaseLayout.astro` is the one every page is built on.
+- [kit/example.html](kit/example.html): A one-page example using only theme.css, for a site without Astro or Tailwind.
+
+## Optional
+
+- [README.md](README.md): What the package is and how to install it.
+- [Demo site](https://www.swissminimal.ch): Every component in use. Its source is the worked example: https://github.com/danny-englander/agentic-design-kits/tree/main/demo
+- [Repository](https://github.com/danny-englander/agentic-design-kits): The source, and where to report a problem with the kit.

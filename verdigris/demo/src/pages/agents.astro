@@ -74,6 +74,8 @@ components before you change anything.`;
       <p>Coding agents such as Claude Code, Codex and Cursor look for a file called <code>AGENTS.md</code> in the folder they work in, and read it before they start. Claude Code reads the same notes as <code>CLAUDE.md</code>. The kit's repository has both, with the same text.</p>
       <p>That file is for changing the kit. The two jobs most people bring, starting a new site and restyling one that already exists, are in <code>USING.md</code>. It comes with the npm package, so your agent finds it in <code>node_modules/@agentic-design-kits/verdigris/</code>, beside the rules. For each job, it lists the steps in order and the files to read first: <a class="link" href={doc('DESIGN.md')}>DESIGN.md</a> for the rules and its "Do not" list, <a class="link" href={doc('COMPONENTS.md')}>COMPONENTS.md</a> for each component's markup, and <a class="link" href={doc('tokens.json')}>tokens.json</a> for every color and size.</p>
       <p>Read it yourself first: <a class="link" href={doc('USING.md')}>USING.md on GitHub</a>.</p>
+      <p>The kit is also an agent skill. Install it once, and your agent comes to that file by itself whenever a task calls for the kit:</p>
+      <pre class="pre--bar mb-5" tabindex="0"><code><span class="pre-cmd">$ npx skills add danny-englander/agentic-design-kits --skill verdigris</span></code></pre>
     </section>
 
     <section class="mb-14 rule-thick pt-8 [&>p]:mb-5" aria-labelledby="agents-new">

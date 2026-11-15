@@ -14,7 +14,7 @@
   "publishConfig": { "access": "public" },
   "type": "module",
   "workspaces": ["demo", "verdigris", "verdigris/demo"],
-  "files": ["kit", "fonts", "DESIGN.md", "COMPONENTS.md", "USING.md", "TOOLING.md", "tokens.json"],
+  "files": ["kit", "fonts", "DESIGN.md", "COMPONENTS.md", "USING.md", "TOOLING.md", "tokens.json", "llms.txt"],
   "scripts": {
     "shared": "node verdigris/scripts/shared.mjs",
     "shared:check": "node verdigris/scripts/shared.mjs --check",

@@ -13,7 +13,7 @@
 // of the same release, so one install brings both. To try the files in a site before they are
 // published, install both at once: npm install ./swiss-minimal.tgz ./verdigris.tgz
 import { execFileSync } from 'node:child_process';
-import { cpSync, mkdirSync, mkdtempSync, readFileSync, renameSync, rmSync, writeFileSync } from 'node:fs';
+import { cpSync, existsSync, mkdirSync, mkdtempSync, readFileSync, renameSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -39,6 +39,18 @@ export function versionFor(tag: string): string {
   return `${year}.${month * 100 + day}.${nth - 1}`;
 }
 
+/**
+ * Each package's llms.txt lists its files for agents, by path. A path that is not in the package
+ * stops the pack, so the index can't fall behind. A path that starts with ../swiss-minimal/ is
+ * Swiss Minimal's package, installed beside Verdigris's, and is looked up in the repository.
+ */
+function checkIndex(stage: string, file: string) {
+  const index = readFileSync(join(stage, 'llms.txt'), 'utf8');
+  const paths = [...index.matchAll(/\]\(([^)]+)\)/g)].map((m) => m[1]).filter((p) => !/^https?:/.test(p));
+  const missing = paths.filter((p) => !existsSync(p.startsWith('../swiss-minimal/') ? join(repoRoot, p.slice('../swiss-minimal/'.length)) : join(stage, p)));
+  if (missing.length) throw new Error(`${file}: llms.txt lists files that are not in the package: ${missing.join(', ')}`);
+}
+
 /** Writes swiss-minimal.tgz and verdigris.tgz for the release `tag` into `out`, and returns their paths. */
 export function packKits(tag: string, out: string): string[] {
   const version = versionFor(tag);
@@ -53,6 +65,7 @@ export function packKits(tag: string, out: string): string[] {
       // A README copied in with a folder above moves to the top, so there is only one.
       if (readme !== 'README.md') rmSync(join(stage, readme), { force: true });
       cpSync(join(repoRoot, 'LICENSE'), join(stage, 'LICENSE'));
+      checkIndex(stage, file);
       // What only makes sense inside the repository stays out of the packed package.json.
       // "private" is there so that `npm publish` in the repository itself is refused.
       delete pkg.private;

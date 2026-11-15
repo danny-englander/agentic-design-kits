@@ -29,7 +29,15 @@ const { cover, rosette } = entry.data;
 const link = (e?: BlogEntry) => e && { title: e.data.title, href: href(e) };
 ---
 
-<SiteLayout title={entry.data.title} description={entry.data.summary}>
+<SiteLayout
+  title={entry.data.title}
+  description={entry.data.summary}
+  article={{
+    published: entry.data.date,
+    author: entry.data.author,
+    image: cover && { src: cover.src, width: cover.width, height: cover.height, alt: entry.data.coverAlt },
+  }}
+>
   <article class="pb-4">
     <PostHeader
       title={entry.data.title}

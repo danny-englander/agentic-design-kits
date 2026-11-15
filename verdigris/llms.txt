@@ -1,0 +1,27 @@
+# Verdigris
+
+> An agentic design kit for Astro and Tailwind v4, built on Swiss Minimal and written as rules for an AI coding agent to read and build from. A strict grid, one family (Cormorant), copper green and copper, and ornament that earns its place. No capitals anywhere.
+
+This file is the index of what the npm package holds (`node_modules/@agentic-design-kits/verdigris/`). Every path below is in the package, at the version that is installed. Start with USING.md. Swiss Minimal is installed with this package, beside it (`node_modules/@agentic-design-kits/swiss-minimal/`); import everything from `@agentic-design-kits/verdigris`, never from Swiss Minimal. Don't edit these files in `node_modules`; a fix belongs in the kit's repository.
+
+## Docs
+
+- [USING.md](USING.md): Start here. The steps for starting a new site with the kit, and for restyling an existing site.
+- [DESIGN.md](DESIGN.md): The rules: color, type, layout, ornament, iconography, images, motion, accessibility, the Tailwind setup and the "Do not" list.
+- [COMPONENTS.md](COMPONENTS.md): Markup, behavior and do's and don'ts for each component. Read the parts you will use.
+- [tokens.json](tokens.json): Every token value, light and dark, with a note on what each is for. If the stylesheets disagree, tokens.json wins.
+- [TOOLING.md](../swiss-minimal/TOOLING.md): In Swiss Minimal's package, and serves both kits: accessibility tests with Playwright and axe to copy into a site, and a manual checklist.
+
+## Kit
+
+- [kit/tailwind.css](kit/tailwind.css): The one stylesheet a Tailwind v4 site imports, as `@agentic-design-kits/verdigris/tailwind.css`. It loads Swiss Minimal's, then Verdigris's typeface and theme.
+- [kit/verdigris.css](kit/verdigris.css): Everything that makes this Verdigris: token overrides, type and the ornament.
+- [kit/astro/](kit/astro/): The components written for Verdigris: BaseLayout, Mark and Rosette. Every other component is Swiss Minimal's, imported as `@agentic-design-kits/verdigris/astro/Name.astro`.
+- [theme.css](../swiss-minimal/kit/theme.css): Swiss Minimal's stylesheet, which Verdigris builds on: the shared tokens, base styles and component classes.
+- [kit/example.html](kit/example.html): A one-page example without Astro or Tailwind.
+
+## Optional
+
+- [README.md](README.md): What the package is and how to install it.
+- [Demo site](https://www.verdigris.ch): Every component in use. Its source is the worked example: https://github.com/danny-englander/agentic-design-kits/tree/main/verdigris/demo
+- [Repository](https://github.com/danny-englander/agentic-design-kits/tree/main/verdigris): The source, and where to report a problem with the kit.

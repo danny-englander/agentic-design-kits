@@ -1,12 +1,14 @@
 # Using Verdigris: notes for AI agents
 
-How to start a new site with the kit, and how to restyle an existing site with it. Each has a section below. This file comes with the npm package (`node_modules/@agentic-design-kits/verdigris/USING.md`), beside the other files it names. To change the kit itself, see `verdigris/AGENTS.md` in [the kit's repository](https://github.com/danny-englander/agentic-design-kits).
+How to start a new site with the kit, and how to restyle an existing site with it. Each has a section below. This file comes with the npm package (`node_modules/@agentic-design-kits/verdigris/USING.md`), beside the other files it names. [`llms.txt`](llms.txt), beside it, lists every file in the package. To change the kit itself, see `verdigris/AGENTS.md` in [the kit's repository](https://github.com/danny-englander/agentic-design-kits).
 
 Read first, whichever the task: [`DESIGN.md`](DESIGN.md) (the rules, and its "Do not" list) and the parts of [`COMPONENTS.md`](COMPONENTS.md) you will use. [`tokens.json`](tokens.json) holds every token value; if `theme.css` disagrees, `tokens.json` wins.
 
 Verdigris is built on Swiss Minimal (`@agentic-design-kits/swiss-minimal`), which is installed with it. A site imports everything from `@agentic-design-kits/verdigris` and never names Swiss Minimal.
 
 Check the Node version before running `node`, `npm` or `npx` in the site: look for an `.nvmrc` and use the version it names (`nvm use` in that folder). Don't rely on whichever Node the shell happens to have.
+
+**As a skill.** The kit is also an agent skill that points here: `npx skills add danny-englander/agentic-design-kits --skill verdigris` (it lives in [`skills/verdigris/`](https://github.com/danny-englander/agentic-design-kits/tree/main/skills/verdigris) in the kit's repository). With it installed, an agent comes to this file by itself when a task calls for Verdigris.
 
 ## Starting a new site with the kit
 
