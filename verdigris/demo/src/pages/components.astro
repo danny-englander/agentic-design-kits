@@ -290,14 +290,14 @@ const chips = [
         }
       </div>
     </ComponentEntry>
-    <ComponentEntry num={n()} name="List row" classes=".row">
-      <Fragment slot="about">Numbered rows. One that holds a link or button fills on hover; plain text stays still. The active one stays filled, with an edge on its left.</Fragment>
+    <ComponentEntry num={n()} name="List row" classes=".row, .row-arrow">
+      <Fragment slot="about">Numbered rows. A linked title is underlined, and an arrow in an accent circle can link to the same place. The row fills while its link is hovered or focused, never for the rest of it; plain text stays still. The active one stays filled, with an edge on its left.</Fragment>
       <ul class="border-t border-rule">
-        <Row num={1} title="One typeface" href="/type-and-color/" meta="Weights 400, 500 and 700 only" />
+        <Row num={1} title="One typeface" href="/type-and-color/" meta="Weights 400, 500 and 700 only" arrow />
         <Row num={2} title="Flat color" href="/type-and-color/" meta="Cream, ink and one accent" active>
           <span class="eq" aria-hidden="true"><i></i><i></i><i></i></span>
         </Row>
-        <Row num={3} title="Thick rules" href="/components/" meta="A 2px line opens every section" />
+        <Row num={3} title="Thick rules" href="/components/" meta="A 2px line opens every section" arrow />
       </ul>
     </ComponentEntry>
     <ComponentEntry num={n()} name="Page accordion" classes=".page-acc">

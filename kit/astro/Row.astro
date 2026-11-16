@@ -4,6 +4,8 @@
 // Phones: number and end slot share the first line, the name stacks under them.
 // From 768px: one line on the section's grid (number, name, end slot).
 // With `favorite`, a star sits in the end slot, beside the title link rather than inside it.
+// With `arrow` and `href`, the end slot holds a RowArrow: a second, 44px target for the same link,
+// for the pointer only (out of the tab order, hidden from screen readers, who meet the title).
 // `numStyle` sets the number in a circle, outlined or solid (NumberCircle in COMPONENTS.md).
 // The number column is the --row-num token (3rem), shared with Section's header.
 import FavoriteButton from './FavoriteButton.astro';
@@ -14,8 +16,10 @@ interface Props {
   title: string;
   /** A quieter line under the title. */
   meta?: string;
-  /** Makes the title a link, and the row fill on hover. */
+  /** Makes the title a link (underlined), and the row fill while it is hovered or focused. */
   href?: string;
+  /** With `href`: an arrow in an accent circle in the end slot, linking to the same place. */
+  arrow?: boolean;
   /** The current row: filled, with `aria-current`. */
   active?: boolean;
   /** Written as `data-category`, for a filter script to read. */
@@ -25,7 +29,7 @@ interface Props {
   favorite?: boolean;
   numStyle?: 'plain' | 'circle' | 'solid';
 }
-const { num, title, meta, href, active, category, id, favorite, numStyle = 'plain' } = Astro.props;
+const { num, title, meta, href, arrow, active, category, id, favorite, numStyle = 'plain' } = Astro.props;
 ---
 
 <li
@@ -54,7 +58,7 @@ const { num, title, meta, href, active, category, id, favorite, numStyle = 'plai
   <span class="col-span-2 row-start-2 md:col-span-1 md:col-start-2 md:row-start-1">
     {
       href ? (
-        <a class="title block underline-offset-4 hover:underline" href={href}>{title}</a>
+        <a class="title block" href={href}>{title}</a>
       ) : (
         <span class="title block">{title}</span>
       )
@@ -63,6 +67,16 @@ const { num, title, meta, href, active, category, id, favorite, numStyle = 'plai
   </span>
   <!-- The star's 44px touch target overlaps the row's padding instead of making the row taller -->
   <span class="col-start-2 row-start-1 -my-2.5 flex items-center justify-center self-center md:col-start-3">
-    {favorite && id ? <FavoriteButton id={id} name={title} /> : <slot />}
+    {
+      favorite && id ? (
+        <FavoriteButton id={id} name={title} />
+      ) : arrow && href ? (
+        <a class="row-arrow" href={href} tabindex="-1" aria-hidden="true">
+          <svg viewBox="0 0 20 20"><path d="M3 10h13M11 5l5 5-5 5" /></svg>
+        </a>
+      ) : (
+        <slot />
+      )
+    }
   </span>
 </li>

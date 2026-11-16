@@ -95,3 +95,31 @@ test('the last row a filter leaves showing has no rule', async ({ page }) => {
     }
   }
 });
+
+test('a linked row fills only while its link is hovered or focused, and its arrow goes to the same place', async ({ page }) => {
+  await page.goto('/components');
+  const row = page.locator('.row', { hasText: 'One typeface' });
+  await row.scrollIntoViewIfNeeded();
+  const fill = () => row.evaluate((r) => getComputedStyle(r).backgroundColor);
+  const still = await fill();
+  // The subline is plain text: no fill under the pointer there.
+  await row.locator('.muted.block').hover();
+  await page.waitForTimeout(300); // past the 150ms transition
+  expect(await fill()).toBe(still);
+  // The title and the arrow are links: the row fills.
+  await row.locator('a.title').hover();
+  await expect.poll(fill).not.toBe(still);
+  await page.mouse.move(0, 0);
+  await expect.poll(fill).toBe(still);
+  await row.locator('.row-arrow').hover();
+  await expect.poll(fill).not.toBe(still);
+  await expect(row.locator('a.title')).toHaveCSS('text-decoration-line', 'underline');
+  await expect(row.locator('.row-arrow')).toHaveAttribute('href', '/type-and-color/');
+  // One stop for the keyboard and one name for screen readers: the title's.
+  await expect(row.getByRole('link')).toHaveCount(1);
+  await page.mouse.move(0, 0);
+  await row.locator('a.title').focus();
+  await page.keyboard.press('Shift+Tab');
+  await page.keyboard.press('Tab');
+  await expect.poll(fill).not.toBe(still);
+});
