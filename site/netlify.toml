@@ -1,0 +1,14 @@
+# Netlify's build for agenticdesignkits.com. The project's base directory, set in Netlify, is the
+# repository's root; publish is relative to it.
+[build]
+  command = "npm run build --workspace site"
+  publish = "site/dist"
+  # Three sites build from this repository. Build this one only when a push changed it, Swiss
+  # Minimal's kit or fonts (it is built with them), or the workspace's package files. A command
+  # that exits 0 skips the build. With no earlier build to compare against (a newly linked
+  # project, or a deploy with the cache cleared), Netlify gives the same commit twice; the first
+  # test makes that build rather than skip.
+  ignore = "[ \"$CACHED_COMMIT_REF\" != \"$COMMIT_REF\" ] && git diff --quiet $CACHED_COMMIT_REF $COMMIT_REF -- ':(top)site' ':(top)kit' ':(top)fonts' ':(top)package.json' ':(top)package-lock.json'"
+
+[build.environment]
+  NODE_VERSION = "24"

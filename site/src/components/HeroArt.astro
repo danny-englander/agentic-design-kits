@@ -1,0 +1,16 @@
+---
+// The hero's drawn art, for Hero's `art` slot: a large ampersand in Overused Grotesk, cropped by
+// a dark square, with the initials small in its corner. Decorative: the h1 names the site.
+// Colors are in global.css (.hero-art).
+---
+
+<svg class="hero-art" viewBox="0 0 400 400" aria-hidden="true" focusable="false">
+  <defs>
+    <clipPath id="hero-art-crop"><rect width="400" height="400"></rect></clipPath>
+  </defs>
+  <rect width="400" height="400" fill="var(--bar)"></rect>
+  <g clip-path="url(#hero-art-crop)">
+    <text x="196" y="408" text-anchor="middle" font-size="560" font-family="var(--font-sans)" font-weight="700" fill="var(--hero-art)">&amp;</text>
+  </g>
+  <text x="24" y="52" font-size="28" font-family="var(--font-sans)" font-weight="700" letter-spacing="0.56" fill="var(--bar-ink)">adk</text>
+</svg>
