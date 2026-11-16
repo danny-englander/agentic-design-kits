@@ -13,7 +13,7 @@
   "keywords": ["design-kit", "css", "astro", "astro-component", "tailwindcss"],
   "publishConfig": { "access": "public" },
   "type": "module",
-  "workspaces": ["demo", "verdigris", "verdigris/demo"],
+  "workspaces": ["demo", "verdigris", "verdigris/demo", "site"],
   "files": ["kit", "fonts", "DESIGN.md", "COMPONENTS.md", "USING.md", "TOOLING.md", "tokens.json", "llms.txt"],
   "scripts": {
     "shared": "node verdigris/scripts/shared.mjs",

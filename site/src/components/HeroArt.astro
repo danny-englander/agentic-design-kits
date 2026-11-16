@@ -1,0 +1,13 @@
+---
+// The hero's drawn art, for Hero's `art` slot: the initials in the kit's oval badge (Ellipse in
+// COMPONENTS.md), centered over a large infinity sign in Overused Grotesk. Decorative: the h1 names the
+// site, so the badge carries no label and both are hidden from assistive tech. The view box is
+// trimmed to the sign, about as far from it on every side, so a full-width figure on a phone
+// leaves no empty band. Colors are in global.css (.hero-art).
+import Ellipse from '@agentic-design-kits/swiss-minimal/astro/Ellipse.astro';
+---
+
+<span class="mb-4 block text-center text-xl md:text-2xl" aria-hidden="true"><Ellipse code="ADK" /></span>
+<svg class="hero-art" viewBox="0 70 400 240" aria-hidden="true" focusable="false">
+  <text x="200" y="168" text-anchor="middle" dominant-baseline="central" font-size="420" font-family="var(--font-sans)" font-weight="700" fill="var(--hero-art)">&#8734;</text>
+</svg>

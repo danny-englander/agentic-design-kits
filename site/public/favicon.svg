@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+  <!-- The site's mark, the infinity sign, as a path: a favicon can't load the web font. -->
+  <style>
+    .bg { fill: #f3f0e9 }
+    .mark { fill: none; stroke: #cc2812 }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #0c0c0c }
+      .mark { stroke: #ff4b2b }
+    }
+  </style>
+  <rect class="bg" width="24" height="24"/>
+  <path class="mark" stroke-width="3.4" d="M12 12C10 8.6 7.9 7.2 6 7.2 3.6 7.2 2 9.4 2 12s1.6 4.8 4 4.8c1.9 0 4-1.4 6-4.8s4.1-4.8 6-4.8c2.4 0 4 2.2 4 4.8s-1.6 4.8-4 4.8c-1.9 0-4-1.4-6-4.8z"/>
+</svg>

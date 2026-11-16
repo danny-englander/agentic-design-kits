@@ -1,0 +1,21 @@
+/* The site's one stylesheet. Tailwind, the kit's components and the token utilities all come
+   from the kit's Tailwind entry. Page layout is utilities in the markup; site-only CSS below. */
+@import "@agentic-design-kits/swiss-minimal/tailwind.css";
+
+/* The hero's drawn art (HeroArt.astro): an infinity sign in azure, straight on the page. Azure is
+   not this site's accent (vermilion is): like an image, the art keeps its own color. Each theme
+   uses azure's own value for it, the lighter one on the dark page. */
+.hero-art { --hero-art: #0f8f8c; display: block; width: 100%; height: auto; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .hero-art { --hero-art: #3fc9c4; }
+}
+:root[data-theme="dark"] .hero-art { --hero-art: #3fc9c4; }
+
+/* A departure from the kit, on purpose: stacked on a phone, the kit draws a split hero's figure
+   at 60% so a square photo doesn't fill the screen. This art is a mark, not a photo, so it takes
+   the full width there. From 768px the figure fills its half either way. */
+.hero--split .hero-figure:has(> .hero-art) { width: 100%; }
+
+/* A kit's colors, shown as small squares beside its name. They are content (each kit's own
+   palette), so they are set as values, not as this site's tokens. */
+.swatch { width: 1.5rem; height: 1.5rem; border: 1px solid var(--rule); }

@@ -1,0 +1,120 @@
+---
+import '../styles/global.css';
+import { Code } from 'astro:components';
+import BaseLayout from '@agentic-design-kits/swiss-minimal/astro/BaseLayout.astro';
+import Hero from '@agentic-design-kits/swiss-minimal/astro/Hero.astro';
+import NumCircle from '@agentic-design-kits/swiss-minimal/astro/NumCircle.astro';
+import CardGrid from '@agentic-design-kits/swiss-minimal/astro/CardGrid.astro';
+import Cta from '@agentic-design-kits/swiss-minimal/astro/Cta.astro';
+import Footer from '@agentic-design-kits/swiss-minimal/astro/Footer.astro';
+import type { MenuItem } from '@agentic-design-kits/swiss-minimal/types';
+import HeroArt from '../components/HeroArt.astro';
+import SiteMark from '../components/SiteMark.astro';
+import { kits, parts, repo } from '../data/kits';
+
+const name = 'Agentic Design Kits';
+const lead = 'Design kits your AI agent can implement, for Astro and Tailwind v4.';
+const links: MenuItem[] = [
+  { label: 'Swiss Minimal', href: 'https://www.swissminimal.ch' },
+  { label: 'Verdigris', href: 'https://www.verdigris.ch' },
+  { label: 'GitHub', href: repo },
+  { label: 'npm', href: 'https://www.npmjs.com/org/agentic-design-kits' },
+];
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+
+<BaseLayout title={name} description={lead} tagline={name}>
+  <link slot="head" rel="canonical" href={canonical} />
+  <link slot="head" rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <SiteMark slot="mark" />
+  <a slot="topbar" class="topbar-btn topbar-btn--text no-underline" href="#kits">Kits</a>
+  <a slot="topbar" class="topbar-btn topbar-btn--text no-underline" href={repo}>GitHub</a>
+
+  <Hero lead={lead}>
+    <Fragment slot="title">Agentic<br />Design<br />Kits</Fragment>
+    <p class="hero-lead mt-4 text-muted">
+      Not a library to copy and paste. A set of rules, and an agent that follows them: what each color
+      is for, which weights to use, where a rule goes, and when not to add anything at all.
+    </p>
+    <div class="btn-group mt-8">
+      <a class="btn no-underline" href="#kits">See the two kits</a>
+      <a class="btn-outline no-underline" href={repo}>Read the source</a>
+    </div>
+    <HeroArt slot="art" />
+  </Hero>
+
+  <section class="rule-thick mb-16 pt-8" aria-labelledby="kits">
+    <div class="grid gap-1 pb-6 md:grid-cols-[max(var(--row-num),4rem)_1fr_2.75rem] md:items-baseline md:gap-x-2">
+      <p class="num small muted whitespace-nowrap font-medium md:pl-2">01–02</p>
+      <h2 class="h2" id="kits">The kits</h2>
+    </div>
+    <ul>
+      {
+        kits.map((kit, i) => (
+          <li class="row grid grid-cols-[1fr_auto] gap-y-1 p-4 md:grid-cols-[max(var(--row-num),4rem)_1fr_2.75rem] md:items-start md:gap-x-2 md:px-0 md:py-5">
+            <span class="num small muted col-start-1 row-start-1 font-medium md:pl-4">
+              <NumCircle value={i + 1} />
+            </span>
+            <span class="col-span-2 row-start-2 md:col-span-1 md:col-start-2 md:row-start-1">
+              <a class="title block underline-offset-4 hover:underline" href={kit.href}>{kit.name}</a>
+              <span class="muted mt-1 block max-w-2xl text-base leading-normal">{kit.description}</span>
+              <span class="mt-3 flex gap-1.5" aria-hidden="true">
+                {kit.swatches.map((color) => <span class="swatch" style={`background: ${color}`} />)}
+              </span>
+            </span>
+            <span class="col-start-2 row-start-1 flex items-center justify-center self-center md:col-start-3" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M3 10h13M11 5l5 5-5 5" />
+              </svg>
+            </span>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section class="rule-thick mb-16 pt-8" aria-labelledby="install">
+    <h2 class="h2 mb-3" id="install">Install</h2>
+    <p class="muted mb-8 max-w-2xl">
+      The package brings the kit and its docs. The skill points your agent at them, so it reads the
+      rules by itself when a task calls for the kit.
+    </p>
+    {
+      kits.map((kit) => (
+        <div class="border-t border-rule py-5">
+          <h3 class="title mb-3">{kit.name}</h3>
+          <Code
+            class="pre--bar"
+            tabindex="0"
+            lang="bash"
+            theme="css-variables"
+            code={`npm i @agentic-design-kits/${kit.pkg}\nnpx skills add danny-englander/agentic-design-kits --skill ${kit.pkg}`}
+          />
+        </div>
+      ))
+    }
+  </section>
+
+  <section class="rule-thick mb-16 pt-8" aria-labelledby="made-of">
+    <h2 class="h2 mb-6" id="made-of">What a kit is made of</h2>
+    <CardGrid cards={parts} columns={2} />
+  </section>
+
+  <div class="mb-16">
+    <Cta
+      label="Agents"
+      level="h2"
+      title="Describe the site. Your agent builds it."
+      text="It picks the components, writes the code and checks it against the kit's rules. Each demo site has an Agents page with prompts to start from."
+      href="#install"
+      action="Install a kit"
+    />
+    <p class="mt-4">
+      Prompts: <a class="link" href={kits[0].agents}>Swiss Minimal</a> and <a class="link" href={kits[1].agents}>Verdigris</a>.
+    </p>
+  </div>
+
+  <Footer slot="footer" name={name} description={lead} links={links}>
+    <Fragment slot="note">MIT license.</Fragment>
+  </Footer>
+</BaseLayout>
