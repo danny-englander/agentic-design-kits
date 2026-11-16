@@ -28,3 +28,25 @@ test('the theme toggle switches to dark and remembers it', async ({ page }) => {
   await page.reload();
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
 });
+
+test('a kit row links its name and its arrow, and leaves its description as selectable text', async ({ page }) => {
+  await page.goto('/');
+  const rows = page.locator('section[aria-labelledby="kits"] li');
+  for (const [i, href] of ['https://www.swissminimal.ch/', 'https://www.verdigris.ch/'].entries()) {
+    const row = rows.nth(i);
+    await row.scrollIntoViewIfNeeded();
+    /** The link, if any, under the middle of a part of the row. */
+    const linkAt = async (selector: string) => {
+      const box = (await row.locator(selector).first().boundingBox())!;
+      return page.evaluate(
+        ([x, y]) => document.elementFromPoint(x, y)?.closest('a')?.href ?? null,
+        [box.x + box.width / 2, box.y + box.height / 2],
+      );
+    };
+    expect(await linkAt('.title')).toBe(href);
+    expect(await linkAt('svg')).toBe(href);
+    expect(await linkAt('.muted.block')).toBeNull();
+    // One stop for the keyboard and one name for screen readers: the kit's.
+    await expect(row.getByRole('link')).toHaveCount(1);
+  }
+});
