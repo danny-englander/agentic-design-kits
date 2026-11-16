@@ -341,6 +341,14 @@ kbd {                            /* a key: outlined like the top-bar buttons */
 }
 a.link { color: inherit; text-decoration: underline; text-underline-offset: 4px; }
 a.link:hover { color: var(--accent-text); }
+/* Every link that is underlined at rest gets the same hover and focus: its underline thickens to
+   2px, in the link's own color, on any surface. A thick accent underline marks the current page
+   (footer, menu), so hover stays apart from it. Buttons, and links with no underline at rest,
+   keep their own states. */
+@media (hover: hover) {
+  :is(a.link, .row a.title, .post-body a:not([data-footnote-ref]), .site-footer-note a):not(.btn, .btn-outline):hover { text-decoration-thickness: 2px; }
+}
+:is(a.link, .row a.title, .post-body a:not([data-footnote-ref]), .site-footer-note a):not(.btn, .btn-outline):focus-visible { text-decoration-thickness: 2px; }
 
 /* ---------- Top bar and buttons ---------- */
 .topbar {
