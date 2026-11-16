@@ -1,5 +1,6 @@
 # The checks from "Working on this repository" in CLAUDE.md, on every push to main and pull
-# request, once for each kit's demo: Swiss Minimal's (demo) and Verdigris's (verdigris/demo).
+# request, once for each site: Swiss Minimal's demo (demo), Verdigris's (verdigris/demo) and the
+# landing site for both kits (site).
 name: CI
 
 on:
@@ -11,10 +12,10 @@ jobs:
   check:
     runs-on: ubuntu-latest
     strategy:
-      # A failure in one demo doesn't stop the other, so both results show.
+      # A failure in one site doesn't stop the others, so every result shows.
       fail-fast: false
       matrix:
-        site: [demo, verdigris/demo]
+        site: [demo, verdigris/demo, site]
     defaults:
       run:
         working-directory: ${{ matrix.site }}
