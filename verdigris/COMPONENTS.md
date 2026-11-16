@@ -324,7 +324,7 @@ An accordion on the page itself (not in the panel), built on native `<details>`:
 
 ## ListRow
 
-A section of numbered rows: a scotch rule, a header on the shared grid, then rows divided by 1px `rule` that fill when active, and on hover if they hold a link or button.
+A section of numbered rows: a scotch rule, a header on the shared grid, then rows divided by 1px `rule` that fill when active, and while the link or button in them is hovered or focused.
 
 **In Astro,** `kit/astro/Section.astro` and `kit/astro/Row.astro` write all of it:
 
@@ -343,7 +343,7 @@ import Row from '@agentic-design-kits/verdigris/astro/Row.astro';
 ```
 
 - **`Section`** takes `id` (the `h2`'s id), `title` and `range` (the label over the numbers, "01–03"; write it yourself). Its default slot goes in a `<ul>`, so it holds `Row`s or `<li>`s of your own. The `intro` slot puts a line or two between the header and the rows. `filterable` writes `data-filter-section`, for a filter script that hides a section with no matching rows.
-- **`Row`** takes `num`, `title`, and optionally `meta` (the subline), `href` (makes the title a link), `active` (the current row), `id` and `category` (written as `data-item` and `data-category`, for scripts), `favorite` (a `FavoriteStar` in the end slot; needs `id`) and `numStyle="circle" | "solid"` (the number in a `NumberCircle`). Its default slot is the end slot: an activity indicator or an arrow.
+- **`Row`** takes `num`, `title`, and optionally `meta` (the subline), `href` (makes the title a link), `arrow` (with `href`: a `RowArrow` in the end slot, to the same place), `active` (the current row), `id` and `category` (written as `data-item` and `data-category`, for scripts), `favorite` (a `FavoriteStar` in the end slot; needs `id`) and `numStyle="circle" | "solid"` (the number in a `NumberCircle`). Its default slot is the end slot: an activity indicator or an arrow.
 
 **Markup,** as those two write it, for a site without Astro:
 
@@ -357,10 +357,13 @@ import Row from '@agentic-design-kits/verdigris/astro/Row.astro';
     <li class="row grid grid-cols-[1fr_auto] gap-y-1 p-4 md:grid-cols-[var(--row-num)_1fr_2.75rem] md:items-baseline md:gap-x-2 md:px-0">
       <span class="num small muted col-start-1 row-start-1 font-medium md:pl-5">01</span>
       <span class="col-span-2 row-start-2 md:col-span-1 md:col-start-2 md:row-start-1">
-        <a class="title block underline-offset-4 hover:underline" href="/work/field-notes/">Field notes</a>
+        <a class="title block" href="/work/field-notes/">Field notes</a>
         <span class="small muted block">Writing · 2026</span>
       </span>
-      <span class="col-start-2 row-start-1 -my-2.5 flex items-center justify-center self-center md:col-start-3"><!-- end slot --></span>
+      <span class="col-start-2 row-start-1 -my-2.5 flex items-center justify-center self-center md:col-start-3">
+        <!-- end slot: here a RowArrow, as Row writes it with `arrow` -->
+        <a class="row-arrow" href="/work/field-notes/" tabindex="-1" aria-hidden="true"><svg viewBox="0 0 20 20"><path d="M3 10h13M11 5l5 5-5 5" /></svg></a>
+      </span>
     </li>
   </ul>
 </section>
@@ -370,7 +373,9 @@ The current row adds `data-active="true" aria-current="true"` to its `<li>`. A r
 
 - **One grid.** The section header uses the same columns as the rows, so the range label sits over the numbers and the `h2` over the names. The columns are the number (4.5rem here, the `--row-num` token), the name, and a 2.75rem end slot, wide enough for a 44px touch target. A circled number takes a number column of at least 4rem.
 - The number sits `space-4` in from the left (1.25rem from 768px, `md:pl-5`), clear of the active row's 6px `row-edge`. The range label sits nearer the edge (`md:pl-2`), as "01–06" is wider than one number.
-- **A row fills on hover only if it holds a link or button.** A row of plain text stays still, since a fill would promise a click. The fill is `row-hover-bg` (`row-active-bg` when active), and all text, muted included, turns `row-fg`. In dark mode the fill is a raised dark, never a cream slab, and the active row shows an accent edge.
+- **A row fills only while its link or button is hovered or focused.** The rest of the row does nothing when pressed, so it doesn't fill when the pointer is over it; the row is not one big link, and its text stays selectable. A row of plain text never fills. The hover fill is only for a pointer that hovers (`@media (hover: hover)`), so a tap on a phone leaves no fill behind; the keyboard's focus fills it everywhere. The fill is `row-hover-bg` (`row-active-bg` when active), and all text, muted included, turns `row-fg`. In dark mode the fill is a raised dark, never a cream slab, and the active row shows an accent edge.
+- **A linked title is underlined** at rest (`.row a.title`, 4px under the letters), so it reads as a link before anything is hovered. A title that is not a link is never underlined; that is how the two are told apart.
+- **RowArrow** (`.row-arrow`) is the end slot's link: an arrow in a 36px circle in the accent, verdigris, never copper, in a 44px target. It goes to the same place as the title, so it is for the pointer only: `tabindex="-1"` and `aria-hidden="true"`, and a keyboard or screen reader meets the row once, at its title. Outlined at rest, `accent-text` on the `paper`; it fills while hovered, with the arrow cut out in the surface's color; on a filled row it takes `accent-bright`. Use it where a row is mainly a way to somewhere (a list of sites, of case studies). Don't put it on a row whose end slot holds a star or an indicator, or beside an accent `NumberCircle`: one accent mark to a row.
 - Rows stack on phones (number and end slot on the first line, the name under them); they switch to columns from 768px.
 - Keep the numbers when filtering; don't renumber.
 
