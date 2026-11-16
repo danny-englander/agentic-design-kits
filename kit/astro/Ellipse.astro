@@ -1,17 +1,20 @@
 ---
 // An oval code badge, like the "CH" on the back of a Swiss car. `code` is 1 to 3 letters;
 // `label` is what they stand for, read aloud and shown as a tooltip ("Switzerland").
-// `solid` fills it with ink. Size it with the text around it, or a text utility.
+// `solid` fills it with ink; `accent` draws either one in the accent. Size it with the text
+// around it, or a text utility.
 interface Props {
   code: string;
   label?: string;
   solid?: boolean;
+  /** Draw it in the accent: for the one badge that matters on a screen. */
+  accent?: boolean;
   class?: string;
 }
-const { code, label, solid = false, class: className } = Astro.props;
+const { code, label, solid = false, accent = false, class: className } = Astro.props;
 ---
 
-<span class:list={['ellipse', solid && 'ellipse--solid', className]} title={label}>
+<span class:list={['ellipse', solid && 'ellipse--solid', accent && 'ellipse--accent', className]} title={label}>
   {
     label ? (
       <>

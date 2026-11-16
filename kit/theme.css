@@ -642,7 +642,9 @@ html[data-drawer-open] { overflow: hidden; }  /* stop the page scrolling behind 
 /* ---------- Ellipse: an oval code badge, like the "CH" on the back of a Swiss car ---------- */
 /* Sized in em, so it scales with the text it sits in (text-4xl makes a big one). 1 to 3
    letters. Paper with ink letters by default, so it flips with the theme; --solid fills it
-   with ink. On a bar surface it takes the bar's colors. */
+   with ink. On a bar surface it takes the bar's colors. --accent draws either one in the
+   accent: accent-text letters and rule on the page, an accent-text fill with accent-ink
+   letters when solid, and accent-bright on a bar surface. */
 .ellipse {
   --el-bg: var(--paper);
   --el-fg: var(--ink);
@@ -659,6 +661,10 @@ html[data-drawer-open] { overflow: hidden; }  /* stop the page scrolling behind 
 .ellipse--solid { --el-bg: var(--ink); --el-fg: var(--paper); }
 .panel .ellipse, .drawer .ellipse, .page-title--bar .ellipse { --el-bg: var(--bar); --el-fg: var(--bar-ink); }
 .panel .ellipse--solid, .drawer .ellipse--solid, .page-title--bar .ellipse--solid { --el-bg: var(--bar-ink); --el-fg: var(--bar); }
+.ellipse--accent { --el-fg: var(--accent-text); }
+.ellipse--accent.ellipse--solid { --el-bg: var(--accent-text); --el-fg: var(--accent-ink); }
+:is(.panel, .drawer, .page-title--bar) .ellipse--accent { --el-bg: var(--bar); --el-fg: var(--accent-bright); }
+:is(.panel, .drawer, .page-title--bar) .ellipse--accent.ellipse--solid { --el-bg: var(--accent-bright); --el-fg: var(--bar); }
 
 /* ---------- Number circle: a .num set in a circle, outlined or solid ---------- */
 /* One or two digits. Sized in em like the ellipse, so it follows the text around it. Drawn in
