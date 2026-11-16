@@ -73,10 +73,16 @@ test('shows what both kits have, with the number of components from the docs', a
   await page.goto('/');
   const section = page.locator('section[aria-labelledby="in-both"]');
   await expect(section.locator('.card')).toHaveCount(4);
-  await expect(section.getByRole('link', { name: `${swissMinimal} components`, exact: true })).toHaveAttribute(
+  await expect(section).toContainText(`${swissMinimal} components`);
+  await expect(section).toContainText(`Verdigris adds ${verdigris - swissMinimal} of its own, ${verdigris} in all.`);
+  // Each card has a button for each kit's page, named with the card's title.
+  await expect(section.getByRole('link', { name: `See them in Swiss Minimal: ${swissMinimal} components` })).toHaveAttribute(
     'href',
     'https://www.swissminimal.ch/components/',
   );
-  await expect(section).toContainText(`Verdigris adds ${verdigris - swissMinimal} of its own, ${verdigris} in all.`);
-  await expect(section.getByRole('link', { name: 'forms', exact: true })).toHaveAttribute('href', 'https://www.verdigris.ch/forms/');
+  await expect(section.getByRole('link', { name: 'See them in Verdigris: Forms that work' })).toHaveAttribute(
+    'href',
+    'https://www.verdigris.ch/forms/',
+  );
+  await expect(section.getByRole('link')).toHaveCount(8);
 });

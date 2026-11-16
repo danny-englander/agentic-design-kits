@@ -10,7 +10,7 @@ import Footer from '@agentic-design-kits/swiss-minimal/astro/Footer.astro';
 import type { MenuItem } from '@agentic-design-kits/swiss-minimal/types';
 import HeroArt from '../components/HeroArt.astro';
 import SiteMark from '../components/SiteMark.astro';
-import { highlights, kits, parts, repo, verdigrisPages } from '../data/kits';
+import { highlights, kits, parts, repo } from '../data/kits';
 
 const name = 'Agentic Design Kits';
 const lead = 'Design kits your AI agent can implement, for Astro and Tailwind v4.';
@@ -101,16 +101,31 @@ const share = {
       Each demo shows all of it working, in light and dark, so you can see what your agent will
       build before it builds it.
     </p>
-    <CardGrid cards={highlights} columns={2} />
-    <p class="mt-6">
-      The same in Verdigris:{' '}
-      {verdigrisPages.map((p, i) => (
-        <>
-          <a class="link" href={p.href}>{p.label}</a>
-          {i < verdigrisPages.length - 2 ? ', ' : i === verdigrisPages.length - 2 ? ' and ' : '.'}
-        </>
-      ))}
-    </p>
+    {/* The kit's CardGrid markup, by hand: each card has a page in both demos, so it ends with two
+        tertiary buttons in place of one, and its title is plain text. Stacked until 1024px, where
+        the two fit side by side. Each button's name keeps its visible text and adds the card's. */}
+    <ul class="card-grid card-grid--2">
+      {
+        highlights.map((h, i) => (
+          <li class="card">
+            <span class="label num muted">{String(i + 1).padStart(2, '0')}</span>
+            <h3 class="card-title">{h.title}</h3>
+            <p class="card-summary">{h.summary}</p>
+            <div class="col-start-2 mt-4 flex flex-col items-start gap-3 lg:flex-row lg:flex-wrap">
+              {kits.map((kit) => (
+                <a
+                  class="btn-outline btn-outline--tertiary no-underline"
+                  href={`${kit.href}${h.path}`}
+                  aria-label={`${h.see} in ${kit.name}: ${h.title}`}
+                >
+                  {h.see} in {kit.name}
+                </a>
+              ))}
+            </div>
+          </li>
+        ))
+      }
+    </ul>
   </section>
 
   <section class="rule-thick mb-16 pt-8" aria-labelledby="install">
