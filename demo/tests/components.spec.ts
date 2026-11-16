@@ -126,10 +126,15 @@ test('a linked row fills only while its link is hovered or focused, and its arro
 
 test('a button to another site ends with the font’s ↗, hidden from screen readers, at its usual height', async ({ page }) => {
   await page.goto('/components');
-  const external = page.getByRole('link', { name: 'Source on GitHub', exact: true });
-  await expect(external.locator('.ext-arrow')).toHaveText('↗');
-  await expect(external.locator('.ext-arrow')).toHaveAttribute('aria-hidden', 'true');
   const height = (el: HTMLElement) => el.getBoundingClientRect().height;
-  const plain = page.locator('button.btn-outline', { hasText: 'Last month' }).first();
-  expect(await external.evaluate(height)).toBe(await plain.evaluate(height));
+  // A secondary and a primary one, each beside a plain button of its kind.
+  for (const [name, plain] of [
+    ['Source on GitHub', page.locator('button.btn-outline:visible', { hasText: 'Last month' }).first()],
+    ['Get it on npm', page.locator('button.btn:visible', { hasText: 'Send' }).first()],
+  ] as const) {
+    const external = page.getByRole('link', { name, exact: true });
+    await expect(external.locator('.ext-arrow')).toHaveText('↗');
+    await expect(external.locator('.ext-arrow')).toHaveAttribute('aria-hidden', 'true');
+    expect(await external.evaluate(height)).toBe(await plain.evaluate(height));
+  }
 });
