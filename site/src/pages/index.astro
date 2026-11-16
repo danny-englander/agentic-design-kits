@@ -56,25 +56,21 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
               <NumCircle value={i + 1} />
             </span>
             <span class="col-span-2 row-start-2 md:col-span-1 md:col-start-2 md:row-start-1">
-              <a class="title block underline-offset-4 hover:underline" href={kit.href}>{kit.name}</a>
+              <a class="title block" href={kit.href}>{kit.name}</a>
               <span class="muted mt-1 block max-w-2xl text-base leading-normal">{kit.description}</span>
               <span class="mt-3 flex gap-1.5" aria-hidden="true">
                 {kit.swatches.map((color) => <span class="swatch" style={`background: ${color}`} />)}
               </span>
             </span>
-            {/* The arrow in the end slot is a second, 44px target for the same demo, for the pointer
-                only: out of the tab order and hidden from screen readers, which reach the demo
-                through the name. The rest of the row stays plain text, so it can be selected. */}
-            <a
-              class="col-start-2 row-start-1 -my-2.5 flex size-11 items-center justify-center self-center md:col-start-3"
-              href={kit.href}
-              tabindex="-1"
-              aria-hidden="true"
-            >
-              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M3 10h13M11 5l5 5-5 5" />
-              </svg>
-            </a>
+            {/* The arrow in the end slot is the kit's RowArrow: a second, 44px target for the same
+                demo, for the pointer only: out of the tab order and hidden from screen readers,
+                which reach the demo through the name. The rest of the row stays plain text, so it
+                can be selected, and the row fills only while a link is hovered. */}
+            <span class="col-start-2 row-start-1 -my-2.5 flex items-center justify-center self-center md:col-start-3">
+              <a class="row-arrow" href={kit.href} tabindex="-1" aria-hidden="true">
+                <svg viewBox="0 0 20 20"><path d="M3 10h13M11 5l5 5-5 5" /></svg>
+              </a>
+            </span>
           </li>
         ))
       }
