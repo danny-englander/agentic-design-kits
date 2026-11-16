@@ -1,5 +1,11 @@
 # Agentic Design Kits
 
+<p align="center">
+  <a href="https://www.agenticdesignkits.com"><img src=".github/readme/infinity.svg" width="560" alt="An infinity sign drawn as guilloché line work, the mark of Agentic Design Kits"></a>
+  <br>
+  <a href="https://www.agenticdesignkits.com">www.agenticdesignkits.com</a>
+</p>
+
 [![CI](https://github.com/danny-englander/agentic-design-kits/actions/workflows/ci.yml/badge.svg)](https://github.com/danny-englander/agentic-design-kits/actions/workflows/ci.yml)
 [![Node 24+](https://img.shields.io/badge/node-24%2B-blue)](https://nodejs.org/)
 [![Astro 7](https://img.shields.io/badge/astro-7-blue)](https://astro.build/)
@@ -58,7 +64,7 @@ The repository is one npm workspace. Each demo installs its kit as a package thr
 **For both kits:**
 
 - [`TOOLING.md`](TOOLING.md): recipes for accessibility tests (Playwright and axe) and date-tagged releases, and a manual checklist.
-- [`scripts/`](scripts): the release and packing scripts.
+- [`scripts/`](scripts): the release and packing scripts, and `readme-art.ts`, which draws the infinity sign at the top of this README from the landing site's.
 - [`site/`](site): the landing site at agenticdesignkits.com, one page that introduces both kits, built with Swiss Minimal.
 
 ## Install a kit
