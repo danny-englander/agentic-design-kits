@@ -56,7 +56,7 @@ const share = {
     </p>
     <div class="btn-group mt-8">
       <a class="btn no-underline" href="#kits">See the two kits</a>
-      <a class="btn-outline no-underline" href={repo}>Read the source</a>
+      <a class="btn-outline no-underline" href={repo}>Read the source<span class="ext-arrow" aria-hidden="true">↗</span></a>
     </div>
     <HeroArt slot="art" />
   </Hero>
@@ -119,6 +119,7 @@ const share = {
                   aria-label={`${h.see} in ${kit.name}: ${h.title}`}
                 >
                   {h.see} in {kit.name}
+                  <span class="ext-arrow" aria-hidden="true">↗</span>
                 </a>
               ))}
             </div>
