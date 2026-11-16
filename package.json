@@ -19,7 +19,8 @@
     "shared": "node verdigris/scripts/shared.mjs",
     "shared:check": "node verdigris/scripts/shared.mjs --check",
     "pack": "node --experimental-strip-types --no-warnings scripts/pack.ts",
-    "release": "node --experimental-strip-types --no-warnings scripts/release.ts"
+    "release": "node --experimental-strip-types --no-warnings scripts/release.ts",
+    "readme-art": "node --experimental-strip-types --no-warnings scripts/readme-art.ts"
   },
   "exports": {
     "./tailwind.css": "./kit/tailwind.css",
