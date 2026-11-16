@@ -21,6 +21,8 @@ const links: MenuItem[] = [
   { label: 'npm', href: 'https://www.npmjs.com/org/agentic-design-kits' },
 ];
 const canonical = new URL(Astro.url.pathname, Astro.site);
+// The demos' addresses, for the script at the end that passes the visitor's theme on to them.
+const demoOrigins = kits.map((kit) => new URL(kit.href).origin);
 // The share card (scripts/share-images.ts). A preview can't follow the reader's theme; this one
 // uses the light card, cream beside the dark panel. share-dark.png is the same card in dark.
 const share = {
@@ -172,4 +174,21 @@ const share = {
   <Footer slot="footer" name={name} description={lead} links={links}>
     <Fragment slot="note">MIT license.</Fragment>
   </Footer>
+  <script is:inline slot="overlays" define:vars={{ demoOrigins }}>
+    // A visitor who picked light or dark with the toggle gets the same on the demo they open:
+    // a link to a demo carries ?theme=, which the kit's BaseLayout there applies and saves. Set as
+    // the link is pressed, so the page's links stay plain. With no choice made, nothing is added,
+    // and the demo follows the system setting, as this page does.
+    const pass = (event) => {
+      const link = event.target instanceof Element ? event.target.closest('a[href]') : null;
+      if (!link) return;
+      const url = new URL(link.href);
+      if (!demoOrigins.includes(url.origin)) return;
+      const theme = document.documentElement.dataset.theme;
+      if (theme === 'light' || theme === 'dark') url.searchParams.set('theme', theme);
+      else url.searchParams.delete('theme');
+      link.href = url.href;
+    };
+    for (const type of ['pointerdown', 'keydown', 'click']) document.addEventListener(type, pass, true);
+  </script>
 </BaseLayout>
