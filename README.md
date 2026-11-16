@@ -59,6 +59,7 @@ The repository is one npm workspace. Each demo installs its kit as a package thr
 
 - [`TOOLING.md`](TOOLING.md): recipes for accessibility tests (Playwright and axe) and date-tagged releases, and a manual checklist.
 - [`scripts/`](scripts): the release and packing scripts.
+- [`site/`](site): the landing site at agenticdesignkits.com, one page that introduces both kits, built with Swiss Minimal.
 
 ## Install a kit
 
