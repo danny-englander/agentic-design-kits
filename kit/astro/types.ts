@@ -53,6 +53,8 @@ export interface Card {
   tags?: string[];
   /** The button's text. Its name adds the title. Default "Read this". */
   action?: string;
+  /** `href` is on another site: the button ends with the font's ↗ (`.ext-arrow`). */
+  external?: boolean;
 }
 
 /** A link to a neighboring post (PostNav). */

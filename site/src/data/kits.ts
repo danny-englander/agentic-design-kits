@@ -33,24 +33,28 @@ export const parts: Card[] = [
     href: `${repo}/blob/main/DESIGN.md`,
     summary: 'DESIGN.md: color, type, layout, images, motion and accessibility, with a list of what not to do.',
     action: 'Read it',
+    external: true,
   },
   {
     title: 'The parts',
     href: `${repo}/blob/main/COMPONENTS.md`,
     summary: 'COMPONENTS.md: the markup and behavior of each component, and what to do and not do with it.',
     action: 'Read it',
+    external: true,
   },
   {
     title: 'The steps',
     href: `${repo}/blob/main/USING.md`,
     summary: 'USING.md: how an agent starts a new site with the kit, or restyles one you already have.',
     action: 'Read it',
+    external: true,
   },
   {
     title: 'The values',
     href: `${repo}/blob/main/tokens.json`,
     summary: 'tokens.json: every token as data, with its value in light and dark, what it is for, and its contrast.',
     action: 'Read it',
+    external: true,
   },
 ];
 

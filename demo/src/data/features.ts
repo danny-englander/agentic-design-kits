@@ -8,6 +8,16 @@ import type { Feature } from '@agentic-design-kits/swiss-minimal/types';
 export const features: Feature[] = [
   {
     date: '2026-11-16',
+    title: 'Buttons that leave the site say so',
+    body: 'A button that goes to another site now ends with the font’s own north-east arrow, ↗, as a link that leaves the site already did. The Secondary button entry on Components shows one.',
+    details: [
+      'Add `<span class="ext-arrow" aria-hidden="true">↗</span>` after the label. It sits at 1.3 times the label’s size, in its color, without making the button taller.',
+      'In Astro, `CardGrid` cards and `Cta` take `external`, which adds it for you.',
+      'A sister site counts as another site. A button within the site, and the top bar’s buttons, never have it.',
+    ],
+  },
+  {
+    date: '2026-11-16',
     title: 'Rows that link look it, and only where they do',
     body: 'A list row used to fill under the pointer anywhere along its width, though only its title linked. Now a linked title is underlined, an arrow in a vermilion or azure circle can link to the same place, and the row fills only while one of them is hovered. The List row entry on Components shows it.',
     details: [
