@@ -50,3 +50,17 @@ test('a kit row links its name and its arrow, and leaves its description as sele
     await expect(row.getByRole('link')).toHaveCount(1);
   }
 });
+
+test('a link preview gets the share card, at its full address', async ({ page, request }) => {
+  await page.goto('/');
+  const og = (property: string) => page.locator(`meta[property="og:${property}"]`);
+  await expect(og('image')).toHaveAttribute('content', 'https://www.agenticdesignkits.com/share-light.png');
+  await expect(og('url')).toHaveAttribute('content', 'https://www.agenticdesignkits.com/');
+  await expect(og('title')).toHaveAttribute('content', 'Agentic Design Kits');
+  await expect(page.locator('meta[name="twitter:card"]')).toHaveAttribute('content', 'summary_large_image');
+  // The card itself is served from the site, at 1200 × 630.
+  const card = await request.get('/share-light.png');
+  expect(card.ok()).toBe(true);
+  const png = await card.body();
+  expect([png.readUInt32BE(16), png.readUInt32BE(20)]).toEqual([1200, 630]);
+});

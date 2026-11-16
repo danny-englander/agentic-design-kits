@@ -21,11 +21,30 @@ const links: MenuItem[] = [
   { label: 'npm', href: 'https://www.npmjs.com/org/agentic-design-kits' },
 ];
 const canonical = new URL(Astro.url.pathname, Astro.site);
+// The share card (scripts/share-images.ts). A preview can't follow the reader's theme; the light
+// card's split, cream beside the dark panel, reads best at a preview's size. share-dark.png is the
+// same card in dark.
+const share = {
+  url: new URL('/share-light.png', Astro.site).href,
+  alt: 'Agentic Design Kits, in large bold type beside a vermilion ADK badge over an infinity sign drawn as azure guilloché line work',
+};
 ---
 
 <BaseLayout title={name} description={lead} tagline={name}>
   <link slot="head" rel="canonical" href={canonical} />
   <link slot="head" rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <Fragment slot="head">
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={name} />
+    <meta property="og:title" content={name} />
+    <meta property="og:description" content={lead} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={share.url} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={share.alt} />
+    <meta name="twitter:card" content="summary_large_image" />
+  </Fragment>
   <SiteMark slot="mark" />
   <a slot="topbar" class="topbar-btn topbar-btn--text no-underline" href="#kits">Kits</a>
   <a slot="topbar" class="topbar-btn topbar-btn--text no-underline" href={repo}>GitHub</a>
