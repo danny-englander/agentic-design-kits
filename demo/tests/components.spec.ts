@@ -123,3 +123,19 @@ test('a linked row fills only while its link is hovered or focused, and its arro
   await page.keyboard.press('Tab');
   await expect.poll(fill).not.toBe(still);
 });
+
+test('a link can carry the theme: ?theme=dark starts dark, is saved, and leaves the address', async ({ page }) => {
+  await page.emulateMedia({ colorScheme: 'light' });
+  await page.goto('/components?theme=dark#top');
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
+  expect(new URL(page.url()).search).toBe('');
+  expect(new URL(page.url()).hash).toBe('#top');
+  expect(await page.evaluate(() => localStorage.getItem('theme'))).toBe('dark');
+  await page.goto('/components');
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
+  // Anything else is ignored and stays in the address.
+  await page.evaluate(() => localStorage.removeItem('theme'));
+  await page.goto('/components?theme=purple');
+  await expect(page.locator('html')).not.toHaveAttribute('data-theme', /./);
+  expect(new URL(page.url()).search).toBe('?theme=purple');
+});
