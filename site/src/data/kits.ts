@@ -54,4 +54,57 @@ export const parts: Card[] = [
   },
 ];
 
+// The number of components in each kit: the sections of its COMPONENTS.md, counted at build time,
+// so the page never falls behind the docs. (This site lives in the kits' repository; a site
+// outside it would read them from the package.)
+const docs = import.meta.glob(['../../../COMPONENTS.md', '../../../verdigris/COMPONENTS.md'], {
+  query: '?raw',
+  import: 'default',
+  eager: true,
+}) as Record<string, string>;
+const sections = (path: string) => (docs[path].match(/^## /gm) ?? []).length;
+export const componentCount = {
+  swissMinimal: sections('../../../COMPONENTS.md'),
+  verdigris: sections('../../../verdigris/COMPONENTS.md'),
+};
+
+/** What both kits show off, each linked to its page in Swiss Minimal's demo. */
+export const highlights: Card[] = [
+  {
+    title: 'Beautiful code',
+    href: `${kits[0].href}/beautiful-code/`,
+    summary:
+      'Code blocks highlighted in the kit’s own colors, every one 4.5:1 or better in light and dark, with samples in several languages.',
+    action: 'See the code',
+  },
+  {
+    title: 'Type that holds together',
+    href: `${kits[0].href}/type-and-color/`,
+    summary:
+      'One family per kit, a fixed scale and a few weights. Every type style and color token on one page, with its contrast ratio.',
+    action: 'See the type',
+  },
+  {
+    title: 'Forms that work',
+    href: `${kits[0].href}/forms/`,
+    summary:
+      'Fields, a select, radios, switches, dates and a file picker, in working forms, with an export that streams its output live.',
+    action: 'See the forms',
+  },
+  {
+    title: `${componentCount.swissMinimal} components`,
+    href: `${kits[0].href}/components/`,
+    summary: `Buttons to dialogs, menus to a whole blog, each with its markup and its don’ts. Verdigris adds ${componentCount.verdigris - componentCount.swissMinimal} of its own, ${componentCount.verdigris} in all.`,
+    action: 'See them all',
+  },
+];
+
+/** The same four pages in Verdigris's demo, for the line under the cards. */
+export const verdigrisPages = [
+  { label: 'Beautiful code', href: `${kits[1].href}/beautiful-code/` },
+  { label: 'type and color', href: `${kits[1].href}/type-and-color/` },
+  { label: 'forms', href: `${kits[1].href}/forms/` },
+  { label: 'components', href: `${kits[1].href}/components/` },
+];
+
 export { repo };

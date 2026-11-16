@@ -10,7 +10,7 @@ import Footer from '@agentic-design-kits/swiss-minimal/astro/Footer.astro';
 import type { MenuItem } from '@agentic-design-kits/swiss-minimal/types';
 import HeroArt from '../components/HeroArt.astro';
 import SiteMark from '../components/SiteMark.astro';
-import { kits, parts, repo } from '../data/kits';
+import { highlights, kits, parts, repo, verdigrisPages } from '../data/kits';
 
 const name = 'Agentic Design Kits';
 const lead = 'Design kits your AI agent can implement, for Astro and Tailwind v4.';
@@ -93,6 +93,24 @@ const share = {
         ))
       }
     </ul>
+  </section>
+
+  <section class="rule-thick mb-16 pt-8" aria-labelledby="in-both">
+    <h2 class="h2 mb-3" id="in-both">In both kits</h2>
+    <p class="muted mb-8 max-w-2xl">
+      Each demo shows all of it working, in light and dark, so you can see what your agent will
+      build before it builds it.
+    </p>
+    <CardGrid cards={highlights} columns={2} />
+    <p class="mt-6">
+      The same in Verdigris:{' '}
+      {verdigrisPages.map((p, i) => (
+        <>
+          <a class="link" href={p.href}>{p.label}</a>
+          {i < verdigrisPages.length - 2 ? ', ' : i === verdigrisPages.length - 2 ? ' and ' : '.'}
+        </>
+      ))}
+    </p>
   </section>
 
   <section class="rule-thick mb-16 pt-8" aria-labelledby="install">
