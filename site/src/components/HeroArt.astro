@@ -1,14 +1,15 @@
 ---
 // The hero's drawn art, for Hero's `art` slot: the initials in the kit's oval badge (Ellipse in
 // COMPONENTS.md), in its accent version, the site's vermilion, centered over a large infinity
-// sign in Overused Grotesk. Decorative: the h1 names the site, so the badge carries no label
-// and both are hidden from assistive tech. The view box is trimmed to the sign, about as far
-// from it on every side, so a full-width figure on a phone leaves no empty band. The sign's
-// colors are in global.css (.hero-art).
+// sign drawn as engraved line work: bands of wavy strands that cross into a guilloché lattice
+// (infinity.ts). Decorative: the h1 names the site, so the badge carries no label and both are
+// hidden from assistive tech. The sign's colors and line weight are in global.css (.hero-art).
 import Ellipse from '@agentic-design-kits/swiss-minimal/astro/Ellipse.astro';
+import { infinityPaths, infinityViewBox } from './infinity.ts';
 ---
 
 <span class="mb-4 block text-center text-xl md:text-2xl" aria-hidden="true"><Ellipse code="ADK" accent /></span>
-<svg class="hero-art" viewBox="0 70 400 240" aria-hidden="true" focusable="false">
-  <text x="200" y="168" text-anchor="middle" dominant-baseline="central" font-size="420" font-family="var(--font-sans)" font-weight="700" fill="var(--hero-art)">&#8734;</text>
+<svg class="hero-art" viewBox={infinityViewBox} aria-hidden="true" focusable="false">
+  <path d={infinityPaths.outer}></path>
+  <path d={infinityPaths.inner}></path>
 </svg>
