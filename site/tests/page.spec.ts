@@ -64,3 +64,25 @@ test('a link preview gets the share card, at its full address', async ({ page, r
   const png = await card.body();
   expect([png.readUInt32BE(16), png.readUInt32BE(20)]).toEqual([1200, 630]);
 });
+
+test('shows what both kits have, with the number of components from the docs', async ({ page }) => {
+  const { readFileSync } = await import('node:fs');
+  const count = (path: string) => (readFileSync(new URL(path, import.meta.url), 'utf8').match(/^## /gm) ?? []).length;
+  const swissMinimal = count('../../COMPONENTS.md');
+  const verdigris = count('../../verdigris/COMPONENTS.md');
+  await page.goto('/');
+  const section = page.locator('section[aria-labelledby="in-both"]');
+  await expect(section.locator('.card')).toHaveCount(4);
+  await expect(section).toContainText(`${swissMinimal} components`);
+  await expect(section).toContainText(`Verdigris adds ${verdigris - swissMinimal} of its own, ${verdigris} in all.`);
+  // Each card has a button for each kit's page, named with the card's title.
+  await expect(section.getByRole('link', { name: `See them in Swiss Minimal: ${swissMinimal} components` })).toHaveAttribute(
+    'href',
+    'https://www.swissminimal.ch/components/',
+  );
+  await expect(section.getByRole('link', { name: 'See them in Verdigris: Forms that work' })).toHaveAttribute(
+    'href',
+    'https://www.verdigris.ch/forms/',
+  );
+  await expect(section.getByRole('link')).toHaveCount(8);
+});

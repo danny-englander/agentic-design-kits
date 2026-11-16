@@ -54,4 +54,50 @@ export const parts: Card[] = [
   },
 ];
 
+// The number of components in each kit: the sections of its COMPONENTS.md, counted at build time,
+// so the page never falls behind the docs. (This site lives in the kits' repository; a site
+// outside it would read them from the package.)
+const docs = import.meta.glob(['../../../COMPONENTS.md', '../../../verdigris/COMPONENTS.md'], {
+  query: '?raw',
+  import: 'default',
+  eager: true,
+}) as Record<string, string>;
+const sections = (path: string) => (docs[path].match(/^## /gm) ?? []).length;
+export const componentCount = {
+  swissMinimal: sections('../../../COMPONENTS.md'),
+  verdigris: sections('../../../verdigris/COMPONENTS.md'),
+};
+
+/** What both kits show off. Each has a page of the same name in both demos, at `path`; `see` starts
+    each button's text ("See it in Swiss Minimal"). */
+export const highlights = [
+  {
+    title: 'Beautiful code',
+    path: '/beautiful-code/',
+    see: 'See it',
+    summary:
+      'Code blocks highlighted in the kit’s own colors, every one 4.5:1 or better in light and dark, with samples in several languages.',
+  },
+  {
+    title: 'Type that holds together',
+    path: '/type-and-color/',
+    see: 'See it',
+    summary:
+      'One family per kit, a fixed scale and a few weights. Every type style and color token on one page, with its contrast ratio.',
+  },
+  {
+    title: 'Forms that work',
+    path: '/forms/',
+    see: 'See them',
+    summary:
+      'Fields, a select, radios, switches, dates and a file picker, in working forms, with an export that streams its output live.',
+  },
+  {
+    title: `${componentCount.swissMinimal} components`,
+    path: '/components/',
+    see: 'See them',
+    summary: `Buttons to dialogs, menus to a whole blog, each with its markup and its don’ts. Verdigris adds ${componentCount.verdigris - componentCount.swissMinimal} of its own, ${componentCount.verdigris} in all.`,
+  },
+];
+
 export { repo };
