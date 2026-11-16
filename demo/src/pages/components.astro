@@ -87,7 +87,7 @@ const chips = [
         </div>
       </div>
     </ComponentEntry>
-    <ComponentEntry num={n()} name="Secondary button" classes=".btn-outline, .btn-group, data-tip">
+    <ComponentEntry num={n()} name="Secondary button" classes=".btn-outline, .btn-group, data-tip, .ext-arrow">
       <Fragment slot="about">Every other action beside the primary one, at the same size: presets that fill a form, Choose…, Open in Finder. Outlined, filled on hover.</Fragment>
       <div class="flex flex-col items-start gap-6">
         <div>
@@ -104,6 +104,10 @@ const chips = [
         <div>
           <p class="small muted mb-2">With a hover label: hover or tab to it</p>
           <button type="button" class="btn-outline" aria-label="Fill in this month" data-tip="Fill in this month" data-toast-text="This month chosen.">This month</button>
+        </div>
+        <div>
+          <p class="small muted mb-2">To another site: the font’s ↗ after the label</p>
+          <a class="btn-outline no-underline" href="https://github.com/danny-englander/agentic-design-kits">Source on GitHub<span class="ext-arrow" aria-hidden="true">↗</span></a>
         </div>
       </div>
     </ComponentEntry>
