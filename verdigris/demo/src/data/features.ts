@@ -8,6 +8,16 @@ import type { Feature } from '@agentic-design-kits/verdigris/types';
 export const features: Feature[] = [
   {
     date: '2026-11-16',
+    title: 'Rows that link look it, and only where they do',
+    body: 'A list row used to fill under the pointer anywhere along its width, though only its title linked. Now a linked title is underlined, an arrow in a verdigris circle can link to the same place, and the row fills only while one of them is hovered. The List row entry on Components shows it.',
+    details: [
+      'The row fills only while its title, arrow or star is hovered (on a pointer that hovers) or focused from the keyboard. On a phone, a tap no longer leaves it filled.',
+      'In Astro, add `arrow` to a `Row` with an `href`. The class is `.row-arrow`; it is for the pointer only, so the keyboard and screen readers meet the row once, at its title.',
+      'Every link underlined at rest (`.link`, a row title, links in a post and in the footer’s note) now thickens its underline to 2px on hover and on keyboard focus. Buttons keep their own states.',
+    ],
+  },
+  {
+    date: '2026-11-16',
     title: 'The oval badge in verdigris',
     body: 'The oval badge has an accent version, drawn in verdigris, for the one badge that matters on a screen. It comes outlined or solid. The Oval badge entry on Components shows both.',
     details: [
