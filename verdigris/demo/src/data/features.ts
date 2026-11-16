@@ -7,6 +7,16 @@ import type { Feature } from '@agentic-design-kits/verdigris/types';
  */
 export const features: Feature[] = [
   {
+    date: '2026-11-16',
+    title: 'The oval badge in verdigris',
+    body: 'The oval badge has an accent version, drawn in verdigris, for the one badge that matters on a screen. It comes outlined or solid. The Oval badge entry on Components shows both.',
+    details: [
+      'In Astro, add `accent` to `Ellipse`, alone or with `solid`. The class is `.ellipse--accent`.',
+      'On a `bar` surface it switches to `accent-bright`.',
+      '`COMPONENTS.md` says when to use it: one accent badge to a screen, and never in copper, which is for ornament and labels that mark nothing.',
+    ],
+  },
+  {
     date: '2026-11-15',
     title: 'List rows and sections, ready to import',
     body: 'Numbered rows and their section header are now components in the kit, `Row` and `Section`, so an agent no longer copies them from this demo. The instructions for a new site now start from an empty folder and need nothing from GitHub.',
