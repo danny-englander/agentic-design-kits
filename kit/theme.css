@@ -299,16 +299,46 @@ kbd {                            /* a key: outlined like the top-bar buttons */
 /* ---------- Rules and rows ---------- */
 .rule-thick { border-top: 2px solid var(--ink); }
 .rule-thin { border-bottom: 1px solid var(--rule); }
-.row {                           /* list row: fills when active, and on hover if it holds a link or button (black on cream; raised dark with an accent edge in dark mode) */
+.row {                           /* list row: fills when active, and while its link or button is hovered or focused (black on cream; raised dark with an accent edge in dark mode) */
   border-bottom: 1px solid var(--rule);
   transition: background-color 150ms, color 150ms;
 }
 /* The last row a reader can see has no rule, even when a filter has hidden the ones after it */
 .row:not(:has(~ .row:not([hidden]))) { border-bottom: 0; }
-/* A row of plain text stays still under the pointer: a fill would promise a click */
-.row:has(a, button):hover { background: var(--row-hover-bg); color: var(--row-fg); }
+/* The row fills only while the pointer is on its link or button, or the keyboard is: the rest of
+   the row does nothing when pressed, so it must not look as if it would. A row of plain text never
+   fills. Hover only where there is a pointer that hovers, so a tap on a phone leaves nothing behind.
+   The rules below that follow the fill use the same two selectors. */
+@media (hover: hover) {
+  .row:has(:is(a, button):hover) { background: var(--row-hover-bg); color: var(--row-fg); }
+  .row:has(:is(a, button):hover) .muted { color: var(--row-fg); }
+}
+.row:has(:is(a, button):focus-visible) { background: var(--row-hover-bg); color: var(--row-fg); }
 .row[data-active="true"] { background: var(--row-active-bg); color: var(--row-fg); box-shadow: inset 6px 0 0 var(--row-edge); }
-.row:has(a, button):hover .muted, .row[data-active="true"] .muted { color: var(--row-fg); }
+.row:has(:is(a, button):focus-visible) .muted, .row[data-active="true"] .muted { color: var(--row-fg); }
+/* A linked title is underlined at rest, so it reads as a link before anything is hovered */
+.row a.title { color: inherit; text-decoration: underline; text-underline-offset: 4px; }
+/* Row arrow: the end slot's link, a circle in the accent around an arrow. 44px target, 36px circle.
+   It fills with the accent while hovered or focused; on a filled row it takes accent-bright. */
+.row-arrow {
+  --ra-cut: var(--paper);
+  display: inline-flex; flex: none; align-items: center; justify-content: center;
+  width: 2.75rem; height: 2.75rem;
+  color: var(--accent-text);
+}
+.row-arrow > svg {
+  box-sizing: border-box; width: 2.25rem; height: 2.25rem; padding: 0.5rem;
+  border: 2px solid currentColor; border-radius: 50%;
+  fill: none; stroke: currentColor; stroke-width: 2;
+  transition: background-color 150ms, stroke 150ms;
+}
+.row-arrow:focus-visible > svg { background: currentColor; stroke: var(--ra-cut); }
+.row:has(:is(a, button):focus-visible) .row-arrow { --ra-cut: var(--row-hover-bg); color: var(--accent-bright); }
+.row[data-active="true"] .row-arrow { --ra-cut: var(--row-active-bg); color: var(--accent-bright); }
+@media (hover: hover) {
+  .row-arrow:hover > svg { background: currentColor; stroke: var(--ra-cut); }
+  .row:has(:is(a, button):hover) .row-arrow { --ra-cut: var(--row-hover-bg); color: var(--accent-bright); }
+}
 a.link { color: inherit; text-decoration: underline; text-underline-offset: 4px; }
 a.link:hover { color: var(--accent-text); }
 
@@ -684,12 +714,14 @@ html[data-drawer-open] { overflow: hidden; }  /* stop the page scrolling behind 
 .num-circle--solid { background: currentColor; }
 .num-circle--solid > * { color: var(--nc-cut); }
 .panel .num-circle, .drawer .num-circle, .page-title--bar .num-circle { --nc-cut: var(--bar); }
-.row:has(a, button):hover .num-circle { --nc-cut: var(--row-hover-bg); }
+@media (hover: hover) { .row:has(:is(a, button):hover) .num-circle { --nc-cut: var(--row-hover-bg); } }
+.row:has(:is(a, button):focus-visible) .num-circle { --nc-cut: var(--row-hover-bg); }
 .row[data-active="true"] .num-circle { --nc-cut: var(--row-active-bg); }
 .num-circle--accent { color: var(--accent-text); }
 .num-circle--accent.num-circle--solid { --nc-cut: var(--accent-ink); }
 :is(.panel, .drawer, .page-title--bar) .num-circle--accent { --nc-cut: var(--bar); color: var(--accent-bright); }
-.row:has(a, button):hover .num-circle--accent, .row[data-active="true"] .num-circle--accent { color: var(--accent-bright); }
+@media (hover: hover) { .row:has(:is(a, button):hover) .num-circle--accent { color: var(--accent-bright); } }
+.row:has(:is(a, button):focus-visible) .num-circle--accent, .row[data-active="true"] .num-circle--accent { color: var(--accent-bright); }
 
 /* ---------- Summary list: a few results, label beside value ---------- */
 /* A <dl> of rows: a small uppercase label and its value, thin rules between. Label over value
@@ -1046,8 +1078,12 @@ a.post-header-label:hover { color: var(--accent-text); text-decoration: underlin
 .fav-btn:hover { color: var(--ink); }
 .fav-btn[aria-pressed="true"] { color: var(--accent-text); }
 .fav-btn[aria-pressed="true"] svg { fill: currentColor; }
-.row:has(a, button):hover .fav-btn, .row[data-active="true"] .fav-btn { color: var(--row-fg); }
-.row:has(a, button):hover .fav-btn[aria-pressed="true"], .row[data-active="true"] .fav-btn[aria-pressed="true"] { color: var(--accent-bright); }
+@media (hover: hover) {
+  .row:has(:is(a, button):hover) .fav-btn { color: var(--row-fg); }
+  .row:has(:is(a, button):hover) .fav-btn[aria-pressed="true"] { color: var(--accent-bright); }
+}
+.row:has(:is(a, button):focus-visible) .fav-btn, .row[data-active="true"] .fav-btn { color: var(--row-fg); }
+.row:has(:is(a, button):focus-visible) .fav-btn[aria-pressed="true"], .row[data-active="true"] .fav-btn[aria-pressed="true"] { color: var(--accent-bright); }
 
 /* ---------- Menu list: links, accordions and submenus (inside .panel) ---------- */
 .menu-list {
