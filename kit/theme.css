@@ -1255,6 +1255,10 @@ a.post-header-label:hover { color: var(--accent-text); text-decoration: underlin
 .btn-outline:disabled { opacity: 0.6; cursor: not-allowed; }
 :is(.panel, .drawer, .bottom-bar, .page-title--bar, .site-footer--bar) .btn-outline { --bo-fg: var(--bar-ink); --bo-bg: var(--bar); }
 .btn-group { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+/* External arrow: the font's own north-east arrow (↗, U+2197) after the label of a button or link
+   that goes to another site. Both typefaces have it. 1.3em of the label, in its color, so it
+   follows hover and focus; line-height 0 keeps a button its usual height. Always aria-hidden. */
+.ext-arrow { display: inline-block; margin-left: 0.25em; font-size: 1.3em; line-height: 0; vertical-align: -0.08em; }
 
 /* File picker: a field that shows the chosen file's name, and a Choose… button. The real
    <input type="file"> stays in the page (visually hidden, still focusable), so the keyboard and

@@ -80,6 +80,7 @@ The button for every other action beside the `PrimaryButton`, at the same size: 
 - On a dark surface (panel, drawer, bottom bar, `page-title--bar`, a dark footer) it takes `bar-ink` and fills with it.
 - It does what it says when pressed and keeps no state. A choice that stays chosen is a `FilterChips` button with `aria-pressed`, which is outlined too.
 - `:disabled` drops to 60%.
+- **To another site,** any button (primary, secondary or tertiary) ends with the font's north-east arrow after its label: `<a class="btn-outline" href="https://github.com/…">Source on GitHub<span class="ext-arrow" aria-hidden="true">↗</span></a>`. `.ext-arrow` sets it at 1.3em of the label, in the label's color, without making the button taller. The arrow is hidden from screen readers; a button that opens a new tab also says "(opens in a new tab)" in its name. A button within the site never has it.
 
 **Don't.** Use it for the main action of the view (that is the `PrimaryButton`), or write it in capitals (that is the top bar's `OutlinedButton`).
 
@@ -835,7 +836,7 @@ One thing to go and look at, inside a section: a thin rule, a small label, a tit
 </div>
 ```
 
-In Astro, `<Cta title="Field notes" text="A short essay…" href="/work/field-notes/" action="Read it" />`. `label` (default "Featured") and `action` (default "View") change the two short labels; `level="h2"` when it isn't inside a section with its own `h2`.
+In Astro, `<Cta title="Field notes" text="A short essay…" href="/work/field-notes/" action="Read it" />`. `label` (default "Featured") and `action` (default "View") change the two short labels; `external` adds the ↗ when `href` is on another site; `level="h2"` when it isn't inside a section with its own `h2`.
 
 - A 1px `rule` on top, not the 2px `ink` of a section: it belongs to the section it sits in.
 - The title is 1.5rem, 2rem from 768px, bold. It isn't a link: the button is.
@@ -863,7 +864,7 @@ A few linked things side by side, each with a number, a title, a short teaser, u
 </ul>
 ```
 
-In Astro, `<CardGrid cards={cards} />`, each a `Card` (`title`, `href`, `summary`, optional `tags` and `action`; the type is in `kit/astro/types.ts`). `columns={2}` (`.card-grid--2`) makes two across from 768px: use it for two or four cards. `start={2}` starts the numbers at 2, for cards that carry on from something numbered before them. `level="h2"` under a `PageTitle`.
+In Astro, `<CardGrid cards={cards} />`, each a `Card` (`title`, `href`, `summary`, optional `tags`, `action` and `external`, which ends the button with ↗ for a card that goes to another site; the type is in `kit/astro/types.ts`). `columns={2}` (`.card-grid--2`) makes two across from 768px: use it for two or four cards. `start={2}` starts the numbers at 2, for cards that carry on from something numbered before them. `level="h2"` under a `PageTitle`.
 
 - No box. Each card opens with a 2px `ink` rule, the same as a section, with the number in a 3rem column beside the text.
 - The title is 1.5rem and bold, and underlines (2px) on hover. It links to the same place as the button.

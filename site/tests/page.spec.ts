@@ -87,6 +87,19 @@ test('shows what both kits have, with the number of components from the docs', a
   await expect(section.getByRole('link')).toHaveCount(8);
 });
 
+test('every button to another site ends with ↗, and none within the page does', async ({ page }) => {
+  await page.goto('/');
+  const buttons = page.locator('main :is(.btn, .btn-outline)');
+  const count = await buttons.count();
+  expect(count).toBeGreaterThan(10);
+  for (let i = 0; i < count; i++) {
+    const b = buttons.nth(i);
+    const href = (await b.getAttribute('href')) ?? '';
+    const external = /^https?:/.test(href);
+    await expect(b.locator('.ext-arrow'), href).toHaveCount(external ? 1 : 0);
+  }
+});
+
 test('a demo link carries the theme the visitor picked, and only then', async ({ page }) => {
   await page.emulateMedia({ colorScheme: 'light' });
   const opened: string[] = [];

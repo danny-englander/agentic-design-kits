@@ -1,7 +1,8 @@
 ---
 // A few linked things side by side (CardGrid in COMPONENTS.md). Three across from 1024px, two
 // from 768px with columns={2}, stacked below that. Each card opens with a 2px rule; there is no
-// box. The title and the tertiary button under it link to the same place.
+// box. The title and the tertiary button under it link to the same place. A card whose `external`
+// is set goes to another site, and its button ends with the font's ↗.
 import type { Card } from './types';
 
 interface Props {
@@ -33,7 +34,7 @@ const { cards, columns = 3, start = 1, level: Title = 'h3', class: className } =
             ))}
           </ul>
         )}
-        <a class="btn-outline btn-outline--tertiary" href={card.href} aria-label={`${card.action ?? 'Read this'}: ${card.title}`}>{card.action ?? 'Read this'}</a>
+        <a class="btn-outline btn-outline--tertiary" href={card.href} aria-label={`${card.action ?? 'Read this'}: ${card.title}`}>{card.action ?? 'Read this'}{card.external && <span class="ext-arrow" aria-hidden="true">↗</span>}</a>
       </li>
     ))
   }

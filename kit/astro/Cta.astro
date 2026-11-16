@@ -9,17 +9,19 @@ interface Props {
   label?: string;
   /** The button's text. One or two words. */
   action?: string;
+  /** `href` is on another site: the button ends with the font's ↗ (`.ext-arrow`). */
+  external?: boolean;
   /** Heading level for the title: h2 on its own, h3 inside a section. */
   level?: 'h2' | 'h3';
   /** Utilities for spacing, e.g. "mb-8". */
   class?: string;
 }
-const { title, text, href, label = 'Featured', action = 'View', level: Title = 'h3', class: className } = Astro.props;
+const { title, text, href, label = 'Featured', action = 'View', external, level: Title = 'h3', class: className } = Astro.props;
 ---
 
 <div class:list={['cta', className]}>
   <p class="label muted cta-label">{label}</p>
   <Title class="cta-title">{title}</Title>
   <p class="cta-text">{text}</p>
-  <a class="btn" href={href} aria-label={`${action}: ${title}`}>{action}</a>
+  <a class="btn" href={href} aria-label={`${action}: ${title}`}>{action}{external && <span class="ext-arrow" aria-hidden="true">↗</span>}</a>
 </div>
