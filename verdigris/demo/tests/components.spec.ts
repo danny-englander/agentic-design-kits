@@ -138,3 +138,19 @@ test('a button to another site ends with the font’s ↗, hidden from screen re
     expect(await external.evaluate(height)).toBe(await plain.evaluate(height));
   }
 });
+
+test('a link can carry the theme: ?theme=dark starts dark, is saved, and leaves the address', async ({ page }) => {
+  await page.emulateMedia({ colorScheme: 'light' });
+  await page.goto('/components?theme=dark#top');
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
+  expect(new URL(page.url()).search).toBe('');
+  expect(new URL(page.url()).hash).toBe('#top');
+  expect(await page.evaluate(() => localStorage.getItem('theme'))).toBe('dark');
+  await page.goto('/components');
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
+  // Anything else is ignored and stays in the address.
+  await page.evaluate(() => localStorage.removeItem('theme'));
+  await page.goto('/components?theme=purple');
+  await expect(page.locator('html')).not.toHaveAttribute('data-theme', /./);
+  expect(new URL(page.url()).search).toBe('?theme=purple');
+});

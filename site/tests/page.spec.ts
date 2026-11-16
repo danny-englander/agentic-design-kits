@@ -99,3 +99,24 @@ test('every button to another site ends with ↗, and none within the page does'
     await expect(b.locator('.ext-arrow'), href).toHaveCount(external ? 1 : 0);
   }
 });
+
+test('a demo link carries the theme the visitor picked, and only then', async ({ page }) => {
+  await page.emulateMedia({ colorScheme: 'light' });
+  const opened: string[] = [];
+  await page.route(/https:\/\/www\.(swissminimal|verdigris)\.ch\/.*/, (route) => {
+    opened.push(route.request().url());
+    return route.fulfill({ contentType: 'text/html', body: '<p>demo</p>' });
+  });
+  const open = async (name: string) => {
+    await page.goto('/');
+    await page.getByRole('link', { name }).click();
+    await page.waitForURL(/(swissminimal|verdigris)\.ch/);
+    return opened.at(-1);
+  };
+  // No choice made: a plain link.
+  expect(await open('See it in Verdigris: Beautiful code')).toBe('https://www.verdigris.ch/beautiful-code/');
+  // Dark picked with the toggle: the demo is told.
+  await page.goto('/');
+  await page.getByRole('button', { name: /dark theme/i }).click();
+  expect(await open('See it in Swiss Minimal: Beautiful code')).toBe('https://www.swissminimal.ch/beautiful-code/?theme=dark');
+});

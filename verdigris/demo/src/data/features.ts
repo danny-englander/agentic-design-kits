@@ -8,6 +8,16 @@ import type { Feature } from '@agentic-design-kits/verdigris/types';
 export const features: Feature[] = [
   {
     date: '2026-11-16',
+    title: 'Your light or dark choice follows you here',
+    body: 'Pick light or dark on agenticdesignkits.com, then open a demo from it, and the demo opens the same way, and remembers it.',
+    details: [
+      'A link can carry the choice as `?theme=light` or `?theme=dark`. `BaseLayout` applies it before the page draws, saves it as the site’s choice and takes it out of the address bar.',
+      'With no choice made, nothing is passed and every site follows the system setting.',
+      'A site without Astro gets the same from the no-flash script in `DESIGN.md`.',
+    ],
+  },
+  {
+    date: '2026-11-16',
     title: 'Buttons that leave the site say so',
     body: 'A button that goes to another site now ends with the font’s own north-east arrow, ↗, as a link that leaves the site already did. The Secondary button entry on Components shows one.',
     details: [

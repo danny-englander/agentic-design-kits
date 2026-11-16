@@ -77,11 +77,26 @@ const tabContent = await Promise.all(
     <meta name="theme-color" content="#0c0c0c" media="(prefers-color-scheme: dark)" />
     {preloadFont && <link rel="preload" href={preloadFont} as="font" type="font/woff2" crossorigin />}
     <script is:inline>
-      // Apply a saved theme before first paint so there is no flash.
-      try {
-        const saved = localStorage.getItem('theme');
-        if (saved === 'light' || saved === 'dark') document.documentElement.dataset.theme = saved;
-      } catch {}
+      // Apply the theme before first paint so there is no flash. A link from another site can carry
+      // the visitor's choice as ?theme=light or ?theme=dark: it wins, is saved as this site's
+      // choice, and leaves the address bar. Otherwise the saved choice, if any.
+      {
+        let theme = null;
+        try {
+          const url = new URL(location.href);
+          const asked = url.searchParams.get('theme');
+          if (asked === 'light' || asked === 'dark') {
+            theme = asked;
+            url.searchParams.delete('theme');
+            history.replaceState(history.state, '', url.pathname + url.search + url.hash);
+          }
+        } catch {}
+        try {
+          if (theme) localStorage.setItem('theme', theme);
+          else theme = localStorage.getItem('theme');
+        } catch {}
+        if (theme === 'light' || theme === 'dark') document.documentElement.dataset.theme = theme;
+      }
     </script>
     <slot name="head" />
   </head>

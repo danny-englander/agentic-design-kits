@@ -18,9 +18,19 @@ Put this in `<head>` before first paint so a saved theme does not flash:
 
 ```html
 <script>
-  try { var t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}
+  try {
+    var u = new URL(location.href), t = u.searchParams.get('theme');
+    if (t === 'light' || t === 'dark') {
+      localStorage.setItem('theme', t);
+      u.searchParams.delete('theme');
+      history.replaceState(history.state, '', u.pathname + u.search + u.hash);
+    } else t = localStorage.getItem('theme');
+    if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
+  } catch (e) {}
 </script>
 ```
+
+A link from another site can carry the visitor's choice as `?theme=light` or `?theme=dark`: the script applies it, saves it as this site's choice and takes it out of the address bar. A site that links to its sister sites adds it only when the visitor has picked a theme with the toggle (`<html data-theme>` is set), as the link is pressed; with no choice made, both follow the system setting. `BaseLayout` does all of this.
 
 ## Principles
 
