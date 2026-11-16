@@ -15,7 +15,7 @@ USING.md, DESIGN.md (the rules, and its "Do not" list) and the parts of COMPONEN
 - A fix to a component belongs in ../kit, never here.
 - The README at the repository's root shows the hero's infinity sign as .github/readme/infinity.svg.
   After changing src/components/infinity.ts or its colors, run `npm run readme-art` at the root.
-- The share card (public/share-dark.png, and share-light.png beside it) is drawn by
+- The share card (public/share-light.png, and share-dark.png beside it) is drawn by
   scripts/share-images.ts. After changing the name, the lead, the colors or the sign, run
   `npm run share-images` here.
 - Before calling a change done: npx astro check, npm run build and npm test.
