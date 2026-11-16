@@ -21,11 +21,10 @@ const links: MenuItem[] = [
   { label: 'npm', href: 'https://www.npmjs.com/org/agentic-design-kits' },
 ];
 const canonical = new URL(Astro.url.pathname, Astro.site);
-// The share card (scripts/share-images.ts). A preview can't follow the reader's theme; the light
-// card's split, cream beside the dark panel, reads best at a preview's size. share-dark.png is the
-// same card in dark.
+// The share card (scripts/share-images.ts). A preview can't follow the reader's theme, so it uses
+// the dark card, as both demos do; share-light.png is the same card in light.
 const share = {
-  url: new URL('/share-light.png', Astro.site).href,
+  url: new URL('/share-dark.png', Astro.site).href,
   alt: 'Agentic Design Kits, in large bold type beside a vermilion ADK badge over an infinity sign drawn as azure guilloché line work',
 };
 ---

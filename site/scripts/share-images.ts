@@ -29,7 +29,7 @@ const card = ({ paper, ink, panel }: { paper: string; ink: string; panel: string
   h1 { font-size: 104px; font-weight: 700; line-height: 0.9; letter-spacing: -0.02em; }
   .foot { border-top: 2px solid ${ink}; padding-top: 20px; }
   .lead { font-size: 24px; line-height: 1.3; }
-  .url { margin-top: 12px; font-size: 20px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; }
+  .url { margin-top: 12px; font-size: 22px; font-weight: 500; }
   .art { width: 600px; height: 630px; background: ${panel}; display: flex; flex-direction: column;
          align-items: center; justify-content: center; gap: 28px; padding: 0 44px; }
   .ellipse { display: flex; align-items: center; justify-content: center;
