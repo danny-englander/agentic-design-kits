@@ -1,0 +1,28 @@
+# Agentic Design Kits
+
+> Design kits your AI agent can implement, for Astro and Tailwind v4. Each kit is a set of rules written for AI coding agents to read and build from, not a library of components to copy and paste.
+
+There are two kits. Both come from npm under the `@agentic-design-kits` scope, and each has its own llms.txt with the full list of its files. Agents: pick a kit, read its llms.txt, then start with its USING.md. USING.md covers the two tasks most people bring, starting a new site with the kit and restyling an existing site, and says which other files to read for each one. It also comes with the npm package.
+
+## Swiss Minimal
+
+Swiss / Bauhaus. Type-led, flat color, thick rules, one typeface: Overused Grotesk. One accent for each site, vermilion or azure. Light and dark modes are built in. Install with `npm install @agentic-design-kits/swiss-minimal`.
+
+- [llms.txt](https://www.swissminimal.ch/llms.txt): Every doc and kit file for Swiss Minimal, with what each is for.
+- [USING.md](https://raw.githubusercontent.com/danny-englander/agentic-design-kits/main/USING.md): Starting a new site with the kit, or restyling an existing one. Start here.
+- [Demo](https://www.swissminimal.ch): A site built with the kit, showing every component.
+- [Agents](https://www.swissminimal.ch/agents/): Prompts to start from when building or restyling a site with the kit.
+
+## Verdigris
+
+Swiss Minimal's strict grid, set in Cormorant, in copper green and copper, with engraved line work. No capitals anywhere. Light and dark modes are built in. Install with `npm install @agentic-design-kits/verdigris`; Swiss Minimal, which it is built on, is installed with it.
+
+- [llms.txt](https://www.verdigris.ch/llms.txt): Every doc and kit file for Verdigris, with what each is for.
+- [USING.md](https://raw.githubusercontent.com/danny-englander/agentic-design-kits/main/verdigris/USING.md): Starting a new site with the kit, or restyling an existing one. Start here.
+- [Demo](https://www.verdigris.ch): A site built with the kit, showing every component.
+- [Agents](https://www.verdigris.ch/agents/): Prompts to start from when building or restyling a site with the kit.
+
+## Optional
+
+- [GitHub](https://github.com/danny-englander/agentic-design-kits): The repository holding both kits, their demos and this site.
+- [npm](https://www.npmjs.com/org/agentic-design-kits): Both packages.

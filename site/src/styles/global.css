@@ -5,11 +5,13 @@
 /* The hero's drawn art (HeroArt.astro): an infinity sign in azure, straight on the page. Azure is
    not this site's accent (vermilion is): like an image, the art keeps its own color. Each theme
    uses azure's own value for it, the lighter one on the dark page. */
-.hero-art { --hero-art: #0f8f8c; display: block; width: 100%; height: auto; }
+.hero-art { --hero-art: #0f8f8c; --hero-art-line: 0.7; display: block; width: 100%; height: auto; }
+/* Line work, not a filled glyph. Dark lines on paper read thinner, so light mode draws them heavier. */
+.hero-art path { fill: none; stroke: var(--hero-art); stroke-width: var(--hero-art-line); stroke-linejoin: round; }
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .hero-art { --hero-art: #3fc9c4; }
+  :root:not([data-theme="light"]) .hero-art { --hero-art: #3fc9c4; --hero-art-line: 0.5; }
 }
-:root[data-theme="dark"] .hero-art { --hero-art: #3fc9c4; }
+:root[data-theme="dark"] .hero-art { --hero-art: #3fc9c4; --hero-art-line: 0.5; }
 
 /* A departure from the kit, on purpose: stacked on a phone, the kit draws a split hero's figure
    at 60% so a square photo doesn't fill the screen. This art is a mark, not a photo, so it takes

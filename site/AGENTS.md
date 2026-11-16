@@ -11,7 +11,7 @@ USING.md, DESIGN.md (the rules, and its "Do not" list) and the parts of COMPONEN
   src/styles/global.css: the hero art's azure ampersand, and each kit's swatches, which show that
   kit's own colors.
 - The kits' names, descriptions and links are in src/data/kits.ts. Keep them in step with the
-  README's table of kits.
+  README's table of kits, and with public/llms.txt, which lists the same kits and links for agents.
 - A fix to a component belongs in ../kit, never here.
 - Before calling a change done: npx astro check, npm run build and npm test.
 
