@@ -413,8 +413,8 @@ const chips = [
         <figcaption>The home page artwork, cropped to 4:3.</figcaption>
       </figure>
     </ComponentEntry>
-    <ComponentEntry num={n()} name="Oval badge" classes=".ellipse, .ellipse--solid, text-sm to text-4xl">
-      <Fragment slot="about">Abbreviations in an oval, after international car decals. Plain or solid. It takes the size of its text, so a text utility sizes it, never below <code>text-sm</code>.</Fragment>
+    <ComponentEntry num={n()} name="Oval badge" classes=".ellipse, .ellipse--solid, .ellipse--accent, text-sm to text-4xl">
+      <Fragment slot="about">Abbreviations in an oval, after international car decals. Plain or solid, in ink or the accent. It takes the size of its text, so a text utility sizes it, never below <code>text-sm</code>.</Fragment>
       <ul class="flex flex-wrap items-end gap-x-6 gap-y-4">
         {
           badgeSizes.map((b) => (
@@ -424,6 +424,17 @@ const chips = [
             </li>
           ))
         }
+      </ul>
+      <p class="small muted mb-3 mt-8">In the accent, for the one badge that matters on a screen:</p>
+      <ul class="flex flex-wrap items-end gap-x-6 gap-y-4">
+        <li class="flex flex-col items-center gap-2">
+          <Ellipse code="CH" label="Switzerland" accent class="text-2xl" />
+          <code class="small muted">accent</code>
+        </li>
+        <li class="flex flex-col items-center gap-2">
+          <Ellipse code="CH" label="Switzerland" accent solid class="text-2xl" />
+          <code class="small muted">accent solid</code>
+        </li>
       </ul>
     </ComponentEntry>
   </Section>
