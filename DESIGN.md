@@ -180,6 +180,7 @@ Photos, artwork, screenshots and product shots are welcome. The test is whether 
 ## States and accessibility
 
 - Focus ring: 3px solid `accent` outline, 2px offset, on everything focusable. Never hide it.
+- A link underlined at rest (`.link`, a linked row title, links in `.post-body` and in the footer's note) thickens its underline to 2px on hover and on keyboard focus, in its own color. Buttons keep their own states. Don't mark hover with a thick accent underline: that marks the current page.
 - Every page starts with a skip link and has one `<main>`, so a keyboard user can go past the top bar. `BaseLayout` writes both; see SkipLink in `COMPONENTS.md`.
 - Hand cursor on everything clickable (`theme.css` sets it, since Tailwind v4 removes it from buttons).
 - Hover keeps text readable: when a row or button fills, its text switches to the opposite color.
