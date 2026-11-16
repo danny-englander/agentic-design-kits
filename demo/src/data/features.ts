@@ -7,6 +7,16 @@ import type { Feature } from '@agentic-design-kits/swiss-minimal/types';
  */
 export const features: Feature[] = [
   {
+    date: '2026-11-16',
+    title: 'The oval badge in the accent',
+    body: 'The oval badge has an accent version, for the one badge that matters on a screen. It comes outlined or solid, in vermilion or azure with the site. The Oval badge entry on Components shows both.',
+    details: [
+      'In Astro, add `accent` to `Ellipse`, alone or with `solid`. The class is `.ellipse--accent`.',
+      'On a `bar` surface it switches to `accent-bright`, like the accent number circle.',
+      '`COMPONENTS.md` says when to use it: one accent badge to a screen, never in plain `accent`, which is too faint for small letters.',
+    ],
+  },
+  {
     date: '2026-11-15',
     title: 'List rows and sections, ready to import',
     body: 'Numbered rows and their section header are now components in the kit, `Row` and `Section`, so an agent no longer copies them from this demo. The instructions for a new site now start from an empty folder and need nothing from GitHub.',
