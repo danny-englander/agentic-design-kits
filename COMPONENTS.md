@@ -705,15 +705,16 @@ A block of code, commands or program output in Source Code Pro: square, with a t
 
 An oval badge holding a short code, like the "CH" sticker on the back of a Swiss car: bold capitals inside a thin oval rule.
 
-**Markup.** `<span class="ellipse" title="Switzerland"><span aria-hidden="true">CH</span><span class="sr-only">Switzerland</span></span>`. In Astro, `<Ellipse code="CH" label="Switzerland" />`; add `solid` for the filled version.
+**Markup.** `<span class="ellipse" title="Switzerland"><span aria-hidden="true">CH</span><span class="sr-only">Switzerland</span></span>`. In Astro, `<Ellipse code="CH" label="Switzerland" />`; add `solid` for the filled version, and `accent` to draw either one in the accent (`.ellipse--accent`).
 
 - **Shape.** 2em tall, at least 3em wide, `border-radius: 50%`, so it stays a true ellipse when a third letter widens it. The border is 2px, or 0.07em on a big one, so it keeps its weight as it scales.
 - **Type.** 700, uppercase, 0.04em tracking, in the font size of the text around it. Size it with a text utility: `text-base` beside body text, `text-4xl` or more as a mark on its own. Never under 0.875rem.
 - **Light and dark.** The default is `paper` with `ink` letters and rule, the plain sticker; `.ellipse--solid` is `ink` with `paper` letters. Both follow the theme with no extra classes: the default is a cream oval with black letters in light and a black oval with cream letters in dark, and on a `bar` surface (panel, drawer, `page-title--bar`) they take `bar` and `bar-ink`.
+- **Accent.** `.ellipse--accent` is for the one badge that matters on a screen, as the accent is everywhere else. Outlined, it is `accent-text` letters and rule on the `paper`; solid, an `accent-text` fill with `accent-ink` letters, like the `PrimaryButton`. On a `bar` surface it takes `accent-bright`, with `bar` letters when solid. Vermilion or azure, with the site.
 - **Saying it.** Pass `label` with what the code stands for. Screen readers then hear "Switzerland", not "C H", and the label shows as a tooltip. Leave it off only when the code is already spelled out beside the badge.
 - 1 to 3 letters or digits. Country codes, a language (DE, FR), a short grade or version.
 
-**Don't.** Put a sentence or an icon in it, color it with the accent, or use it as a button. It is a label, not a control.
+**Don't.** Put a sentence or an icon in it, put more than one accent badge on a screen, draw it in plain `accent` (too faint for small letters) or any color but the accent, or use it as a button. It is a label, not a control.
 
 ## NumberCircle
 
