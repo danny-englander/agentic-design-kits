@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import { Code } from 'astro:components';
 import BaseLayout from '@agentic-design-kits/swiss-minimal/astro/BaseLayout.astro';
 import Hero from '@agentic-design-kits/swiss-minimal/astro/Hero.astro';
 import NumCircle from '@agentic-design-kits/swiss-minimal/astro/NumCircle.astro';
@@ -8,6 +9,7 @@ import Cta from '@agentic-design-kits/swiss-minimal/astro/Cta.astro';
 import Footer from '@agentic-design-kits/swiss-minimal/astro/Footer.astro';
 import type { MenuItem } from '@agentic-design-kits/swiss-minimal/types';
 import HeroArt from '../components/HeroArt.astro';
+import SiteMark from '../components/SiteMark.astro';
 import { kits, parts, repo } from '../data/kits';
 
 const name = 'Agentic Design Kits';
@@ -24,6 +26,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
 <BaseLayout title={name} description={lead} tagline={name}>
   <link slot="head" rel="canonical" href={canonical} />
   <link slot="head" rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <SiteMark slot="mark" />
   <a slot="topbar" class="topbar-btn topbar-btn--text no-underline" href="#kits">Kits</a>
   <a slot="topbar" class="topbar-btn topbar-btn--text no-underline" href={repo}>GitHub</a>
 
@@ -80,8 +83,13 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
       kits.map((kit) => (
         <div class="border-t border-rule py-5">
           <h3 class="title mb-3">{kit.name}</h3>
-          <pre class="pre--bar" tabindex="0"><code><span class="pre-cmd">$ npm i @agentic-design-kits/{kit.pkg}</span>
-<span class="pre-cmd">$ npx skills add danny-englander/agentic-design-kits --skill {kit.pkg}</span></code></pre>
+          <Code
+            class="pre--bar"
+            tabindex="0"
+            lang="bash"
+            theme="css-variables"
+            code={`npm i @agentic-design-kits/${kit.pkg}\nnpx skills add danny-englander/agentic-design-kits --skill ${kit.pkg}`}
+          />
         </div>
       ))
     }
