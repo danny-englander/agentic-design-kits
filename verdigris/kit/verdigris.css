@@ -117,11 +117,11 @@ body {
 .lead { font-style: italic; font-weight: 300; line-height: 1.22; }
 .figure > figcaption, .post-body figcaption { font-style: italic; }
 /* Source Code Pro is far larger on its body than Cormorant, so code steps down to match. */
-code, kbd, samp { font-size: max(0.875rem, 0.72em); }
-/* A code block steps down further than theme.css's 0.9375em, or it reads nearly as large as
-   the text around it: about 18px beside 26px text, as on the Beautiful Code page, never under
-   the 18px floor. */
-pre { font-size: max(var(--size-100), 0.7em); }
+code, kbd, samp { font-size: max(0.875rem, 0.68em); }
+/* A code block steps down further than theme.css's 0.875em, or it reads nearly as large as
+   the text around it: about 17px beside 26px text, never under 16px. The 18px floor is for
+   Cormorant's small x-height; Source Code Pro's is large, so code can go below it. */
+pre { font-size: max(1rem, 0.65em); }
 /* Numbers that line up need lining figures; old-style would wander. */
 .num, .chip-count, .panel-tab-num, .num-circle, .post-body ol { font-variant-numeric: lining-nums tabular-nums; }
 

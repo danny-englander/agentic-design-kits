@@ -231,11 +231,11 @@ button:disabled { cursor: not-allowed; }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; } /* read aloud, not shown */
 .prose-sentence { text-transform: none; letter-spacing: 0.01em; font-size: var(--size-200); } /* long labels */
 
-/* Code: the one place a second family appears. Monospace runs large, so it is set a step
-   down from the text around it, but never under the 14px floor. No tint behind it. */
+/* Code: the one place a second family appears. Monospace runs large, so it is set smaller than
+   the text around it (17.5px beside 20px), but never under the 14px floor. No tint behind it. */
 code, kbd, samp, pre {
   font-family: var(--font-mono);
-  font-size: max(var(--size-100), 0.9375em);
+  font-size: max(var(--size-100), 0.875em);
   font-feature-settings: normal;
   font-variant-ligatures: none;  /* no "fi" or "->" joins: every character stays itself */
 }
