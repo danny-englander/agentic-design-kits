@@ -7,6 +7,15 @@ import type { Feature } from '@agentic-design-kits/swiss-minimal/types';
  */
 export const features: Feature[] = [
   {
+    date: '2026-11-17',
+    title: 'Row sublines are easier to read',
+    body: 'The line under a list row’s name, such as “Point it at the kit’s USING.md and DESIGN.md” on the home page, is now a step larger, 18px, and in dark mode a little brighter. The rows on agenticdesignkits.com have it too.',
+    details: [
+      'In Astro, `Row`’s `meta` has it with no change. In plain HTML, the subline is `<span class="row-meta muted block">`.',
+      'Its color is the new `row-meta` token: `muted` in light, #ccc8bf in dark. A hovered, focused or active row still turns it to the row’s text color.',
+    ],
+  },
+  {
     date: '2026-11-16',
     title: 'Your light or dark choice follows you here',
     body: 'Pick light or dark on agenticdesignkits.com, then open a demo from it, and the demo opens the same way, and remembers it.',
