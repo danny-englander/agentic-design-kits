@@ -77,6 +77,7 @@
     --row-active-bg: var(--bar);
     --row-fg: var(--ink);
     --row-edge: var(--copper);
+    --row-meta: #bdc5bd;
   }
 }
 :root[data-theme="dark"], :root[data-accent][data-theme="dark"] {
@@ -100,6 +101,7 @@
   --row-active-bg: var(--bar);
   --row-fg: var(--ink);
   --row-edge: var(--copper);
+  --row-meta: #bdc5bd;
 }
 
 /* ---------- Type ---------- */
