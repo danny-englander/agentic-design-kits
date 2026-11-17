@@ -29,6 +29,7 @@
   --row-active-bg: var(--ink);  /* list row fill when active */
   --row-fg: var(--paper);       /* text on a filled row */
   --row-edge: var(--ink);       /* 6px left edge of the active row (invisible in light) */
+  --row-meta: var(--muted);     /* a list row's subline: muted in light, a notch brighter in dark */
   /* Code colors: the one place more color is allowed, and only inside pre and code (see
      "Code colors" in DESIGN.md). -bright is for a dark .pre--bar block, the same in both themes. */
   --code-keyword: #b3197c;      /* magenta: keywords (5.5:1 on paper) */
@@ -94,6 +95,7 @@
     --row-active-bg: var(--bar);
     --row-fg: var(--ink);
     --row-edge: var(--accent);
+    --row-meta: #ccc8bf;
     --code-keyword: #ff6fc4;
     --code-string: #4fd3dc;
     --code-constant: #ffa04a;
@@ -115,6 +117,7 @@
   --row-active-bg: var(--bar);
   --row-fg: var(--ink);
   --row-edge: var(--accent);
+  --row-meta: #ccc8bf;
   --code-keyword: #ff6fc4;
   --code-string: #4fd3dc;
   --code-constant: #ffa04a;
@@ -221,6 +224,9 @@ button:disabled { cursor: not-allowed; }
 }
 .small { font-size: var(--size-100); line-height: 1.375; }
 .muted { color: var(--muted); }
+/* A list row's subline: a step under the title, in its own color. Keep `muted` beside it, so the
+   row's fill turns it to row-fg like the rest of the row's quiet text. */
+.row-meta { font-size: var(--size-300); line-height: 1.5; color: var(--row-meta); }
 .num { font-variant-numeric: tabular-nums; }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; } /* read aloud, not shown */
 .prose-sentence { text-transform: none; letter-spacing: 0.01em; font-size: var(--size-200); } /* long labels */

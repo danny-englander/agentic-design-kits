@@ -77,7 +77,7 @@ const share = {
             </span>
             <span class="col-span-2 row-start-2 md:col-span-1 md:col-start-2 md:row-start-1">
               <a class="title block" href={kit.href}>{kit.name}</a>
-              <span class="muted mt-1 block max-w-2xl text-base leading-normal">{kit.description}</span>
+              <span class="row-meta muted mt-1 block max-w-2xl">{kit.description}</span>
               <span class="mt-3 flex gap-1.5" aria-hidden="true">
                 {kit.swatches.map((color) => <span class="swatch" style={`background: ${color}`} />)}
               </span>

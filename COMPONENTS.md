@@ -327,6 +327,8 @@ An accordion on the page itself (not in the panel), built on native `<details>`:
 
 A section of numbered rows: a 2px `ink` rule, a header on the shared grid, then rows divided by 1px `rule` that fill when active, and while the link or button in them is hovered or focused.
 
+The subline under a row's name is `row-meta muted`: a step under the title (`size-300`) in the `row-meta` color, which is `muted` in light and a notch brighter in dark. `muted` beside it lets the row's fill turn it to `row-fg` with the rest.
+
 **In Astro,** `kit/astro/Section.astro` and `kit/astro/Row.astro` write all of it:
 
 ```astro
@@ -359,7 +361,7 @@ import Row from '@agentic-design-kits/swiss-minimal/astro/Row.astro';
       <span class="num small muted col-start-1 row-start-1 font-medium md:pl-5">01</span>
       <span class="col-span-2 row-start-2 md:col-span-1 md:col-start-2 md:row-start-1">
         <a class="title block" href="/work/field-notes/">Field notes</a>
-        <span class="small muted block">Writing · 2026</span>
+        <span class="row-meta muted block">Writing · 2026</span>
       </span>
       <span class="col-start-2 row-start-1 -my-2.5 flex items-center justify-center self-center md:col-start-3">
         <!-- end slot: here a RowArrow, as Row writes it with `arrow` -->
