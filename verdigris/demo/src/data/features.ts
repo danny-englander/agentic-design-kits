@@ -8,6 +8,26 @@ import type { Feature } from '@agentic-design-kits/verdigris/types';
 export const features: Feature[] = [
   {
     date: '2026-11-17',
+    title: 'Notes in a list',
+    body: 'A list row can now hold a short note: a paragraph, a bullet list or a few lines of code, read where it is rather than clicked through. From 768px its date sits in a box, “Nov 17” over “2026”, in a thin accent outline. The Note row entry on Components shows three.',
+    details: [
+      'In Astro, give `Row` a `date` (an ISO date) and put the note in its slot. `heading` sets the title’s level, and `Section` takes `dated` to line its header up with the dates.',
+      'On phones the date is one muted line over the title, “Nov 17, 2026”.',
+      'A note row never fills, so a link in a note is an ordinary underlined link.',
+      'The date column is the `note-date` token, and the least width of the box is `note-date-box` (6.5rem), so every box matches.',
+    ],
+  },
+  {
+    date: '2026-11-17',
+    title: 'Code is a notch smaller',
+    body: 'Inline code and code blocks are set a little smaller beside the text around them, so a few lines of code no longer read nearly as large as the prose.',
+    details: [
+      'Inline code is now 0.68em of the text around it, never under 14px.',
+      'A code block is 0.65em, about 17px beside 26px text, never under 16px. The 18px floor is for Cormorant’s small x-height; Source Code Pro’s is large.',
+    ],
+  },
+  {
+    date: '2026-11-17',
     title: 'Row sublines are easier to read',
     body: 'The line under a list row’s name, such as “Point it at the kit’s USING.md and DESIGN.md” on the home page, is now a step larger, 22px, and in dark mode a little brighter. The rows on agenticdesignkits.com have it too.',
     details: [
