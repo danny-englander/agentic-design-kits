@@ -23,12 +23,12 @@
 .swatch { width: 1.5rem; height: 1.5rem; border: 1px solid var(--rule); }
 
 /* The kit buttons under "In both kits": each outlined in a color of its own, so the two ways into
-   the demos stand out and tell apart. Swiss Minimal's is azure, a value like the hero art's (not
-   this site's accent), the lighter one on the dark page; Verdigris's is the site's vermilion.
+   the demos stand out and tell apart. Swiss Minimal's is the site's vermilion; Verdigris's is
+   azure, a value like the hero art's (not this site's accent), the lighter one on the dark page.
    Both are at least 3:1 on the page. Text and the hover fill stay the kit's. */
-.kit-btn--swiss { border-color: #0f8f8c; }
+.kit-btn--swiss { border-color: var(--accent-text); }
+.kit-btn--verdigris { border-color: #0f8f8c; }
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .kit-btn--swiss { border-color: #3fc9c4; }
+  :root:not([data-theme="light"]) .kit-btn--verdigris { border-color: #3fc9c4; }
 }
-:root[data-theme="dark"] .kit-btn--swiss { border-color: #3fc9c4; }
-.kit-btn--verdigris { border-color: var(--accent-text); }
+:root[data-theme="dark"] .kit-btn--verdigris { border-color: #3fc9c4; }
