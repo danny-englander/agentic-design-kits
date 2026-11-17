@@ -7,9 +7,9 @@ USING.md, DESIGN.md (the rules, and its "Do not" list) and the parts of COMPONEN
 
 - Use the Node version in .nvmrc.
 - Page layout is Tailwind utilities; components are kit classes.
-- Colors only through the token utilities, never Tailwind's palette. Two exceptions, both in
-  src/styles/global.css: the hero art's azure ampersand, and each kit's swatches, which show that
-  kit's own colors.
+- Colors only through the token utilities, never Tailwind's palette. Three exceptions, all in
+  src/styles/global.css: the hero art's azure ampersand, each kit's swatches, which show that
+  kit's own colors, and the azure outline on the Swiss Minimal buttons under "In both kits".
 - The kits' names, descriptions and links are in src/data/kits.ts. Keep them in step with the
   README's table of kits, and with public/llms.txt, which lists the same kits and links for agents.
 - A fix to a component belongs in ../kit, never here.
