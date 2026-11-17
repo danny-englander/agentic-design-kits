@@ -72,6 +72,8 @@
   --page-max: 88rem;       /* content width */
   --gutter: 1rem;          /* page side padding; 2rem from 640px up */
   --row-num: 3rem;         /* the number column of a list row and its section header, from 768px */
+  --note-date: 10rem;      /* the date column of a note row and its section header, from 768px */
+  --note-date-box: 5rem;   /* the least width of a note row's boxed date, so every box matches */
   --bar-h: 5rem;           /* fixed bottom bar height, if you have one */
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   color-scheme: light;
@@ -316,12 +318,41 @@ kbd {                            /* a key: outlined like the top-bar buttons */
    fills. Hover only where there is a pointer that hovers, so a tap on a phone leaves nothing behind.
    The rules below that follow the fill use the same two selectors. */
 @media (hover: hover) {
-  .row:has(:is(a, button):hover) { background: var(--row-hover-bg); color: var(--row-fg); }
-  .row:has(:is(a, button):hover) .muted { color: var(--row-fg); }
+  .row:not(.row--note):has(:is(a, button):hover) { background: var(--row-hover-bg); color: var(--row-fg); }
+  .row:not(.row--note):has(:is(a, button):hover) .muted { color: var(--row-fg); }
 }
-.row:has(:is(a, button):focus-visible) { background: var(--row-hover-bg); color: var(--row-fg); }
+.row:not(.row--note):has(:is(a, button):focus-visible) { background: var(--row-hover-bg); color: var(--row-fg); }
 .row[data-active="true"] { background: var(--row-active-bg); color: var(--row-fg); box-shadow: inset 6px 0 0 var(--row-edge); }
-.row:has(:is(a, button):focus-visible) .muted, .row[data-active="true"] .muted { color: var(--row-fg); }
+.row:not(.row--note):has(:is(a, button):focus-visible) .muted, .row[data-active="true"] .muted { color: var(--row-fg); }
+/* Note row (.row--note): a dated list row that is read where it is, with rich text under its
+   title. It never fills and has no arrow; a link in its body is an ordinary link (the fill rules
+   above skip it). The date takes the number's column, widened to --note-date from 768px. */
+.note-date { font-variant-numeric: tabular-nums; }
+/* From 768px the date is a box: month and day over the year, in a 1px accent-text outline (the
+   row's one accent mark, as a RowArrow's is), 1.25rem in, where the number would sit. On phones
+   it is one muted line, "Nov 17, 2026", over the title. */
+@media (min-width: 768px) {
+  .note-date {
+    display: inline-flex; flex-direction: column; align-items: center;
+    justify-self: start; align-self: start;
+    min-width: var(--note-date-box); /* every box one width, whatever the date */
+    margin-left: 1.25rem; padding: 0.5rem 0.75rem;
+    border: 1px solid var(--accent-text);
+    color: var(--ink); line-height: 1.2;
+  }
+  .note-date-md { font-size: var(--size-200); font-weight: var(--weight-strong); }
+  .note-date-y { font-size: var(--size-200); font-weight: var(--weight-medium); color: var(--muted); }
+  .note-date-sep { display: none; }
+}
+.row-body { max-width: 42rem; margin-top: 0.75rem; }
+.row-body > * { margin: 0 0 0.875rem 0; }
+.row-body > :last-child { margin-bottom: 0; }
+.row-body a { color: inherit; text-decoration: underline; text-underline-offset: 4px; }
+.row-body :is(ul, ol) { padding-left: 1.5rem; }
+.row-body ul { list-style: square; }
+.row-body ol { list-style: decimal; font-variant-numeric: tabular-nums; }
+.row-body li + li { margin-top: 0.25rem; }
+.row-body li::marker { color: var(--muted); }
 /* A linked title is underlined at rest, so it reads as a link before anything is hovered */
 .row a.title { color: inherit; text-decoration: underline; text-underline-offset: 4px; }
 /* Row arrow: the end slot's link, a circle in the accent around an arrow. 44px target, 36px circle.
@@ -352,9 +383,9 @@ a.link:hover { color: var(--accent-text); }
    (footer, menu), so hover stays apart from it. Buttons, and links with no underline at rest,
    keep their own states. */
 @media (hover: hover) {
-  :is(a.link, .row a.title, .post-body a:not([data-footnote-ref]), .site-footer-note a):not(.btn, .btn-outline):hover { text-decoration-thickness: 2px; }
+  :is(a.link, .row a.title, .row-body a, .post-body a:not([data-footnote-ref]), .site-footer-note a):not(.btn, .btn-outline):hover { text-decoration-thickness: 2px; }
 }
-:is(a.link, .row a.title, .post-body a:not([data-footnote-ref]), .site-footer-note a):not(.btn, .btn-outline):focus-visible { text-decoration-thickness: 2px; }
+:is(a.link, .row a.title, .row-body a, .post-body a:not([data-footnote-ref]), .site-footer-note a):not(.btn, .btn-outline):focus-visible { text-decoration-thickness: 2px; }
 
 /* ---------- Top bar and buttons ---------- */
 .topbar {

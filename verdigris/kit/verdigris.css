@@ -44,6 +44,7 @@
   --size-post-feature: clamp(2.75rem, 5.5vw, 5.25rem);
   --size-post-title: clamp(3.5rem, 7.4vw, 5.75rem);
   --row-num: 4.5rem;       /* a list row's number column: Cormorant's larger numbers need the room */
+  --note-date-box: 6.5rem; /* a note row's boxed date: Cormorant's figures run wider */
   --code-sample-size: var(--size-100); /* code on the Beautiful Code page: 18px, as larger sizes run large here */
   --weight-body: 500;
   --weight-medium: 600;

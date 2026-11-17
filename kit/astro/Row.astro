@@ -8,11 +8,19 @@
 // for the pointer only (out of the tab order, hidden from screen readers, who meet the title).
 // `numStyle` sets the number in a circle, outlined or solid (NumberCircle in COMPONENTS.md).
 // The number column is the --row-num token (3rem), shared with Section's header.
+// With `date` it is a note row (.row--note): the date takes the number's place, boxed from 768px
+// in a column of --note-date (10rem), the title is a heading, and the default slot is the note's
+// body: rich text in .row-body. A note row never fills, so a link in its body is an ordinary link.
 import FavoriteButton from './FavoriteButton.astro';
 import NumCircle from './NumCircle.astro';
 
 interface Props {
-  num: number;
+  /** The row's number. Not used with `date`. */
+  num?: number;
+  /** An ISO date (2026-11-17): makes this a note row, with the date where the number goes. */
+  date?: string;
+  /** With `date`: the title's heading level. h3 under a Section's h2; h4 one level deeper. */
+  heading?: 'h3' | 'h4';
   title: string;
   /** A quieter line under the title. */
   meta?: string;
@@ -29,54 +37,78 @@ interface Props {
   favorite?: boolean;
   numStyle?: 'plain' | 'circle' | 'solid';
 }
-const { num, title, meta, href, arrow, active, category, id, favorite, numStyle = 'plain' } = Astro.props;
+const { num = 0, date, heading: Heading = 'h3', title, meta, href, arrow, active, category, id, favorite, numStyle = 'plain' } = Astro.props;
+// Dates as Post list shows them, in UTC, so a date never moves a day with the visitor's time zone.
+// Split in two for the box from 768px: "Nov 17" over "2026".
+const when = date ? new Date(date) : undefined;
+const monthDay = when?.toLocaleDateString('en-US', { month: 'short', day: 'numeric', timeZone: 'UTC' });
+const year = when?.getUTCFullYear();
 ---
 
-<li
-  class:list={[
-    'row grid grid-cols-[1fr_auto] gap-y-1 p-4 md:items-baseline md:gap-x-2 md:px-0',
-    // A circled number is wider, so its column is at least 4rem: room for the circle clear of the edge.
-    numStyle === 'plain'
-      ? 'md:grid-cols-[var(--row-num)_1fr_2.75rem]'
-      : 'md:grid-cols-[max(var(--row-num),4rem)_1fr_2.75rem]',
-  ]}
-  data-active={active ? 'true' : undefined}
-  aria-current={active ? 'true' : undefined}
-  data-category={category}
-  data-item={id}
->
-  <!-- md:pl-5 keeps the number clear of the active row's 6px edge; a circle sits at 1rem in its
-       wider column, 10px clear of the edge and as far again from the name -->
-  <span
-    class:list={[
-      'num small muted col-start-1 row-start-1 font-medium',
-      numStyle === 'plain' ? 'md:pl-5' : 'md:pl-4',
-    ]}
-  >
-    {numStyle === 'plain' ? String(num).padStart(2, '0') : <NumCircle value={num} solid={numStyle === 'solid'} />}
-  </span>
-  <span class="col-span-2 row-start-2 md:col-span-1 md:col-start-2 md:row-start-1">
-    {
-      href ? (
-        <a class="title block" href={href}>{title}</a>
-      ) : (
-        <span class="title block">{title}</span>
-      )
-    }
-    {meta && <span class="row-meta muted block">{meta}</span>}
-  </span>
-  <!-- The star's 44px touch target overlaps the row's padding instead of making the row taller -->
-  <span class="col-start-2 row-start-1 -my-2.5 flex items-center justify-center self-center md:col-start-3">
-    {
-      favorite && id ? (
-        <FavoriteButton id={id} name={title} />
-      ) : arrow && href ? (
-        <a class="row-arrow" href={href} tabindex="-1" aria-hidden="true">
-          <svg viewBox="0 0 20 20"><path d="M3 10h13M11 5l5 5-5 5" /></svg>
-        </a>
-      ) : (
-        <slot />
-      )
-    }
-  </span>
-</li>
+{
+  date ? (
+    <li
+      class="row row--note grid grid-cols-[minmax(0,1fr)] gap-y-1 p-4 md:grid-cols-[var(--note-date)_minmax(0,1fr)] md:items-baseline md:gap-x-2 md:px-0 md:pb-7 md:pt-6"
+      id={id}
+      data-category={category}
+    >
+      <time class="note-date small muted font-medium" datetime={date}>
+        <span class="note-date-md">{monthDay}</span><span class="note-date-sep">, </span><span class="note-date-y">{year}</span>
+      </time>
+      <div>
+        <Heading class="title">{title}</Heading>
+        {meta && <span class="row-meta muted block">{meta}</span>}
+        {Astro.slots.has('default') && <div class="row-body"><slot /></div>}
+      </div>
+    </li>
+  ) : (
+    <li
+      class:list={[
+        'row grid grid-cols-[1fr_auto] gap-y-1 p-4 md:items-baseline md:gap-x-2 md:px-0',
+        // A circled number is wider, so its column is at least 4rem: room for the circle clear of the edge.
+        numStyle === 'plain'
+          ? 'md:grid-cols-[var(--row-num)_1fr_2.75rem]'
+          : 'md:grid-cols-[max(var(--row-num),4rem)_1fr_2.75rem]',
+      ]}
+      data-active={active ? 'true' : undefined}
+      aria-current={active ? 'true' : undefined}
+      data-category={category}
+      data-item={id}
+    >
+      {/* md:pl-5 keeps the number clear of the active row's 6px edge; a circle sits at 1rem in its
+           wider column, 10px clear of the edge and as far again from the name */}
+      <span
+        class:list={[
+          'num small muted col-start-1 row-start-1 font-medium',
+          numStyle === 'plain' ? 'md:pl-5' : 'md:pl-4',
+        ]}
+      >
+        {numStyle === 'plain' ? String(num).padStart(2, '0') : <NumCircle value={num} solid={numStyle === 'solid'} />}
+      </span>
+      <span class="col-span-2 row-start-2 md:col-span-1 md:col-start-2 md:row-start-1">
+        {
+          href ? (
+            <a class="title block" href={href}>{title}</a>
+          ) : (
+            <span class="title block">{title}</span>
+          )
+        }
+        {meta && <span class="row-meta muted block">{meta}</span>}
+      </span>
+      {/* The star's 44px touch target overlaps the row's padding instead of making the row taller */}
+      <span class="col-start-2 row-start-1 -my-2.5 flex items-center justify-center self-center md:col-start-3">
+        {
+          favorite && id ? (
+            <FavoriteButton id={id} name={title} />
+          ) : arrow && href ? (
+            <a class="row-arrow" href={href} tabindex="-1" aria-hidden="true">
+              <svg viewBox="0 0 20 20"><path d="M3 10h13M11 5l5 5-5 5" /></svg>
+            </a>
+          ) : (
+            <slot />
+          )
+        }
+      </span>
+    </li>
+  )
+}

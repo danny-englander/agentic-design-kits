@@ -2,17 +2,20 @@
 // A section of list rows (ListRow in COMPONENTS.md): 2px rule, then a header on the rows' grid
 // (range label over the numbers, h2 over the names), then the rows. The default slot goes in a
 // <ul>, so it takes <Row>s or <li>s of your own; "intro" is a line or two between the header
-// and the rows. A section with no numbered rows is plain markup: see Section in COMPONENTS.md.
+// and the rows. With `dated`, the header lines up with note rows' wider date column. A section
+// with no list rows is plain markup: see Section in COMPONENTS.md.
 interface Props {
   /** The h2's id, which also names the section. */
   id: string;
   title: string;
-  /** e.g. "01–06" */
+  /** e.g. "01–06", or a year over note rows */
   range: string;
+  /** For note rows (Row with `date`): the header takes their wider date column. */
+  dated?: boolean;
   /** Writes `data-filter-section`, so a filter script can hide the section when none of its rows match. */
   filterable?: boolean;
 }
-const { id, title, range, filterable } = Astro.props;
+const { id, title, range, dated, filterable } = Astro.props;
 ---
 
 <section
@@ -20,9 +23,15 @@ const { id, title, range, filterable } = Astro.props;
   aria-labelledby={id}
   data-filter-section={filterable ? '' : undefined}
 >
-  <div class="grid gap-1 pb-6 md:grid-cols-[var(--row-num)_1fr_2.75rem] md:items-baseline md:gap-x-2">
-    <!-- "01–06" is wider than the number column at the rows' inset, so it sits nearer the edge -->
-    <p class="num small muted whitespace-nowrap font-medium md:pl-2">{range}</p>
+  <div
+    class:list={[
+      'grid gap-1 pb-6 md:items-baseline md:gap-x-2',
+      dated ? 'md:grid-cols-[var(--note-date)_1fr]' : 'md:grid-cols-[var(--row-num)_1fr_2.75rem]',
+    ]}
+  >
+    <!-- "01–06" is wider than the number column at the rows' inset, so it sits nearer the edge;
+         a year over dates lines up with them -->
+    <p class:list={['num small muted whitespace-nowrap font-medium', dated ? 'md:pl-5' : 'md:pl-2']}>{range}</p>
     <h2 class="h2" id={id}>{title}</h2>
   </div>
   <slot name="intro" />
