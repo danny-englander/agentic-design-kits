@@ -104,10 +104,10 @@ const share = {
       build before it builds it.
     </p>
     {/* The kit's CardGrid markup, by hand: each card has a page in both demos, so it ends with two
-        tertiary buttons in place of one, and its title is plain text. Stacked until 1024px, where
-        the two fit side by side. A button shows only the kit's name, outlined in a color of its
-        own (.kit-btn--*); its accessible name says the rest ("See it in Swiss Minimal: Beautiful
-        code"). */}
+        tertiary buttons in place of one, and its title is plain text. Stacked until 1024px, at
+        one width, the wider one's; from there, side by side. A button shows only the kit's name,
+        outlined in a color of its own (.kit-btn--*); its accessible name says the rest ("See it
+        in Swiss Minimal: Beautiful code"). */}
     <ul class="card-grid card-grid--2">
       {
         highlights.map((h, i) => (
@@ -115,7 +115,7 @@ const share = {
             <span class="label num muted">{String(i + 1).padStart(2, '0')}</span>
             <h3 class="card-title">{h.title}</h3>
             <p class="card-summary">{h.summary}</p>
-            <div class="col-start-2 mt-4 flex flex-col items-start gap-3 lg:flex-row lg:flex-wrap">
+            <div class="col-start-2 mt-4 grid w-max gap-3 lg:flex lg:w-auto lg:flex-wrap">
               {kits.map((kit) => (
                 <a
                   class={`btn-outline btn-outline--tertiary kit-btn kit-btn--${kit.name === 'Verdigris' ? 'verdigris' : 'swiss'} no-underline`}
