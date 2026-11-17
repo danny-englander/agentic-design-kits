@@ -124,6 +124,27 @@ test('a linked row fills only while its link is hovered or focused, and its arro
   await expect.poll(fill).not.toBe(still);
 });
 
+test('a note row shows its date, never fills, and keeps a link in its body ordinary', async ({ page }) => {
+  await page.goto('/components');
+  const note = page.locator('.row--note', { hasText: 'On line length' });
+  await note.scrollIntoViewIfNeeded();
+  await expect(note.locator('time')).toHaveAttribute('datetime', '2026-11-03');
+  await expect(note.locator('time')).toHaveText('Nov 3, 2026');
+  await expect(note.getByRole('heading', { level: 4, name: 'On line length' })).toBeVisible();
+  const fill = () => note.evaluate((r) => getComputedStyle(r).backgroundColor);
+  const still = await fill();
+  const link = note.locator('.row-body a');
+  await link.hover();
+  await page.waitForTimeout(300); // past the 150ms transition
+  expect(await fill()).toBe(still);
+  await expect(link).toHaveCSS('text-decoration-thickness', '2px');
+  await link.focus();
+  expect(await fill()).toBe(still);
+  // The link goes to another note on the page, by its id.
+  await expect(link).toHaveAttribute('href', '#note-card-grid');
+  await expect(page.locator('li#note-card-grid.row--note')).toHaveCount(1);
+});
+
 test('a button to another site ends with the font’s ↗, hidden from screen readers, at its usual height', async ({ page }) => {
   await page.goto('/components');
   const height = (el: HTMLElement) => el.getBoundingClientRect().height;
