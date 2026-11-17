@@ -327,6 +327,8 @@ An accordion on the page itself (not in the panel), built on native `<details>`:
 
 A section of numbered rows: a scotch rule, a header on the shared grid, then rows divided by 1px `rule` that fill when active, and while the link or button in them is hovered or focused.
 
+The subline under a row's name is `row-meta muted`: a step under the title (`size-300`) in the `row-meta` color, which is `muted` in light and a notch brighter in dark. `muted` beside it lets the row's fill turn it to `row-fg` with the rest.
+
 **In Astro,** `kit/astro/Section.astro` and `kit/astro/Row.astro` write all of it:
 
 ```astro
@@ -359,7 +361,7 @@ import Row from '@agentic-design-kits/verdigris/astro/Row.astro';
       <span class="num small muted col-start-1 row-start-1 font-medium md:pl-5">01</span>
       <span class="col-span-2 row-start-2 md:col-span-1 md:col-start-2 md:row-start-1">
         <a class="title block" href="/work/field-notes/">Field notes</a>
-        <span class="small muted block">Writing · 2026</span>
+        <span class="row-meta muted block">Writing · 2026</span>
       </span>
       <span class="col-start-2 row-start-1 -my-2.5 flex items-center justify-center self-center md:col-start-3">
         <!-- end slot: here a RowArrow, as Row writes it with `arrow` -->
@@ -379,6 +381,40 @@ The current row adds `data-active="true" aria-current="true"` to its `<li>`. A r
 - **RowArrow** (`.row-arrow`) is the end slot's link: an arrow in a 36px circle in the accent, verdigris, never copper, in a 44px target. It goes to the same place as the title, so it is for the pointer only: `tabindex="-1"` and `aria-hidden="true"`, and a keyboard or screen reader meets the row once, at its title. Outlined at rest, `accent-text` on the `paper`; it fills while hovered, with the arrow cut out in the surface's color; on a filled row it takes `accent-bright`. Use it where a row is mainly a way to somewhere (a list of sites, of case studies). Don't put it on a row whose end slot holds a star or an indicator, or beside an accent `NumberCircle`: one accent mark to a row.
 - Rows stack on phones (number and end slot on the first line, the name under them); they switch to columns from 768px.
 - Keep the numbers when filtering; don't renumber.
+
+### Note row
+
+A dated list row that is read where it is, not clicked through: short entries, such as notes, each with a paragraph, a list or a few lines of code. It keeps the list row's rules and title, and drops what makes a row a way to somewhere.
+
+```astro
+<Section id="notes" title="Notes" range="2026" dated>
+  <Row date="2026-11-17" id="note-card-grid" title="Container queries for the card grid" meta="CSS">
+    <p>The card grid used to switch columns at the page's breakpoints.</p>
+    <pre tabindex="0"><code>.card-grid { container-type: inline-size; }</code></pre>
+  </Row>
+</Section>
+```
+
+```html
+<li class="row row--note grid grid-cols-[minmax(0,1fr)] gap-y-1 p-4 md:grid-cols-[var(--note-date)_minmax(0,1fr)] md:items-baseline md:gap-x-2 md:px-0 md:pb-7 md:pt-6" id="note-card-grid">
+  <time class="note-date small muted font-medium" datetime="2026-11-17">
+    <span class="note-date-md">Nov 17</span><span class="note-date-sep">, </span><span class="note-date-y">2026</span>
+  </time>
+  <div>
+    <h3 class="title">Container queries for the card grid</h3>
+    <span class="row-meta muted block">CSS</span>
+    <div class="row-body">
+      <p>The card grid used to switch columns at the page's breakpoints.</p>
+    </div>
+  </div>
+</li>
+```
+
+- **`date` makes a `Row` a note row** (an ISO date; shown as "Nov 17, 2026", in UTC, as `PostList` shows dates). `num`, `href`, `arrow`, `active` and `favorite` don't apply. The default slot is the note's body, in `.row-body`. `heading` sets the title's level: `h3` (the default) under a `Section`'s `h2`, `h4` one level deeper. `id` goes on the `<li>`, so a note can be linked to.
+- **The date takes the number's place,** in a column of 10rem from 768px (the `--note-date` token). There it is a box (`.note-date`): month and day over the year, both at `size-200`, the year `muted`, in a 1px `accent-text` outline set 1.25rem in, where the number would be. Every box is at least 6.5rem wide here (`--note-date-box`), so the boxes match whatever their dates. The outline is the row's one accent mark. On phones the date is one `muted` line over the title, "Nov 17, 2026" (`.note-date-sep` is the comma, hidden in the box). Give the `Section` `dated`, and its header takes the same column; the range is then a year, or a span of them.
+- **It never fills.** The fill rules skip `.row--note`, so a link in the body is an ordinary underlined link, and hovering it changes nothing else. The title is a heading, never a link.
+- **The body** (`.row-body`) takes paragraphs, lists, inline `code` and code blocks, at body size, code blocks at 0.65em (never under 16px). It stops at 42rem, about 70 characters, like `PostBody`, with tighter spacing (0.875rem between blocks). Lists are square-bulleted with `muted` markers. Give a code block `tabindex="0"`, as anywhere, so a keyboard can scroll it.
+- **Keep notes short.** A note with headings of its own, images or more than a few paragraphs is a blog post: put it in a `PostList` with a page of its own.
 
 ## Section
 

@@ -382,6 +382,40 @@ The current row adds `data-active="true" aria-current="true"` to its `<li>`. A r
 - Rows stack on phones (number and end slot on the first line, the name under them); they switch to columns from 768px.
 - Keep the numbers when filtering; don't renumber.
 
+### Note row
+
+A dated list row that is read where it is, not clicked through: short entries, such as notes, each with a paragraph, a list or a few lines of code. It keeps the list row's rules and title, and drops what makes a row a way to somewhere.
+
+```astro
+<Section id="notes" title="Notes" range="2026" dated>
+  <Row date="2026-11-17" id="note-card-grid" title="Container queries for the card grid" meta="CSS">
+    <p>The card grid used to switch columns at the page's breakpoints.</p>
+    <pre tabindex="0"><code>.card-grid { container-type: inline-size; }</code></pre>
+  </Row>
+</Section>
+```
+
+```html
+<li class="row row--note grid grid-cols-[minmax(0,1fr)] gap-y-1 p-4 md:grid-cols-[var(--note-date)_minmax(0,1fr)] md:items-baseline md:gap-x-2 md:px-0 md:pb-7 md:pt-6" id="note-card-grid">
+  <time class="note-date small muted font-medium" datetime="2026-11-17">
+    <span class="note-date-md">Nov 17</span><span class="note-date-sep">, </span><span class="note-date-y">2026</span>
+  </time>
+  <div>
+    <h3 class="title">Container queries for the card grid</h3>
+    <span class="row-meta muted block">CSS</span>
+    <div class="row-body">
+      <p>The card grid used to switch columns at the page's breakpoints.</p>
+    </div>
+  </div>
+</li>
+```
+
+- **`date` makes a `Row` a note row** (an ISO date; shown as "Nov 17, 2026", in UTC, as `PostList` shows dates). `num`, `href`, `arrow`, `active` and `favorite` don't apply. The default slot is the note's body, in `.row-body`. `heading` sets the title's level: `h3` (the default) under a `Section`'s `h2`, `h4` one level deeper. `id` goes on the `<li>`, so a note can be linked to.
+- **The date takes the number's place,** in a column of 10rem from 768px (the `--note-date` token). There it is a box (`.note-date`): month and day over the year, both at `size-200`, the year `muted`, in a 1px `accent-text` outline set 1.25rem in, where the number would be. Every box is at least 5rem wide (`--note-date-box`), so the boxes match whatever their dates. The outline is the row's one accent mark. On phones the date is one `muted` line over the title, "Nov 17, 2026" (`.note-date-sep` is the comma, hidden in the box). Give the `Section` `dated`, and its header takes the same column; the range is then a year, or a span of them.
+- **It never fills.** The fill rules skip `.row--note`, so a link in the body is an ordinary underlined link, and hovering it changes nothing else. The title is a heading, never a link.
+- **The body** (`.row-body`) takes paragraphs, lists, inline `code` and code blocks, at body size, code at 0.875em. It stops at 42rem, about 70 characters, like `PostBody`, with tighter spacing (0.875rem between blocks). Lists are square-bulleted with `muted` markers. Give a code block `tabindex="0"`, as anywhere, so a keyboard can scroll it.
+- **Keep notes short.** A note with headings of its own, images or more than a few paragraphs is a blog post: put it in a `PostList` with a page of its own.
+
 ## Section
 
 A part of a page that is not a numbered list: a form, a few paragraphs, a `CardGrid`, a `DatedList`. It starts with the same a 2px `ink` rule as a list section, and its heading sits at the left edge of `.page`, where the range label would be. It is not indented to the names column, because there are no numbers for it to clear.

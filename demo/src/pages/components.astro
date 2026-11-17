@@ -58,6 +58,13 @@ const chips = [
   { id: 'tools', label: 'Tools', count: 2 },
   { id: 'type', label: 'Type', count: 1 },
 ];
+// The Note row entry's code, colored with the kit's .tok-* classes
+const noteCode = [
+  '<span class="tok-keyword">.card-grid</span> { container-type: inline-size; }',
+  '<span class="tok-keyword">@container</span> (min-width: <span class="tok-constant">40rem</span>) {',
+  '  <span class="tok-keyword">.card-grid</span> { grid-template-columns: repeat(<span class="tok-constant">2</span>, <span class="tok-constant">1fr</span>); }',
+  '}',
+].join('\n');
 ---
 
 <SiteLayout title="Components" description="Every component in Swiss Minimal, an agentic design kit, on one page: what your AI coding agent has to build with." bottomBar>
@@ -304,6 +311,26 @@ const chips = [
           <span class="eq" aria-hidden="true"><i></i><i></i><i></i></span>
         </Row>
         <Row num={3} title="Thick rules" href="/components/" meta="A 2px line opens every section" arrow />
+      </ul>
+    </ComponentEntry>
+    <ComponentEntry num={n()} name="Note row" classes=".row--note, .row-body">
+      <Fragment slot="about">A dated list row that is read where it is: a title, then a paragraph, a list or a few lines of code. The date takes the number's place. It never fills, so a link in a note is an ordinary link.</Fragment>
+      <ul class="border-t border-rule">
+        <Row date="2026-11-17" heading="h4" id="note-card-grid" title="Container queries for the card grid" meta="CSS">
+          <p>The card grid used to switch columns at the page's breakpoints, so a grid in a narrow column switched too late. Asking the container instead fixes it in four lines.</p>
+          <pre tabindex="0"><code set:html={noteCode} /></pre>
+        </Row>
+        <Row date="2026-11-12" heading="h4" title="What to look at before a release" meta="Process">
+          <p>The tests catch most of it. These still need a person:</p>
+          <ul>
+            <li>Both themes at 375px, where long words wrap first.</li>
+            <li>Every filled row, in each accent.</li>
+            <li>Keyboard focus through the menu and back out.</li>
+          </ul>
+        </Row>
+        <Row date="2026-11-03" heading="h4" title="On line length">
+          <p>Text in a note stops at <code>42rem</code>, about 70 characters, even when the row is wider. <a href="#note-card-grid">The card grid note</a> shows how code sits beside it.</p>
+        </Row>
       </ul>
     </ComponentEntry>
     <ComponentEntry num={n()} name="Page accordion" classes=".page-acc">
