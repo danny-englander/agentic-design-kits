@@ -89,7 +89,7 @@ One family, `--font-sans` (Overused Grotesk, falling back to Helvetica Neue, Hel
 | `body` | Body copy, 1.125rem (`text-lg`) then 1.25rem (`text-xl`) from 768px, line height 1.8. The top bar, panel, drawer and toast stay at 1rem / 1.5 |
 | `small` | Meta, sublines, counts, 0.875rem |
 | `label` | 1 to 2 words, uppercase, 500, 0.08em |
-| `code` | Code, file names, commands, keys: `--font-mono` at 0.9375em of the text around it, never under 0.875rem |
+| `code` | Code, file names, commands, keys: `--font-mono` at 0.875em of the text around it, never under 0.875rem |
 
 - Every size, weight, body line height and label style is a token at the top of `theme.css` (`--size-100` to `--size-1000`, `--size-display` and the other fluid sizes, `--weight-*`, `--leading-body`, `--label-case`, `--label-tracking`), so a theme built on this kit changes type in one place. A new rule uses these tokens, never a raw value.
 - **14px is the floor.** Nothing is smaller.
