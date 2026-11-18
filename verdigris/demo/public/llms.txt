@@ -20,7 +20,7 @@ The kit is written for agents to follow: a set of rules, not a library of compon
 - [kit/tailwind.css](https://raw.githubusercontent.com/danny-englander/agentic-design-kits/main/verdigris/kit/tailwind.css): The entry point for a Tailwind v4 site. Loads Swiss Minimal's Tailwind entry, then Verdigris's typeface and theme.
 - [kit/verdigris.css](https://raw.githubusercontent.com/danny-englander/agentic-design-kits/main/verdigris/kit/verdigris.css): Everything that makes this Verdigris: token overrides, type and the ornament.
 - [theme.css](https://raw.githubusercontent.com/danny-englander/agentic-design-kits/main/kit/theme.css): Swiss Minimal's stylesheet, which Verdigris builds on: every token, the base styles and every shared component class.
-- [kit/astro/](https://github.com/danny-englander/agentic-design-kits/tree/main/kit/astro): Swiss Minimal's Astro components, imported as `@agentic-design-kits/verdigris/astro/Name.astro`: BaseLayout, Hero, PageTitle, Ellipse, Cta, CardGrid, the menu, drawer and theme toggle, the blog's PostFeature, PostList, Pager, PostHeader and PostNav, and their types.
+- [kit/astro/](https://github.com/danny-englander/agentic-design-kits/tree/main/kit/astro): Swiss Minimal's Astro components, imported as `@agentic-design-kits/verdigris/astro/Name.astro`: BaseLayout, Hero, PageTitle, Ellipse, Cta, CardGrid, Gallery, the menu, drawer and theme toggle, the blog's PostFeature, PostList, Pager, PostHeader and PostNav, and their types.
 - [kit/example.html](https://raw.githubusercontent.com/danny-englander/agentic-design-kits/main/verdigris/kit/example.html): A one-page demo using only theme.css, fonts.css and verdigris.css.
 
 ## Demo
