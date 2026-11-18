@@ -1,0 +1,62 @@
+---
+// Artwork shown whole, each image at its own shape (Gallery in COMPONENTS.md). Nothing is cropped.
+// variant "masonry" (the default): columns, one on phones, two from 640px, three from 1024px.
+//   Items run down each column, so keep them free of links and buttons.
+// variant "rows": justified rows whose images share a height, so their bottom edges line up.
+// Every item is a figure: the image, then its caption if it has one, in the Image component's
+// caption style. The kit reads nothing from the files: alt text and captions come from `items`,
+// however a site gets them (written by hand, a data file, a content collection, a metadata tool).
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import type { GalleryItem } from './types';
+
+interface Props {
+  items: GalleryItem[];
+  variant?: 'masonry' | 'rows';
+  /** The images' `sizes`, if the gallery is narrower than the page. */
+  sizes?: string;
+  /** Utilities for spacing, e.g. "mb-16". */
+  class?: string;
+}
+const {
+  items,
+  variant = 'masonry',
+  sizes = variant === 'rows'
+    ? '(min-width: 1024px) 40vw, (min-width: 640px) 60vw, 100vw'
+    : '(min-width: 88rem) 28rem, (min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw',
+  class: className,
+} = Astro.props;
+
+// Resized copies no wider than the file itself.
+const widthsFor = (image: ImageMetadata) => {
+  const widths = [480, 800, 1200, 1600].filter((w) => w <= image.width);
+  return widths.length ? widths : [image.width];
+};
+// Width over height, from the file or from the size given with a URL.
+const ratio = (item: GalleryItem) =>
+  typeof item.src === 'string' ? (item.width ?? 1) / (item.height ?? 1) : item.src.width / item.src.height;
+---
+
+<ul class:list={['gallery', variant === 'rows' && 'gallery--rows', className]}>
+  {
+    items.map((item) => (
+      <li style={variant === 'rows' ? `--gallery-ratio: ${ratio(item).toFixed(4)}` : undefined}>
+        <figure class="figure">
+          {typeof item.src === 'string' ? (
+            <img class="media" src={item.src} alt={item.alt} width={item.width} height={item.height} loading="lazy" decoding="async" />
+          ) : (
+            <Image
+              class="media"
+              src={item.src}
+              alt={item.alt}
+              widths={widthsFor(item.src)}
+              sizes={sizes}
+              loading="lazy"
+            />
+          )}
+          {item.caption && <figcaption>{item.caption}</figcaption>}
+        </figure>
+      </li>
+    ))
+  }
+</ul>

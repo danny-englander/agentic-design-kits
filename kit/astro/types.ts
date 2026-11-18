@@ -1,3 +1,5 @@
+import type { ImageMetadata } from 'astro';
+
 /** One entry in the slide-down menu. Give it `href` for a link, or `children` for an accordion. */
 export interface MenuItem {
   label: string;
@@ -56,6 +58,17 @@ export interface Card {
   /** `href` is on another site: the button ends with the font's ↗ (`.ext-arrow`). */
   external?: boolean;
 }
+
+/** One image in a Gallery: an imported file, or a URL with its size. */
+export type GalleryItem = {
+  /** One sentence on what the image shows. Required: "" only if the caption already says it. */
+  alt: string;
+  /** Shown under the image: a title, a date, the medium. Not a repeat of the alt text. */
+  caption?: string;
+} & (
+  | { /** An imported image file (`import art from '../assets/art.jpg'`). */ src: ImageMetadata; width?: never; height?: never }
+  | { /** A URL, such as a file in `public/`. Give its size so the page doesn't jump. */ src: string; width: number; height: number }
+);
 
 /** A link to a neighboring post (PostNav). */
 export interface PostLink {
