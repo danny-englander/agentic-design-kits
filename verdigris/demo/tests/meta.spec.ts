@@ -5,7 +5,7 @@ import { test, expect } from '@playwright/test';
 // www, and every page address ends in a slash, as the site serves it.
 
 const SITE = 'https://www.verdigris.ch';
-const PAGES = ['/', '/work/', '/work/field-notes/', '/blog/', '/blog/page/2/', '/blog/one-family/', '/about/', '/forms/', '/components/', '/agents/'];
+const PAGES = ['/', '/work/', '/work/field-notes/', '/blog/', '/blog/page/2/', '/blog/one-family/', '/about/', '/forms/', '/components/', '/gallery/', '/agents/'];
 
 for (const path of PAGES) {
   test(`${path} has a canonical URL and share tags`, async ({ page }) => {

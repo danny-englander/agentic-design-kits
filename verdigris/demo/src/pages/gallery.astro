@@ -1,0 +1,22 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+import PageTitle from '@agentic-design-kits/verdigris/astro/PageTitle.astro';
+import Gallery from '@agentic-design-kits/verdigris/astro/Gallery.astro';
+import { gallery } from '../data/gallery';
+---
+
+<SiteLayout title="Gallery" description="The gallery in Verdigris, an agentic design kit: artwork shown whole, in masonry columns or in justified rows, each image with alt text and a caption.">
+  <PageTitle title="Gallery" />
+
+  <section class="rule-thick mb-16 pt-8" aria-labelledby="gallery-masonry">
+    <h2 class="h2 mb-3" id="gallery-masonry">Masonry</h2>
+    <p class="small muted mb-10 max-w-2xl">Columns of images at their own shapes, one on a phone, two from 640px, three from 1024px. Nothing is cropped.</p>
+    <Gallery items={gallery} />
+  </section>
+
+  <section class="rule-thick pt-8 pb-16" aria-labelledby="gallery-rows">
+    <h2 class="h2 mb-3" id="gallery-rows">Rows</h2>
+    <p class="small muted mb-10 max-w-2xl">The same images in rows that share a height, so their bottom edges line up. A wide image takes more of its row.</p>
+    <Gallery items={gallery} variant="rows" />
+  </section>
+</SiteLayout>
