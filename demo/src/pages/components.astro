@@ -426,7 +426,7 @@ const noteCode = [
     </ComponentEntry>
   </Section>
 
-  <Section id="text" title="Text and images" range="32–34">
+  <Section id="text" title="Text and images" range="32–35">
     <ComponentEntry num={n()} name="Code block" classes="pre, .pre--bar">
       <Fragment slot="about">Code in Source Code Pro. Terminal output and logs go on the dark block, the same in both themes.</Fragment>
       <pre class="mb-4" tabindex="0"><code>@import "@agentic-design-kits/swiss-minimal/tailwind.css";</code></pre>
@@ -447,6 +447,9 @@ const noteCode = [
         />
         <figcaption>The home page artwork, cropped to 4:3.</figcaption>
       </figure>
+    </ComponentEntry>
+    <ComponentEntry num={n()} name="Gallery" classes=".gallery, .gallery--rows">
+      <Fragment slot="about">Artwork shown whole, each image at its own shape, in masonry columns or in rows that share a height. Each image has alt text and an optional caption. It has a page of its own: <a class="link" href="/gallery/">Gallery</a>.</Fragment>
     </ComponentEntry>
     <ComponentEntry num={n()} name="Oval badge" classes=".ellipse, .ellipse--solid, .ellipse--accent, text-sm to text-4xl">
       <Fragment slot="about">Abbreviations in an oval, after international car decals. Plain or solid, in ink or the accent. It takes the size of its text, so a text utility sizes it, never below <code>text-sm</code>.</Fragment>
@@ -474,7 +477,7 @@ const noteCode = [
     </ComponentEntry>
   </Section>
 
-  <Section id="titles" title="Titles, menus and footers" range="35–37">
+  <Section id="titles" title="Titles, menus and footers" range="36–38">
     <ComponentEntry num={n()} name="Footer" classes=".site-footer, .site-footer--bar">
       <Fragment slot="about">The traditional footer, as at the end of every page here: the name and a note on the left, the site's links on the right. It stacks on a phone. Plain, or on a dark block.</Fragment>
       <!-- Samples inside the entry are not the page's footer, so each names its links apart. -->

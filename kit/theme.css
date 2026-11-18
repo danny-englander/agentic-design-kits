@@ -570,6 +570,25 @@ html[data-drawer-open] .topbar { --tb-bg: var(--bar); --tb-fg: var(--bar-ink); }
 .figure { margin: 0; }
 .figure > figcaption { margin-top: 0.75rem; font-size: var(--size-300); line-height: 1.375; color: var(--muted); }
 
+/* ---------- Gallery (see Gallery in COMPONENTS.md) ---------- */
+/* Artwork shown whole, each image at its own shape: never cropped. Each item is a .figure.
+   Masonry: columns, one on phones, two from 640px, three from 1024px. Items run down each column,
+   so the reading order runs down too; keep the items free of links and buttons.
+   Rows (.gallery--rows): justified rows whose images share a height. Each item's width grows
+   with its shape (--gallery-ratio, its width over its height, written by Gallery.astro), so the
+   bottom edges line up across a row. The ::after soaks up the last row's spare room, so its
+   images keep close to the row height instead of stretching across the page. */
+.gallery { margin: 0; padding: 0; list-style: none; columns: 1; column-gap: 2rem; }
+.gallery > li { break-inside: avoid; margin: 0 0 2.5rem 0; }
+@media (min-width: 640px) { .gallery { columns: 2; } }
+@media (min-width: 1024px) { .gallery { columns: 3; } }
+.gallery--rows { --gallery-row: 10rem; display: flex; flex-wrap: wrap; align-items: flex-start; gap: 2.5rem 1rem; columns: auto; }
+/* Grow is the ratio times 100: flexbox hands out only part of the spare room when a line's grow
+   values add up to less than 1, which a lone portrait image (0.75) would. */
+.gallery--rows > li { flex: calc(var(--gallery-ratio, 1) * 100) 1 calc(var(--gallery-ratio, 1) * var(--gallery-row)); min-width: 0; margin: 0; }
+.gallery--rows::after { content: ""; flex: 1000 1 0; }
+@media (min-width: 768px) { .gallery--rows { --gallery-row: 14rem; column-gap: 2rem; } }
+
 /* ---------- Slide-down panel (dark surface) ---------- */
 .panel {
   position: fixed; inset: 0 0 var(--bar-h) 0; z-index: 30;
