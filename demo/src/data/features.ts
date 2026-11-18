@@ -7,6 +7,17 @@ import type { Feature } from '@agentic-design-kits/swiss-minimal/types';
  */
 export const features: Feature[] = [
   {
+    date: '2026-11-18',
+    title: 'A gallery for artwork',
+    body: 'A new Gallery shows artwork whole, each image at its own shape and never cropped, with alt text and a caption under each. It comes in two layouts, masonry columns and rows that share a height, both on the new Gallery page in the menu.',
+    details: [
+      'In Astro, `<Gallery items={items} />`, each item a `GalleryItem`: `src` (an imported image, or a URL with its `width` and `height`), `alt`, which is required, and an optional `caption`.',
+      'Masonry, the default, is one column on a phone, two from 640px and three from 1024px. `variant="rows"` lines up the images’ bottom edges, and a wide image takes more of its row.',
+      'The kit reads nothing from the image files: alt text and captions come from `items`, written by hand or filled in by a tool that reads the files’ metadata.',
+      'Captions use the image caption style, `size-300` in `muted`. In plain HTML, the classes are `.gallery` and `.gallery--rows`.',
+    ],
+  },
+  {
     date: '2026-11-17',
     title: 'Notes in a list',
     body: 'A list row can now hold a short note: a paragraph, a bullet list or a few lines of code, read where it is rather than clicked through. From 768px its date sits in a box, “Nov 17” over “2026”, in a thin accent outline. The Note row entry on Components shows three.',
