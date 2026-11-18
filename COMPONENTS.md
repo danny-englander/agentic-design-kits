@@ -803,6 +803,36 @@ A photo, artwork or screenshot as a plain rectangle on the grid: square corners,
 - Captions are `size-300` (18px) in `muted` (the `figcaption` style). Never put text on the image itself.
 - **Don't** round it, outline it, tint it, or animate it on scroll.
 
+## Gallery
+
+Artwork, photos or work samples shown whole: each image keeps its own shape and is never cropped, with its alt text and an optional caption. Two layouts: masonry columns, or rows that share a height. A gallery is the one place images in one list may differ in shape; see Images in `DESIGN.md`.
+
+**Markup.**
+
+```html
+<ul class="gallery">
+  <li>
+    <figure class="figure">
+      <img class="media" src="…" alt="A white egret flies across a deep blue sky toward a crescent moon." width="1250" height="1250" loading="lazy">
+      <figcaption>Egret and crescent</figcaption>
+    </figure>
+  </li>
+</ul>
+```
+
+For rows, add `gallery--rows` and give each `<li>` its image's shape, width over height: `<li style="--gallery-ratio: 1.7857">`.
+
+In Astro, `<Gallery items={items} />`, each a `GalleryItem` (`src`, `alt`, optional `caption`; the type is in `kit/astro/types.ts`). `src` is an imported image file, which Astro sizes and resizes, or a URL with its `width` and `height`. `variant="rows"` for rows. `sizes` overrides the images' `sizes` when the gallery is narrower than the page.
+
+- **Masonry** (the default): one column on a phone, two from 640px, three from 1024px, `space-8` (2rem) between columns and `2.5rem` under each item. Items run down the first column, then the second, so a screen reader and the eye meet them in different orders. That is fine for images, which are read where they are; keep links and buttons out of a masonry gallery.
+- **Rows** (`.gallery--rows`): each row's images share a height (10rem on phones, 14rem from 768px, before the row stretches to fill the width), so their bottom edges line up and a wide image takes more of the row. The last row keeps close to that height instead of stretching. Use it where the grid matters more than the images' size, or where items will link somewhere.
+- **Alt text is required.** `GalleryItem` has no default for it: say in one sentence what the image shows. `alt=""` only if the caption already says everything the image does.
+- **The caption is the image's context, not its description:** a title, a date, the medium, a credit. Don't repeat the alt text. It uses the `figure` caption style: `size-300`, `muted`, under the image.
+- **The kit reads nothing from the files.** Alt text and captions come from `items`, however the site gets them: written by hand, a data file, a content collection, or a tool that reads the files' embedded metadata (IPTC or XMP) at build time. Don't assume images carry that metadata.
+- Every image is lazy-loaded with its size set, so the page doesn't jump; the `rule` box shows until each one loads.
+
+**Don't.** Crop gallery images to one shape (that is an `Image` list with a ratio class), put text on them, add a hover zoom, or open them in a lightbox or carousel.
+
 ## Hero
 
 The top of a page: the name in `display`, a `lead` line, and an optional captioned image whose shape picks the layout.
