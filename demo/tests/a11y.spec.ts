@@ -9,7 +9,7 @@ const THEMES = ['light', 'dark'] as const;
 // The demo is vermilion; azure is checked by setting <html data-accent="azure">, as a
 // azure site would.
 const ACCENTS = ['vermilion', 'azure'] as const;
-const PAGES = ['/', '/work', '/work/field-notes', '/blog', '/blog/page/2', '/blog/one-typeface', '/blog/an-agent-built-this', '/blog/two-pigments', '/about', '/forms', '/components', '/agents', '/beautiful-code', '/type-and-color'];
+const PAGES = ['/', '/work', '/work/field-notes', '/blog', '/blog/page/2', '/blog/one-typeface', '/blog/an-agent-built-this', '/blog/two-pigments', '/about', '/forms', '/components', '/gallery', '/agents', '/beautiful-code', '/type-and-color'];
 const TABS = ['menu', 'contact', 'features'];
 
 /** Wait for any running CSS animation or transition to finish. */
