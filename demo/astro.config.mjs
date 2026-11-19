@@ -13,6 +13,11 @@ export default defineConfig({
   // Simple Icons for brand marks, Material Symbols for a few actions.
   // The sitemap lists every built page at /sitemap-index.xml.
   integrations: [icon(), sitemap()],
+  // Astro 7 compresses HTML by JSX rules by default ('jsx'), so a line break between an inline
+  // tag (<a>, <code>, <kbd>) and the text beside it no longer becomes a space, and words run
+  // together. `true` removes whitespace without changing the visible spacing.
+  // See https://cassidoo.co/post/astro-7-whitespace/
+  compressHTML: true,
   // Code in Markdown is highlighted at build time by Shiki. The css-variables theme writes its
   // colors as variables, which the kit's theme.css maps to its code tokens (see "Code colors" in
   // DESIGN.md), so no color comes from Shiki itself.

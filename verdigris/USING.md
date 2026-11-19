@@ -43,12 +43,15 @@ Everything these steps need is in the package or written out below; nothing has 
    import tailwindcss from '@tailwindcss/vite';
 
    export default defineConfig({
+     compressHTML: true,
      markdown: { shikiConfig: { theme: 'css-variables' } },
      vite: { plugins: [tailwindcss()] },
    });
    ```
 
    The `markdown` line makes code in Markdown take the kit's code colors. Without it, Astro's default theme puts GitHub's dark colors and background on every code block.
+
+   The `compressHTML` line is for Astro 7 and later. Astro 7's default (`'jsx'`) drops the space a line break used to make between an inline tag (`<a>`, `<code>`, `<kbd>`) and the text beside it, so words run together; `true` keeps the visible spacing. Without that line, keep each inline tag on the same line as the text around it, or write the space as `{' '}`. The kit's own components need neither. See [Astro 7 whitespace](https://cassidoo.co/post/astro-7-whitespace/).
 3. **Install the kit:** `npm install @agentic-design-kits/verdigris`. Swiss Minimal comes with it. To update later, run `npm update`. Add `astro-icon` if the site uses `IconTemplates`.
 4. **One stylesheet.** Make `src/styles/global.css` start with `@import "@agentic-design-kits/verdigris/tailwind.css";` and import it in your layout (`import '../styles/global.css';`). Don't import `tailwindcss` or `theme.css` anywhere else.
 5. **Build pages on `BaseLayout`** (`@agentic-design-kits/verdigris/astro/BaseLayout.astro`), and import every other component the same way (`@agentic-design-kits/verdigris/astro/Hero.astro`), types from `@agentic-design-kits/verdigris/types` and scripts as `@agentic-design-kits/verdigris/output.js`. Give the layout a `title`, the site's name as `tagline` (it is the text at the left of the top bar), a `menu` (`MenuItem[]`, current page marked), and `barHeight` on pages with a `BottomBar` (it is optional). Open each page with a `Hero` or a `PageTitle` (a `Hero` with no picture can take a `Rosette` in its `art` slot), and end it with a `Footer` in the `footer` slot, given the site's name and the same menu: `<Footer slot="footer" name="Site name" links={menu} />`. A site with several pages wraps this in one layout of its own (`src/layouts/SiteLayout.astro`), so the menu and footer are written once.
@@ -126,7 +129,7 @@ The kit's demo site is a worked example of all of this, for a person to look at;
 
 Restyling is mostly removing: the kit only works when it is the site's only visual system.
 
-1. **Survey before changing anything.** Note the framework, how CSS is loaded (Tailwind and its version, CSS modules, a preprocessor, a UI library), how dark mode works, the fonts, the icon set, and the pieces each page uses (navigation, forms, lists, cards, modals). Map each piece to a kit component, and list the ones with no match. Show that map to the owner before restyling.
+1. **Survey before changing anything.** Note the framework, how CSS is loaded (Tailwind and its version, CSS modules, a preprocessor, a UI library), how dark mode works, the fonts, the icon set, and the pieces each page uses (navigation, forms, lists, cards, modals). Map each piece to a kit component, and list the ones with no match. Show that map to the owner before restyling. On Astro 7 or later, add `compressHTML: true` to `astro.config.mjs` if it isn't there, or words beside links and inline code may run together (see step 2 of a new site).
 2. **Check for class name clashes.** The kit uses short, generic class names, including `.page`, `.row`, `.title`, `.label`, `.lead`, `.small`, `.muted`, `.num`, `.link`, `.btn`, `.chip`, `.field`, `.media`, `.figure`, `.icon`, `.panel`, `.drawer`, `.toast` and `.pager`. Search the site for each one first; an existing `.btn` or `.title` picks up the kit's styles the moment `theme.css` loads. Rename the site's own class, or move that markup onto the kit component. A code highlighter (Prism, highlight.js, a Shiki theme) clashes the same way, bringing its own colors and background: switch it to Shiki's css-variables theme, or remove it.
 3. **Know what `theme.css` does globally:** `box-sizing` on everything, the `html`/`body` background, font and color, a 3px accent focus ring on every focusable element, and the hand cursor on buttons, summaries and labels. Expect every page to shift a little the moment it loads.
 4. **Load it in the way that fits the site:**
