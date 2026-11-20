@@ -118,3 +118,23 @@ test('a demo link carries the theme the visitor picked, and only then', async ({
   await page.getByRole('button', { name: /dark theme/i }).click();
   expect(await open('See it in Swiss Minimal: Beautiful code')).toBe('https://www.swissminimal.ch/beautiful-code/?theme=dark');
 });
+
+test('the infinity sign keeps flowing, and never moves with Reduce Motion on', async ({ page }) => {
+  const d = () => page.locator('.hero-art path').first().getAttribute('d');
+  // The config turns Reduce Motion on for every test; this one needs it off first.
+  await page.emulateMedia({ reducedMotion: 'no-preference' });
+  await page.goto('/');
+  let previous = await d();
+  for (const _ of [1, 2]) {
+    await expect.poll(d).not.toBe(previous);
+    previous = await d();
+  }
+  await page.waitForTimeout(6000);
+  await expect.poll(d).not.toBe(await d());
+
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.reload();
+  const still = await d();
+  await page.waitForTimeout(1000);
+  expect(await d()).toBe(still);
+});

@@ -20,25 +20,44 @@ function normal(t: number) {
   return [-(y2 - y1) / len, (x2 - x1) / len];
 }
 
-// One strand: the curve pushed out along its normal by a sine wave of `waves` crests per lap.
-function strand(width: number, waves: number, phase: number, points: number) {
-  const at: string[] = [];
-  for (let i = 0; i < points; i += 1) {
+// One band: `strands` strands, each the curve pushed out along its normal by a sine wave of
+// `waves` crests per lap, each wave shifted by a step of the same size, so the strands cross into
+// a lattice. The points on the curve and their normals are worked out once; `at(s)` draws the band
+// with every wave slid along the curve by `s` (in the curve's own parameter, 0 to 2π): the band's
+// outline stays where it is while the lattice inside it flows. HeroArt.astro's script moves `s`.
+function band(strands: number, width: number, waves: number, points: number) {
+  const base = Array.from({ length: points }, (_, i) => {
     const t = (2 * Math.PI * i) / points;
-    const [x, y] = lemniscate(t);
-    const [nx, ny] = normal(t);
-    const r = width * Math.sin(waves * t + phase);
-    at.push(`${(CX + x + r * nx).toFixed(1)} ${(CY + y + r * ny).toFixed(1)}`);
-  }
-  return `M${at.join('L')}Z`;
+    return { t, at: lemniscate(t), n: normal(t) };
+  });
+  return (s = 0) => {
+    let d = '';
+    for (let k = 0; k < strands; k += 1) {
+      const phase = (2 * Math.PI * k) / strands;
+      d += 'M';
+      for (let i = 0; i < points; i += 1) {
+        const { t, at, n } = base[i];
+        const r = width * Math.sin(waves * (t - s) + phase);
+        d += `${i ? 'L' : ''}${(CX + at[0] + r * n[0]).toFixed(1)} ${(CY + at[1] + r * n[1]).toFixed(1)}`;
+      }
+      d += 'Z';
+    }
+    return d;
+  };
 }
-const band = (strands: number, width: number, waves: number, points: number) =>
-  Array.from({ length: strands }, (_, i) => strand(width, waves, (2 * Math.PI * i) / strands, points)).join('');
 
-/** Path data: a wide band of slow waves, and a narrow one of quick waves along its spine. */
-export const infinityPaths = {
+/** The sign's two bands, drawn at a shift `s` along the curve: a wide band of slow waves, and a
+    narrow one of quick waves along its spine. Both use the same `s`, so their crests travel at
+    the same speed. */
+export const infinityBands = {
   outer: band(12, W, 28, 420),
   inner: band(6, 9, 56, 420),
+};
+
+/** Path data, at rest: what the page draws at first, and the README art and share cards. */
+export const infinityPaths = {
+  outer: infinityBands.outer(),
+  inner: infinityBands.inner(),
 };
 
 // The view box: the strands' bounds, with the same margin on every side, so a full-width figure on
