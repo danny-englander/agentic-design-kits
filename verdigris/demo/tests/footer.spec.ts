@@ -23,7 +23,7 @@ test('the footer marks the page you are on', async ({ page }) => {
   await expect(nav.getByRole('link', { name: 'Forms' })).not.toHaveAttribute('aria-current', 'page');
 });
 
-test('the footer stacks on a phone and splits in two from 768px', async ({ page }) => {
+test('the footer stacks on a phone, splits in two from 768px and in three from 1024px', async ({ page }) => {
   const columns = () =>
     page
       .locator('[data-panel-page] > .page > .site-footer .site-footer-inner')
@@ -31,8 +31,18 @@ test('the footer stacks on a phone and splits in two from 768px', async ({ page 
   await page.setViewportSize({ width: 375, height: 812 });
   await page.goto('/about');
   expect(await columns()).toBe(1);
-  await page.setViewportSize({ width: 1024, height: 800 });
+  await page.setViewportSize({ width: 800, height: 800 });
   expect(await columns()).toBe(2);
+  await page.setViewportSize({ width: 1024, height: 800 });
+  expect(await columns()).toBe(3);
+});
+
+test('the footer links to the landing page and the other kit, each with its mark', async ({ page }) => {
+  await page.goto('/');
+  const related = page.getByRole('contentinfo').getByRole('navigation', { name: 'Related sites' });
+  await expect(related.getByRole('link', { name: 'Agentic Design Kits' })).toHaveAttribute('href', 'https://www.agenticdesignkits.com');
+  await expect(related.getByRole('link', { name: 'Swiss Minimal' })).toHaveAttribute('href', 'https://www.swissminimal.ch');
+  await expect(related.locator('svg.site-footer-mark')).toHaveCount(2);
 });
 
 for (const path of WITHOUT_BAR) {

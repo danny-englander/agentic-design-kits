@@ -10,6 +10,7 @@ import Footer from '@agentic-design-kits/verdigris/astro/Footer.astro';
 import RecentDrawer from '../components/RecentDrawer.astro';
 import SiteMark from '../components/SiteMark.astro';
 import { menuFor } from '../data/menu';
+import { related } from '../data/related';
 import { features, latestFeatureDate } from '../data/features';
 import '../styles/global.css';
 
@@ -189,7 +190,7 @@ const tabs = [
 
   <slot />
 
-  <Footer slot="footer" name="Verdigris" description="A design kit for Astro and Tailwind v4." links={footerLinks}>
+  <Footer slot="footer" name="Verdigris" description="A design kit for Astro and Tailwind v4." links={footerLinks} related={related}>
     <Fragment slot="note">Designed by Danny Englander with Claude Code. Open to pull requests on <a href="https://github.com/danny-englander/agentic-design-kits/tree/main/verdigris">GitHub</a>.</Fragment>
   </Footer>
 
