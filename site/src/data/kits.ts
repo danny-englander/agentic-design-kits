@@ -83,24 +83,37 @@ export const highlights = [
       'Code blocks highlighted in the kit’s own colors, every one 4.5:1 or better in light and dark, with samples in several languages.',
   },
   {
-    title: 'Type that holds together',
+    title: 'Bespoke typography',
     path: '/type-and-color/',
     see: 'See it',
     summary:
       'One family per kit, a fixed scale and a few weights. Every type style and color token on one page, with its contrast ratio.',
   },
   {
-    title: 'Forms that work',
-    path: '/forms/',
+    title: 'Elegant galleries',
+    path: '/gallery/',
     see: 'See them',
     summary:
-      'Fields, a select, radios, switches, dates and a file picker, in working forms, with an export that streams its output live.',
+      'Artwork shown whole, in masonry columns or justified rows, each image with alt text and a caption.',
   },
   {
-    title: `${componentCount.swissMinimal} components`,
+    title: 'Accessible forms, beautifully styled',
+    path: '/forms/',
+    see: 'See them',
+    summary: 'Text fields, select lists, radios, switches, dates, a file picker, and more.',
+  },
+  {
+    title: 'A complete blog',
+    path: '/blog/',
+    see: 'See it',
+    summary:
+      'A featured post with a split or wide hero image, a dated index across pages, and posts written in plain Markdown.',
+  },
+  {
+    title: `${Math.floor(componentCount.swissMinimal / 10) * 10}+ components`,
     path: '/components/',
     see: 'See them',
-    summary: `Buttons to dialogs, menus to a whole blog, each with its markup and its don’ts. Verdigris adds ${componentCount.verdigris - componentCount.swissMinimal} of its own, ${componentCount.verdigris} in all.`,
+    summary: 'Buttons, cards, beautifully styled lists, dialogs, smooth slide-down panels.',
   },
 ];
 
