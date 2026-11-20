@@ -5,8 +5,11 @@
 //
 // `links` takes the same MenuItem[] as the menu: every item with an href is listed, nested ones
 // included, so the footer never needs its own list. The "note" slot holds a credit or a
-// copyright line (links allowed); the default slot adds anything under the links.
-import type { MenuItem } from './types';
+// copyright line (links allowed); the default slot adds anything under the links. `related`
+// lists a few other sites (a sister site, the project's home) in a column of their own: each
+// with that site's own mark in its own colors, if given, and ending with ↗; under the links up to
+// 1024px, a third column from there.
+import type { MenuItem, RelatedSite } from './types';
 
 interface Props {
   name: string;
@@ -14,11 +17,24 @@ interface Props {
   links?: MenuItem[];
   /** The links' landmark name. Give each footer on a page its own. */
   label?: string;
+  /** Links to other sites, in a third column. */
+  related?: RelatedSite[];
+  /** The related links' landmark name. */
+  relatedLabel?: string;
   tone?: 'paper' | 'bar';
   /** Utilities for spacing, e.g. "mt-0". */
   class?: string;
 }
-const { name, description, links = [], label = 'Footer', tone = 'paper', class: className } = Astro.props;
+const {
+  name,
+  description,
+  links = [],
+  label = 'Footer',
+  related = [],
+  relatedLabel = 'Related sites',
+  tone = 'paper',
+  class: className,
+} = Astro.props;
 
 const flatten = (items: MenuItem[]): MenuItem[] =>
   items.flatMap((item) => [...(item.href ? [item] : []), ...flatten(item.children ?? [])]);
@@ -47,6 +63,29 @@ const flat = flatten(links);
             </ul>
           )}
           <slot />
+        </nav>
+      )
+    }
+    {
+      related.length > 0 && (
+        <nav class="site-footer-related" aria-label={relatedLabel}>
+          <ul class="site-footer-links">
+            {related.map((site) => (
+              <li>
+                <a
+                  href={site.href}
+                  style={site.color && `--site-mark: ${site.color.light}; --site-mark-dark: ${site.color.dark}`}
+                >
+                  {site.mark && (
+                    <svg class="site-footer-mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                      <path d={site.mark} />
+                    </svg>
+                  )}
+                  {site.label}<span class="ext-arrow" aria-hidden="true">↗</span>
+                </a>
+              </li>
+            ))}
+          </ul>
         </nav>
       )
     }
