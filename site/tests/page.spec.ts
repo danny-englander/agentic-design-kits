@@ -65,26 +65,24 @@ test('a link preview gets the share card, at its full address', async ({ page, r
   expect([png.readUInt32BE(16), png.readUInt32BE(20)]).toEqual([1200, 630]);
 });
 
-test('shows what both kits have, with the number of components from the docs', async ({ page }) => {
+test('shows what both kits have, with the number of components from the docs, rounded down', async ({ page }) => {
   const { readFileSync } = await import('node:fs');
   const count = (path: string) => (readFileSync(new URL(path, import.meta.url), 'utf8').match(/^## /gm) ?? []).length;
-  const swissMinimal = count('../../COMPONENTS.md');
-  const verdigris = count('../../verdigris/COMPONENTS.md');
+  const components = `${Math.floor(count('../../COMPONENTS.md') / 10) * 10}+ components`;
   await page.goto('/');
   const section = page.locator('section[aria-labelledby="in-both"]');
-  await expect(section.locator('.card')).toHaveCount(4);
-  await expect(section).toContainText(`${swissMinimal} components`);
-  await expect(section).toContainText(`Verdigris adds ${verdigris - swissMinimal} of its own, ${verdigris} in all.`);
+  await expect(section.locator('.card')).toHaveCount(6);
+  await expect(section).toContainText(components);
   // Each card has a button for each kit's page, named with the card's title.
-  await expect(section.getByRole('link', { name: `See them in Swiss Minimal: ${swissMinimal} components` })).toHaveAttribute(
+  await expect(section.getByRole('link', { name: `See them in Swiss Minimal: ${components}` })).toHaveAttribute(
     'href',
     'https://www.swissminimal.ch/components/',
   );
-  await expect(section.getByRole('link', { name: 'See them in Verdigris: Forms that work' })).toHaveAttribute(
+  await expect(section.getByRole('link', { name: 'See them in Verdigris: Elegant galleries' })).toHaveAttribute(
     'href',
-    'https://www.verdigris.ch/forms/',
+    'https://www.verdigris.ch/gallery/',
   );
-  await expect(section.getByRole('link')).toHaveCount(8);
+  await expect(section.getByRole('link')).toHaveCount(12);
 });
 
 test('every button to another site ends with ↗, and none within the page does', async ({ page }) => {
@@ -119,4 +117,24 @@ test('a demo link carries the theme the visitor picked, and only then', async ({
   await page.goto('/');
   await page.getByRole('button', { name: /dark theme/i }).click();
   expect(await open('See it in Swiss Minimal: Beautiful code')).toBe('https://www.swissminimal.ch/beautiful-code/?theme=dark');
+});
+
+test('the infinity sign keeps flowing, and never moves with Reduce Motion on', async ({ page }) => {
+  const d = () => page.locator('.hero-art path').first().getAttribute('d');
+  // The config turns Reduce Motion on for every test; this one needs it off first.
+  await page.emulateMedia({ reducedMotion: 'no-preference' });
+  await page.goto('/');
+  let previous = await d();
+  for (const _ of [1, 2]) {
+    await expect.poll(d).not.toBe(previous);
+    previous = await d();
+  }
+  await page.waitForTimeout(6000);
+  await expect.poll(d).not.toBe(await d());
+
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.reload();
+  const still = await d();
+  await page.waitForTimeout(1000);
+  expect(await d()).toBe(still);
 });

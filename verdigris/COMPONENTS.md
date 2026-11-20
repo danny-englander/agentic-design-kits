@@ -495,7 +495,7 @@ Load `kit/jump.js` and `kit/marquee.js`. In Astro, `<BottomBar slot="overlays" l
 
 ## Footer
 
-The traditional footer at the end of the page. The site name, a line about the site and a quiet note (a credit, a copyright line) on the left; the site's links on the right, in two short columns. It stacks on phones and splits into two columns from 768px.
+The traditional footer at the end of the page. The site name, a line about the site and a quiet note (a credit, a copyright line) on the left; the site's links on the right, in two short columns. Links to a few related sites can follow in a column of their own. It stacks on phones and splits into two columns from 768px; with related sites, they go under the links, and from 1024px into a third column, with the site's links in the middle.
 
 **Markup.**
 
@@ -510,11 +510,22 @@ The traditional footer at the end of the page. The site name, a line about the s
     <nav aria-label="Footer">
       <ul class="site-footer-links"><li><a href="/about">About</a></li>…</ul>
     </nav>
+    <nav class="site-footer-related" aria-label="Related sites">
+      <ul class="site-footer-links">
+        <li>
+          <a href="https://www.example.com" style="--site-mark: #cc2812; --site-mark-dark: #ff4b2b">
+            <svg class="site-footer-mark" viewBox="0 0 24 24" aria-hidden="true"><path d="…" /></svg>Sister site<span class="ext-arrow" aria-hidden="true">↗</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
   </div>
 </footer>
 ```
 
 In Astro, `<Footer name="Site name" description="…" links={menu}><Fragment slot="note">© 2026 Site name.</Fragment></Footer>` in `BaseLayout`'s `footer` slot, which keeps it outside `<main>`. `links` takes the same `MenuItem[]` as the menu, and every item with an `href` is listed, nested ones included, so the footer never keeps its own list; the current page is underlined in the accent. The default slot adds anything under the links.
+
+- **Related sites.** `related` takes `RelatedSite[]`: a sister site, the project's home page, two or three at most. Each has a `label` and an `href`, ends with the ↗ of an external link, and may carry its site's own `mark` (the `d` of a filled path in a 24×24 box: the mark from that site's top bar) in that site's `color` (`{ light, dark }`), so a visitor knows it before reading the name. The column is a `nav` of its own, named by `relatedLabel` (default "Related sites").
 
 - **The rule.** It opens with the 2px rule every section starts with, `space-16` below the page above it.
 - **`--bar`** (`tone="bar"`) sets it on a dark `bar` block instead, like `page-title--bar`: for a site whose pages end on a light section and want a firm end.
@@ -522,7 +533,7 @@ In Astro, `<Footer name="Site name" description="…" links={menu}><Fragment slo
 - **Names.** The links sit in a `nav`; give each footer on a page its own `label` if there is more than one.
 - Keep it to the site's own pages and one or two outside links. It is not a second menu with sections and headings.
 
-**Don't.** Add a logo image, icons beside the links, a newsletter form or a column of social icons. A link to the site's page on a service says its name in text.
+**Don't.** Add a logo image, icons beside the site's own links (a related site's mark is the one exception), a newsletter form or a column of social icons. A link to the site's page on a service says its name in text.
 
 ## Dialog
 

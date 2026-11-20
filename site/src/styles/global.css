@@ -2,6 +2,15 @@
    from the kit's Tailwind entry. Page layout is utilities in the markup; site-only CSS below. */
 @import "@agentic-design-kits/swiss-minimal/tailwind.css";
 
+/* The page's own links ("Kits", "See the two kits", the prompts' install link) glide to their
+   section rather than jump, unless Reduce Motion is on (the kit then sets scroll-behavior back to
+   auto). The padding stops the sticky top bar covering where they land: the section's rule shows
+   under it. */
+html { scroll-padding-top: 6.75rem; }
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
+
 /* The hero's drawn art (HeroArt.astro): an infinity sign in azure, straight on the page. Azure is
    not this site's accent (vermilion is): like an image, the art keeps its own color. Each theme
    uses azure's own value for it, the lighter one on the dark page. */

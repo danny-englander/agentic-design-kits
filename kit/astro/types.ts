@@ -12,6 +12,16 @@ export interface MenuItem {
   children?: MenuItem[];
 }
 
+/** Another site, listed in the Footer's related column. */
+export interface RelatedSite {
+  label: string;
+  href: string;
+  /** That site's own mark, drawn before its name: the `d` of a filled path in a 24×24 box. */
+  mark?: string;
+  /** The mark's color on paper and on the dark page (and on a dark footer), that site's own. */
+  color?: { light: string; dark: string };
+}
+
 /** One numbered tab in the slide-down panel. Its content goes in the slot named after `id`. */
 export interface PanelTab {
   /** Also the deep link: #about opens the panel on this tab. No element on the page may use it as its id. */

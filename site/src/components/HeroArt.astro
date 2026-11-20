@@ -13,3 +13,47 @@ import { infinityPaths, infinityViewBox } from './infinity.ts';
   <path d={infinityPaths.outer}></path>
   <path d={infinityPaths.inner}></path>
 </svg>
+
+<script>
+  // The sign's flow: its outline stays put while the lattice inside slides along the curve,
+  // through the crossing and around, for as long as the sign is on screen. It eases in and out
+  // rather than jumping, rests while scrolled out of view, and never moves with Reduce Motion on.
+  import { infinityBands } from './infinity.ts';
+
+  const svg = document.querySelector<SVGSVGElement>('.hero-art');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)');
+  if (svg) {
+    const [outer, inner] = svg.querySelectorAll('path');
+    const LAP = 40_000; // ms for the pattern to travel once around the curve, at full speed
+    const EASE = 500; // ms for the speed to get most of the way to its target
+    let s = 0;
+    let speed = 0; // 0 to 1
+    let target = 0;
+    let last = 0;
+    let frame = 0;
+    let inView = false;
+
+    const tick = (now: number) => {
+      const dt = Math.min(now - last, 100);
+      last = now;
+      speed += (target - speed) * (1 - Math.exp(-dt / EASE));
+      s = (s + (2 * Math.PI * speed * dt) / LAP) % (2 * Math.PI);
+      outer.setAttribute('d', infinityBands.outer(s));
+      inner.setAttribute('d', infinityBands.inner(s));
+      frame = target === 0 && speed < 0.01 ? 0 : requestAnimationFrame(tick);
+    };
+    const update = () => {
+      target = inView && !reduce.matches ? 1 : 0;
+      if (target && !frame) {
+        last = performance.now();
+        frame = requestAnimationFrame(tick);
+      }
+    };
+
+    new IntersectionObserver(([entry]) => {
+      inView = entry.isIntersecting;
+      update();
+    }).observe(svg);
+    reduce.addEventListener('change', update);
+  }
+</script>

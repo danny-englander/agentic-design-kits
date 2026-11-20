@@ -1072,8 +1072,8 @@ a.post-header-label:hover { color: var(--accent-text); text-decoration: underlin
 
 /* ---------- Footer: the traditional one at the end of the page ---------- */
 /* Opens with the 2px rule every section starts with. The site name, a line about the site and
-   a quiet note on the left; the site's links on the right in two short columns. Stacks on
-   phones, two columns from 768px. --bar sets it on a dark block, like page-title--bar. */
+   a quiet note on the left; the site's links on the right in two short columns, and related sites,
+   if any, in a third from 1024px. Stacks on phones, two columns from 768px. --bar sets it on a dark block, like page-title--bar. */
 .site-footer {
   margin-top: 4rem; padding: 2.75rem 0 3rem 0;
   border-top: 2px solid currentColor;
@@ -1087,6 +1087,25 @@ a.post-header-label:hover { color: var(--accent-text); text-decoration: underlin
 @media (min-width: 768px) {
   .site-footer-inner { grid-template-columns: 1fr 1fr; gap: 2rem; }
   .site-footer--bar { padding: 2.5rem 2.5rem 3rem 2.5rem; }
+}
+/* Related sites: one column of their own. Under the links in the right-hand column up to 1024px;
+   from there a third column, and the site's links move to the middle. */
+.site-footer-related .site-footer-links { columns: 1; }
+/* Each related site's own mark, in its own colors (set on the link as --site-mark and
+   --site-mark-dark): a brand mark, like an image, so it keeps them on any site. The text's color
+   if none is given. 1.25rem, as in a top bar. */
+.site-footer-mark { display: inline-block; width: 1.25rem; height: 1.25rem; margin-right: 0.5rem; vertical-align: -0.25rem; fill: var(--site-mark, currentColor); }
+.site-footer--bar .site-footer-mark { fill: var(--site-mark-dark, currentColor); }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .site-footer-mark { fill: var(--site-mark-dark, currentColor); }
+}
+:root[data-theme="dark"] .site-footer-mark { fill: var(--site-mark-dark, currentColor); }
+@media (min-width: 768px) {
+  .site-footer-related { grid-column: 2; }
+}
+@media (min-width: 1024px) {
+  .site-footer-inner:has(> .site-footer-related) { grid-template-columns: 3fr 3fr 2fr; }
+  .site-footer-related { grid-column: auto; }
 }
 .site-footer-name { margin: 0; font-size: var(--size-900); font-weight: var(--weight-display); line-height: 1; letter-spacing: -0.025em; }
 .site-footer-text { margin: 1rem 0 0 0; max-width: 28rem; }
