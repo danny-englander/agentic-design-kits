@@ -7,6 +7,17 @@ import type { Feature } from '@agentic-design-kits/verdigris/types';
  */
 export const features: Feature[] = [
   {
+    date: '2026-11-20',
+    title: 'The footer links to related sites',
+    body: 'The footer can now list a few related sites in a column of their own, each with the mark from that site’s top bar, in its own colors. Here it links to agenticdesignkits.com, with its vermilion ∞, and to Swiss Minimal, with its Swiss cross in vermilion. From 1024px the footer has three columns: the name on the left, the site’s links in the middle and the related sites on the right.',
+    details: [
+      'In Astro, give `Footer` a `related` list of `RelatedSite`: a `label`, an `href`, and optionally a `mark` (the `d` of a filled path in a 24×24 box) and a `color` with `light` and `dark` values.',
+      'Each link ends with the ↗ of a link that leaves the site. The column is a `nav` of its own, named “Related sites” (`relatedLabel` changes it).',
+      'On a phone the footer stacks as before. From 768px the related sites go under the site’s links, and from 1024px into a third column.',
+      'A footer without `related` is unchanged. In plain HTML, the classes are `.site-footer-related` and `.site-footer-mark`.',
+    ],
+  },
+  {
     date: '2026-11-18',
     title: 'A gallery for artwork',
     body: 'A new Gallery shows artwork whole, each image at its own shape and never cropped, with alt text and a caption under each. It comes in two layouts, masonry columns and rows that share a height, both on the new Gallery page in the menu.',
