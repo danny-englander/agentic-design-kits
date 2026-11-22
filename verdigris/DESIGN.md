@@ -90,7 +90,8 @@ One family, `--font-sans` (Cormorant, falling back to Garamond, Iowan Old Style,
 | `h2` | Section title, 2.75rem then 3.75rem from 768px, 300, -0.025em |
 | `title` | A list item's name, 1.625rem then 1.875rem, 600, +0.01em |
 | `lead` | Intro paragraph, 1.75rem then 1.875rem from 768px, 300 italic |
-| `body` | Body copy, 1.375rem then 1.625rem from 768px, 500, line height 1.55, Garamond forms on (`ss02`) |
+| `h4` | A heading a step above body, in any context: `size-500` (1.75rem), 600, line height 1.3 |
+| `body` | Body copy, 1.25rem then 1.375rem from 768px, 500, line height 1.55, Garamond forms on (`ss02`) |
 | `small` | Meta, sublines, counts, 1.125rem |
 | `label` | 1 to 2 words, sentence case, 600 |
 | `code` | Code, file names, commands, keys: `--font-mono` at 0.68em, never under 0.875rem; a code block at 0.65em, never under 16px (the 18px floor is for Cormorant, not Source Code Pro) |
