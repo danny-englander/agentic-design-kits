@@ -60,7 +60,7 @@
   :root:not([data-theme="light"]), :root[data-accent]:not([data-theme="light"]) {
     --paper: #0b1716;
     --ink: #ece6d8;
-    --muted: #a6b5b0;
+    --muted: #b4c3be;
     --rule: #3a4a47;
     --accent: #51c297;
     --accent-ink: #0b1716;
@@ -84,7 +84,7 @@
 :root[data-theme="dark"], :root[data-accent][data-theme="dark"] {
   --paper: #0b1716;
   --ink: #ece6d8;
-  --muted: #a6b5b0;
+  --muted: #b4c3be;
   --rule: #3a4a47;
   --accent: #51c297;
   --accent-ink: #0b1716;
