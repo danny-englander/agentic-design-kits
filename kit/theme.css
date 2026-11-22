@@ -868,7 +868,7 @@ html[data-drawer-open] { overflow: hidden; }  /* stop the page scrolling behind 
 .card-title { margin: 0; font-size: var(--size-600); font-weight: var(--weight-display); line-height: 1.15; letter-spacing: -0.01em; }
 .card-title a { color: inherit; text-decoration: none; }
 .card-title a:hover { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 0.15em; }
-.card-summary { grid-column: 2; margin: 0.25rem 0 0 0; font-size: var(--size-200); line-height: 1.5; color: var(--muted); }
+.card-summary { grid-column: 2; margin: 0.25rem 0 0 0; color: var(--muted); }
 .card-tags { grid-column: 2; display: flex; flex-wrap: wrap; gap: 0.25rem 1.25rem; margin: 0.5rem 0 0 0; padding: 0; list-style: none; }
 .card-tags li { margin: 0; }
 .card > .btn-outline { grid-column: 2; justify-self: start; margin-top: 1rem; text-decoration: none; }
