@@ -46,10 +46,10 @@
   /* Type: every size, weight and label style below reads these, so a theme built on this kit
      can change its type here rather than rule by rule. */
   --size-100: 0.875rem;    /* the floor: labels, meta */
-  --size-200: 1rem;        /* chrome: top bar, panel, drawer, toast */
-  --size-300: 1.125rem;    /* body on phones; captions */
-  --size-400: 1.25rem;     /* body from 768px; list titles */
-  --size-500: 1.375rem;    /* lead on phones; pull quotes */
+  --size-200: 1rem;        /* body on phones; chrome: top bar, panel, drawer, toast */
+  --size-300: 1.125rem;    /* body from 768px; captions */
+  --size-400: 1.25rem;     /* list titles */
+  --size-500: 1.375rem;    /* h4; lead on phones; pull quotes */
   --size-600: 1.5rem;      /* lead from 768px; list titles from 768px */
   --size-700: 1.75rem;     /* small headings */
   --size-800: 2rem;
@@ -160,13 +160,13 @@ body {
   background: var(--paper);
   color: var(--ink);
   font-family: var(--font-sans);
-  font-size: var(--size-300);           /* body: 18px on phones, 20px from 768px (Tailwind text-lg, text-xl) */
+  font-size: var(--size-200);           /* body: 16px on phones, 18px from 768px (Tailwind text-base, text-lg) */
   line-height: var(--leading-body);
   font-weight: var(--weight-body);
   font-feature-settings: "kern", "liga";
   -webkit-font-smoothing: antialiased;
 }
-@media (min-width: 768px) { body { font-size: var(--size-400); } }
+@media (min-width: 768px) { body { font-size: var(--size-300); } }
 .page { max-width: var(--page-max); margin: 0 auto; padding: 0 var(--gutter); }
 
 :focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
@@ -209,6 +209,7 @@ button:disabled { cursor: not-allowed; }
 @media (min-width: 768px) { .h2 { font-size: var(--size-1000); } }
 .lead { font-size: var(--size-500); line-height: 1.375; }  /* a step above body text */
 @media (min-width: 768px) { .lead { font-size: var(--size-600); } }
+h4 { font-size: var(--size-500); font-weight: var(--weight-strong); line-height: 1.3; }  /* a heading a step above body, in any context */
 .title {                         /* a list item's name */
   font-size: var(--size-400);
   font-weight: var(--weight-strong);
