@@ -819,7 +819,7 @@ html[data-drawer-open] { overflow: hidden; }  /* stop the page scrolling behind 
 .dated-list time { font-size: var(--size-100); font-weight: var(--weight-strong); line-height: 1.375; color: var(--dl-date); }
 @media (min-width: 640px) { .dated-list time { padding-top: 0.2rem; } }
 .dated-list :is(h3, h4) { margin: 0; font-size: var(--size-300); font-weight: var(--weight-strong); line-height: 1.375; }
-.dated-list p { margin: 0.25rem 0 0 0; line-height: 1.375; }
+.dated-list p { margin: 0.25rem 0 0 0; }
 
 /* ---------- Post list: a blog's index, newest first ---------- */
 /* Built like the dated list, for the page: a 2px rule on top, thin rules between, the date over
