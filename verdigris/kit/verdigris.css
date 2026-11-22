@@ -107,9 +107,11 @@
 
 /* ---------- Type ---------- */
 body {
+  font-size: var(--size-200);   /* a step under Swiss Minimal's body: 20px on phones, 22px from 768px */
   font-feature-settings: "kern", "liga", "ss02";   /* Garamond forms: bigger counters for reading */
   font-variant-numeric: oldstyle-nums proportional-nums;
 }
+@media (min-width: 768px) { body { font-size: var(--size-300); } }
 .display, .h2, .page-title-text, .post-feature-title, .post-header-title {
   font-feature-settings: "kern", "liga", "dlig";
 }
