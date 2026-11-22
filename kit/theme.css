@@ -29,7 +29,7 @@
   --row-active-bg: var(--ink);  /* list row fill when active */
   --row-fg: var(--paper);       /* text on a filled row */
   --row-edge: var(--ink);       /* 6px left edge of the active row (invisible in light) */
-  --row-meta: var(--muted);     /* a list row's subline: muted in light, a notch brighter in dark */
+  --row-meta: var(--muted);     /* a list row's subline: muted in both themes; a kit built on this one may set its own */
   /* Code colors: the one place more color is allowed, and only inside pre and code (see
      "Code colors" in DESIGN.md). -bright is for a dark .pre--bar block, the same in both themes. */
   --code-keyword: #b3197c;      /* magenta: keywords (5.5:1 on paper) */
@@ -85,7 +85,7 @@
   :root:not([data-theme="light"]) {
     --paper: #0c0c0c;
     --ink: #f3f0e9;
-    --muted: #b9b5ab;
+    --muted: #d2d2d2;
     --rule: #686764;
     --accent: #ff4b2b;
     --accent-ink: #0c0c0c;
@@ -97,7 +97,6 @@
     --row-active-bg: var(--bar);
     --row-fg: var(--ink);
     --row-edge: var(--accent);
-    --row-meta: #ccc8bf;
     --code-keyword: #ff6fc4;
     --code-string: #4fd3dc;
     --code-constant: #ffa04a;
@@ -107,7 +106,7 @@
 :root[data-theme="dark"] {
   --paper: #0c0c0c;
   --ink: #f3f0e9;
-  --muted: #b9b5ab;
+  --muted: #d2d2d2;
   --rule: #686764;
   --accent: #ff4b2b;
   --accent-ink: #0c0c0c;
@@ -119,7 +118,6 @@
   --row-active-bg: var(--bar);
   --row-fg: var(--ink);
   --row-edge: var(--accent);
-  --row-meta: #ccc8bf;
   --code-keyword: #ff6fc4;
   --code-string: #4fd3dc;
   --code-constant: #ffa04a;
