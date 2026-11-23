@@ -191,7 +191,7 @@ const groups: { title: string; swatches: Swatch[] }[] = [
       {
         groups.map(({ title, swatches }) => (
           <div class="mb-12">
-            <h3 class="title mb-4">{title}</h3>
+            <h3 class="h3 mb-4">{title}</h3>
             <ul class="grid gap-x-6 gap-y-8 sm:grid-cols-2 lg:grid-cols-4">
               {swatches.map((s) => (
                 <li>
@@ -278,7 +278,7 @@ const groups: { title: string; swatches: Swatch[] }[] = [
       {
         otGroups.map((g) => (
           <div class="mb-16 border-t-2 border-ink pt-4" aria-labelledby={g.id}>
-            <h3 class="title" id={g.id}>{g.title}</h3>
+            <h3 class="h3" id={g.id}>{g.title}</h3>
             {g.intro && <p class="mt-1 max-w-3xl">{g.intro}</p>}
             {g.trio && (
               <ul class:list={['ot ot-trio mt-6 grid grid-cols-3 gap-4 border-b border-rule pb-6 text-center', g.trio.italic && 'italic']}>
@@ -352,7 +352,7 @@ const groups: { title: string; swatches: Swatch[] }[] = [
       }
 
       <div class="max-w-3xl border-t-2 border-ink pt-4">
-        <h3 class="title">Left out</h3>
+        <h3 class="h3">Left out</h3>
         <p class="mt-1">The font has these too. They are not on this page:</p>
         <ul class="mt-3 list-disc pl-6">
           {leftOut.map((l) => <li class="mb-2"><span class="font-semibold">{l.tags}.</span> {l.why}</li>)}
@@ -414,7 +414,7 @@ const groups: { title: string; swatches: Swatch[] }[] = [
       {
         glyphGroups.map((g) => (
           <div class="mb-12 border-t-2 border-ink pt-4" aria-labelledby={g.id}>
-            <h3 class="title" id={g.id}>{g.title}</h3>
+            <h3 class="h3" id={g.id}>{g.title}</h3>
             <p class="mt-1 max-w-3xl">{g.use}</p>
             <ul class="glyph-grid mt-5">
               {[...g.chars].map((c) => (
