@@ -58,7 +58,7 @@ const groups: { title: string; swatches: Swatch[] }[] = [
     title: 'The page',
     swatches: [
       { name: 'paper', utilities: 'bg-paper', chip: 'bg-paper', use: 'The page background.' },
-      { name: 'ink', utilities: 'text-ink, bg-ink', chip: 'bg-ink', use: 'Body text and the scotch rule.', against: 'paper' },
+      { name: 'ink', utilities: 'text-ink, bg-ink', chip: 'bg-ink', use: 'Body text, section titles and the scotch rule.', against: 'paper' },
       { name: 'muted', utilities: 'text-muted', chip: 'bg-muted', use: 'Secondary text: meta, captions, notes.', against: 'paper' },
       { name: 'rule', utilities: 'border-rule', chip: 'bg-rule', use: 'Thin dividers. Decorative, never the only edge of a control.', against: 'paper' },
     ],
@@ -75,7 +75,7 @@ const groups: { title: string; swatches: Swatch[] }[] = [
   {
     title: 'Copper',
     swatches: [
-      { name: 'copper-text', utilities: 'text-copper-text', chip: 'bg-copper-text', use: 'Headings, labels and small ornament. Never marks an action.', against: 'paper' },
+      { name: 'copper-text', utilities: 'text-copper-text', chip: 'bg-copper-text', use: 'h3 and h4 headings, labels and small ornament. Never marks an action.', against: 'paper' },
       { name: 'copper', utilities: 'text-copper, bg-copper', chip: 'bg-copper', use: 'Large ornament only.', against: 'paper' },
       { name: 'copper-bright', utilities: 'text-copper-bright', chip: 'bg-copper-bright', use: 'Copper on a bar, headings included.', against: 'bar' },
     ],
@@ -222,7 +222,7 @@ const groups: { title: string; swatches: Swatch[] }[] = [
       <div class="grid gap-8 md:grid-cols-2">
         <div class="border border-rule p-6">
           <h3 class="label mb-4">On paper</h3>
-          <p class="text-ink">Ink sets the body; copper sets the headings.</p>
+          <p class="text-ink">Ink sets the body and the section titles; copper the headings under them.</p>
           <p class="text-muted">Muted sets the meta under them.</p>
           <p><a class="link" href="#color">A verdigris link</a>, in <code>text-accent-text</code>.</p>
           <p class="label text-copper-text">A copper label</p>
