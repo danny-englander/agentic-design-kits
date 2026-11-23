@@ -591,7 +591,7 @@ html[data-drawer-open] .topbar { --tb-bg: var(--bar); --tb-fg: var(--bar-ink); }
 /* ---------- Slide-down panel (dark surface) ---------- */
 .panel {
   position: fixed; inset: 0 0 var(--bar-h) 0; z-index: 30;
-  font-size: var(--size-200); line-height: 1.5;  /* chrome, like the top bar: not body text's size */
+  font-size: var(--size-300); line-height: 1.6;  /* a step above the top bar's chrome, as the panel holds reading text */
   background: var(--bar); color: var(--bar-ink);
   transform: translateY(-100%);
   visibility: hidden;
