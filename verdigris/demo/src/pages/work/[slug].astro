@@ -20,16 +20,5 @@ const { item } = Astro.props;
     <h1 class="h2 mb-3">{item.title}</h1>
     {item.meta && <p class="small muted">{item.meta}</p>}
     {item.body?.map((p) => <p>{p}</p>)}
-    {
-      item.site && (
-        <p>
-          <a class="link" href={item.site} target="_blank" rel="noopener noreferrer">
-            Site
-            <span class="ext-arrow" aria-hidden="true">↗</span>
-            <span class="sr-only">(opens in a new tab)</span>
-          </a>
-        </p>
-      )
-    }
   </article>
 </SiteLayout>
