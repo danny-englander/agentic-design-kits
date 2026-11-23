@@ -95,6 +95,7 @@ One family, `--font-sans` (Overused Grotesk, falling back to Helvetica Neue, Hel
 
 - Every size, weight, line height and label style is a token at the top of `theme.css` (`--size-100` to `--size-1000`, `--size-display` and the other fluid sizes, `--weight-*`, `--leading-body`, `--leading-lead`, `--leading-small`, `--leading-tight`, `--label-case`, `--label-tracking`), so a theme built on this kit changes type in one place. A new rule uses these tokens, never a raw value.
 - **14px is the floor.** Nothing is smaller.
+- **A paragraph is never `muted`.** Every `p` is `ink`, whether body text or `small`: never put `muted` or `text-muted` on one. `muted` belongs to meta, dates, numbers and labels, and to the kit classes that set it themselves (captions, footnotes, a post's meta line).
 - Add `.num` (tabular numerals) to any number that lines up in a column.
 - Headings are tight, names slightly open. Never track body text.
 - Long labels that would otherwise be caps take `.prose-sentence`.
@@ -176,7 +177,7 @@ Photos, artwork, screenshots and product shots are welcome. The test is whether 
 - **Fixed shapes.** Use one of 1:1, 4:3, 3:2 or 16:9 and crop to fill (`.media` with `--ratio`). Images in one list share a ratio. The exception is a gallery of artwork (`Gallery`), which shows each image whole at its own shape.
 - **Color stays.** An image keeps its own colors; they do not count as adding a color to the palette. Do not recolor or desaturate to match.
 - **No text on images.** Titles and captions go beside or below. If text must sit on an image, put it on a solid `bar` block, never straight on the picture.
-- **Captions** go below in `size-300` and `muted`, left aligned, sentence case. Credits use the same style.
+- **Captions** go below in `size-200` and `muted`, left aligned, sentence case. Credits use the same style.
 - **Dark mode.** Do not dim or invert images. A light image on the dark page reads as a light block, which is fine; if the art has a dark version, swap it with the theme.
 - **Loading.** Give every image its width and height (or a ratio) so the page does not jump. The empty box fills with `rule` until it loads. Lazy-load everything except the hero.
 - **Alt text** says what the image shows in one sentence. An image that only repeats the text beside it gets `alt=""`.

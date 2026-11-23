@@ -98,6 +98,7 @@ One family, `--font-sans` (Cormorant, falling back to Garamond, Iowan Old Style,
 | `code` | Code, file names, commands, keys: `--font-mono` at 0.68em, never under 0.875rem; a code block at 0.65em, never under 16px (the 18px floor is for Cormorant, not Source Code Pro) |
 
 - **18px is the floor.** Cormorant's x-height is 0.386 of its size against Overused Grotesk's 0.5, so 18px reads about as tall as 14px there. Code is the exception, as its x-height is large.
+- **A paragraph is never `muted`.** Every `p` is `ink`, whether body text or `small`: never put `muted` or `text-muted` on one. `muted` belongs to meta, dates, numbers and labels, and to the kit classes that set it themselves (captions, footnotes, a post's meta line).
 - **Weight follows size.** Light at display sizes, medium for reading, semibold for names. Never light under 1.75rem: the hairlines disappear.
 - Figures are old-style in text. Add `.num` (lining, tabular) to any number that lines up in a column.
 - Ligatures (`dlig`, `hlig`) and calligraphic forms (`ss01`) are for display sizes only.
@@ -192,7 +193,7 @@ Photos, artwork, screenshots and product shots are welcome. The test is whether 
 - **Fixed shapes.** Use one of 1:1, 4:3, 3:2 or 16:9 and crop to fill (`.media` with `--ratio`). Images in one list share a ratio. The exception is a gallery of artwork (`Gallery`), which shows each image whole at its own shape.
 - **Color stays.** An image keeps its own colors; they do not count as adding a color to the palette. Do not recolor or desaturate to match.
 - **No text on images.** Titles and captions go beside or below. If text must sit on an image, put it on a solid `bar` block, never straight on the picture.
-- **Captions** go below in `size-300` and `muted`, left aligned, sentence case. Credits use the same style.
+- **Captions** go below in `size-200` and `muted`, left aligned, sentence case. Credits use the same style.
 - **Dark mode.** Do not dim or invert images. A light image on the dark page reads as a light block, which is fine; if the art has a dark version, swap it with the theme.
 - **Loading.** Give every image its width and height (or a ratio) so the page does not jump. The empty box fills with `rule` until it loads. Lazy-load everything except the hero.
 - **Alt text** says what the image shows in one sentence. An image that only repeats the text beside it gets `alt=""`.

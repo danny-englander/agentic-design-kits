@@ -185,7 +185,7 @@ An underline-only text field in large type: no box, no radius, a 2px `currentCol
 
 **Don't** add borders around the input or a background fill.
 
-**Required fields** get the font's own flower asterisk (⁕, U+2055) in the accent after the label: `accent-text` on the page, `accent-bright` on dark. There is no markup to add. Put `required` on the field and the mark appears on the label just before it, on the label before a `select-wrap` that holds one, and on a `choice-group`'s legend when one of its radios is required. For a label the CSS can't reach, add `data-required`. Screen readers skip the mark, because the field's own `required` already says it. Say once what the mark means, at the top of the form: `<p class="small muted"><span class="required-mark"></span>Required</p>`. Mark the required fields, not the optional ones, and leave the mark off a form where every field is required: put `data-required-marks="off"` on the `<form>` (or any wrapper), keep `required` on each field, and say it once in words in place of the mark's note: `<p class="small muted mb-6">Every field is required.</p>`.
+**Required fields** get the font's own flower asterisk (⁕, U+2055) in the accent after the label: `accent-text` on the page, `accent-bright` on dark. There is no markup to add. Put `required` on the field and the mark appears on the label just before it, on the label before a `select-wrap` that holds one, and on a `choice-group`'s legend when one of its radios is required. For a label the CSS can't reach, add `data-required`. Screen readers skip the mark, because the field's own `required` already says it. Say once what the mark means, at the top of the form: `<p class="small"><span class="required-mark"></span>Required</p>`. Mark the required fields, not the optional ones, and leave the mark off a form where every field is required: put `data-required-marks="off"` on the `<form>` (or any wrapper), keep `required` on each field, and say it once in words in place of the mark's note: `<p class="small mb-6">Every field is required.</p>`.
 
 **A longer answer** is a `<textarea>` with the same class: `<textarea class="field min-h-24 resize-y" id="message" name="message" rows="3"></textarea>` under its own `field-label`. It keeps the underline and the type, grows downward only (`resize-y`), and starts about three lines tall. No box around it either.
 
@@ -353,7 +353,7 @@ import Row from '@agentic-design-kits/swiss-minimal/astro/Row.astro';
 ```html
 <section class="rule-thick mb-16 pt-8" aria-labelledby="work">
   <div class="grid gap-1 pb-6 md:grid-cols-[var(--row-num)_1fr_2.75rem] md:items-baseline md:gap-x-2">
-    <p class="num small muted whitespace-nowrap font-medium md:pl-2">01–03</p>
+    <p class="num small whitespace-nowrap font-medium md:pl-2">01–03</p>
     <h2 class="h2" id="work">Selected work</h2>
   </div>
   <ul>
@@ -429,7 +429,7 @@ A part of a page that is not a numbered list: a form, a few paragraphs, a `CardG
 </section>
 ```
 
-- `mb-16` (`space-16`) between sections, none after the last. `mb-6` under the heading, or `mb-3` when a `small muted` line follows it.
+- `mb-16` (`space-16`) between sections, none after the last. `mb-6` under the heading, or `mb-3` when a `small` line follows it.
 - Keep running text to a measure (`max-w-2xl`); a list, grid or form may use the full width.
 - One `h2` per section, named by `aria-labelledby`. Don't add a range label to a section with nothing numbered in it, and don't use `Section.astro` for it: that one wraps its content in a `<ul>`.
 
@@ -906,7 +906,7 @@ One thing to go and look at, inside a section: a thin rule, a small label, a tit
 
 ```html
 <div class="cta">
-  <p class="label muted cta-label">Featured</p>
+  <p class="label cta-label">Featured</p>
   <h3 class="cta-title">Field notes</h3>
   <p class="cta-text">A short essay on working with a single typeface.</p>
   <a class="btn" href="/work/field-notes/" aria-label="Read it: Field notes">Read it</a>
@@ -946,7 +946,7 @@ In Astro, `<CardGrid cards={cards} />`, each a `Card` (`title`, `href`, `summary
 - No box. Each card opens with a 2px `ink` rule, the same as a section, with the number in a 3rem column beside the text.
 - The title is 1.5rem and bold, and underlines (2px) on hover. It links to the same place as the button.
 - The button is a `TertiaryButton` on a link, "Read this" unless `action` says otherwise. Its `aria-label` adds the title ("Read this: Why one typeface is enough"), so each one says where it goes.
-- The summary is 16px and `muted`. Write it as a teaser of two or three lines, so the cards stay close in height.
+- The summary is body text in `ink`, like any paragraph. Write it as a teaser of two or three lines, so the cards stay close in height.
 - Two, three or four cards, so a row never ends with a gap. Leave out `columns` for three, which stack until 1024px: three in two columns would leave one alone.
 
 **Don't.** Add a border, a tint or a shadow, or make the whole card a link. A long list of things to choose is a `ListRow`, and dated posts are a `PostList`.
