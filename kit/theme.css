@@ -817,7 +817,6 @@ html[data-drawer-open] { overflow: hidden; }  /* stop the page scrolling behind 
 .dated-list > li:last-child { border-bottom: 0; }
 @media (min-width: 640px) { .dated-list > li { grid-template-columns: 10rem 1fr; } }
 .dated-list time { font-weight: var(--weight-strong); color: var(--dl-date); }
-@media (min-width: 640px) { .dated-list time { padding-top: 0.2rem; } }
 .dated-list :is(h3, h4) { margin: 0; font-weight: var(--weight-strong); }
 .dated-list p { margin: 0.25rem 0 0 0; }
 
