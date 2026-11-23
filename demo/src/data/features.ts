@@ -15,6 +15,8 @@ export const features: Feature[] = [
       'A list row’s subline (`row-meta`) now follows `muted` in dark too, as `muted` is the brighter of the two.',
       '`.card-summary` and a dated list’s dates, titles and paragraphs no longer set a size or line height: they take the text around them, 18px then 20px from 768px on the page, 18px in the panel and 16px in the drawer.',
       'Any `h4`, in Markdown or markup, is `size-500` (22px) in the strong weight at a 1.3 line height.',
+      'Captions, footnotes and the footer note now share one size, `size-200` (16px), in `muted` at a 1.375 line height. Captions were 18px and the footer note 14px.',
+      'Line heights are tokens by role: `--leading-body`, `--leading-lead`, `--leading-small` and `--leading-tight`, so a theme changes each in one place.',
     ],
   },
   {

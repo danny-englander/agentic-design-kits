@@ -9,12 +9,14 @@ export const features: Feature[] = [
   {
     date: '2026-11-23',
     title: 'Brighter muted text in dark, and one size for reading',
-    body: 'In dark, muted text (dates, counts, sublines, captions) is a lighter green-gray, #b4c3be in place of #a6b5b0, so secondary lines read as easily as the rest. Body text is a step smaller, 20px on phones and 22px from 768px, and card summaries and a dated list’s notes now take that same size and line height, so all reading text on a page is set alike. An h4 has a style of its own, a step above body.',
+    body: 'In dark, muted text (dates, counts, sublines, captions) is a lighter green-gray, #b4c3be in place of #a6b5b0, so secondary lines read as easily as the rest. Body text is a step smaller, 20px on phones and 22px from 768px, and card summaries and a dated list’s notes now take that same size and line height, so all reading text on a page is set alike, blog posts included. Lines are a little tighter too, at 1.5 in place of 1.55. An h4 has a style of its own, a step above body.',
     details: [
       'Muted is 10.0:1 on the dark page. Light is unchanged.',
       'Body text was 22px then 26px. Verdigris now sets it itself, `size-200` then `size-300`, a step under Swiss Minimal’s.',
       '`.card-summary` and a dated list’s dates, titles and paragraphs no longer set a size or line height: they take the text around them.',
       'Any `h4`, in Markdown or markup, is `size-500` (28px) in the semibold weight at a 1.3 line height.',
+      'A post’s paragraphs were larger than the page’s, up to 26px, while its lists were not. Now every paragraph and list item in a post is body text, and a post header’s lead is the same style as any other lead.',
+      'Captions, footnotes and the footer note now share one size, `size-200` (20px), in `muted` at a 1.4 line height.',
     ],
   },
   {
