@@ -13,7 +13,6 @@ export interface WorkItem {
   /** Only items with a slug get their own page. */
   slug?: string;
   meta?: string;
-  site?: string;
   body?: string[];
 }
 
@@ -24,7 +23,6 @@ const items: WorkItem[] = [
     year: 2026,
     slug: 'field-notes',
     meta: 'Essay, 2026 · 12 min read',
-    site: 'https://example.com/field-notes',
     body: [
       'A short essay on working with a single typeface. Notes kept over a year of small projects, on what one family can carry when weight and size do all the work.',
       'The argument is simple: fewer choices make the remaining ones visible. A heading is a heading because of its size, not its color or its box.',

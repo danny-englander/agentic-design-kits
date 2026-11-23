@@ -4,6 +4,12 @@ import type { MenuItem } from '@agentic-design-kits/swiss-minimal/types';
 // redirect.
 const menu: MenuItem[] = [
   { label: 'Home', href: '/' },
+  { label: 'Components', href: '/components/' },
+  { label: 'Gallery', href: '/gallery/' },
+  { label: 'Forms', href: '/forms/' },
+  { label: 'Type and color', href: '/type-and-color/' },
+  { label: 'Beautiful Code', href: '/beautiful-code/' },
+  { label: 'Agents', href: '/agents/' },
   {
     label: 'Work',
     children: [
@@ -18,12 +24,6 @@ const menu: MenuItem[] = [
   },
   { label: 'Blog', href: '/blog/' },
   { label: 'About', href: '/about/' },
-  { label: 'Forms', href: '/forms/' },
-  { label: 'Components', href: '/components/' },
-  { label: 'Gallery', href: '/gallery/' },
-  { label: 'Type and color', href: '/type-and-color/' },
-  { label: 'Beautiful Code', href: '/beautiful-code/' },
-  { label: 'Agents', href: '/agents/' },
 ];
 
 /** "/about/" and "/about" are the same page. */

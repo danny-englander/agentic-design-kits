@@ -327,7 +327,7 @@ An accordion on the page itself (not in the panel), built on native `<details>`:
 
 A section of numbered rows: a 2px `ink` rule, a header on the shared grid, then rows divided by 1px `rule` that fill when active, and while the link or button in them is hovered or focused.
 
-The subline under a row's name is `row-meta muted`: a step under the title (`size-300`) in the `row-meta` color, which is `muted` in light and a notch brighter in dark. `muted` beside it lets the row's fill turn it to `row-fg` with the rest.
+The subline under a row's name is `row-meta muted`: a step under the title (`size-300`) in the `row-meta` color, which is `muted` (a kit built on this one may brighten it in dark). `muted` beside it lets the row's fill turn it to `row-fg` with the rest.
 
 **In Astro,** `kit/astro/Section.astro` and `kit/astro/Row.astro` write all of it:
 

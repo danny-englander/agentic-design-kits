@@ -1,7 +1,6 @@
 ---
 import SiteLayout from '../layouts/SiteLayout.astro';
 import Hero from '@agentic-design-kits/swiss-minimal/astro/Hero.astro';
-import Ellipse from '@agentic-design-kits/swiss-minimal/astro/Ellipse.astro';
 import landscape from '../assets/landscape.jpg';
 ---
 
@@ -18,49 +17,4 @@ import landscape from '../assets/landscape.jpg';
       almost no decoration, and <a class="link" href="/agents/">works well with AI agents</a>.
     </p>
   </Hero>
-  <article class="max-w-2xl pb-16 [&>p]:mb-5">
-    <p>
-      This page exists to check the type scale on running text. Body copy sits at 20px with a line height of
-      1.8 (18px on phones), which keeps paragraphs open and easy to read at length. Headings rely on size and weight alone; there are
-      no colored headings, no boxes and no icons to prop them up.
-    </p>
-    <p>
-      The palette is three colors and a vermilion. Cream paper, near-black ink, a muted grey for secondary text,
-      and one brand vermilion, a red leaning toward orange, kept for large shapes and the focus ring. Small
-      vermilion text uses a darker tone on the page so it still passes contrast.
-    </p>
-    <p>
-      Each page of the menu has its own link. Write to us on the <a class="link" href="#contact">contact page</a>,
-      or see the <a class="link" href="#features">features</a> and when each arrived.
-    </p>
-    <p>
-      Code is the one place a second family appears. To start a site,
-      install <code>@agentic-design-kits/swiss-minimal</code> from npm and import the kit from your
-      global stylesheet; press <kbd>Tab</kbd> to see the focus ring.
-    </p>
-    <pre class="mb-5" tabindex="0"><code>@import "@agentic-design-kits/swiss-minimal/tailwind.css";
-/* site-only CSS below */</code></pre>
-    <p>
-      Terminal output and logs sit on a dark block, the same in both themes, with commands in bold and
-      errors in the accent.
-    </p>
-    <pre class="pre--bar mb-5" tabindex="0"><code><span class="pre-cmd">$ npm run release -- --dry-run</span>
-Tag v2026.10.21, notes from the Features list
-<span class="pre-err">Stopped: main is behind origin/main. Pull first.</span></code></pre>
-    <p>
-      Abbreviations go in an oval badge. Pays homage to international car decals. Allows for 2–4 large block
-      letters.
-    </p>
-    <div class="mb-5 flex flex-wrap items-center gap-4">
-      <Ellipse code="CH" label="Switzerland" class="text-5xl" />
-      <Ellipse code="CH" label="Switzerland" solid class="text-5xl" />
-      <Ellipse code="DE" label="German" class="text-2xl" />
-      <Ellipse code="FR" label="French" class="text-2xl" />
-      <Ellipse code="NL" label="Netherlands" solid />
-      <Ellipse code="USA" label="United States" />
-    </div>
-    <p class="small muted">
-      Set in Overused Grotesk, released under the SIL Open Font License 1.1.
-    </p>
-  </article>
 </SiteLayout>

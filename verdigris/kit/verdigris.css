@@ -60,7 +60,7 @@
   :root:not([data-theme="light"]), :root[data-accent]:not([data-theme="light"]) {
     --paper: #0b1716;
     --ink: #ece6d8;
-    --muted: #a6b5b0;
+    --muted: #b4c3be;
     --rule: #3a4a47;
     --accent: #51c297;
     --accent-ink: #0b1716;
@@ -84,7 +84,7 @@
 :root[data-theme="dark"], :root[data-accent][data-theme="dark"] {
   --paper: #0b1716;
   --ink: #ece6d8;
-  --muted: #a6b5b0;
+  --muted: #b4c3be;
   --rule: #3a4a47;
   --accent: #51c297;
   --accent-ink: #0b1716;
@@ -107,9 +107,11 @@
 
 /* ---------- Type ---------- */
 body {
+  font-size: var(--size-200);   /* a step under Swiss Minimal's body: 20px on phones, 22px from 768px */
   font-feature-settings: "kern", "liga", "ss02";   /* Garamond forms: bigger counters for reading */
   font-variant-numeric: oldstyle-nums proportional-nums;
 }
+@media (min-width: 768px) { body { font-size: var(--size-300); } }
 .display, .h2, .page-title-text, .post-feature-title, .post-header-title {
   font-feature-settings: "kern", "liga", "dlig";
 }
