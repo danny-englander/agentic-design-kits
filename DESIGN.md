@@ -85,14 +85,15 @@ One family, `--font-sans` (Overused Grotesk, falling back to Helvetica Neue, Hel
 | `display` | Hero title, `clamp(4rem, 13vw, 10.5rem)`, 700, line height 0.88, -0.02em |
 | `h2` | Section title, 2.25rem then 3rem from 768px, 700, -0.025em |
 | `title` | A list item's name, 1.25rem then 1.5rem, 700, +0.01em |
-| `lead` | Intro paragraph, 1.375rem then 1.5rem from 768px, a step above body |
+| `lead` | Intro paragraph, 1.375rem then 1.5rem from 768px, a step above body, line height 1.375. A post header's lead is the same style |
 | `h4` | A heading a step above body, in any context: `size-500` (1.375rem), 700, line height 1.3 |
-| `body` | Body copy, 1.125rem (`text-lg`) then 1.25rem (`text-xl`) from 768px, line height 1.8. The top bar, drawer and toast stay at 1rem / 1.5; the panel is 1.125rem / 1.6 |
-| `small` | Meta, sublines, counts, 0.875rem |
+| `body` | Body copy, 1.125rem (`text-lg`) then 1.25rem (`text-xl`) from 768px, line height 1.8. Every paragraph, list item, card summary and post paragraph is set this way: no reading text has a size of its own. The top bar, drawer and toast stay at 1rem / 1.5; the panel is 1.125rem / 1.6 |
+| `small` | Meta, sublines, counts, 0.875rem, line height 1.375 |
+| `note` | Captions, footnotes and the footer note: `size-200` (1rem), `muted`, line height 1.375 |
 | `label` | 1 to 2 words, uppercase, 500, 0.08em |
 | `code` | Code, file names, commands, keys: `--font-mono` at 0.875em of the text around it, never under 0.875rem |
 
-- Every size, weight, body line height and label style is a token at the top of `theme.css` (`--size-100` to `--size-1000`, `--size-display` and the other fluid sizes, `--weight-*`, `--leading-body`, `--label-case`, `--label-tracking`), so a theme built on this kit changes type in one place. A new rule uses these tokens, never a raw value.
+- Every size, weight, line height and label style is a token at the top of `theme.css` (`--size-100` to `--size-1000`, `--size-display` and the other fluid sizes, `--weight-*`, `--leading-body`, `--leading-lead`, `--leading-small`, `--leading-tight`, `--label-case`, `--label-tracking`), so a theme built on this kit changes type in one place. A new rule uses these tokens, never a raw value.
 - **14px is the floor.** Nothing is smaller.
 - Add `.num` (tabular numerals) to any number that lines up in a column.
 - Headings are tight, names slightly open. Never track body text.

@@ -89,10 +89,11 @@ One family, `--font-sans` (Cormorant, falling back to Garamond, Iowan Old Style,
 | `display` | Hero title, `clamp(4.75rem, 12.4vw, 11rem)`, 300, line height 0.88, -0.02em |
 | `h2` | Section title, 2.75rem then 3.75rem from 768px, 300, -0.025em |
 | `title` | A list item's name, 1.625rem then 1.875rem, 600, +0.01em |
-| `lead` | Intro paragraph, 1.75rem then 1.875rem from 768px, 300 italic |
+| `lead` | Intro paragraph, 1.75rem then 1.875rem from 768px, 300 italic, line height 1.22. A post header's lead is the same style |
 | `h4` | A heading a step above body, in any context: `size-500` (1.75rem), 600, line height 1.3 |
-| `body` | Body copy, 1.25rem then 1.375rem from 768px, 500, line height 1.55, Garamond forms on (`ss02`) |
-| `small` | Meta, sublines, counts, 1.125rem |
+| `body` | Body copy, 1.25rem then 1.375rem from 768px, 500, line height 1.5, Garamond forms on (`ss02`). Every paragraph, list item, card summary and post paragraph is set this way: no reading text has a size of its own |
+| `small` | Meta, sublines, counts, 1.125rem, line height 1.4 |
+| `note` | Captions, footnotes and the footer note: `size-200` (1.25rem), `muted`, line height 1.4; captions italic |
 | `label` | 1 to 2 words, sentence case, 600 |
 | `code` | Code, file names, commands, keys: `--font-mono` at 0.68em, never under 0.875rem; a code block at 0.65em, never under 16px (the 18px floor is for Cormorant, not Source Code Pro) |
 
@@ -100,7 +101,7 @@ One family, `--font-sans` (Cormorant, falling back to Garamond, Iowan Old Style,
 - **Weight follows size.** Light at display sizes, medium for reading, semibold for names. Never light under 1.75rem: the hairlines disappear.
 - Figures are old-style in text. Add `.num` (lining, tabular) to any number that lines up in a column.
 - Ligatures (`dlig`, `hlig`) and calligraphic forms (`ss01`) are for display sizes only.
-- Every size, weight, body line height and label style is a token at the top of `theme.css`, set for Verdigris in `verdigris.css`. A new rule uses these tokens, never a raw value.
+- Every size, weight, line height (`--leading-body`, `--leading-lead`, `--leading-small`, `--leading-tight`) and label style is a token at the top of `theme.css`, set for Verdigris in `verdigris.css`. A new rule uses these tokens, never a raw value.
 - Code is plain HTML, no class, as in Swiss Minimal; see CodeBlock in `COMPONENTS.md`. Monospace never goes beyond code.
 
 ### OpenType features
