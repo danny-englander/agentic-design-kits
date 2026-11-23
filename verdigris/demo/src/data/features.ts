@@ -17,6 +17,7 @@ export const features: Feature[] = [
       'Any `h4`, in Markdown or markup, is `size-500` (28px) in the semibold weight at a 1.3 line height.',
       'A post’s paragraphs were larger than the page’s, up to 26px, while its lists were not. Now every paragraph and list item in a post is body text, and a post header’s lead is the same style as any other lead.',
       'Captions, footnotes and the footer note now share one size, `size-200` (20px), in `muted` at a 1.4 line height.',
+      'No paragraph is muted any more: every `p` is `ink`, card summaries included, and `muted` is left to meta, dates, numbers and labels.',
     ],
   },
   {

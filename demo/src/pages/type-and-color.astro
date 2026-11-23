@@ -150,7 +150,7 @@ const groups: { title: string; accent?: boolean; swatches: Swatch[] }[] = [
           <h3 class="label mb-2">Figures</h3>
           <p class="text-4xl font-bold">1234567890</p>
           <p class="num text-4xl font-bold">1234567890</p>
-          <p class="small muted mt-2">
+          <p class="small mt-2">
             Proportional in text, tabular with <code>.num</code>. <a class="link" href="#opentype">Every OpenType feature</a>.
           </p>
         </div>
@@ -159,12 +159,12 @@ const groups: { title: string; accent?: boolean; swatches: Swatch[] }[] = [
           <p class="text-4xl">Regular 400</p>
           <p class="text-4xl font-medium">Medium 500</p>
           <p class="text-4xl font-bold">Bold 700</p>
-          <p class="small muted mt-2">Body, then labels and chrome, then headings and names.</p>
+          <p class="small mt-2">Body, then labels and chrome, then headings and names.</p>
         </div>
         <div class="border-t-2 border-ink pt-3">
           <h3 class="label mb-2">Code</h3>
           <p class="text-2xl"><code>const grid = 12;</code></p>
-          <p class="small muted mt-2">Source Code Pro, for <code>code</code> and <code>pre</code> only.</p>
+          <p class="small mt-2">Source Code Pro, for <code>code</code> and <code>pre</code> only.</p>
         </div>
       </div>
     </section>
@@ -189,7 +189,7 @@ const groups: { title: string; accent?: boolean; swatches: Swatch[] }[] = [
                   <p class="small"><code>{s.utilities}</code></p>
                   {accent ? (
                     (['vermilion', 'azure'] as const).map((a) => (
-                      <p class="small num muted">
+                      <p class="small num">
                         {a === 'vermilion' ? 'Vermilion' : 'Azure'}
                         <br />
                         {line(s, 'light', a)}
@@ -198,13 +198,13 @@ const groups: { title: string; accent?: boolean; swatches: Swatch[] }[] = [
                       </p>
                     ))
                   ) : (
-                    <p class="small num muted">
+                    <p class="small num">
                       {line(s, 'light')}
                       <br />
                       {line(s, 'dark')}
                     </p>
                   )}
-                  {s.against && <p class="small num muted">on {s.against}</p>}
+                  {s.against && <p class="small num">on {s.against}</p>}
                   <p class="small mt-1">{s.use}</p>
                 </li>
               ))}
@@ -225,9 +225,9 @@ const groups: { title: string; accent?: boolean; swatches: Swatch[] }[] = [
           <p><a class="link" href="#color">An accent link</a>, in <code>text-accent-text</code>.</p>
           <p class="label text-accent-text">A label</p>
           <p class="mt-4 text-5xl font-bold text-accent">Accent</p>
-          <p class="small muted">The plain accent at large sizes only.</p>
+          <p class="small">The plain accent at large sizes only.</p>
           <hr class="my-4 border-0 border-t border-rule" />
-          <p class="small muted">A rule divider above, in <code>border-rule</code>.</p>
+          <p class="small">A rule divider above, in <code>border-rule</code>.</p>
         </div>
         <div class="bg-bar p-6 text-bar-ink">
           <h3 class="label mb-4 text-accent-bright">On a bar</h3>

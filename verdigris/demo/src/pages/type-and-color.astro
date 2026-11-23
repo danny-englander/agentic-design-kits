@@ -153,18 +153,18 @@ const groups: { title: string; swatches: Swatch[] }[] = [
           <h3 class="label mb-2">Figures</h3>
           <p class="text-4xl font-light">1234567890</p>
           <p class="num text-4xl font-light">1234567890</p>
-          <p class="small text-muted mt-2">Old-style in text, lining and tabular with <code>.num</code>.</p>
+          <p class="small mt-2">Old-style in text, lining and tabular with <code>.num</code>.</p>
         </div>
         <div class="border-t border-ink pt-3">
           <h3 class="label mb-2">Italic voice</h3>
           <p class="text-4xl font-light italic">Hedera &amp; patina</p>
-          <p class="small text-muted mt-2">Leads, captions, the current page and quotations.</p>
+          <p class="small mt-2">Leads, captions, the current page and quotations.</p>
         </div>
         <div class="border-t border-ink pt-3">
           <h3 class="label mb-2">Letterforms</h3>
           <p class="text-4xl font-light [font-feature-settings:'hlig','dlig','liga']">fifth, strict, act</p>
           <p class="text-4xl font-light [font-feature-settings:'ss01']">Queen Quartz</p>
-          <p class="small text-muted mt-2">
+          <p class="small mt-2">
             Ligatures and calligraphic forms, for display sizes only. <a class="link" href="#opentype">Every feature, off and on</a>.
           </p>
         </div>
@@ -188,7 +188,7 @@ const groups: { title: string; swatches: Swatch[] }[] = [
                   <div class:list={['h-24 border border-rule', s.chip]} aria-hidden="true" />
                   <p class="mt-3 font-semibold">{s.name}</p>
                   <p class="small"><code>{s.utilities}</code></p>
-                  <p class="small num text-muted">
+                  <p class="small num">
                     Light {hex(s.name, 'light')}
                     {s.against && `, ${ratio(s.name, s.against, 'light')}`}
                     <br />
@@ -220,9 +220,9 @@ const groups: { title: string; swatches: Swatch[] }[] = [
             <span class="text-5xl font-light text-accent">Patina</span>
             <span class="text-5xl font-light text-copper">Copper</span>
           </p>
-          <p class="small text-muted">Accent and copper at large sizes only.</p>
+          <p class="small">Accent and copper at large sizes only.</p>
           <hr class="my-4 border-0 border-t border-rule" />
-          <p class="small text-muted">A rule divider above, in <code>border-rule</code>.</p>
+          <p class="small">A rule divider above, in <code>border-rule</code>.</p>
         </div>
         <div class="bg-bar p-6 text-bar-ink">
           <h3 class="label mb-4 text-copper-bright">On a bar</h3>
@@ -383,7 +383,7 @@ const groups: { title: string; swatches: Swatch[] }[] = [
                 ))
               }
             </div>
-            <p class="small mt-3 text-muted" data-play-note aria-live="polite"></p>
+            <p class="small mt-3" data-play-note aria-live="polite"></p>
           </fieldset>
         </div>
         <div class="min-w-0">

@@ -25,7 +25,7 @@ const { num, name, classes, wide } = Astro.props;
   <span class="small md:self-baseline md:pl-2"><NumCircle value={num} accent /></span>
   <div class="md:col-start-2 md:self-baseline">
     <h3 class="title">{name}</h3>
-    {classes && <p class="muted mt-1"><code>{classes}</code></p>}
+    {classes && <p class="mt-1"><code>{classes}</code></p>}
     <p class="mt-3 max-w-md"><slot name="about" /></p>
   </div>
   <!-- The column gap stays the section header's, so the names line up under its h2 -->
