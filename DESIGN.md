@@ -86,7 +86,8 @@ One family, `--font-sans` (Overused Grotesk, falling back to Helvetica Neue, Hel
 | `h2` | Section title, 2.25rem then 3rem from 768px, 700, -0.025em |
 | `title` | A list item's name, 1.25rem then 1.5rem, 700, +0.01em |
 | `lead` | Intro paragraph, 1.375rem then 1.5rem from 768px, a step above body, line height 1.375. A post header's lead is the same style |
-| `h4` | A heading a step above body, in any context: `size-500` (1.375rem), 700, line height 1.3 |
+| `h3` | A heading under a section's `h2`: a plain `h3`, or `.h3` on any element. `size-600` (1.5rem) then `size-700` (1.75rem) from 768px, 700, line height 1.15, -0.01em. An `h3` with a class (`.title`, `.label`) takes only its class |
+| `h4` | A heading a step above body, in any context (`h4` or `.h4`): `size-500` (1.375rem), 700, line height 1.3 |
 | `body` | Body copy, 1.125rem (`text-lg`) then 1.25rem (`text-xl`) from 768px, line height 1.8. Every paragraph, list item, card summary and post paragraph is set this way: no reading text has a size of its own. The top bar, drawer and toast stay at 1rem / 1.5; the panel is 1.125rem / 1.6 |
 | `small` | Meta, sublines, counts, 0.875rem, line height 1.375 |
 | `note` | Captions, footnotes and the footer note: `size-200` (1rem), `muted`, line height 1.375 |
