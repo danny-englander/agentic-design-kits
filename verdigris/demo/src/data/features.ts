@@ -19,6 +19,7 @@ export const features: Feature[] = [
       'Captions, footnotes and the footer note now share one size, `size-200` (20px), in `muted` at a 1.4 line height.',
       'No paragraph is muted any more: every `p` is `ink`, card summaries included, and `muted` is left to meta, dates, numbers and labels.',
       'The primary button’s colors are tokens on `.btn`: `--btn-bg`, `--btn-fg` and `--btn-hover-bg`. Its hover mixes 15% of ink into the fill in place of a brightness filter, so the text’s contrast rises: 7.5:1 in light and 9:1 in dark.',
+      'A plain h3 has a style of its own, between a section’s h2 and h4: `size-600`, then `size-700` from 768px, in the strong weight. `.h3` and `.h4` give the heading styles to any element, and Type and color now shows H2, H3 and H4 headings in turn.',
     ],
   },
   {
