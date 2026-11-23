@@ -213,7 +213,12 @@ button:disabled { cursor: not-allowed; }
 @media (min-width: 768px) { .h2 { font-size: var(--size-1000); } }
 .lead { font-size: var(--size-500); line-height: var(--leading-lead); }  /* a step above body text */
 @media (min-width: 768px) { .lead { font-size: var(--size-600); } }
-h4 { font-size: var(--size-500); font-weight: var(--weight-strong); line-height: var(--leading-tight); }  /* a heading a step above body, in any context */
+/* Headings under a section's .h2, in any context: h3 a step under it, h4 a step above body.
+   A plain h3 takes the h3 style; an h3 with a class (.title, .label, .card-title…) takes only its
+   class, so this style never leaks into it. .h3 and .h4 give the styles to any element. */
+h3:not([class]), .h3 { font-size: var(--size-600); font-weight: var(--weight-strong); line-height: 1.15; letter-spacing: -0.01em; }
+@media (min-width: 768px) { h3:not([class]), .h3 { font-size: var(--size-700); } }
+h4, .h4 { font-size: var(--size-500); font-weight: var(--weight-strong); line-height: var(--leading-tight); }
 .title {                         /* a list item's name */
   font-size: var(--size-400);
   font-weight: var(--weight-strong);
@@ -828,7 +833,7 @@ html[data-drawer-open] { overflow: hidden; }  /* stop the page scrolling behind 
 .dated-list > li:last-child { border-bottom: 0; }
 @media (min-width: 640px) { .dated-list > li { grid-template-columns: 10rem 1fr; } }
 .dated-list time { font-weight: var(--weight-strong); color: var(--dl-date); }
-.dated-list :is(h3, h4) { margin: 0; font-weight: var(--weight-strong); }
+.dated-list :is(h3, h4) { margin: 0; font-size: inherit; font-weight: var(--weight-strong); line-height: inherit; letter-spacing: 0; }  /* at the text's size */
 .dated-list p { margin: 0.25rem 0 0 0; }
 
 /* ---------- Post list: a blog's index, newest first ---------- */
@@ -954,7 +959,7 @@ a.post-header-label:hover { color: var(--accent-text); text-decoration: underlin
   font-size: var(--size-700); font-weight: var(--weight-display); line-height: 1.1; letter-spacing: -0.02em;
 }
 @media (min-width: 768px) { .post-body h2 { font-size: var(--size-900); } }
-.post-body h3 { margin: 2rem 0 0.5rem 0; font-size: var(--size-400); font-weight: var(--weight-strong); line-height: 1.25; letter-spacing: 0.01em; }
+.post-body h3 { margin: 2rem 0 0.5rem 0; }  /* the plain h3 style, above */
 .post-body > :first-child { margin-top: 0; }
 .post-body a { color: inherit; text-decoration: underline; text-underline-offset: 4px; }
 .post-body a:hover { color: var(--accent-text); }
