@@ -13,7 +13,7 @@ export const features: Feature[] = [
     details: [
       'Muted is 10.0:1 on the dark page. Light is unchanged.',
       'Body text was 22px then 26px. Verdigris now sets it itself, `size-200` then `size-300`, a step under Swiss Minimal’s.',
-      '`.card-summary` and a dated list’s paragraphs and titles no longer set a size or line height: they take the text around them.',
+      '`.card-summary` and a dated list’s dates, titles and paragraphs no longer set a size or line height: they take the text around them.',
       'Any `h4`, in Markdown or markup, is `size-500` (28px) in the semibold weight at a 1.3 line height.',
     ],
   },

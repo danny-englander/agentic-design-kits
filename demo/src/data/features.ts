@@ -13,7 +13,7 @@ export const features: Feature[] = [
     details: [
       'Muted is 14.3:1 on the dark page and 12.6:1 on the bar. Light is unchanged.',
       'A list row’s subline (`row-meta`) now follows `muted` in dark too, as `muted` is the brighter of the two.',
-      '`.card-summary` and a dated list’s paragraphs and titles no longer set a size or line height: they take the text around them, 18px then 20px from 768px on the page, 16px in the panel and drawer.',
+      '`.card-summary` and a dated list’s dates, titles and paragraphs no longer set a size or line height: they take the text around them, 18px then 20px from 768px on the page, 16px in the panel and drawer.',
       'Any `h4`, in Markdown or markup, is `size-500` (22px) in the strong weight at a 1.3 line height.',
     ],
   },
