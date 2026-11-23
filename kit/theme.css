@@ -888,8 +888,6 @@ html[data-drawer-open] { overflow: hidden; }  /* stop the page scrolling behind 
 }
 .card > .label { padding-top: 0.25rem; }
 .card-title { margin: 0; font-size: var(--size-600); font-weight: var(--weight-display); line-height: 1.15; letter-spacing: -0.01em; }
-.card-title a { color: inherit; text-decoration: none; }
-.card-title a:hover { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 0.15em; }
 .card-summary { grid-column: 2; margin: 0.25rem 0 0 0; }
 .card-tags { grid-column: 2; display: flex; flex-wrap: wrap; gap: 0.25rem 1.25rem; margin: 0.5rem 0 0 0; padding: 0; list-style: none; }
 .card-tags li { margin: 0; }
@@ -897,7 +895,7 @@ html[data-drawer-open] { overflow: hidden; }  /* stop the page scrolling behind 
 
 /* ---------- Post feature: one post at the top of a blog's index ---------- */
 /* Built like .hero--split: text and a square image 50/50 from 768px, stacked text first on
-   phones, with a hero's space around it (.post-feature--wide, below, stacks it at every width). A small accent-text label, the title as a link, the
+   phones, with a hero's space around it (.post-feature--wide, below, stacks it at every width). A small accent-text label, the title (a heading, not a link), the
    summary in lead size, a meta line and the primary button. The image is cropped square. */
 .post-feature { display: grid; gap: 2.5rem; padding: 3rem 0 4rem 0; }
 @media (min-width: 768px) {
@@ -913,8 +911,6 @@ html[data-drawer-open] { overflow: hidden; }  /* stop the page scrolling behind 
   font-size: var(--size-post-feature); font-weight: var(--weight-display); line-height: 0.95; letter-spacing: -0.02em;
   overflow-wrap: break-word;
 }
-.post-feature-title a { color: inherit; text-decoration: none; }
-.post-feature-title a:hover { text-decoration: underline; text-decoration-thickness: 3px; text-underline-offset: 0.12em; }
 .post-feature-summary { margin: 1.5rem 0 0 0; max-width: 32rem; }
 .post-feature-meta { margin: 1rem 0 0 0; font-size: var(--size-200); line-height: var(--leading-small); color: var(--muted); }
 .post-feature .btn { margin-top: 2rem; text-decoration: none; }

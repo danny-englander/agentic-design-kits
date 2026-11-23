@@ -5,6 +5,7 @@
 // cropped square; a landscape image goes under text that runs the full width, cropped 16:9.
 // Import the image so Astro knows its size. For something other than a raster image, such as an
 // SVG that follows the theme, leave out image and alt and fill the media slot instead.
+// The title is a heading, not a link: the button is the one link to the post.
 import { Image } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 import type { Post } from './types';
@@ -38,9 +39,7 @@ const date = new Date(post.date).toLocaleDateString('en-US', {
 <article class:list={['post-feature', { 'post-feature--wide': wide }]}>
   <div>
     <p class="post-feature-label">{label}</p>
-    <Title class="post-feature-title">
-      <a href={post.href}>{post.title}</a>
-    </Title>
+    <Title class="post-feature-title">{post.title}</Title>
     {post.summary && <p class="lead post-feature-summary">{post.summary}</p>}
     <p class="post-feature-meta">
       <time datetime={post.date}>{date}</time>{post.meta && ` · ${post.meta}`}
