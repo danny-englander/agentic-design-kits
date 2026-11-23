@@ -933,7 +933,7 @@ A few linked things side by side, each with a number, a title, a short teaser, u
 <ul class="card-grid">
   <li class="card">
     <span class="label num muted">01</span>
-    <h3 class="card-title"><a href="/blog/one-typeface/">Why one typeface is enough</a></h3>
+    <h3 class="card-title">Why one typeface is enough</h3>
     <p class="card-summary">A site set in a single grotesque, at two weights, has fewer decisions to get wrong and a clearer voice. Here is what the constraint buys.</p>
     <ul class="card-tags">
       <li class="label muted">Type</li>
@@ -946,7 +946,7 @@ A few linked things side by side, each with a number, a title, a short teaser, u
 In Astro, `<CardGrid cards={cards} />`, each a `Card` (`title`, `href`, `summary`, optional `tags`, `action` and `external`, which ends the button with ↗ for a card that goes to another site; the type is in `kit/astro/types.ts`). `columns={2}` (`.card-grid--2`) makes two across from 768px: use it for two or four cards. `start={2}` starts the numbers at 2, for cards that carry on from something numbered before them. `level="h2"` under a `PageTitle`.
 
 - No box. Each card opens with a scotch rule, the same as a section, with the number in a 3rem column beside the text.
-- The title is 1.875rem and light, and underlines (2px) on hover. It links to the same place as the button.
+- The title is 1.875rem and light. It isn't a link: the button is the card's one link, so each card is one tab stop and every word in it can be selected.
 - The button is a `TertiaryButton` on a link, "Read this" unless `action` says otherwise. Its `aria-label` adds the title ("Read this: Why one typeface is enough"), so each one says where it goes.
 - The summary is body text in `ink`, like any paragraph. Write it as a teaser of two or three lines, so the cards stay close in height.
 - Two, three or four cards, so a row never ends with a gap. Leave out `columns` for three, which stack until 1024px: three in two columns would leave one alone.
@@ -992,7 +992,7 @@ One post at the top of a blog's index, in one of two layouts. **Split**, like a 
 <article class="post-feature">
   <div>
     <p class="post-feature-label">Featured</p>
-    <h2 class="post-feature-title"><a href="/blog/one-typeface/">Why one typeface is enough</a></h2>
+    <h2 class="post-feature-title">Why one typeface is enough</h2>
     <p class="lead post-feature-summary">A site set in a single grotesque…</p>
     <p class="post-feature-meta"><time datetime="2026-10-20">Oct 20, 2026</time> · Type · 2 min read</p>
     <a class="btn" href="/blog/one-typeface/" aria-label="Read post: Why one typeface is enough">Read post</a>
@@ -1004,7 +1004,7 @@ One post at the top of a blog's index, in one of two layouts. **Split**, like a 
 In Astro, `<PostFeature post={post} image={art} alt="What it shows" />`, with the same `Post` as `PostList` and an imported image. The image's shape picks the layout: wide for a landscape image, split for a square or portrait one. `layout="wide"` or `layout="split"` overrides it. `label` (default "Featured") and `action` (default "Read post") change the two short labels; `level="h1"` when nothing else on the page is the `h1`.
 
 - It takes a hero's place and space: `space-12` above, more from 768px. A page with a `PostFeature` has no `Hero` or `PageTitle`; give it an `h1` (visually hidden is fine) naming the page.
-- The label is 20px, semibold and `accent-text`; the title is light at `clamp(2.75rem, 5.5vw, 5.25rem)`, and underlines (3px) on hover.
+- The label is 20px, semibold and `accent-text`; the title is light at `clamp(2.75rem, 5.5vw, 5.25rem)`. The title isn't a link: the button is the one link to the post.
 - The primary button is the page's one main action. Its name adds the post's title, so it says where it goes.
 - Split crops the image square (`.media--1x1`); wide crops it 16:9 (`.media--16x9`) and adds `post-feature--wide` to the article, which also gives the summary a longer measure. Either way it loads eagerly, like a hero's. Give wide a landscape original and split a square or portrait one, so the crop takes little.
 - Only one per page. Don't repeat the featured post in the list below it.
