@@ -90,7 +90,7 @@ One family, `--font-sans` (Cormorant, falling back to Garamond, Iowan Old Style,
 | `h2` | Section title, 2.75rem then 3.75rem from 768px, 300, -0.025em. In `ink`: its size marks it, and its light hairlines need ink to hold |
 | `title` | A list item's name, 1.625rem then 1.875rem, 600, +0.01em |
 | `lead` | Intro paragraph, 1.75rem then 1.875rem from 768px, 300 italic, line height 1.22. A post header's lead is the same style |
-| `h3` | A heading under a section's `h2`: a plain `h3`, or `.h3` on any element. `size-600` (1.875rem) then `size-700` (2.125rem) from 768px, 600, line height 1.15, -0.01em. An `h3` with a class (`.title`, `.label`) takes only its class. In `copper-text` (`copper-bright` on `bar`) |
+| `h3` | A heading under a section's `h2`: a plain `h3`, or `.h3` on any element. A subheading is always `h3` or `.h3`, never `.title`, which is a name in a list. `size-600` (1.875rem) then `size-700` (2.125rem) from 768px, 600, line height 1.15, -0.01em. An `h3` with a class (`.title`, `.label`) takes only its class. In `copper-text` (`copper-bright` on `bar`) |
 | `h4` | A heading a step above body, in any context (`h4` or `.h4`): `size-500` (1.75rem), 600, line height 1.3. In `copper-text` (`copper-bright` on `bar`) |
 | `body` | Body copy, 1.25rem then 1.375rem from 768px, 500, line height 1.5, Garamond forms on (`ss02`). Every paragraph, list item, card summary and post paragraph is set this way: no reading text has a size of its own |
 | `small` | Meta, sublines, counts, 1.125rem, line height 1.4 |
