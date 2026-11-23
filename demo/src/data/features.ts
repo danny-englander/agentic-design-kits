@@ -19,6 +19,7 @@ export const features: Feature[] = [
       'No paragraph is muted any more: every `p` is `ink`, card summaries included, and `muted` is left to meta, dates, numbers and labels.',
       'The primary button’s colors are tokens on `.btn`: `--btn-bg`, `--btn-fg` and `--btn-hover-bg`. Its hover mixes 15% of ink into the fill in place of a brightness filter, so the text keeps at least 6.6:1 (the filter left white on light vermilion at 4.47:1).',
       'A plain h3 has a style of its own, between a section’s h2 and h4: `size-600`, then `size-700` from 768px, in the strong weight. `.h3` and `.h4` give the heading styles to any element, and Type and color now shows H2, H3 and H4 headings in turn.',
+      'Headings take their color from two new tokens, `--heading-color` and `--heading-color-bar`. Here they stay the text’s own color; Verdigris sets them to copper.',
       'Line heights are tokens by role: `--leading-body`, `--leading-lead`, `--leading-small` and `--leading-tight`, so a theme changes each in one place.',
     ],
   },
