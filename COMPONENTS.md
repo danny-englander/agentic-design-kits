@@ -65,7 +65,9 @@ A small label under a button saying what it does ("Menu", "Switch to dark theme"
 
 The one filled button: `accent-text` fill, `accent-ink` text, sentence case, 1.125rem bold. It is the same size as a `SecondaryButton`, and the only place the accent fills a small area.
 
-**Markup.** `<button class="btn">Send</button>`. At least 2.75rem tall, padding 0.6rem 1.25rem, a 1px border in the fill's color, square corners. Hover brightens it slightly (`filter: brightness(1.12)`); `:disabled` drops to 60% opacity with a progress cursor.
+**Markup.** `<button class="btn">Send</button>`. At least 2.75rem tall, padding 0.6rem 1.25rem, a 1px border in the fill's color, square corners. On hover the fill takes 15% of `ink`, darker in light and lighter in dark, so the text's contrast only rises; `:disabled` drops to 60% opacity with a progress cursor.
+
+**Tokens.** Its colors are set on `.btn`, as the outline button's are: `--btn-bg` (the fill and border, `accent-text`), `--btn-fg` (the text, `accent-ink`) and `--btn-hover-bg` (`color-mix(in srgb, var(--btn-bg) 85%, var(--ink))`). A theme or a site changes the primary button there, without changing `accent-text` everywhere else. Check the text against both fills when you do: 4.5:1 at least.
 
 **Use it** for the single primary action of a view (submit a form, start playback, subscribe). One per view, so in a `.btn-group` it comes first, followed by `SecondaryButton`s. Everything else is a secondary or tertiary button, an outlined button or a link.
 
