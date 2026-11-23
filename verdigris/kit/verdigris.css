@@ -53,7 +53,7 @@
   --leading-body: 1.5;     /* 33px lines from 768px, 30px on phones */
   --leading-lead: 1.22;
   --leading-small: 1.4;
-  --heading-color: var(--copper-text);     /* h2 to h4 in copper: ornament at a size that reads */
+  --heading-color: var(--copper-text);     /* h3 and h4 in copper, like rubrics; h2 stays ink */
   --heading-color-bar: var(--copper-bright);
   --label-case: none;      /* no capitals anywhere: see DESIGN.md */
   --label-tracking: 0;

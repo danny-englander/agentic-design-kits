@@ -69,7 +69,7 @@
   --leading-lead: 1.375;   /* the lead paragraph */
   --leading-small: 1.375;  /* small text: meta, captions, footnotes, notes */
   --leading-tight: 1.3;    /* controls, fields, panel sub-items, h4, pull quote */
-  --heading-color: currentColor;  /* h2 to h4: the text's own color; a theme may set its own */
+  --heading-color: currentColor;  /* h3 and h4: the text's own color; a theme may set its own */
   --heading-color-bar: currentColor;  /* the same on a dark surface (panel, drawer, bars) */
   --label-case: uppercase;       /* every small label; set to none for a theme with no capitals */
   --label-tracking: 0.08em;      /* labels */
@@ -221,10 +221,10 @@ button:disabled { cursor: not-allowed; }
 h3:not([class]), .h3 { font-size: var(--size-600); font-weight: var(--weight-strong); line-height: 1.15; letter-spacing: -0.01em; }
 @media (min-width: 768px) { h3:not([class]), .h3 { font-size: var(--size-700); } }
 h4, .h4 { font-size: var(--size-500); font-weight: var(--weight-strong); line-height: var(--leading-tight); }
-/* Section headings and h2 to h4 take --heading-color: the text's own color unless a theme sets one.
-   An h3 or h4 with a class (.title, a name in a list) keeps the text's color. On a dark surface
-   headings take --heading-color-bar instead. */
-.h2, .h3, .h4, .post-body h2, :is(h3, h4):not([class]) { color: var(--heading-color); }
+/* h3 and h4 take --heading-color: the text's own color unless a theme sets one. An h2 never does:
+   size marks it. An h3 or h4 with a class (.title, a name in a list) keeps the text's color. On a
+   dark surface they take --heading-color-bar instead. */
+.h3, .h4, :is(h3, h4):not([class]) { color: var(--heading-color); }
 :is(.panel, .drawer, .bottom-bar, .page-title--bar, .site-footer--bar) { --heading-color: var(--heading-color-bar); }
 .title {                         /* a list item's name */
   font-size: var(--size-400);
