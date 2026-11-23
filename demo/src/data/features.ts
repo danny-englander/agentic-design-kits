@@ -7,6 +7,17 @@ import type { Feature } from '@agentic-design-kits/swiss-minimal/types';
  */
 export const features: Feature[] = [
   {
+    date: '2026-11-22',
+    title: 'Brighter muted text in dark, and one size for reading',
+    body: 'In dark, muted text (dates, counts, sublines, captions) is a brighter gray, #dcdcdc in place of #b9b5ab, so secondary lines read as easily as the rest. Card summaries and a dated list’s notes now take the body’s size and line height, so all reading text on a page is set alike, and an h4 has a style of its own, a step above body.',
+    details: [
+      'Muted is 14.3:1 on the dark page and 12.6:1 on the bar. Light is unchanged.',
+      'A list row’s subline (`row-meta`) now follows `muted` in dark too, as `muted` is the brighter of the two.',
+      '`.card-summary` and a dated list’s paragraphs and titles no longer set a size or line height: they take the text around them, 18px then 20px from 768px on the page, 16px in the panel and drawer.',
+      'Any `h4`, in Markdown or markup, is `size-500` (22px) in the strong weight at a 1.3 line height.',
+    ],
+  },
+  {
     date: '2026-11-20',
     title: 'The footer links to related sites',
     body: 'The footer can now list a few related sites in a column of their own, each with the mark from that site’s top bar, in its own colors. Here it links to agenticdesignkits.com, with its vermilion ∞, and to Verdigris, with its ❦ fleuron in verdigris green. From 1024px the footer has three columns: the name on the left, the site’s links in the middle and the related sites on the right.',
