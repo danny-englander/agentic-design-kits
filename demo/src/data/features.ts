@@ -17,6 +17,7 @@ export const features: Feature[] = [
       'Any `h4`, in Markdown or markup, is `size-500` (22px) in the strong weight at a 1.3 line height.',
       'Captions, footnotes and the footer note now share one size, `size-200` (16px), in `muted` at a 1.375 line height. Captions were 18px and the footer note 14px.',
       'No paragraph is muted any more: every `p` is `ink`, card summaries included, and `muted` is left to meta, dates, numbers and labels.',
+      'The primary button’s colors are tokens on `.btn`: `--btn-bg`, `--btn-fg` and `--btn-hover-bg`. Its hover mixes 15% of ink into the fill in place of a brightness filter, so the text keeps at least 6.6:1 (the filter left white on light vermilion at 4.47:1).',
       'Line heights are tokens by role: `--leading-body`, `--leading-lead`, `--leading-small` and `--leading-tight`, so a theme changes each in one place.',
     ],
   },

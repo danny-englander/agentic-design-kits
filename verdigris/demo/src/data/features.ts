@@ -18,6 +18,7 @@ export const features: Feature[] = [
       'A post’s paragraphs were larger than the page’s, up to 26px, while its lists were not. Now every paragraph and list item in a post is body text, and a post header’s lead is the same style as any other lead.',
       'Captions, footnotes and the footer note now share one size, `size-200` (20px), in `muted` at a 1.4 line height.',
       'No paragraph is muted any more: every `p` is `ink`, card summaries included, and `muted` is left to meta, dates, numbers and labels.',
+      'The primary button’s colors are tokens on `.btn`: `--btn-bg`, `--btn-fg` and `--btn-hover-bg`. Its hover mixes 15% of ink into the fill in place of a brightness filter, so the text’s contrast rises: 7.5:1 in light and 9:1 in dark.',
     ],
   },
   {
