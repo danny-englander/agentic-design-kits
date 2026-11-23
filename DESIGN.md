@@ -87,7 +87,7 @@ One family, `--font-sans` (Overused Grotesk, falling back to Helvetica Neue, Hel
 | `title` | A list item's name, 1.25rem then 1.5rem, 700, +0.01em |
 | `lead` | Intro paragraph, 1.375rem then 1.5rem from 768px, a step above body |
 | `h4` | A heading a step above body, in any context: `size-500` (1.375rem), 700, line height 1.3 |
-| `body` | Body copy, 1.125rem (`text-lg`) then 1.25rem (`text-xl`) from 768px, line height 1.8. The top bar, panel, drawer and toast stay at 1rem / 1.5 |
+| `body` | Body copy, 1.125rem (`text-lg`) then 1.25rem (`text-xl`) from 768px, line height 1.8. The top bar, drawer and toast stay at 1rem / 1.5; the panel is 1.125rem / 1.6 |
 | `small` | Meta, sublines, counts, 0.875rem |
 | `label` | 1 to 2 words, uppercase, 500, 0.08em |
 | `code` | Code, file names, commands, keys: `--font-mono` at 0.875em of the text around it, never under 0.875rem |
