@@ -40,7 +40,7 @@ A link from another site can carry the visitor's choice as `?theme=light` or `?t
 - **Ornament earns its place.** Decoration is allowed, within limits: it comes from the font first, it never carries meaning alone, and a page uses each large ornament once. See Ornament.
 - **Scotch rule, thin rule.** A scotch rule (thick and thin, read as one) starts each section. Rows are separated by a 1px `rule`, with none after the last one.
 - **One grid.** Section headings, list rows and descriptions share the same columns.
-- **Two metals.** `accent` (verdigris) marks the one thing that matters on a screen. Copper is for labels and ornament, and never marks an action.
+- **Two metals.** `accent` (verdigris) marks the one thing that matters on a screen. Copper is for headings, labels and ornament, and never marks an action.
 - **No capitals.** No all-caps text and no small caps, anywhere. See Content and voice.
 - **Flat.** No shadows, gradients or glass in the interface. The kit's six round marks stay, and the rosette is line art, not a surface.
 
@@ -70,9 +70,9 @@ A link from another site can carry the visitor's choice as `?theme=light` or `?t
 
 Light is the default. Dark keeps the same roles.
 
-- Page: `paper` ground, `ink` text and rules, `muted` for secondary text, `rule` for thin dividers.
+- Page: `paper` ground, `ink` text and rules, `copper-text` headings (`--heading-color`), `muted` for secondary text, `rule` for thin dividers.
 - **Verdigris has three tokens, by size and ground.** `accent` is for large shapes and the focus ring only. Small text on `paper` uses `accent-text`; on a dark surface, `accent-bright`. Never set small text in plain `accent` (3.4:1 on light `paper`).
-- **Copper has three too:** `copper` for large ornament, `copper-text` for labels and small ornament on `paper`, `copper-bright` on `bar`. Copper never marks an action, an active state or a link.
+- **Copper has three too:** `copper` for large ornament, `copper-text` for headings (`h2` to `h4`), labels and small ornament on `paper`, `copper-bright` on `bar`. Copper never marks an action, an active state or a link.
 - The primary button is `accent-text` with `accent-ink` text.
 - **Dark surfaces stay dark in both themes.** The panel, the drawer, the top bar while either is open, a bottom bar and the toast are `bar` with `bar-ink` text, a green-black in both themes.
 - Small labels on `bar` are semibold `accent-bright` or `copper-bright`, never faded white.
@@ -87,11 +87,11 @@ One family, `--font-sans` (Cormorant, falling back to Garamond, Iowan Old Style,
 | Style | Use |
 | --- | --- |
 | `display` | Hero title, `clamp(4.75rem, 12.4vw, 11rem)`, 300, line height 0.88, -0.02em |
-| `h2` | Section title, 2.75rem then 3.75rem from 768px, 300, -0.025em |
+| `h2` | Section title, 2.75rem then 3.75rem from 768px, 300, -0.025em. In `copper-text` (`copper-bright` on `bar`) |
 | `title` | A list item's name, 1.625rem then 1.875rem, 600, +0.01em |
 | `lead` | Intro paragraph, 1.75rem then 1.875rem from 768px, 300 italic, line height 1.22. A post header's lead is the same style |
-| `h3` | A heading under a section's `h2`: a plain `h3`, or `.h3` on any element. `size-600` (1.875rem) then `size-700` (2.125rem) from 768px, 600, line height 1.15, -0.01em. An `h3` with a class (`.title`, `.label`) takes only its class |
-| `h4` | A heading a step above body, in any context (`h4` or `.h4`): `size-500` (1.75rem), 600, line height 1.3 |
+| `h3` | A heading under a section's `h2`: a plain `h3`, or `.h3` on any element. `size-600` (1.875rem) then `size-700` (2.125rem) from 768px, 600, line height 1.15, -0.01em. An `h3` with a class (`.title`, `.label`) takes only its class. In `copper-text` (`copper-bright` on `bar`) |
+| `h4` | A heading a step above body, in any context (`h4` or `.h4`): `size-500` (1.75rem), 600, line height 1.3. In `copper-text` (`copper-bright` on `bar`) |
 | `body` | Body copy, 1.25rem then 1.375rem from 768px, 500, line height 1.5, Garamond forms on (`ss02`). Every paragraph, list item, card summary and post paragraph is set this way: no reading text has a size of its own |
 | `small` | Meta, sublines, counts, 1.125rem, line height 1.4 |
 | `note` | Captions, footnotes and the footer note: `size-200` (1.25rem), `muted`, line height 1.4; captions italic |
@@ -103,7 +103,7 @@ One family, `--font-sans` (Cormorant, falling back to Garamond, Iowan Old Style,
 - **Weight follows size.** Light at display sizes, medium for reading, semibold for names. Never light under 1.75rem: the hairlines disappear.
 - Figures are old-style in text. Add `.num` (lining, tabular) to any number that lines up in a column.
 - Ligatures (`dlig`, `hlig`) and calligraphic forms (`ss01`) are for display sizes only.
-- Every size, weight, line height (`--leading-body`, `--leading-lead`, `--leading-small`, `--leading-tight`) and label style is a token at the top of `theme.css`, set for Verdigris in `verdigris.css`. A new rule uses these tokens, never a raw value.
+- Every size, weight, line height (`--leading-body`, `--leading-lead`, `--leading-small`, `--leading-tight`), heading color (`--heading-color`, `--heading-color-bar`) and label style is a token at the top of `theme.css`, set for Verdigris in `verdigris.css`. A new rule uses these tokens, never a raw value.
 - Code is plain HTML, no class, as in Swiss Minimal; see CodeBlock in `COMPONENTS.md`. Monospace never goes beyond code.
 
 ### OpenType features

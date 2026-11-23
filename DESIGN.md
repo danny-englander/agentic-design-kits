@@ -94,7 +94,7 @@ One family, `--font-sans` (Overused Grotesk, falling back to Helvetica Neue, Hel
 | `label` | 1 to 2 words, uppercase, 500, 0.08em |
 | `code` | Code, file names, commands, keys: `--font-mono` at 0.875em of the text around it, never under 0.875rem |
 
-- Every size, weight, line height and label style is a token at the top of `theme.css` (`--size-100` to `--size-1000`, `--size-display` and the other fluid sizes, `--weight-*`, `--leading-body`, `--leading-lead`, `--leading-small`, `--leading-tight`, `--label-case`, `--label-tracking`), so a theme built on this kit changes type in one place. A new rule uses these tokens, never a raw value.
+- Every size, weight, line height and label style is a token at the top of `theme.css` (`--size-100` to `--size-1000`, `--size-display` and the other fluid sizes, `--weight-*`, `--leading-body`, `--leading-lead`, `--leading-small`, `--leading-tight`, `--heading-color`, `--heading-color-bar`, `--label-case`, `--label-tracking`), so a theme built on this kit changes type in one place. A new rule uses these tokens, never a raw value.
 - **14px is the floor.** Nothing is smaller.
 - **A paragraph is never `muted`.** Every `p` is `ink`, whether body text or `small`: never put `muted` or `text-muted` on one. `muted` belongs to meta, dates, numbers and labels, and to the kit classes that set it themselves (captions, footnotes, a post's meta line).
 - Add `.num` (tabular numerals) to any number that lines up in a column.
