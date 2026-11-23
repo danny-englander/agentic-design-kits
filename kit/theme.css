@@ -482,12 +482,19 @@ html[data-drawer-open] .topbar { --tb-bg: var(--bar); --tb-fg: var(--bar-ink); }
   min-height: 2.75rem; padding: 0.6rem 1.25rem;
   font: inherit; font-size: var(--size-300); font-weight: var(--weight-strong); line-height: 1.2; white-space: nowrap;
 }
-.btn {                           /* the primary button, the one filled button */
-  border: 1px solid var(--accent-text);
-  background: var(--accent-text);
-  color: var(--accent-ink);
+/* The primary button, the one filled button. Its colors are tokens, like the outline button's:
+   a theme sets them on .btn. The hover mixes 15% of ink into the fill, which darkens it in light
+   and lightens it in dark, so the text's contrast only rises (6.6:1 at the least). */
+.btn {
+  --btn-bg: var(--accent-text);
+  --btn-fg: var(--accent-ink);
+  --btn-hover-bg: color-mix(in srgb, var(--btn-bg) 85%, var(--ink));
+  border: 1px solid var(--btn-bg);
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  transition: background-color 150ms, border-color 150ms;
 }
-.btn:hover { filter: brightness(1.12); }
+.btn:hover { background: var(--btn-hover-bg); border-color: var(--btn-hover-bg); }
 .btn:disabled { opacity: 0.6; cursor: progress; }
 
 /* Filter buttons: outlined, sentence case (labels can run to several words), filled when chosen.
