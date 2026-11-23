@@ -70,9 +70,9 @@ A link from another site can carry the visitor's choice as `?theme=light` or `?t
 
 Light is the default. Dark keeps the same roles.
 
-- Page: `paper` ground, `ink` text and rules, `copper-text` headings (`--heading-color`), `muted` for secondary text, `rule` for thin dividers.
+- Page: `paper` ground, `ink` text, section titles (`h2`) and rules, `copper-text` for `h3` and `h4` (`--heading-color`), `muted` for secondary text, `rule` for thin dividers.
 - **Verdigris has three tokens, by size and ground.** `accent` is for large shapes and the focus ring only. Small text on `paper` uses `accent-text`; on a dark surface, `accent-bright`. Never set small text in plain `accent` (3.4:1 on light `paper`).
-- **Copper has three too:** `copper` for large ornament, `copper-text` for headings (`h2` to `h4`), labels and small ornament on `paper`, `copper-bright` on `bar`. Copper never marks an action, an active state or a link.
+- **Copper has three too:** `copper` for large ornament, `copper-text` for `h3` and `h4` headings, labels and small ornament on `paper`, `copper-bright` on `bar`. Copper never marks an action, an active state or a link.
 - The primary button is `accent-text` with `accent-ink` text.
 - **Dark surfaces stay dark in both themes.** The panel, the drawer, the top bar while either is open, a bottom bar and the toast are `bar` with `bar-ink` text, a green-black in both themes.
 - Small labels on `bar` are semibold `accent-bright` or `copper-bright`, never faded white.
@@ -87,7 +87,7 @@ One family, `--font-sans` (Cormorant, falling back to Garamond, Iowan Old Style,
 | Style | Use |
 | --- | --- |
 | `display` | Hero title, `clamp(4.75rem, 12.4vw, 11rem)`, 300, line height 0.88, -0.02em |
-| `h2` | Section title, 2.75rem then 3.75rem from 768px, 300, -0.025em. In `copper-text` (`copper-bright` on `bar`) |
+| `h2` | Section title, 2.75rem then 3.75rem from 768px, 300, -0.025em. In `ink`: its size marks it, and its light hairlines need ink to hold |
 | `title` | A list item's name, 1.625rem then 1.875rem, 600, +0.01em |
 | `lead` | Intro paragraph, 1.75rem then 1.875rem from 768px, 300 italic, line height 1.22. A post header's lead is the same style |
 | `h3` | A heading under a section's `h2`: a plain `h3`, or `.h3` on any element. `size-600` (1.875rem) then `size-700` (2.125rem) from 768px, 600, line height 1.15, -0.01em. An `h3` with a class (`.title`, `.label`) takes only its class. In `copper-text` (`copper-bright` on `bar`) |
