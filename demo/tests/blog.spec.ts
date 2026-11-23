@@ -142,5 +142,14 @@ test('each card on the home page has a button named for its title', async ({ pag
   const buttons = page.locator('.card > .btn-outline');
   await expect(buttons).toHaveCount(4);
   await expect(page.getByRole('link', { name: 'Read this: Notes on vermilion and azure' })).toHaveAttribute('href', /two-pigments/);
-  await expect(page.locator('.card-title a').first()).not.toContainText('→');
+  await expect(page.locator('.card-title a')).toHaveCount(0);
+});
+
+test('each card and the featured post have one link, so their text can be selected', async ({ page }) => {
+  await page.goto('/');
+  for (const card of await page.locator('.card').all()) await expect(card.locator('a')).toHaveCount(1);
+  await page.goto('/blog/');
+  const feature = page.locator('.post-feature');
+  await expect(feature.locator('a')).toHaveCount(1);
+  await expect(feature.locator('.post-feature-title a')).toHaveCount(0);
 });

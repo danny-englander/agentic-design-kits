@@ -21,6 +21,7 @@ export const features: Feature[] = [
       'The primary button’s colors are tokens on `.btn`: `--btn-bg`, `--btn-fg` and `--btn-hover-bg`. Its hover mixes 15% of ink into the fill in place of a brightness filter, so the text’s contrast rises: 7.5:1 in light and 9:1 in dark.',
       'A plain h3 has a style of its own, between a section’s h2 and h4: `size-600`, then `size-700` from 768px, in the strong weight. `.h3` and `.h4` give the heading styles to any element, and Type and color now shows H2, H3 and H4 headings in turn.',
       'h3 and h4 headings are copper, like rubrics: `copper-text` on the page and `copper-bright` on a bar, from the new `--heading-color` and `--heading-color-bar` tokens. Section titles (h2) and body text stay in ink.',
+      'A card’s title and the featured post’s title are no longer links: the button is each one’s only link. That makes one tab stop per card, one link per card for screen readers, and every word selectable.',
     ],
   },
   {
