@@ -85,7 +85,7 @@ test('a post has its header, byline and body', async ({ page }) => {
   await expect(page.locator('.post-header-label')).toHaveAttribute('href', '/blog/');
   const meta = page.locator('.post-meta');
   await expect(meta).toContainText('October 20, 2026');
-  await expect(meta).toContainText('Danny Englander');
+  await expect(meta).toContainText('Agentic Kits');
   await expect(meta).toContainText(/\d+ min/);
   await expect(page.locator('.post-body h2').first()).toHaveText('Light is for size');
   await expect(page.locator('.post-body blockquote')).toBeVisible();
