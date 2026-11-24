@@ -13,7 +13,7 @@ const blog = defineCollection({
       date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
       /** One or two sentences, for the index and the share preview. */
       summary: z.string(),
-      author: z.string().default('Danny Englander'),
+      author: z.string().default('Agentic Kits'),
       tags: z.array(z.string()).default([]),
       /** Shown at the top of the index. The newest featured post wins; with none, the newest post. */
       featured: z.boolean().default(false),

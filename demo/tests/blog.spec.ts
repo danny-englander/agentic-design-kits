@@ -19,7 +19,7 @@ test('the index opens with the featured post, then lists five of the rest newest
   await expectFeature(page);
   const titles = page.locator('.post-list-title a');
   await expect(titles).toHaveText([
-    'I gave an agent the prompt and timed it →',
+    'One prompt, one agent, timed →',
     'Setting a grid before the words →',
     'Notes on vermilion and azure →',
     'Thick rule, thin rule →',
@@ -85,7 +85,7 @@ test('a post has its header, byline and body', async ({ page }) => {
   await expect(page.locator('.post-header-label')).toHaveAttribute('href', '/blog/');
   const meta = page.locator('.post-meta');
   await expect(meta).toContainText('October 20, 2026');
-  await expect(meta).toContainText('Danny Englander');
+  await expect(meta).toContainText('Agentic Kits');
   await expect(meta).toContainText(/\d+ min/);
   await expect(page.locator('.post-body h2').first()).toHaveText('What you give up');
   await expect(page.locator('.post-body blockquote')).toBeVisible();
