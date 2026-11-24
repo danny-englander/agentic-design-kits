@@ -7,7 +7,7 @@ import type { Feature } from '@agentic-design-kits/swiss-minimal/types';
  */
 export const features: Feature[] = [
   {
-    date: '2026-11-22',
+    date: '2026-11-23',
     title: 'Brighter muted text in dark, and one size for reading',
     body: 'In dark, muted text (dates, counts, sublines, captions) is a brighter gray, #dcdcdc in place of #b9b5ab, so secondary lines read as easily as the rest. Card summaries and a dated list’s notes now take the body’s size and line height, so all reading text on a page is set alike, and an h4 has a style of its own, a step above body.',
     details: [
@@ -15,10 +15,17 @@ export const features: Feature[] = [
       'A list row’s subline (`row-meta`) now follows `muted` in dark too, as `muted` is the brighter of the two.',
       '`.card-summary` and a dated list’s dates, titles and paragraphs no longer set a size or line height: they take the text around them, 18px then 20px from 768px on the page, 18px in the panel and 16px in the drawer.',
       'Any `h4`, in Markdown or markup, is `size-500` (22px) in the strong weight at a 1.3 line height.',
+      'Captions, footnotes and the footer note now share one size, `size-200` (16px), in `muted` at a 1.375 line height. Captions were 18px and the footer note 14px.',
+      'No paragraph is muted any more: every `p` is `ink`, card summaries included, and `muted` is left to meta, dates, numbers and labels.',
+      'The primary button’s colors are tokens on `.btn`: `--btn-bg`, `--btn-fg` and `--btn-hover-bg`. Its hover mixes 15% of ink into the fill in place of a brightness filter, so the text keeps at least 6.6:1 (the filter left white on light vermilion at 4.47:1).',
+      'A plain h3 has a style of its own, between a section’s h2 and h4: `size-600`, then `size-700` from 768px, in the strong weight. `.h3` and `.h4` give the heading styles to any element, and Type and color now shows H2, H3 and H4 headings in turn.',
+      'h3 and h4 headings take their color from two new tokens, `--heading-color` and `--heading-color-bar`. Here they stay the text’s own color; Verdigris sets them to copper.',
+      'A card’s title and the featured post’s title are no longer links: the button is each one’s only link. That makes one tab stop per card, one link per card for screen readers, and every word selectable.',
+      'Line heights are tokens by role: `--leading-body`, `--leading-lead`, `--leading-small` and `--leading-tight`, so a theme changes each in one place.',
     ],
   },
   {
-    date: '2026-11-20',
+    date: '2026-11-23',
     title: 'The footer links to related sites',
     body: 'The footer can now list a few related sites in a column of their own, each with the mark from that site’s top bar, in its own colors. Here it links to agenticdesignkits.com, with its vermilion ∞, and to Verdigris, with its ❦ fleuron in verdigris green. From 1024px the footer has three columns: the name on the left, the site’s links in the middle and the related sites on the right.',
     details: [

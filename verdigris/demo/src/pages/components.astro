@@ -77,25 +77,25 @@ const noteCode = [
 
   <Section id="buttons" title="Buttons" range="01–03">
     <ComponentEntry num={n()} name="Primary button" classes=".btn, .btn-group, data-tip, .ext-arrow">
-      <Fragment slot="about">The one filled button, for the single main action of a view. Hover brightens it. In a group it comes first, with secondary buttons after it.</Fragment>
+      <Fragment slot="about">The one filled button, for the single main action of a view. Hover deepens it with a little ink. In a group it comes first, with secondary buttons after it.</Fragment>
       <div class="flex flex-col items-start gap-6">
         <div>
-          <p class="small muted mb-2">On its own</p>
+          <p class="small mb-2">On its own</p>
           <button class="btn" type="button" data-toast-text="Sent.">Send</button>
         </div>
         <div>
-          <p class="small muted mb-2">In a group</p>
+          <p class="small mb-2">In a group</p>
           <div class="btn-group" role="group" aria-label="Message actions">
             <button class="btn" type="button" data-toast-text="Sent.">Send</button>
             <button type="button" class="btn-outline" data-toast-text="Saved as a draft.">Save draft</button>
           </div>
         </div>
         <div>
-          <p class="small muted mb-2">With a hover label: hover or tab to it</p>
+          <p class="small mb-2">With a hover label: hover or tab to it</p>
           <button class="btn" type="button" aria-label="Send the message" data-tip="Send the message" data-toast-text="Sent.">Send</button>
         </div>
         <div>
-          <p class="small muted mb-2">To another site: the font’s ↗ after the label</p>
+          <p class="small mb-2">To another site: the font’s ↗ after the label</p>
           <a class="btn no-underline" href="https://www.npmjs.com/package/@agentic-design-kits/verdigris">Get it on npm<span class="ext-arrow" aria-hidden="true">↗</span></a>
         </div>
       </div>
@@ -104,22 +104,22 @@ const noteCode = [
       <Fragment slot="about">Every other action beside the primary one, at the same size: presets that fill a form, Choose…, Open in Finder. Outlined, filled on hover.</Fragment>
       <div class="flex flex-col items-start gap-6">
         <div>
-          <p class="small muted mb-2">On its own</p>
+          <p class="small mb-2">On its own</p>
           <button type="button" class="btn-outline" data-toast-text="This month chosen.">This month</button>
         </div>
         <div>
-          <p class="small muted mb-2">In a group</p>
+          <p class="small mb-2">In a group</p>
           <div class="btn-group" role="group" aria-label="Date presets">
             <button type="button" class="btn-outline" data-toast-text="This month chosen.">This month</button>
             <button type="button" class="btn-outline" data-toast-text="Last month chosen.">Last month</button>
           </div>
         </div>
         <div>
-          <p class="small muted mb-2">With a hover label: hover or tab to it</p>
+          <p class="small mb-2">With a hover label: hover or tab to it</p>
           <button type="button" class="btn-outline" aria-label="Fill in this month" data-tip="Fill in this month" data-toast-text="This month chosen.">This month</button>
         </div>
         <div>
-          <p class="small muted mb-2">To another site: the font’s ↗ after the label</p>
+          <p class="small mb-2">To another site: the font’s ↗ after the label</p>
           <a class="btn-outline no-underline" href="https://github.com/danny-englander/agentic-design-kits/tree/main/verdigris">Source on GitHub<span class="ext-arrow" aria-hidden="true">↗</span></a>
         </div>
       </div>
@@ -128,18 +128,18 @@ const noteCode = [
       <Fragment slot="about">A quieter secondary button, for an action repeated many times on a page, such as the button on each card. Medium weight and a size smaller, in the same box.</Fragment>
       <div class="flex flex-col items-start gap-6">
         <div>
-          <p class="small muted mb-2">On its own</p>
+          <p class="small mb-2">On its own</p>
           <button type="button" class="btn-outline btn-outline--tertiary" data-toast-text="Details opened.">View details</button>
         </div>
         <div>
-          <p class="small muted mb-2">In a group</p>
+          <p class="small mb-2">In a group</p>
           <div class="btn-group" role="group" aria-label="Item actions">
             <button type="button" class="btn-outline btn-outline--tertiary" data-toast-text="Details opened.">View details</button>
             <button type="button" class="btn-outline btn-outline--tertiary" data-toast-text="Saved for later.">Save for later</button>
           </div>
         </div>
         <div>
-          <p class="small muted mb-2">With a hover label: hover or tab to it</p>
+          <p class="small mb-2">With a hover label: hover or tab to it</p>
           <button type="button" class="btn-outline btn-outline--tertiary" aria-label="View details of this item" data-tip="View details of this item" data-toast-text="Details opened.">View details</button>
         </div>
       </div>
@@ -239,7 +239,7 @@ const noteCode = [
     <ComponentEntry num={n()} name="Field" classes=".field, .field-label">
       <Fragment slot="about">An underline in large type, no box. A required field gets the flower mark after its label.</Fragment>
       <div class="max-w-md">
-        <p class="small muted mb-6"><span class="required-mark"></span>Required</p>
+        <p class="small mb-6"><span class="required-mark"></span>Required</p>
         <label class="field-label" for="cmp-name">Your name</label>
         <input class="field" id="cmp-name" name="name" autocomplete="name" placeholder="Jane Doe" required />
       </div>
@@ -380,9 +380,9 @@ const noteCode = [
           ))
         }
       </ul>
-      <p class="small muted mt-8 mb-3">In the accent, at <code>text-2xl</code>:</p>
+      <p class="small mt-8 mb-3">In the accent, at <code>text-2xl</code>:</p>
       <p class="flex items-center gap-2 text-2xl"><NumCircle value={1} accent /> <NumCircle value={1} solid accent /></p>
-      <p class="small muted mt-8 mb-3">In a list row, at <code>text-sm</code>:</p>
+      <p class="small mt-8 mb-3">In a list row, at <code>text-sm</code>:</p>
       <ul class="border-t border-rule">
         <Row num={1} title="Install the kit" href="/agents/" meta="One package, with Swiss Minimal inside it" numStyle="circle" />
         <Row num={2} title="Import the stylesheet" href="/agents/" meta="One global stylesheet, starting with tailwind.css" numStyle="circle" active />
@@ -465,7 +465,7 @@ const noteCode = [
           ))
         }
       </ul>
-      <p class="small muted mb-3 mt-8">In the accent, for the one badge that matters on a screen:</p>
+      <p class="small mb-3 mt-8">In the accent, for the one badge that matters on a screen:</p>
       <ul class="flex flex-wrap items-end gap-x-6 gap-y-4">
         <li class="flex flex-col items-center gap-2">
           <Ellipse code="new" label="New" accent class="text-2xl" />

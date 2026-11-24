@@ -1,7 +1,8 @@
 ---
 // A few linked things side by side (CardGrid in COMPONENTS.md). Three across from 1024px, two
 // from 768px with columns={2}, stacked below that. Each card opens with a 2px rule; there is no
-// box. The title and the tertiary button under it link to the same place. A card whose `external`
+// box. The title is a heading, not a link: the tertiary button under it is the card's one link,
+// so each card is one tab stop and its text stays selectable. A card whose `external`
 // is set goes to another site, and its button ends with the font's ↗.
 import type { Card } from './types';
 
@@ -23,9 +24,7 @@ const { cards, columns = 3, start = 1, level: Title = 'h3', class: className } =
     cards.map((card, i) => (
       <li class="card">
         <span class="label num muted">{String(start + i).padStart(2, '0')}</span>
-        <Title class="card-title">
-          <a href={card.href}>{card.title}</a>
-        </Title>
+        <Title class="card-title">{card.title}</Title>
         <p class="card-summary">{card.summary}</p>
         {card.tags && card.tags.length > 0 && (
           <ul class="card-tags">

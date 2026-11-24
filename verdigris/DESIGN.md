@@ -40,7 +40,7 @@ A link from another site can carry the visitor's choice as `?theme=light` or `?t
 - **Ornament earns its place.** Decoration is allowed, within limits: it comes from the font first, it never carries meaning alone, and a page uses each large ornament once. See Ornament.
 - **Scotch rule, thin rule.** A scotch rule (thick and thin, read as one) starts each section. Rows are separated by a 1px `rule`, with none after the last one.
 - **One grid.** Section headings, list rows and descriptions share the same columns.
-- **Two metals.** `accent` (verdigris) marks the one thing that matters on a screen. Copper is for labels and ornament, and never marks an action.
+- **Two metals.** `accent` (verdigris) marks the one thing that matters on a screen. Copper is for headings, labels and ornament, and never marks an action.
 - **No capitals.** No all-caps text and no small caps, anywhere. See Content and voice.
 - **Flat.** No shadows, gradients or glass in the interface. The kit's six round marks stay, and the rosette is line art, not a surface.
 
@@ -70,9 +70,9 @@ A link from another site can carry the visitor's choice as `?theme=light` or `?t
 
 Light is the default. Dark keeps the same roles.
 
-- Page: `paper` ground, `ink` text and rules, `muted` for secondary text, `rule` for thin dividers.
+- Page: `paper` ground, `ink` text, section titles (`h2`) and rules, `copper-text` for `h3` and `h4` (`--heading-color`), `muted` for secondary text, `rule` for thin dividers.
 - **Verdigris has three tokens, by size and ground.** `accent` is for large shapes and the focus ring only. Small text on `paper` uses `accent-text`; on a dark surface, `accent-bright`. Never set small text in plain `accent` (3.4:1 on light `paper`).
-- **Copper has three too:** `copper` for large ornament, `copper-text` for labels and small ornament on `paper`, `copper-bright` on `bar`. Copper never marks an action, an active state or a link.
+- **Copper has three too:** `copper` for large ornament, `copper-text` for `h3` and `h4` headings, labels and small ornament on `paper`, `copper-bright` on `bar`. Copper never marks an action, an active state or a link.
 - The primary button is `accent-text` with `accent-ink` text.
 - **Dark surfaces stay dark in both themes.** The panel, the drawer, the top bar while either is open, a bottom bar and the toast are `bar` with `bar-ink` text, a green-black in both themes.
 - Small labels on `bar` are semibold `accent-bright` or `copper-bright`, never faded white.
@@ -87,20 +87,23 @@ One family, `--font-sans` (Cormorant, falling back to Garamond, Iowan Old Style,
 | Style | Use |
 | --- | --- |
 | `display` | Hero title, `clamp(4.75rem, 12.4vw, 11rem)`, 300, line height 0.88, -0.02em |
-| `h2` | Section title, 2.75rem then 3.75rem from 768px, 300, -0.025em |
+| `h2` | Section title, 2.75rem then 3.75rem from 768px, 300, -0.025em. In `ink`: its size marks it, and its light hairlines need ink to hold |
 | `title` | A list item's name, 1.625rem then 1.875rem, 600, +0.01em |
-| `lead` | Intro paragraph, 1.75rem then 1.875rem from 768px, 300 italic |
-| `h4` | A heading a step above body, in any context: `size-500` (1.75rem), 600, line height 1.3 |
-| `body` | Body copy, 1.25rem then 1.375rem from 768px, 500, line height 1.55, Garamond forms on (`ss02`) |
-| `small` | Meta, sublines, counts, 1.125rem |
+| `lead` | Intro paragraph, 1.75rem then 1.875rem from 768px, 300 italic, line height 1.22. A post header's lead is the same style |
+| `h3` | A heading under a section's `h2`: a plain `h3`, or `.h3` on any element. A subheading is always `h3` or `.h3`, never `.title`, which is a name in a list. `size-600` (1.875rem) then `size-700` (2.125rem) from 768px, 600, line height 1.15, -0.01em. An `h3` with a class (`.title`, `.label`) takes only its class. In `copper-text` (`copper-bright` on `bar`) |
+| `h4` | A heading a step above body, in any context (`h4` or `.h4`): `size-500` (1.75rem), 600, line height 1.3. In `copper-text` (`copper-bright` on `bar`) |
+| `body` | Body copy, 1.25rem then 1.375rem from 768px, 500, line height 1.5, Garamond forms on (`ss02`). Every paragraph, list item, card summary and post paragraph is set this way: no reading text has a size of its own |
+| `small` | Meta, sublines, counts, 1.125rem, line height 1.4 |
+| `note` | Captions, footnotes and the footer note: `size-200` (1.25rem), `muted`, line height 1.4; captions italic |
 | `label` | 1 to 2 words, sentence case, 600 |
 | `code` | Code, file names, commands, keys: `--font-mono` at 0.68em, never under 0.875rem; a code block at 0.65em, never under 16px (the 18px floor is for Cormorant, not Source Code Pro) |
 
 - **18px is the floor.** Cormorant's x-height is 0.386 of its size against Overused Grotesk's 0.5, so 18px reads about as tall as 14px there. Code is the exception, as its x-height is large.
+- **A paragraph is never `muted`.** Every `p` is `ink`, whether body text or `small`: never put `muted` or `text-muted` on one. `muted` belongs to meta, dates, numbers and labels, and to the kit classes that set it themselves (captions, footnotes, a post's meta line).
 - **Weight follows size.** Light at display sizes, medium for reading, semibold for names. Never light under 1.75rem: the hairlines disappear.
 - Figures are old-style in text. Add `.num` (lining, tabular) to any number that lines up in a column.
 - Ligatures (`dlig`, `hlig`) and calligraphic forms (`ss01`) are for display sizes only.
-- Every size, weight, body line height and label style is a token at the top of `theme.css`, set for Verdigris in `verdigris.css`. A new rule uses these tokens, never a raw value.
+- Every size, weight, line height (`--leading-body`, `--leading-lead`, `--leading-small`, `--leading-tight`), heading color (`--heading-color`, `--heading-color-bar`) and label style is a token at the top of `theme.css`, set for Verdigris in `verdigris.css`. A new rule uses these tokens, never a raw value.
 - Code is plain HTML, no class, as in Swiss Minimal; see CodeBlock in `COMPONENTS.md`. Monospace never goes beyond code.
 
 ### OpenType features
@@ -191,7 +194,7 @@ Photos, artwork, screenshots and product shots are welcome. The test is whether 
 - **Fixed shapes.** Use one of 1:1, 4:3, 3:2 or 16:9 and crop to fill (`.media` with `--ratio`). Images in one list share a ratio. The exception is a gallery of artwork (`Gallery`), which shows each image whole at its own shape.
 - **Color stays.** An image keeps its own colors; they do not count as adding a color to the palette. Do not recolor or desaturate to match.
 - **No text on images.** Titles and captions go beside or below. If text must sit on an image, put it on a solid `bar` block, never straight on the picture.
-- **Captions** go below in `size-300` and `muted`, left aligned, sentence case. Credits use the same style.
+- **Captions** go below in `size-200` and `muted`, left aligned, sentence case. Credits use the same style.
 - **Dark mode.** Do not dim or invert images. A light image on the dark page reads as a light block, which is fine; if the art has a dark version, swap it with the theme.
 - **Loading.** Give every image its width and height (or a ratio) so the page does not jump. The empty box fills with `rule` until it loads. Lazy-load everything except the hero.
 - **Alt text** says what the image shows in one sentence. An image that only repeats the text beside it gets `alt=""`.

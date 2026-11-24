@@ -20,7 +20,7 @@ const { title, text, href, label = 'Featured', action = 'View', external, level:
 ---
 
 <div class:list={['cta', className]}>
-  <p class="label muted cta-label">{label}</p>
+  <p class="label cta-label">{label}</p>
   <Title class="cta-title">{title}</Title>
   <p class="cta-text">{text}</p>
   <a class="btn" href={href} aria-label={`${action}: ${title}`}>{action}{external && <span class="ext-arrow" aria-hidden="true">↗</span>}</a>

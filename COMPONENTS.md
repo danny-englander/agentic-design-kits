@@ -65,7 +65,9 @@ A small label under a button saying what it does ("Menu", "Switch to dark theme"
 
 The one filled button: `accent-text` fill, `accent-ink` text, sentence case, 1.125rem bold. It is the same size as a `SecondaryButton`, and the only place the accent fills a small area.
 
-**Markup.** `<button class="btn">Send</button>`. At least 2.75rem tall, padding 0.6rem 1.25rem, a 1px border in the fill's color, square corners. Hover brightens it slightly (`filter: brightness(1.12)`); `:disabled` drops to 60% opacity with a progress cursor.
+**Markup.** `<button class="btn">Send</button>`. At least 2.75rem tall, padding 0.6rem 1.25rem, a 1px border in the fill's color, square corners. On hover the fill takes 15% of `ink`, darker in light and lighter in dark, so the text's contrast only rises; `:disabled` drops to 60% opacity with a progress cursor.
+
+**Tokens.** Its colors are set on `.btn`, as the outline button's are: `--btn-bg` (the fill and border, `accent-text`), `--btn-fg` (the text, `accent-ink`) and `--btn-hover-bg` (`color-mix(in srgb, var(--btn-bg) 85%, var(--ink))`). A theme or a site changes the primary button there, without changing `accent-text` everywhere else. Check the text against both fills when you do: 4.5:1 at least.
 
 **Use it** for the single primary action of a view (submit a form, start playback, subscribe). One per view, so in a `.btn-group` it comes first, followed by `SecondaryButton`s. Everything else is a secondary or tertiary button, an outlined button or a link.
 
@@ -185,7 +187,7 @@ An underline-only text field in large type: no box, no radius, a 2px `currentCol
 
 **Don't** add borders around the input or a background fill.
 
-**Required fields** get the font's own flower asterisk (⁕, U+2055) in the accent after the label: `accent-text` on the page, `accent-bright` on dark. There is no markup to add. Put `required` on the field and the mark appears on the label just before it, on the label before a `select-wrap` that holds one, and on a `choice-group`'s legend when one of its radios is required. For a label the CSS can't reach, add `data-required`. Screen readers skip the mark, because the field's own `required` already says it. Say once what the mark means, at the top of the form: `<p class="small muted"><span class="required-mark"></span>Required</p>`. Mark the required fields, not the optional ones, and leave the mark off a form where every field is required: put `data-required-marks="off"` on the `<form>` (or any wrapper), keep `required` on each field, and say it once in words in place of the mark's note: `<p class="small muted mb-6">Every field is required.</p>`.
+**Required fields** get the font's own flower asterisk (⁕, U+2055) in the accent after the label: `accent-text` on the page, `accent-bright` on dark. There is no markup to add. Put `required` on the field and the mark appears on the label just before it, on the label before a `select-wrap` that holds one, and on a `choice-group`'s legend when one of its radios is required. For a label the CSS can't reach, add `data-required`. Screen readers skip the mark, because the field's own `required` already says it. Say once what the mark means, at the top of the form: `<p class="small"><span class="required-mark"></span>Required</p>`. Mark the required fields, not the optional ones, and leave the mark off a form where every field is required: put `data-required-marks="off"` on the `<form>` (or any wrapper), keep `required` on each field, and say it once in words in place of the mark's note: `<p class="small mb-6">Every field is required.</p>`.
 
 **A longer answer** is a `<textarea>` with the same class: `<textarea class="field min-h-24 resize-y" id="message" name="message" rows="3"></textarea>` under its own `field-label`. It keeps the underline and the type, grows downward only (`resize-y`), and starts about three lines tall. No box around it either.
 
@@ -353,7 +355,7 @@ import Row from '@agentic-design-kits/swiss-minimal/astro/Row.astro';
 ```html
 <section class="rule-thick mb-16 pt-8" aria-labelledby="work">
   <div class="grid gap-1 pb-6 md:grid-cols-[var(--row-num)_1fr_2.75rem] md:items-baseline md:gap-x-2">
-    <p class="num small muted whitespace-nowrap font-medium md:pl-2">01–03</p>
+    <p class="num small whitespace-nowrap font-medium md:pl-2">01–03</p>
     <h2 class="h2" id="work">Selected work</h2>
   </div>
   <ul>
@@ -429,7 +431,7 @@ A part of a page that is not a numbered list: a form, a few paragraphs, a `CardG
 </section>
 ```
 
-- `mb-16` (`space-16`) between sections, none after the last. `mb-6` under the heading, or `mb-3` when a `small muted` line follows it.
+- `mb-16` (`space-16`) between sections, none after the last. `mb-6` under the heading, or `mb-3` when a `small` line follows it.
 - Keep running text to a measure (`max-w-2xl`); a list, grid or form may use the full width.
 - One `h2` per section, named by `aria-labelledby`. Don't add a range label to a section with nothing numbered in it, and don't use `Section.astro` for it: that one wraps its content in a `<ul>`.
 
@@ -811,7 +813,7 @@ A photo, artwork or screenshot as a plain rectangle on the grid: square corners,
 - Add `media--1x1`, `media--4x3`, `media--3x2` or `media--16x9` to crop to a fixed shape. Images in one list share a ratio.
 - Always set `width`/`height` (or a ratio class) so nothing jumps; `loading="lazy"` on all but the hero.
 - In Astro, use `<Image>` from `astro:assets` with `class="media"`; it adds the size and responsive sources.
-- Captions are `size-300` (18px) in `muted` (the `figcaption` style). Never put text on the image itself.
+- Captions are `size-200` (16px) in `muted` (the `figcaption` style). Never put text on the image itself.
 - **Don't** round it, outline it, tint it, or animate it on scroll.
 
 ## Gallery
@@ -838,7 +840,7 @@ In Astro, `<Gallery items={items} />`, each a `GalleryItem` (`src`, `alt`, optio
 - **Masonry** (the default): one column on a phone, two from 640px, three from 1024px, `space-8` (2rem) between columns and `2.5rem` under each item. Items run down the first column, then the second, so a screen reader and the eye meet them in different orders. That is fine for images, which are read where they are; keep links and buttons out of a masonry gallery.
 - **Rows** (`.gallery--rows`): each row's images share a height (10rem on phones, 14rem from 768px, before the row stretches to fill the width), so their bottom edges line up and a wide image takes more of the row. The last row keeps close to that height instead of stretching. Use it where the grid matters more than the images' size, or where items will link somewhere.
 - **Alt text is required.** `GalleryItem` has no default for it: say in one sentence what the image shows. `alt=""` only if the caption already says everything the image does.
-- **The caption is the image's context, not its description:** a title, a date, the medium, a credit. Don't repeat the alt text. It uses the `figure` caption style: `size-300`, `muted`, under the image.
+- **The caption is the image's context, not its description:** a title, a date, the medium, a credit. Don't repeat the alt text. It uses the `figure` caption style: `size-200` (16px), `muted`, under the image.
 - **The kit reads nothing from the files.** Alt text and captions come from `items`, however the site gets them: written by hand, a data file, a content collection, or a tool that reads the files' embedded metadata (IPTC or XMP) at build time. Don't assume images carry that metadata.
 - Every image is lazy-loaded with its size set, so the page doesn't jump; the `rule` box shows until each one loads.
 
@@ -906,7 +908,7 @@ One thing to go and look at, inside a section: a thin rule, a small label, a tit
 
 ```html
 <div class="cta">
-  <p class="label muted cta-label">Featured</p>
+  <p class="label cta-label">Featured</p>
   <h3 class="cta-title">Field notes</h3>
   <p class="cta-text">A short essay on working with a single typeface.</p>
   <a class="btn" href="/work/field-notes/" aria-label="Read it: Field notes">Read it</a>
@@ -931,7 +933,7 @@ A few linked things side by side, each with a number, a title, a short teaser, u
 <ul class="card-grid">
   <li class="card">
     <span class="label num muted">01</span>
-    <h3 class="card-title"><a href="/blog/one-typeface/">Why one typeface is enough</a></h3>
+    <h3 class="card-title">Why one typeface is enough</h3>
     <p class="card-summary">A site set in a single grotesque, at two weights, has fewer decisions to get wrong and a clearer voice. Here is what the constraint buys.</p>
     <ul class="card-tags">
       <li class="label muted">Type</li>
@@ -944,9 +946,9 @@ A few linked things side by side, each with a number, a title, a short teaser, u
 In Astro, `<CardGrid cards={cards} />`, each a `Card` (`title`, `href`, `summary`, optional `tags`, `action` and `external`, which ends the button with ↗ for a card that goes to another site; the type is in `kit/astro/types.ts`). `columns={2}` (`.card-grid--2`) makes two across from 768px: use it for two or four cards. `start={2}` starts the numbers at 2, for cards that carry on from something numbered before them. `level="h2"` under a `PageTitle`.
 
 - No box. Each card opens with a 2px `ink` rule, the same as a section, with the number in a 3rem column beside the text.
-- The title is 1.5rem and bold, and underlines (2px) on hover. It links to the same place as the button.
+- The title is 1.5rem and bold. It isn't a link: the button is the card's one link, so each card is one tab stop and every word in it can be selected.
 - The button is a `TertiaryButton` on a link, "Read this" unless `action` says otherwise. Its `aria-label` adds the title ("Read this: Why one typeface is enough"), so each one says where it goes.
-- The summary is 16px and `muted`. Write it as a teaser of two or three lines, so the cards stay close in height.
+- The summary is body text in `ink`, like any paragraph. Write it as a teaser of two or three lines, so the cards stay close in height.
 - Two, three or four cards, so a row never ends with a gap. Leave out `columns` for three, which stack until 1024px: three in two columns would leave one alone.
 
 **Don't.** Add a border, a tint or a shadow, or make the whole card a link. A long list of things to choose is a `ListRow`, and dated posts are a `PostList`.
@@ -990,7 +992,7 @@ One post at the top of a blog's index, in one of two layouts. **Split**, like a 
 <article class="post-feature">
   <div>
     <p class="post-feature-label">Featured</p>
-    <h2 class="post-feature-title"><a href="/blog/one-typeface/">Why one typeface is enough</a></h2>
+    <h2 class="post-feature-title">Why one typeface is enough</h2>
     <p class="lead post-feature-summary">A site set in a single grotesque…</p>
     <p class="post-feature-meta"><time datetime="2026-10-20">Oct 20, 2026</time> · Type · 2 min read</p>
     <a class="btn" href="/blog/one-typeface/" aria-label="Read post: Why one typeface is enough">Read post</a>
@@ -1002,7 +1004,7 @@ One post at the top of a blog's index, in one of two layouts. **Split**, like a 
 In Astro, `<PostFeature post={post} image={art} alt="What it shows" />`, with the same `Post` as `PostList` and an imported image. The image's shape picks the layout: wide for a landscape image, split for a square or portrait one. `layout="wide"` or `layout="split"` overrides it. `label` (default "Featured") and `action` (default "Read post") change the two short labels; `level="h1"` when nothing else on the page is the `h1`.
 
 - It takes a hero's place and space: `space-12` above, more from 768px. A page with a `PostFeature` has no `Hero` or `PageTitle`; give it an `h1` (visually hidden is fine) naming the page.
-- The label is small, bold and `accent-text`; the title is bold and tight at `clamp(2.5rem, 5.5vw, 5rem)`, and underlines (3px) on hover.
+- The label is small, bold and `accent-text`; the title is bold and tight at `clamp(2.5rem, 5.5vw, 5rem)`. The title isn't a link: the button is the one link to the post.
 - The primary button is the page's one main action. Its name adds the post's title, so it says where it goes.
 - Split crops the image square (`.media--1x1`); wide crops it 16:9 (`.media--16x9`) and adds `post-feature--wide` to the article, which also gives the summary a longer measure. Either way it loads eagerly, like a hero's. Give wide a landscape original and split a square or portrait one, so the crop takes little.
 - Only one per page. Don't repeat the featured post in the list below it.
@@ -1070,7 +1072,7 @@ Long-form text from Markdown: `.post-body` styles the plain elements inside it, 
 **Markup.** `<div class="post-body"><Content /></div>`, after the `PostHeader`.
 
 - A 42rem measure by default (`max-w-*` on the same element changes it). Paragraphs and blocks are 1.25rem apart.
-- `h2` is bold at 1.75rem, 2.25rem from 768px, with `space-12` above it and no rule: inside one article, space and size mark a new part, and the 2px rule is kept for the page's own sections; `h3` is the `title` size. Don't skip from the post's `h1` to an `h3`.
+- `h2` is bold at 1.75rem, 2.25rem from 768px, with `space-12` above it and no rule: inside one article, space and size mark a new part, and the 2px rule is kept for the page's own sections; `h3` is the plain h3 style (`size-600`, `size-700` from 768px) and `h4` the h4 style. Don't skip from the post's `h1` to an `h3`.
 - Links are underlined, and on hover turn `accent-text` with a 2px underline, like `.link`.
 - Lists have square markers (`ul`) or tabular numbers (`ol`), in `muted`.
 - A quote is large and bold beside a 6px `accent` edge, the same edge as the active row. Keep quotes short; one or two per post.

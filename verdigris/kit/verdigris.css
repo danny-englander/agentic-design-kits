@@ -50,7 +50,11 @@
   --weight-medium: 600;
   --weight-strong: 600;
   --weight-display: 300;
-  --leading-body: 1.55;
+  --leading-body: 1.5;     /* 33px lines from 768px, 30px on phones */
+  --leading-lead: 1.22;
+  --leading-small: 1.4;
+  --heading-color: var(--copper-text);     /* h3 and h4 in copper, like rubrics; h2 stays ink */
+  --heading-color-bar: var(--copper-bright);
   --label-case: none;      /* no capitals anywhere: see DESIGN.md */
   --label-tracking: 0;
   --label-tracking-wide: 0;
@@ -117,12 +121,12 @@ body {
 }
 /* Cormorant's tall ascenders and descenders need more room than Swiss Minimal's tight 0.9. */
 .page-title-text { line-height: 1.1; }
-.lead { font-style: italic; font-weight: 300; line-height: 1.22; }
+.lead { font-style: italic; font-weight: 300; }
 .figure > figcaption, .post-body figcaption { font-style: italic; }
 /* Source Code Pro is far larger on its body than Cormorant, so code steps down to match. */
 code, kbd, samp { font-size: max(0.875rem, 0.68em); }
 /* A code block steps down further than theme.css's 0.875em, or it reads nearly as large as
-   the text around it: about 17px beside 26px text, never under 16px. The 18px floor is for
+   the text around it: 16px beside 22px text, its floor. The 18px floor is for
    Cormorant's small x-height; Source Code Pro's is large, so code can go below it. */
 pre { font-size: max(1rem, 0.65em); }
 /* Numbers that line up need lining figures; old-style would wander. */
@@ -215,7 +219,7 @@ a.post-header-label:hover { color: var(--accent-text); }
 .post-header-label::before { margin-right: 0.5em; }
 .post-header-label::after { margin-left: 0.5em; }
 .post-header-title { line-height: 0.98; letter-spacing: -0.015em; }
-.post-header-lead { max-width: 28em; margin-top: 1.25rem; font-size: clamp(1.625rem, 2.6vw, 2rem); line-height: 1.25; }
+.post-header-lead { max-width: 28em; margin-top: 1.25rem; }
 .post-meta {
   justify-content: center; gap: 0.25rem 1rem;
   margin-top: 1.25rem; padding-top: 0; border-top: 0; background-image: none;
@@ -226,10 +230,8 @@ a.post-header-label:hover { color: var(--accent-text); }
 .post-meta dt { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; }
 .post-meta dd { margin: 0; }
 
-/* Body text a step up from the page's, at a 45rem measure. */
+/* A post's text is the page's body text, at a 45rem measure. */
 .post-body { max-width: 45rem; }
-.post-body p { font-size: clamp(1.375rem, 2vw, 1.625rem); line-height: 1.52; }
-.post-body blockquote p { font-size: inherit; line-height: inherit; }
 
 /* The end of a piece (.post-body--end): an asterism, then the notes, if any, under a rule. */
 .post-body--end::after, .post-body--end .footnotes::before {
@@ -237,11 +239,11 @@ a.post-header-label:hover { color: var(--accent-text); }
   color: var(--copper-text); font-size: 2.125rem; line-height: 1;
 }
 .post-body--end:has(.footnotes)::after { content: none; }
-.post-body .footnotes { margin: 0; font-size: var(--size-200); line-height: 1.4; color: var(--muted); }
+.post-body .footnotes { margin: 0; font-size: var(--size-200); color: var(--muted); }
 .post-body .footnotes::before { margin-bottom: 2rem; }
 .post-body .footnotes ol { margin: 0; padding: 0.75rem 0 0 0; border-top: 1px solid var(--ink); list-style: decimal inside; }
 .post-body .footnotes li::marker { color: var(--copper-text); }
-.post-body .footnotes p { display: inline; font-size: inherit; line-height: inherit; }
+.post-body .footnotes p { display: inline; }
 /* The number in the text is a superscript, so it can drop the underline; the way back sits in
    the note's own text, so it keeps one. */
 .post-body :is([data-footnote-ref], [data-footnote-backref]) { margin-left: 0.125rem; color: var(--accent-text); }

@@ -46,8 +46,8 @@
   /* Type: every size, weight and label style below reads these, so a theme built on this kit
      can change its type here rather than rule by rule. */
   --size-100: 0.875rem;    /* the floor: labels, meta */
-  --size-200: 1rem;        /* chrome: top bar, panel, drawer, toast */
-  --size-300: 1.125rem;    /* body on phones; captions */
+  --size-200: 1rem;        /* chrome: top bar, panel, drawer, toast; captions, footnotes, footer note */
+  --size-300: 1.125rem;    /* body on phones */
   --size-400: 1.25rem;     /* body from 768px; list titles */
   --size-500: 1.375rem;    /* h4; lead on phones; pull quotes */
   --size-600: 1.5rem;      /* lead from 768px; list titles from 768px */
@@ -64,7 +64,13 @@
   --weight-medium: 500;    /* small labels, chrome */
   --weight-strong: 700;    /* names and small bold text */
   --weight-display: 700;   /* big headings */
-  --leading-body: 1.8;     /* body line height */
+  /* Line heights, by role. Headings keep their own, set rule by rule for their size. */
+  --leading-body: 1.8;     /* body: every paragraph, list item and card summary */
+  --leading-lead: 1.375;   /* the lead paragraph */
+  --leading-small: 1.375;  /* small text: meta, captions, footnotes, notes */
+  --leading-tight: 1.3;    /* controls, fields, panel sub-items, h4, pull quote */
+  --heading-color: currentColor;  /* h3 and h4: the text's own color; a theme may set its own */
+  --heading-color-bar: currentColor;  /* the same on a dark surface (panel, drawer, bars) */
   --label-case: uppercase;       /* every small label; set to none for a theme with no capitals */
   --label-tracking: 0.08em;      /* labels */
   --label-tracking-wide: 0.1em;  /* field labels, top-bar buttons */
@@ -207,9 +213,19 @@ button:disabled { cursor: not-allowed; }
   letter-spacing: -0.025em;
 }
 @media (min-width: 768px) { .h2 { font-size: var(--size-1000); } }
-.lead { font-size: var(--size-500); line-height: 1.375; }  /* a step above body text */
+.lead { font-size: var(--size-500); line-height: var(--leading-lead); }  /* a step above body text */
 @media (min-width: 768px) { .lead { font-size: var(--size-600); } }
-h4 { font-size: var(--size-500); font-weight: var(--weight-strong); line-height: 1.3; }  /* a heading a step above body, in any context */
+/* Headings under a section's .h2, in any context: h3 a step under it, h4 a step above body.
+   A plain h3 takes the h3 style; an h3 with a class (.title, .label, .card-title…) takes only its
+   class, so this style never leaks into it. .h3 and .h4 give the styles to any element. */
+h3:not([class]), .h3 { font-size: var(--size-600); font-weight: var(--weight-strong); line-height: 1.15; letter-spacing: -0.01em; }
+@media (min-width: 768px) { h3:not([class]), .h3 { font-size: var(--size-700); } }
+h4, .h4 { font-size: var(--size-500); font-weight: var(--weight-strong); line-height: var(--leading-tight); }
+/* h3 and h4 take --heading-color: the text's own color unless a theme sets one. An h2 never does:
+   size marks it. An h3 or h4 with a class (.title, a name in a list) keeps the text's color. On a
+   dark surface they take --heading-color-bar instead. */
+.h3, .h4, :is(h3, h4):not([class]) { color: var(--heading-color); }
+:is(.panel, .drawer, .bottom-bar, .page-title--bar, .site-footer--bar) { --heading-color: var(--heading-color-bar); }
 .title {                         /* a list item's name */
   font-size: var(--size-400);
   font-weight: var(--weight-strong);
@@ -223,7 +239,7 @@ h4 { font-size: var(--size-500); font-weight: var(--weight-strong); line-height:
   letter-spacing: var(--label-tracking);
   text-transform: var(--label-case);
 }
-.small { font-size: var(--size-100); line-height: 1.375; }
+.small { font-size: var(--size-100); line-height: var(--leading-small); }
 .muted { color: var(--muted); }
 /* A list row's subline: a step under the title, in its own color. Keep `muted` beside it, so the
    row's fill turns it to row-fg like the rest of the row's quiet text. */
@@ -478,12 +494,19 @@ html[data-drawer-open] .topbar { --tb-bg: var(--bar); --tb-fg: var(--bar-ink); }
   min-height: 2.75rem; padding: 0.6rem 1.25rem;
   font: inherit; font-size: var(--size-300); font-weight: var(--weight-strong); line-height: 1.2; white-space: nowrap;
 }
-.btn {                           /* the primary button, the one filled button */
-  border: 1px solid var(--accent-text);
-  background: var(--accent-text);
-  color: var(--accent-ink);
+/* The primary button, the one filled button. Its colors are tokens, like the outline button's:
+   a theme sets them on .btn. The hover mixes 15% of ink into the fill, which darkens it in light
+   and lightens it in dark, so the text's contrast only rises (6.6:1 at the least). */
+.btn {
+  --btn-bg: var(--accent-text);
+  --btn-fg: var(--accent-ink);
+  --btn-hover-bg: color-mix(in srgb, var(--btn-bg) 85%, var(--ink));
+  border: 1px solid var(--btn-bg);
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  transition: background-color 150ms, border-color 150ms;
 }
-.btn:hover { filter: brightness(1.12); }
+.btn:hover { background: var(--btn-hover-bg); border-color: var(--btn-hover-bg); }
 .btn:disabled { opacity: 0.6; cursor: progress; }
 
 /* Filter buttons: outlined, sentence case (labels can run to several words), filled when chosen.
@@ -567,7 +590,7 @@ html[data-drawer-open] .topbar { --tb-bg: var(--bar); --tb-fg: var(--bar-ink); }
 .media--3x2 { aspect-ratio: 3 / 2; }
 .media--16x9 { aspect-ratio: 16 / 9; }
 .figure { margin: 0; }
-.figure > figcaption { margin-top: 0.75rem; font-size: var(--size-300); line-height: 1.375; color: var(--muted); }
+.figure > figcaption { margin-top: 0.75rem; font-size: var(--size-200); line-height: var(--leading-small); color: var(--muted); }
 
 /* ---------- Gallery (see Gallery in COMPONENTS.md) ---------- */
 /* Artwork shown whole, each image at its own shape: never cropped. Each item is a .figure.
@@ -672,7 +695,7 @@ html[data-drawer-open] { overflow: hidden; }  /* stop the page scrolling behind 
   padding: 1rem 0;
   border-top: 1px solid color-mix(in srgb, var(--bar-ink) 25%, transparent);
 }
-.drawer-title { font-size: var(--size-300); font-weight: var(--weight-medium); line-height: 1.3; overflow-wrap: anywhere; }
+.drawer-title { font-size: var(--size-300); font-weight: var(--weight-medium); line-height: var(--leading-tight); overflow-wrap: anywhere; }
 .drawer-meta { margin-top: 0.25rem; font-size: var(--size-100); color: color-mix(in srgb, var(--bar-ink) 75%, transparent); }
 /* Round "more below" arrow over the bottom of the list, like a chat app's jump-to-new button.
    Shows while the list overflows and has not been scrolled; fades once it is. Round and flat:
@@ -728,7 +751,7 @@ html[data-drawer-open] { overflow: hidden; }  /* stop the page scrolling behind 
   padding-top: 1rem;
   border-top: 2px solid var(--note-ink);
   color: color-mix(in srgb, var(--note-ink) 70%, transparent);
-  font-size: var(--size-100); line-height: 1.375;
+  font-size: var(--size-100); line-height: var(--leading-small);
 }
 .panel .closing-note, .drawer .closing-note { --note-ink: var(--bar-ink); }
 
@@ -817,7 +840,7 @@ html[data-drawer-open] { overflow: hidden; }  /* stop the page scrolling behind 
 .dated-list > li:last-child { border-bottom: 0; }
 @media (min-width: 640px) { .dated-list > li { grid-template-columns: 10rem 1fr; } }
 .dated-list time { font-weight: var(--weight-strong); color: var(--dl-date); }
-.dated-list :is(h3, h4) { margin: 0; font-weight: var(--weight-strong); }
+.dated-list :is(h3, h4) { margin: 0; font-size: inherit; font-weight: var(--weight-strong); line-height: inherit; letter-spacing: 0; color: inherit; }  /* at the text's size and color */
 .dated-list p { margin: 0.25rem 0 0 0; }
 
 /* ---------- Post list: a blog's index, newest first ---------- */
@@ -833,7 +856,7 @@ html[data-drawer-open] { overflow: hidden; }  /* stop the page scrolling behind 
 .post-list > li:last-child { border-bottom: 0; }
 @media (min-width: 640px) { .post-list > li { grid-template-columns: 10rem minmax(0, 1fr); } }
 .post-list time {
-  font-size: var(--size-200); font-weight: var(--weight-medium); line-height: 1.375;
+  font-size: var(--size-200); font-weight: var(--weight-medium); line-height: var(--leading-small);
   font-variant-numeric: tabular-nums; color: var(--muted);
 }
 @media (min-width: 640px) { .post-list time { padding-top: 0.5rem; } }
@@ -842,7 +865,7 @@ html[data-drawer-open] { overflow: hidden; }  /* stop the page scrolling behind 
 .post-list-title a { color: inherit; text-decoration: none; }
 .post-list-title a:hover { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 0.15em; }
 .post-list-summary { margin: 0.5rem 0 0 0; max-width: 40rem; }
-.post-list-meta { margin: 0.5rem 0 0 0; font-size: var(--size-100); line-height: 1.375; color: var(--muted); }
+.post-list-meta { margin: 0.5rem 0 0 0; font-size: var(--size-100); line-height: var(--leading-small); color: var(--muted); }
 
 /* ---------- CTA: one thing to go and look at, inside a section ---------- */
 /* A thin rule, a small label, a title, a line or two of text and the primary button. */
@@ -865,16 +888,14 @@ html[data-drawer-open] { overflow: hidden; }  /* stop the page scrolling behind 
 }
 .card > .label { padding-top: 0.25rem; }
 .card-title { margin: 0; font-size: var(--size-600); font-weight: var(--weight-display); line-height: 1.15; letter-spacing: -0.01em; }
-.card-title a { color: inherit; text-decoration: none; }
-.card-title a:hover { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 0.15em; }
-.card-summary { grid-column: 2; margin: 0.25rem 0 0 0; color: var(--muted); }
+.card-summary { grid-column: 2; margin: 0.25rem 0 0 0; }
 .card-tags { grid-column: 2; display: flex; flex-wrap: wrap; gap: 0.25rem 1.25rem; margin: 0.5rem 0 0 0; padding: 0; list-style: none; }
 .card-tags li { margin: 0; }
 .card > .btn-outline { grid-column: 2; justify-self: start; margin-top: 1rem; text-decoration: none; }
 
 /* ---------- Post feature: one post at the top of a blog's index ---------- */
 /* Built like .hero--split: text and a square image 50/50 from 768px, stacked text first on
-   phones, with a hero's space around it (.post-feature--wide, below, stacks it at every width). A small accent-text label, the title as a link, the
+   phones, with a hero's space around it (.post-feature--wide, below, stacks it at every width). A small accent-text label, the title (a heading, not a link), the
    summary in lead size, a meta line and the primary button. The image is cropped square. */
 .post-feature { display: grid; gap: 2.5rem; padding: 3rem 0 4rem 0; }
 @media (min-width: 768px) {
@@ -890,10 +911,8 @@ html[data-drawer-open] { overflow: hidden; }  /* stop the page scrolling behind 
   font-size: var(--size-post-feature); font-weight: var(--weight-display); line-height: 0.95; letter-spacing: -0.02em;
   overflow-wrap: break-word;
 }
-.post-feature-title a { color: inherit; text-decoration: none; }
-.post-feature-title a:hover { text-decoration: underline; text-decoration-thickness: 3px; text-underline-offset: 0.12em; }
 .post-feature-summary { margin: 1.5rem 0 0 0; max-width: 32rem; }
-.post-feature-meta { margin: 1rem 0 0 0; font-size: var(--size-200); line-height: 1.375; color: var(--muted); }
+.post-feature-meta { margin: 1rem 0 0 0; font-size: var(--size-200); line-height: var(--leading-small); color: var(--muted); }
 .post-feature .btn { margin-top: 2rem; text-decoration: none; }
 /* Wide: the text runs the full width, the summary at a longer measure, and the image goes under
    it cropped 16:9. For a landscape image. */
@@ -943,7 +962,7 @@ a.post-header-label:hover { color: var(--accent-text); text-decoration: underlin
   font-size: var(--size-700); font-weight: var(--weight-display); line-height: 1.1; letter-spacing: -0.02em;
 }
 @media (min-width: 768px) { .post-body h2 { font-size: var(--size-900); } }
-.post-body h3 { margin: 2rem 0 0.5rem 0; font-size: var(--size-400); font-weight: var(--weight-strong); line-height: 1.25; letter-spacing: 0.01em; }
+.post-body h3 { margin: 2rem 0 0.5rem 0; }  /* the plain h3 style, above */
 .post-body > :first-child { margin-top: 0; }
 .post-body a { color: inherit; text-decoration: underline; text-underline-offset: 4px; }
 .post-body a:hover { color: var(--accent-text); }
@@ -955,14 +974,14 @@ a.post-header-label:hover { color: var(--accent-text); text-decoration: underlin
 .post-body blockquote {
   margin: 2rem 0; padding: 0.25rem 0 0.25rem 1.25rem;
   border-left: 6px solid var(--accent);
-  font-size: var(--size-500); font-weight: var(--weight-strong); line-height: 1.3; letter-spacing: -0.01em;
+  font-size: var(--size-500); font-weight: var(--weight-strong); line-height: var(--leading-tight); letter-spacing: -0.01em;
 }
 .post-body blockquote p { margin: 0; }
 .post-body blockquote p + p { margin-top: 0.75rem; }
 .post-body hr { height: 0; margin: 3rem 0; border: 0; border-top: 2px solid var(--ink); }
 .post-body img { display: block; width: 100%; height: auto; background: var(--rule); }
 .post-body figure { margin: 2rem 0; }
-.post-body figcaption { margin-top: 0.75rem; font-size: var(--size-300); line-height: 1.375; color: var(--muted); }
+.post-body figcaption { margin-top: 0.75rem; font-size: var(--size-200); line-height: var(--leading-small); color: var(--muted); }
 .post-body table { width: 100%; border-collapse: collapse; }
 .post-body th {
   padding: 0 1rem 0.5rem 0; border-bottom: 2px solid var(--ink); text-align: left;
@@ -977,7 +996,7 @@ a.post-header-label:hover { color: var(--accent-text); text-decoration: underlin
 .post-body sup { line-height: 0; }
 .post-body [data-footnote-ref] { color: var(--accent-text); text-decoration: none; font-variant-numeric: tabular-nums; }
 .post-body [data-footnote-ref]:hover { text-decoration: underline; }
-.post-body .footnotes { margin-top: 3rem; font-size: var(--size-200); line-height: 1.375; color: var(--muted); }
+.post-body .footnotes { margin-top: 3rem; font-size: var(--size-200); line-height: var(--leading-small); color: var(--muted); }
 .post-body .footnotes ol { margin: 0; padding: 0.75rem 0 0 1.5rem; border-top: 2px solid var(--ink); }
 .post-body .footnotes p { margin: 0; }
 .post-body .footnotes p + p { margin-top: 0.5rem; }
@@ -1109,7 +1128,7 @@ a.post-header-label:hover { color: var(--accent-text); text-decoration: underlin
 .site-footer-text { margin: 1rem 0 0 0; max-width: 28rem; }
 .site-footer-note {              /* dimmed by color, not opacity, as the closing note is */
   margin: 1.5rem 0 0 0; max-width: 28rem;
-  font-size: var(--size-100); line-height: 1.375;
+  font-size: var(--size-200); line-height: var(--leading-small);
   color: color-mix(in srgb, currentColor 75%, transparent);
 }
 .site-footer-note a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
@@ -1203,7 +1222,7 @@ a.post-header-label:hover { color: var(--accent-text); text-decoration: underlin
 .submenu a {
   display: block; padding: 0.55rem 0;
   color: inherit; text-decoration: none;
-  font-size: var(--size-400); font-weight: var(--weight-medium); line-height: 1.3;
+  font-size: var(--size-400); font-weight: var(--weight-medium); line-height: var(--leading-tight);
 }
 .submenu a:hover { color: var(--accent-bright); text-decoration: underline; text-underline-offset: 4px; }
 .submenu a[aria-current="page"] { text-decoration: underline; text-decoration-color: var(--accent-bright); text-decoration-thickness: 2px; text-underline-offset: 4px; }
@@ -1218,7 +1237,7 @@ a.post-header-label:hover { color: var(--accent-text); text-decoration: underlin
   margin-top: 0.25rem; padding: 0.6rem 0;
   border: 0; border-bottom: 2px solid currentColor; border-radius: 0;
   background: transparent; color: inherit;
-  font: inherit; font-size: var(--size-400); line-height: 1.3;
+  font: inherit; font-size: var(--size-400); line-height: var(--leading-tight);
   outline-offset: 4px;
 }
 .field::placeholder { color: currentColor; opacity: 0.45; }
@@ -1289,7 +1308,7 @@ a.post-header-label:hover { color: var(--accent-text); text-decoration: underlin
     display: flex; align-items: center; gap: 0.75rem;
     padding: 0.6rem 1rem;
     background: transparent; color: inherit;
-    font-size: var(--size-300); line-height: 1.3;
+    font-size: var(--size-300); line-height: var(--leading-tight);
   }
   .select option::checkmark {    /* two straight 2px strokes, square ends, like the chevron: no glyph */
     content: "";
@@ -1341,7 +1360,7 @@ a.post-header-label:hover { color: var(--accent-text); text-decoration: underlin
 .file-pick-name {
   flex: 1; min-width: 0;
   padding: 0.6rem 0; border-bottom: 2px solid currentColor;
-  font-size: var(--size-400); line-height: 1.3;
+  font-size: var(--size-400); line-height: var(--leading-tight);
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
 .file-pick-name[data-empty] { color: color-mix(in srgb, currentColor 75%, transparent); }
@@ -1359,7 +1378,7 @@ a.post-header-label:hover { color: var(--accent-text); text-decoration: underlin
   --choice-thumb: var(--accent-ink);    /* the thumb on a filled track */
   display: flex; align-items: center; gap: 0.75rem;
   min-height: 2.75rem;
-  font-size: var(--size-200); line-height: 1.3;
+  font-size: var(--size-200); line-height: var(--leading-tight);
   cursor: pointer;
 }
 .panel .choice, .drawer .choice { --choice-on: var(--accent-bright); --choice-thumb: var(--bar); }
@@ -1415,7 +1434,7 @@ a.post-header-label:hover { color: var(--accent-text); text-decoration: underlin
   padding: 1rem 1.25rem;
   border-left: 6px solid var(--accent-bright);
   background: var(--bar); color: var(--bar-ink);
-  font-size: var(--size-200); font-weight: var(--weight-medium); line-height: 1.35;
+  font-size: var(--size-200); font-weight: var(--weight-medium); line-height: var(--leading-tight);
   opacity: 0; transform: translateY(8px); pointer-events: none;
   transition: opacity 350ms var(--ease-out), transform 350ms var(--ease-out);
 }

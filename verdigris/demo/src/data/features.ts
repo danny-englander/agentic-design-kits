@@ -7,18 +7,25 @@ import type { Feature } from '@agentic-design-kits/verdigris/types';
  */
 export const features: Feature[] = [
   {
-    date: '2026-11-22',
+    date: '2026-11-23',
     title: 'Brighter muted text in dark, and one size for reading',
-    body: 'In dark, muted text (dates, counts, sublines, captions) is a lighter green-gray, #b4c3be in place of #a6b5b0, so secondary lines read as easily as the rest. Body text is a step smaller, 20px on phones and 22px from 768px, and card summaries and a dated list’s notes now take that same size and line height, so all reading text on a page is set alike. An h4 has a style of its own, a step above body.',
+    body: 'In dark, muted text (dates, counts, sublines, captions) is a lighter green-gray, #b4c3be in place of #a6b5b0, so secondary lines read as easily as the rest. Body text is a step smaller, 20px on phones and 22px from 768px, and card summaries and a dated list’s notes now take that same size and line height, so all reading text on a page is set alike, blog posts included. Lines are a little tighter too, at 1.5 in place of 1.55. An h4 has a style of its own, a step above body.',
     details: [
       'Muted is 10.0:1 on the dark page. Light is unchanged.',
       'Body text was 22px then 26px. Verdigris now sets it itself, `size-200` then `size-300`, a step under Swiss Minimal’s.',
       '`.card-summary` and a dated list’s dates, titles and paragraphs no longer set a size or line height: they take the text around them.',
       'Any `h4`, in Markdown or markup, is `size-500` (28px) in the semibold weight at a 1.3 line height.',
+      'A post’s paragraphs were larger than the page’s, up to 26px, while its lists were not. Now every paragraph and list item in a post is body text, and a post header’s lead is the same style as any other lead.',
+      'Captions, footnotes and the footer note now share one size, `size-200` (20px), in `muted` at a 1.4 line height.',
+      'No paragraph is muted any more: every `p` is `ink`, card summaries included, and `muted` is left to meta, dates, numbers and labels.',
+      'The primary button’s colors are tokens on `.btn`: `--btn-bg`, `--btn-fg` and `--btn-hover-bg`. Its hover mixes 15% of ink into the fill in place of a brightness filter, so the text’s contrast rises: 7.5:1 in light and 9:1 in dark.',
+      'A plain h3 has a style of its own, between a section’s h2 and h4: `size-600`, then `size-700` from 768px, in the strong weight. `.h3` and `.h4` give the heading styles to any element, and Type and color now shows H2, H3 and H4 headings in turn.',
+      'h3 and h4 headings are copper, like rubrics: `copper-text` on the page and `copper-bright` on a bar, from the new `--heading-color` and `--heading-color-bar` tokens. Section titles (h2) and body text stay in ink.',
+      'A card’s title and the featured post’s title are no longer links: the button is each one’s only link. That makes one tab stop per card, one link per card for screen readers, and every word selectable.',
     ],
   },
   {
-    date: '2026-11-20',
+    date: '2026-11-23',
     title: 'The footer links to related sites',
     body: 'The footer can now list a few related sites in a column of their own, each with the mark from that site’s top bar, in its own colors. Here it links to agenticdesignkits.com, with its vermilion ∞, and to Swiss Minimal, with its Swiss cross in vermilion. From 1024px the footer has three columns: the name on the left, the site’s links in the middle and the related sites on the right.',
     details: [
