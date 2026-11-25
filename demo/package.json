@@ -14,13 +14,14 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@agentic-design-kits/swiss-minimal": "file:..",
+    "@astrojs/mdx": "^8.1.6",
     "@astrojs/sitemap": "^3.7.4",
     "@iconify-json/material-symbols": "^1.2.95",
     "@iconify-json/simple-icons": "^1.2.100",
     "@tailwindcss/vite": "^4.3.3",
     "astro": "^7.3.8",
     "astro-icon": "^1.2.0",
-    "@agentic-design-kits/swiss-minimal": "file:..",
     "tailwindcss": "^4.3.3"
   },
   "devDependencies": {

@@ -3,6 +3,7 @@ import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 import icon from 'astro-icon';
 import sitemap from '@astrojs/sitemap';
+import mdx from '@astrojs/mdx';
 
 // https://astro.build/config
 export default defineConfig({
@@ -12,7 +13,8 @@ export default defineConfig({
   // Icons are inlined as SVG at build time, from two sets only (see Iconography in DESIGN.md):
   // Simple Icons for brand marks, Material Symbols for a few actions.
   // The sitemap lists every built page at /sitemap-index.xml.
-  integrations: [icon(), sitemap()],
+  // MDX lets a post import components: a Gallery or a PostWide runs past the text to the page's width.
+  integrations: [icon(), sitemap(), mdx()],
   // Astro 7 compresses HTML by JSX rules by default ('jsx'), so a line break between an inline
   // tag (<a>, <code>, <kbd>) and the text beside it no longer becomes a space, and words run
   // together. `true` removes whitespace without changing the visible spacing.

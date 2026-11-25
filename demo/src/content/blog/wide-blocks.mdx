@@ -1,0 +1,69 @@
+---
+title: Text at a measure, pictures at the page
+date: '2026-11-25'
+summary: A post keeps its text to a reading measure. A gallery or a wide figure keeps the text's left edge and runs on to the width of the page.
+tags: [Images, Layout]
+---
+
+import { Image } from 'astro:assets';
+import Gallery from '@agentic-design-kits/swiss-minimal/astro/Gallery.astro';
+import PostWide from '@agentic-design-kits/swiss-minimal/astro/PostWide.astro';
+import VideoEmbed from '@agentic-design-kits/swiss-minimal/astro/VideoEmbed.astro';
+import { gallery } from '../../data/gallery';
+import landscape from '../../assets/landscape.jpg';
+
+A line of text is easiest to read at about 60 to 75 characters. That is why a post keeps to a measure of 42rem, flush left, however wide the screen is. Pictures don't have that limit. A row of artwork squeezed into a column of text gives each image less room than it needs.
+
+So a post written in MDX can hold blocks of two widths. Text, lists, quotes and code stay at the measure. A wide block keeps the same left edge and runs on to the width of the page.
+
+## A gallery runs wide by itself
+
+A `Gallery` placed in a post needs no wrapper: it takes the page's width. These are rows, so the bottom edges line up across each row.
+
+<Gallery items={gallery} variant="rows" />
+
+The text picks up again at the measure, on the same left edge, so the eye returns to the line it left.
+
+## Or keeps to the text
+
+With `width="text"`, a gallery stays inside the measure. That suits two or three images that belong to one paragraph.
+
+<Gallery items={gallery.slice(0, 2)} width="text" />
+
+## Anything else goes in a PostWide
+
+A figure, a table or a card grid goes wide inside a `PostWide`. Inside it the kit's usual rules hold: the image is a plain rectangle, and its caption sits below in small muted text.
+
+<PostWide>
+  <figure class="figure">
+    <Image
+      class="media media--16x9"
+      src={landscape}
+      alt="Wide crop of an abstract composition: a red circle, black and grey shapes and thin black rules"
+      widths={[800, 1200, 1600]}
+      sizes="(min-width: 88rem) 88rem, 100vw"
+    />
+    <figcaption>A 16:9 crop of the home page artwork, at the width of the page.</figcaption>
+  </figure>
+</PostWide>
+
+## Video from YouTube or Vimeo
+
+A `VideoEmbed` takes the address you'd share and a title for screen readers. It keeps to the measure, like an image in the text, and loads only as it nears the screen. Nothing plays until the reader presses play. YouTube comes from its no-cookie address and Vimeo with Do Not Track on, so neither sets a tracking cookie before then.
+
+<VideoEmbed
+  url="https://www.youtube.com/watch?v=aqz-KE-bpKQ"
+  title="Big Buck Bunny, a short animated film by the Blender Foundation, on YouTube"
+  caption="Big Buck Bunny, Blender Foundation, 2008. CC BY 3.0."
+/>
+
+With `width="page"`, a video runs as wide as a picture can.
+
+<VideoEmbed
+  url="https://vimeo.com/1084537"
+  title="Big Buck Bunny, a short animated film by the Blender Foundation, on Vimeo"
+  caption="The same film from Vimeo, at the width of the page."
+  width="page"
+/>
+
+Every wide block sits on the same left edge as the text. Nothing is centered on its own, so the page keeps one strong vertical line from top to bottom.

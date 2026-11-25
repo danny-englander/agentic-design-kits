@@ -19,16 +19,16 @@ test('the index opens with the featured post, then lists five of the rest newest
   await expectFeature(page);
   const titles = page.locator('.post-list-title a');
   await expect(titles).toHaveText([
+    'Text at a measure, pictures at the page →',
     'One prompt, one agent, timed →',
     'Setting a grid before the words →',
     'Notes on vermilion and azure →',
     'Thick rule, thin rule →',
-    'Labels in two words or fewer →',
   ]);
-  await expect(titles.first()).toHaveAttribute('href', '/blog/an-agent-built-this/');
+  await expect(titles.first()).toHaveAttribute('href', '/blog/wide-blocks/');
   // The arrow is for the eye: screen readers get the title alone.
   await expect(page.getByRole('link', { name: 'Thick rule, thin rule', exact: true })).toBeVisible();
-  await expect(page.locator('.post-list time').first()).toHaveAttribute('datetime', '2026-11-15');
+  await expect(page.locator('.post-list time').first()).toHaveAttribute('datetime', '2026-11-25');
 });
 
 test('the pager leads to page 2, which keeps the feature and lists the older posts', async ({ page }) => {
@@ -41,7 +41,12 @@ test('the pager leads to page 2, which keeps the feature and lists the older pos
   await expect(page).toHaveURL(/\/blog\/page\/2\/$/);
   await expect(page).toHaveTitle('Blog · Page 2 · Swiss Minimal');
   await expectFeature(page);
-  await expect(page.locator('.post-list-title a')).toHaveText(['Why the bars stay dark →', 'Images are content, not filler →', 'Motion that stops →']);
+  await expect(page.locator('.post-list-title a')).toHaveText([
+    'Labels in two words or fewer →',
+    'Why the bars stay dark →',
+    'Images are content, not filler →',
+    'Motion that stops →',
+  ]);
   await expect(pager.getByRole('link', { name: 'Page 2 of 2' })).toHaveAttribute('aria-current', 'page');
   await expect(pager.locator('[rel="next"]')).toHaveCount(0);
   await expect(pager.getByRole('link', { name: 'Newer' })).toHaveAttribute('href', '/blog/');
@@ -92,9 +97,9 @@ test('a post has its header, byline and body', async ({ page }) => {
 });
 
 test('the newest post links only back, the oldest only forward', async ({ page }) => {
-  await page.goto('/blog/an-agent-built-this');
+  await page.goto('/blog/wide-blocks');
   const nav = page.getByRole('navigation', { name: 'More posts' });
-  await expect(nav.locator('[rel="prev"]')).toHaveAttribute('href', '/blog/one-typeface/');
+  await expect(nav.locator('[rel="prev"]')).toHaveAttribute('href', '/blog/an-agent-built-this/');
   await expect(nav.locator('[rel="next"]')).toHaveCount(0);
 
   await page.goto('/blog/motion-that-stops');
@@ -141,7 +146,7 @@ test('each card on the home page has a button named for its title', async ({ pag
   await page.goto('/');
   const buttons = page.locator('.card > .btn-outline');
   await expect(buttons).toHaveCount(4);
-  await expect(page.getByRole('link', { name: 'Read this: Notes on vermilion and azure' })).toHaveAttribute('href', /two-pigments/);
+  await expect(page.getByRole('link', { name: 'Read this: Text at a measure, pictures at the page' })).toHaveAttribute('href', /wide-blocks/);
   await expect(page.locator('.card-title a')).toHaveCount(0);
 });
 
@@ -152,4 +157,50 @@ test('each card and the featured post have one link, so their text can be select
   const feature = page.locator('.post-feature');
   await expect(feature.locator('a')).toHaveCount(1);
   await expect(feature.locator('.post-feature-title a')).toHaveCount(0);
+});
+
+test('in an MDX post, text keeps to the measure and wide blocks run to the page on the same left edge', async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 900 });
+  await page.goto('/blog/wide-blocks');
+  const box = async (selector: string) => (await page.locator(selector).first().boundingBox())!;
+  const text = await box('.post-body > p');
+  expect(Math.round(text.width)).toBe(672); // 42rem
+  for (const wide of ['.post-body > .gallery--rows', '.post-body > .post-wide', '.post-body > .embed--page']) {
+    const b = await box(wide);
+    expect(b.x, wide).toBe(text.x);
+    expect(b.width, wide).toBeGreaterThan(text.width + 200);
+  }
+  for (const narrow of ['.post-body > .gallery--text', '.post-body > .embed:not(.embed--page)']) {
+    const b = await box(narrow);
+    expect(b.x, narrow).toBe(text.x);
+    expect(Math.round(b.width), narrow).toBe(672);
+  }
+  // A gallery is a <ul>, but the post's list styles don't reach it.
+  const gallery = page.locator('.post-body > .gallery').first();
+  await expect(gallery).toHaveCSS('padding-left', '0px');
+  await expect(gallery).toHaveCSS('list-style-type', 'none');
+  await expect(gallery.locator('li').nth(1)).toHaveCSS('margin-top', '0px');
+});
+
+test('a wide block does not push the page sideways on a phone', async ({ page }) => {
+  await page.setViewportSize({ width: 375, height: 812 });
+  await page.goto('/blog/wide-blocks');
+  const overflow = await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth);
+  expect(overflow).toBe(false);
+});
+
+test('a video embed uses the no-cookie YouTube player and Vimeo with Do Not Track, lazy and titled', async ({ page }) => {
+  await page.goto('/blog/wide-blocks');
+  const frames = page.locator('.embed-frame iframe');
+  await expect(frames).toHaveCount(2);
+  await expect(frames.nth(0)).toHaveAttribute('src', 'https://www.youtube-nocookie.com/embed/aqz-KE-bpKQ?rel=0');
+  await expect(frames.nth(1)).toHaveAttribute('src', 'https://player.vimeo.com/video/1084537?dnt=1');
+  for (const i of [0, 1]) {
+    await expect(frames.nth(i)).toHaveAttribute('loading', 'lazy');
+    await expect(frames.nth(i)).toHaveAttribute('title', /Big Buck Bunny/);
+    await expect(frames.nth(i)).not.toHaveAttribute('src', /autoplay/);
+  }
+  // 16:9 by default.
+  const b = (await page.locator('.embed-frame').first().boundingBox())!;
+  expect(Math.abs(b.width / b.height - 16 / 9)).toBeLessThan(0.01);
 });

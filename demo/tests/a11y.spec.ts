@@ -9,7 +9,7 @@ const THEMES = ['light', 'dark'] as const;
 // The demo is vermilion; azure is checked by setting <html data-accent="azure">, as a
 // azure site would.
 const ACCENTS = ['vermilion', 'azure'] as const;
-const PAGES = ['/', '/work', '/work/field-notes', '/blog', '/blog/page/2', '/blog/one-typeface', '/blog/an-agent-built-this', '/blog/two-pigments', '/about', '/forms', '/components', '/gallery', '/agents', '/beautiful-code', '/type-and-color'];
+const PAGES = ['/', '/work', '/work/field-notes', '/blog', '/blog/page/2', '/blog/one-typeface', '/blog/an-agent-built-this', '/blog/two-pigments', '/blog/wide-blocks', '/about', '/forms', '/components', '/gallery', '/agents', '/beautiful-code', '/type-and-color'];
 const TABS = ['menu', 'contact', 'features'];
 
 /** Wait for any running CSS animation or transition to finish. */
@@ -18,7 +18,12 @@ async function settle(page: Page) {
 }
 
 async function scan(page: Page) {
-  const results = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa']).analyze();
+  // A YouTube or Vimeo player is the provider's own page: the scan checks each iframe (its
+  // title) but not what is inside it. options() comes first, as it replaces what withTags sets.
+  const results = await new AxeBuilder({ page })
+    .options({ iframes: false })
+    .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'])
+    .analyze();
   const report = results.violations
     .map((v) => `[${v.impact}] ${v.id}: ${v.help}\n${v.nodes.map((n) => `    - ${n.target.join(' ')}`).join('\n')}`)
     .join('\n\n');
