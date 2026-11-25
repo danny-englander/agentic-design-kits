@@ -966,7 +966,7 @@ a.post-header-label:hover { color: var(--accent-text); text-decoration: underlin
 .post-body { --post-measure: 42rem; }
 .post-body > * { max-width: var(--post-measure); margin: 0 0 1.25rem 0; }
 .post-body > :is(.post-wide, .gallery:not(.gallery--text), .embed--page) { max-width: none; }
-.post-body > :is(.post-wide, .gallery, .embed) { margin: 2.5rem 0; }
+.post-body > :is(.post-wide, .gallery, .embed, .post-card) { margin: 2.5rem 0; }
 .post-body > .gallery:not(.gallery--rows) { margin-bottom: 0; }  /* each masonry item already ends in 2.5rem */
 .post-body > :last-child { margin-bottom: 0; }
 .post-body h2 {
@@ -1015,6 +1015,20 @@ a.post-header-label:hover { color: var(--accent-text); text-decoration: underlin
 .post-body [data-footnote-backref] { margin-left: 0.25rem; color: var(--accent-text); }
 .post-body [data-footnote-backref]:hover { color: var(--ink); }
 .post-body :is([data-footnote-ref], .footnotes li) { scroll-margin-top: 5rem; }
+
+/* ---------- Post card: one post pointed to from inside another ---------- */
+/* A 2px rule, a small label, the linked title, the summary and a quiet line with the date and
+   meta. With the post's cover, the cover is an 8rem square beside the text from 640px, under it
+   on phones. The title is the one link: plain at rest, a 2px underline on hover, like a post list. */
+.post-card { display: grid; gap: 1rem 2rem; padding-top: 1rem; border-top: 2px solid var(--ink); }
+@media (min-width: 640px) { .post-card--image { grid-template-columns: minmax(0, 1fr) 8rem; } }
+.post-card--image > img { width: 8rem; }
+.post-card-label { margin: 0; }
+.post-card-title { margin: 0.5rem 0 0 0; font-size: var(--size-500); font-weight: var(--weight-display); line-height: 1.2; letter-spacing: -0.01em; }
+.post-card-title a, .post-card-title a:hover { color: inherit; text-decoration: none; }
+.post-card-title a:hover { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 0.15em; }
+.post-card-summary { margin: 0.5rem 0 0 0; }
+.post-card-meta { margin: 0.5rem 0 0 0; font-size: var(--size-100); line-height: var(--leading-small); color: var(--muted); font-variant-numeric: tabular-nums; }
 
 /* ---------- Post nav: the previous and next posts, at the end of one ---------- */
 /* A 2px rule, then two links: a small label over the post's title. Stacked on phones; side by
