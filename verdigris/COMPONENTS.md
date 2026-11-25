@@ -846,6 +846,12 @@ In Astro, `<Gallery items={items} />`, each a `GalleryItem` (`src`, `alt`, optio
 
 **Don't.** Crop gallery images to one shape (that is an `Image` list with a ratio class), put text on them, add a hover zoom, or open them in a lightbox or carousel.
 
+## VideoEmbed
+
+A YouTube or Vimeo video in the provider's own player: `<VideoEmbed url="…" title="…" />`, a plain rectangle at a fixed shape (16:9 unless `ratio` says otherwise) with an optional `caption` in the figure caption style. `title` is required: it names the player for screen readers. YouTube comes from `youtube-nocookie.com` and Vimeo with `dnt=1`; the player loads lazily and never plays by itself. Every prop is in Swiss Minimal's `COMPONENTS.md`.
+
+**Don't.** Autoplay, round the corners, or frame it.
+
 ## Hero
 
 The top of a page: the name in `display`, a `lead` line, and an optional captioned image whose shape picks the layout.
@@ -1073,7 +1079,8 @@ Long-form text from Markdown: `.post-body` styles the plain elements inside it, 
 
 **Markup.** `<div class="post-body"><Content /></div>`, after the `PostHeader`.
 
-- A 45rem measure (`max-w-*` on the same element changes it); center it under the header with `mx-auto`. Paragraphs and lists are the page's body text, 1.375rem on 1.5 leading (1.25rem on phones), and blocks are 1.25rem apart.
+- A 45rem measure (`--post-measure`; `[--post-measure:40rem]` changes it); center it under the header with `mx-auto`. The post is centered, so the whole body keeps to the measure: a `Gallery`, a `PostWide` or a page-width `VideoEmbed` stays at the text's width here, where Swiss Minimal runs it wide.
+- **Components in a post** come from MDX: with `@astrojs/mdx` in the site's `integrations` and `**/*.{md,mdx}` in the collection's loader, a `.mdx` post imports a `Gallery`, a `VideoEmbed` or a `PostWide` and uses it between paragraphs. Paragraphs and lists are the page's body text, 1.375rem on 1.5 leading (1.25rem on phones), and blocks are 1.25rem apart.
 - `h2` is light at 2.125rem, 2.75rem from 768px, with `space-12` above it and no rule: inside one article, space and size mark a new part, and the 2px rule is kept for the page's own sections; `h3` is the plain h3 style (`size-600`, `size-700` from 768px) and `h4` the h4 style. Don't skip from the post's `h1` to an `h3`.
 - Links are underlined, and on hover turn `accent-text` with a 2px underline, like `.link`.
 - Lists have square markers (`ul`) or tabular numbers (`ol`), in `muted`.
