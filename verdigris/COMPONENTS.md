@@ -846,6 +846,10 @@ In Astro, `<Gallery items={items} />`, each a `GalleryItem` (`src`, `alt`, optio
 
 **Don't.** Crop gallery images to one shape (that is an `Image` list with a ratio class), put text on them, add a hover zoom, or open them in a lightbox or carousel.
 
+## PostCard
+
+One post pointed to from inside another: `<PostCard post={post} image={cover} />`, with a 2px rule, a small label ("Related post" unless `label` says otherwise), the linked title, its summary, a `muted` line with the date and meta, and the cover as a small square beside it from 640px. The title is the card's one link. The kit reads no collection: look the post up in the site and pass it in. Swiss Minimal's `COMPONENTS.md` has a `RelatedPost` component that does it by file name.
+
 ## VideoEmbed
 
 A YouTube or Vimeo video in the provider's own player: `<VideoEmbed url="…" title="…" />`, a plain rectangle at a fixed shape (16:9 unless `ratio` says otherwise) with an optional `caption` in the figure caption style. `title` is required: it names the player for screen readers. YouTube comes from `youtube-nocookie.com` and Vimeo with `dnt=1`; the player loads lazily and never plays by itself. Every prop is in Swiss Minimal's `COMPONENTS.md`.

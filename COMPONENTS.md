@@ -1008,6 +1008,47 @@ In Astro, `<PostList posts={posts} />`, each a `Post` (`title`, `href`, `date`, 
 
 **Don't.** Add thumbnails beside every post or an accent on the dates. A list of things to choose and keep current is a `ListRow`, not this.
 
+## PostCard
+
+One post pointed to from inside another: a "related post" or "read next" between paragraphs.
+
+**Markup.**
+
+```html
+<div class="post-card post-card--image">
+  <div>
+    <p class="post-card-label label muted">Related post</p>
+    <p class="post-card-title"><a href="/blog/two-pigments/">Notes on vermilion and azure<span aria-hidden="true">&nbsp;→</span></a></p>
+    <p class="post-card-summary">The kit offers two accents, one warm and one cool…</p>
+    <p class="post-card-meta"><time datetime="2026-09-02">Sep 2, 2026</time> · Color · 1 min read</p>
+  </div>
+  <img class="media media--1x1" src="…" alt="" width="320" height="320" loading="lazy">
+</div>
+```
+
+In Astro, `<PostCard post={post} />`, with a `Post` as `PostList` takes it. Optional: `image`, the post's cover (an imported image), and `label`, "Related post" by default ("Read next", "See also"; two words at most).
+
+The kit reads no collection, so a site gives the card its post. The usual way is a small component of its own that takes the post's file name, looks it up and fails the build if there is none, so a post can write `<RelatedPost slug="two-pigments" />` and the card always shows the post's current title, summary and cover:
+
+```astro
+---
+import { getEntry } from 'astro:content';
+import PostCard from '@agentic-design-kits/swiss-minimal/astro/PostCard.astro';
+const { slug, label } = Astro.props;
+const entry = await getEntry('blog', slug);
+if (!entry) throw new Error(`RelatedPost: no post named "${slug}"`);
+const { title, date, summary, tags, cover } = entry.data;
+---
+<PostCard post={{ title, date, summary, href: `/blog/${entry.id}/`, meta: tags.join(' · ') }} image={cover} label={label} />
+```
+
+- A 2px `ink` rule on top, then the label, the title at `size-500` in bold, the summary as body text and a 14px `muted` line with the date (in UTC) and the meta.
+- The title is the card's one link, plain at rest, with the font's arrow after it; it underlines (2px) on hover. The cover isn't a link and has `alt=""`, since the title says where the card goes.
+- The cover is an 8rem square beside the text from 640px, under it on phones. A post with no cover gets a card with no image.
+- In a post it keeps to the measure, with 2.5rem above and below. It's a block of the post, not a heading, so it leaves the post's outline alone.
+
+**Don't.** Make the whole card a link, add a box or a tint, or line up more than two or three in a row: a longer list of posts is a `PostList`.
+
 ## PostFeature
 
 One post at the top of a blog's index, in one of two layouts. **Split**, like a split `Hero`: the text and a square image 50/50 from 768px, text first on phones. **Wide**: the text across the full width, then the image under it at 16:9. The `PostList` of the other posts follows it.
@@ -1098,6 +1139,7 @@ Long-form text from Markdown: `.post-body` styles the plain elements inside it, 
 **Markup.** `<div class="post-body"><Content /></div>`, after the `PostHeader`.
 
 - Every block keeps to a 42rem measure, flush left: the `--post-measure` variable on `.post-body` (`[--post-measure:36rem]` changes it). Paragraphs and blocks are 1.25rem apart.
+- **Blocks from components:** a `Gallery`, a `VideoEmbed`, a `PostCard` for another post, a `PostWide` around anything else. Each gets 2.5rem above and below.
 - **Wide blocks.** A `.post-wide`, a `Gallery` or a `VideoEmbed` with `width="page"` keeps the text's left edge and runs on to the width of the page, with 2.5rem above and below. Text stays at the measure around it, so the page keeps one left edge from top to bottom. Nothing in a post is centered on its own. See PostWide.
 - **Components in a post** come from MDX: with `@astrojs/mdx` in the site's `integrations` and `**/*.{md,mdx}` in the collection's loader, a `.mdx` post imports a component and uses it between paragraphs. Plain `.md` posts keep working beside them. The prose styles for lists and figures are written with `:where()`, so a component inside a post keeps its own spacing.
 - `h2` is bold at 1.75rem, 2.25rem from 768px, with `space-12` above it and no rule: inside one article, space and size mark a new part, and the 2px rule is kept for the page's own sections; `h3` is the plain h3 style (`size-600`, `size-700` from 768px) and `h4` the h4 style. Don't skip from the post's `h1` to an `h3`.
