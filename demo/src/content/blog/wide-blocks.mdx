@@ -9,6 +9,7 @@ import { Image } from 'astro:assets';
 import Gallery from '@agentic-design-kits/swiss-minimal/astro/Gallery.astro';
 import PostWide from '@agentic-design-kits/swiss-minimal/astro/PostWide.astro';
 import VideoEmbed from '@agentic-design-kits/swiss-minimal/astro/VideoEmbed.astro';
+import RelatedPost from '../../components/RelatedPost.astro';
 import { gallery } from '../../data/gallery';
 import landscape from '../../assets/landscape.jpg';
 
@@ -67,3 +68,11 @@ With `width="page"`, a video runs as wide as a picture can.
 />
 
 Every wide block sits on the same left edge as the text. Nothing is centered on its own, so the page keeps one strong vertical line from top to bottom.
+
+## Pointing to another post
+
+A `PostCard` points to another post from inside this one. It takes the post's file name, and finds its title, summary, date and cover itself, so the card stays right when the post changes. It keeps to the measure, and only its title is a link.
+
+<RelatedPost slug="images-are-content" />
+
+<RelatedPost slug="two-pigments" label="Read next" />

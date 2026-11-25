@@ -204,3 +204,35 @@ test('a video embed uses the no-cookie YouTube player and Vimeo with Do Not Trac
   const b = (await page.locator('.embed-frame').first().boundingBox())!;
   expect(Math.abs(b.width / b.height - 16 / 9)).toBeLessThan(0.01);
 });
+
+test('a post card points to another post: one link, its summary and date, and its cover when it has one', async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 900 });
+  await page.goto('/blog/wide-blocks');
+  const cards = page.locator('.post-body > .post-card');
+  await expect(cards).toHaveCount(2);
+
+  const plain = cards.nth(0);
+  await expect(plain.locator('a')).toHaveCount(1);
+  await expect(plain.getByRole('link', { name: 'Images are content, not filler' })).toHaveAttribute('href', '/blog/images-are-content/');
+  await expect(plain.locator('.post-card-label')).toHaveText('Related post');
+  await expect(plain.locator('.post-card-summary')).toContainText('A photo earns its place');
+  await expect(plain.locator('time')).toHaveAttribute('datetime', '2026-06-02');
+  await expect(plain.locator('img')).toHaveCount(0);
+
+  const withCover = cards.nth(1);
+  await expect(withCover.locator('a')).toHaveCount(1);
+  await expect(withCover.locator('.post-card-label')).toHaveText('Read next');
+  await expect(withCover.locator('img')).toHaveAttribute('alt', '');
+  const [card, img, text] = await Promise.all([
+    withCover.boundingBox(),
+    withCover.locator('img').boundingBox(),
+    page.locator('.post-body > p').first().boundingBox(),
+  ]);
+  expect(Math.round(card!.width)).toBe(Math.round(text!.width)); // at the measure
+  expect(Math.round(img!.width)).toBe(128); // an 8rem square, beside the text
+  expect(Math.round(img!.height)).toBe(128);
+  expect(img!.x + img!.width).toBeCloseTo(card!.x + card!.width, 0);
+
+  // Plain at rest, like a post list's titles.
+  await expect(plain.locator('.post-card-title a')).toHaveCSS('text-decoration-line', 'none');
+});

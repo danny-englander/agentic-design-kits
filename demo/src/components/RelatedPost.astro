@@ -1,0 +1,20 @@
+---
+// A card for another post on this blog, for use inside a post: <RelatedPost slug="one-typeface" />.
+// It looks the post up by its file name and passes it to the kit's PostCard, so the card always
+// shows the post's current title, summary and cover. A slug that names no post fails the build.
+import { getEntry } from 'astro:content';
+import PostCard from '@agentic-design-kits/swiss-minimal/astro/PostCard.astro';
+import { toPost } from '../data/blog';
+
+interface Props {
+  /** The post's file name without its extension: one-typeface for one-typeface.md. */
+  slug: string;
+  /** The small label over the title. Default "Related post". */
+  label?: string;
+}
+const { slug, label } = Astro.props;
+const entry = await getEntry('blog', slug);
+if (!entry) throw new Error(`RelatedPost: no post named "${slug}" in src/content/blog/`);
+---
+
+<PostCard post={toPost(entry)} image={entry.data.cover} label={label} />
