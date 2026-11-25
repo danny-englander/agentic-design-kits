@@ -592,6 +592,12 @@ html[data-drawer-open] .topbar { --tb-bg: var(--bar); --tb-fg: var(--bar-ink); }
 .figure { margin: 0; }
 .figure > figcaption { margin-top: 0.75rem; font-size: var(--size-200); line-height: var(--leading-small); color: var(--muted); }
 
+/* ---------- Video embed (see VideoEmbed in COMPONENTS.md) ---------- */
+/* A YouTube or Vimeo player at a fixed shape (--embed-ratio, written by VideoEmbed.astro), on
+   `rule` until it loads, like an image. No border, no rounding: the player's own edge is the edge. */
+.embed-frame { position: relative; aspect-ratio: var(--embed-ratio, 16 / 9); background: var(--rule); }
+.embed-frame > iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+
 /* ---------- Gallery (see Gallery in COMPONENTS.md) ---------- */
 /* Artwork shown whole, each image at its own shape: never cropped. Each item is a .figure.
    Masonry: columns, one on phones, two from 640px, three from 1024px. Items run down each column,
@@ -950,12 +956,18 @@ a.post-header-label:hover { color: var(--accent-text); text-decoration: underlin
 
 /* ---------- Post body: long-form text from Markdown ---------- */
 /* Markdown can't take classes, so this styles plain elements inside it: paragraphs, h2 and h3,
-   lists, quotes, rules, images, tables, footnotes and code. A 42rem measure by default; a utility on the
-   same element changes it. An h2 has no rule over it: inside one article, space and size mark a
-   new part, and the thick rule is kept for sections of the page. A quote is set
-   large and bold beside a 6px accent edge, the same edge the active row has. */
-.post-body { max-width: 42rem; }
-.post-body > * { margin: 0 0 1.25rem 0; }
+   lists, quotes, rules, images, tables, footnotes and code. An h2 has no rule over it: inside one
+   article, space and size mark a new part, and the thick rule is kept for sections of the page.
+   A quote is set large and bold beside a 6px accent edge, the same edge the active row has.
+   Widths: every block keeps to the measure (--post-measure, 42rem), flush left, except a wide
+   block (.post-wide, a Gallery not marked .gallery--text, an .embed--page), which keeps the text's left edge
+   and runs on to the width of the page. The list and figure rules are wrapped in :where(), so a
+   kit component inside a post (a gallery is a <ul> of figures) keeps its own spacing. */
+.post-body { --post-measure: 42rem; }
+.post-body > * { max-width: var(--post-measure); margin: 0 0 1.25rem 0; }
+.post-body > :is(.post-wide, .gallery:not(.gallery--text), .embed--page) { max-width: none; }
+.post-body > :is(.post-wide, .gallery, .embed) { margin: 2.5rem 0; }
+.post-body > .gallery:not(.gallery--rows) { margin-bottom: 0; }  /* each masonry item already ends in 2.5rem */
 .post-body > :last-child { margin-bottom: 0; }
 .post-body h2 {
   margin: 3rem 0 1rem 0;
@@ -966,10 +978,10 @@ a.post-header-label:hover { color: var(--accent-text); text-decoration: underlin
 .post-body > :first-child { margin-top: 0; }
 .post-body a { color: inherit; text-decoration: underline; text-underline-offset: 4px; }
 .post-body a:hover { color: var(--accent-text); }
-.post-body :is(ul, ol) { padding-left: 1.5rem; }
-.post-body ul { list-style: square; }
-.post-body ol { list-style: decimal; font-variant-numeric: tabular-nums; }
-.post-body li + li { margin-top: 0.375rem; }
+:where(.post-body) :is(ul, ol) { padding-left: 1.5rem; }
+:where(.post-body) ul { list-style: square; }
+:where(.post-body) ol { list-style: decimal; font-variant-numeric: tabular-nums; }
+:where(.post-body) li + li { margin-top: 0.375rem; }
 .post-body li::marker { color: var(--muted); }
 .post-body blockquote {
   margin: 2rem 0; padding: 0.25rem 0 0.25rem 1.25rem;
@@ -980,7 +992,7 @@ a.post-header-label:hover { color: var(--accent-text); text-decoration: underlin
 .post-body blockquote p + p { margin-top: 0.75rem; }
 .post-body hr { height: 0; margin: 3rem 0; border: 0; border-top: 2px solid var(--ink); }
 .post-body img { display: block; width: 100%; height: auto; background: var(--rule); }
-.post-body figure { margin: 2rem 0; }
+:where(.post-body) figure { margin: 2rem 0; }
 .post-body figcaption { margin-top: 0.75rem; font-size: var(--size-200); line-height: var(--leading-small); color: var(--muted); }
 .post-body table { width: 100%; border-collapse: collapse; }
 .post-body th {

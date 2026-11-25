@@ -230,8 +230,9 @@ a.post-header-label:hover { color: var(--accent-text); }
 .post-meta dt { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; }
 .post-meta dd { margin: 0; }
 
-/* A post's text is the page's body text, at a 45rem measure. */
-.post-body { max-width: 45rem; }
+/* A post's text is the page's body text, at a 45rem measure. The post is centered, so the whole
+   body keeps to the measure: a wide block (.post-wide, a Gallery) stays at the text's width here. */
+.post-body { --post-measure: 45rem; max-width: var(--post-measure); }
 
 /* The end of a piece (.post-body--end): an asterism, then the notes, if any, under a rule. */
 .post-body--end::after, .post-body--end .footnotes::before {

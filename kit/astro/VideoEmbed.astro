@@ -1,0 +1,73 @@
+---
+// A YouTube or Vimeo video in its own player (VideoEmbed in COMPONENTS.md): a plain rectangle at a
+// fixed shape, on `rule` until the player loads, with an optional caption below. It loads only as
+// it nears the screen and never plays by itself. YouTube comes from youtube-nocookie.com and Vimeo
+// with dnt=1, so neither sets tracking cookies before the visitor presses play.
+// In a post (.post-body) it keeps to the text's measure; width "page" runs it to the page's width.
+interface Props {
+  /** The video's address as you'd share it: youtube.com/watch?v=…, youtu.be/…, a Short, vimeo.com/… */
+  url: string;
+  /** What the video is, for screen readers: the player's iframe title. Required. */
+  title: string;
+  /** Shown under the player: a title, a date, a credit. */
+  caption?: string;
+  /** Width over height. 16:9 unless the video is another shape (a Short is 9 / 16). */
+  ratio?: number;
+  /** Start this many seconds in. A `t=` in a YouTube address is read too. */
+  start?: number;
+  /** In a post: "text" (the default) keeps to the measure, "page" runs to the page's width. */
+  width?: 'text' | 'page';
+  /** Utilities for spacing, e.g. "mb-16". */
+  class?: string;
+}
+const { url, title, caption, ratio = 16 / 9, start, width = 'text', class: className } = Astro.props;
+
+// "1h2m3s", "90s" or "90" in seconds.
+const seconds = (t: string | null) => {
+  if (!t) return undefined;
+  if (/^\d+$/.test(t)) return Number(t);
+  const m = t.match(/^(?:(\d+)h)?(?:(\d+)m)?(?:(\d+)s)?$/);
+  return m ? Number(m[1] ?? 0) * 3600 + Number(m[2] ?? 0) * 60 + Number(m[3] ?? 0) : undefined;
+};
+
+function player(address: string): string {
+  const u = new URL(address);
+  const host = u.hostname.replace(/^(www|m)\./, '');
+  if (['youtube.com', 'youtu.be', 'youtube-nocookie.com'].includes(host)) {
+    const id =
+      host === 'youtu.be'
+        ? u.pathname.slice(1)
+        : (u.searchParams.get('v') ?? u.pathname.match(/^\/(?:embed|shorts|live)\/([^/]+)/)?.[1]);
+    if (!id) throw new Error(`VideoEmbed: no video id in ${address}`);
+    const params = new URLSearchParams({ rel: '0' });
+    const at = start ?? seconds(u.searchParams.get('t') ?? u.searchParams.get('start'));
+    if (at) params.set('start', String(at));
+    return `https://www.youtube-nocookie.com/embed/${id}?${params}`;
+  }
+  if (host === 'vimeo.com' || host === 'player.vimeo.com') {
+    // vimeo.com/123, vimeo.com/123/abcdef (an unlisted video's hash), player.vimeo.com/video/123
+    const m = u.pathname.match(/^\/(?:video\/)?(\d+)(?:\/([0-9a-f]+))?/);
+    if (!m) throw new Error(`VideoEmbed: no video id in ${address}`);
+    const params = new URLSearchParams({ dnt: '1' });
+    const hash = m[2] ?? u.searchParams.get('h');
+    if (hash) params.set('h', hash);
+    const src = `https://player.vimeo.com/video/${m[1]}?${params}`;
+    return start ? `${src}#t=${start}s` : src;
+  }
+  throw new Error(`VideoEmbed: ${address} is not a YouTube or Vimeo address`);
+}
+const src = player(url);
+---
+
+<figure class:list={['figure', 'embed', width === 'page' && 'embed--page', className]}>
+  <div class="embed-frame" style={`--embed-ratio: ${ratio.toFixed(4)}`}>
+    <iframe
+      src={src}
+      title={title}
+      loading="lazy"
+      allow="fullscreen; picture-in-picture; encrypted-media; clipboard-write"
+      allowfullscreen
+      referrerpolicy="strict-origin-when-cross-origin"></iframe>
+  </div>
+  {caption && <figcaption>{caption}</figcaption>}
+</figure>
