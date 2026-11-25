@@ -18,11 +18,11 @@ async function settle(page: Page) {
 }
 
 async function scan(page: Page) {
-  // A YouTube or Vimeo player is the provider's own page: the scan checks each iframe (its
-  // title) but not what is inside it. options() comes first, as it replaces what withTags sets.
+  // A YouTube or Vimeo player is the provider's own page, which the site can't fix, so the scan
+  // leaves each player out. Its iframe's title is checked in blog.spec.ts instead.
   const results = await new AxeBuilder({ page })
-    .options({ iframes: false })
     .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'])
+    .exclude('.embed-frame iframe')
     .analyze();
   const report = results.violations
     .map((v) => `[${v.impact}] ${v.id}: ${v.help}\n${v.nodes.map((n) => `    - ${n.target.join(' ')}`).join('\n')}`)
