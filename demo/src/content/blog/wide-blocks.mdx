@@ -50,7 +50,7 @@ A figure, a table or a card grid goes wide inside a `PostWide`. Inside it the ki
 
 ## Video from YouTube or Vimeo
 
-A `VideoEmbed` takes the address you'd share and a title for screen readers. It keeps to the measure, like an image in the text, and loads only as it nears the screen. Nothing plays until the reader presses play. YouTube comes from its no-cookie address and Vimeo with Do Not Track on, so neither sets a tracking cookie before then.
+A `VideoEmbed` takes the address you'd share and a title for screen readers. Like a gallery, it fills the page's width, and it loads only as it nears the screen. Nothing plays until the reader presses play. YouTube comes from its no-cookie address and Vimeo with Do Not Track on, so neither sets a tracking cookie before then.
 
 <VideoEmbed
   url="https://www.youtube.com/watch?v=aqz-KE-bpKQ"
@@ -58,13 +58,13 @@ A `VideoEmbed` takes the address you'd share and a title for screen readers. It 
   caption="Big Buck Bunny, Blender Foundation, 2008. CC BY 3.0."
 />
 
-With `width="page"`, a video runs as wide as a picture can.
+With `width="text"`, a video keeps to the measure instead, like a picture in the text.
 
 <VideoEmbed
   url="https://vimeo.com/1084537"
   title="Big Buck Bunny, a short animated film by the Blender Foundation, on Vimeo"
-  caption="The same film from Vimeo, at the width of the page."
-  width="page"
+  caption="The same film from Vimeo, at the text's width."
+  width="text"
 />
 
 Every wide block sits on the same left edge as the text. Nothing is centered on its own, so the page keeps one strong vertical line from top to bottom.

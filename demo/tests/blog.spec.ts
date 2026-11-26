@@ -165,12 +165,12 @@ test('in an MDX post, text keeps to the measure and wide blocks run to the page 
   const box = async (selector: string) => (await page.locator(selector).first().boundingBox())!;
   const text = await box('.post-body > p');
   expect(Math.round(text.width)).toBe(672); // 42rem
-  for (const wide of ['.post-body > .gallery--rows', '.post-body > .post-wide', '.post-body > .embed--page']) {
+  for (const wide of ['.post-body > .gallery--rows', '.post-body > .post-wide', '.post-body > .embed:not(.embed--text)']) {
     const b = await box(wide);
     expect(b.x, wide).toBe(text.x);
     expect(b.width, wide).toBeGreaterThan(text.width + 200);
   }
-  for (const narrow of ['.post-body > .gallery--text', '.post-body > .embed:not(.embed--page)']) {
+  for (const narrow of ['.post-body > .gallery--text', '.post-body > .embed--text']) {
     const b = await box(narrow);
     expect(b.x, narrow).toBe(text.x);
     expect(Math.round(b.width), narrow).toBe(672);
