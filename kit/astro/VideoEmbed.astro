@@ -3,7 +3,7 @@
 // fixed shape, on `rule` until the player loads, with an optional caption below. It loads only as
 // it nears the screen and never plays by itself. YouTube comes from youtube-nocookie.com and Vimeo
 // with dnt=1, so neither sets tracking cookies before the visitor presses play.
-// In a post (.post-body) it keeps to the text's measure; width "page" runs it to the page's width.
+// In a post (.post-body) it fills the page's width, like a gallery; width "text" keeps it to the text's measure.
 interface Props {
   /** The video's address as you'd share it: youtube.com/watch?v=…, youtu.be/…, a Short, vimeo.com/… */
   url: string;
@@ -15,12 +15,12 @@ interface Props {
   ratio?: number;
   /** Start this many seconds in. A `t=` in a YouTube address is read too. */
   start?: number;
-  /** In a post: "text" (the default) keeps to the measure, "page" runs to the page's width. */
-  width?: 'text' | 'page';
+  /** In a post: "page" (the default) fills the page's width, "text" keeps to the text's measure. */
+  width?: 'page' | 'text';
   /** Utilities for spacing, e.g. "mb-16". */
   class?: string;
 }
-const { url, title, caption, ratio = 16 / 9, start, width = 'text', class: className } = Astro.props;
+const { url, title, caption, ratio = 16 / 9, start, width = 'page', class: className } = Astro.props;
 
 // "1h2m3s", "90s" or "90" in seconds.
 const seconds = (t: string | null) => {
@@ -59,7 +59,7 @@ function player(address: string): string {
 const src = player(url);
 ---
 
-<figure class:list={['figure', 'embed', width === 'page' && 'embed--page', className]}>
+<figure class:list={['figure', 'embed', width === 'text' && 'embed--text', className]}>
   <div class="embed-frame" style={`--embed-ratio: ${ratio.toFixed(4)}`}>
     <iframe
       src={src}

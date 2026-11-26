@@ -960,12 +960,12 @@ a.post-header-label:hover { color: var(--accent-text); text-decoration: underlin
    article, space and size mark a new part, and the thick rule is kept for sections of the page.
    A quote is set large and bold beside a 6px accent edge, the same edge the active row has.
    Widths: every block keeps to the measure (--post-measure, 42rem), flush left, except a wide
-   block (.post-wide, a Gallery not marked .gallery--text, an .embed--page), which keeps the text's left edge
+   block (.post-wide, a Gallery not marked .gallery--text, a VideoEmbed not marked .embed--text), which keeps the text's left edge
    and runs on to the width of the page. The list and figure rules are wrapped in :where(), so a
    kit component inside a post (a gallery is a <ul> of figures) keeps its own spacing. */
 .post-body { --post-measure: 42rem; }
 .post-body > * { max-width: var(--post-measure); margin: 0 0 1.25rem 0; }
-.post-body > :is(.post-wide, .gallery:not(.gallery--text), .embed--page) { max-width: none; }
+.post-body > :is(.post-wide, .gallery:not(.gallery--text), .embed:not(.embed--text)) { max-width: none; }
 .post-body > :is(.post-wide, .gallery, .embed, .post-card) { margin: 2.5rem 0; }
 .post-body > .gallery:not(.gallery--rows) { margin-bottom: 0; }  /* each masonry item already ends in 2.5rem */
 .post-body > :last-child { margin-bottom: 0; }
