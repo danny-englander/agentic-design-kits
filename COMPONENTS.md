@@ -863,12 +863,12 @@ A YouTube or Vimeo video in the provider's own player: a plain rectangle at a fi
 </figure>
 ```
 
-In Astro, `<VideoEmbed url="https://www.youtube.com/watch?v=…" title="…" />`. `url` is the address you'd share: `youtube.com/watch?v=…`, `youtu.be/…`, a Short or a live video, `vimeo.com/…` (with an unlisted video's hash, `vimeo.com/123/abc…`) or `player.vimeo.com/video/…`; any other address fails the build. Optional: `caption`, `ratio` (width over height, `16 / 9` by default; a Short is `9 / 16`), `start` in seconds (a `t=` in a YouTube address is read too), and `width="page"` (class `embed--page`) to run past the text in a post.
+In Astro, `<VideoEmbed url="https://www.youtube.com/watch?v=…" title="…" />`. `url` is the address you'd share: `youtube.com/watch?v=…`, `youtu.be/…`, a Short or a live video, `vimeo.com/…` (with an unlisted video's hash, `vimeo.com/123/abc…`) or `player.vimeo.com/video/…`; any other address fails the build. Optional: `caption`, `ratio` (width over height, `16 / 9` by default; a Short is `9 / 16`), `start` in seconds (a `t=` in a YouTube address is read too), and `width="text"` (class `embed--text`) to keep it to the text's measure in a post.
 
 - **The title is required.** It names the iframe for screen readers: say what the video is, and where it plays ("…, on YouTube").
 - **Privacy first.** YouTube comes from `youtube-nocookie.com` and Vimeo with `dnt=1`, so neither sets a tracking cookie before the visitor presses play. `referrerpolicy` sends only the site's address, which YouTube needs to play.
 - **It never plays by itself,** loops or starts muted in the background: no `autoplay`. The player loads lazily, as it nears the screen.
-- In a post it keeps to the measure, like a picture in the text; `width="page"` runs it to the page's width on the same left edge.
+- In a post it fills the page's width on the text's left edge, like a gallery; `width="text"` keeps it to the measure. Either way the player fills its box: the box takes the width, and the height follows from `ratio`.
 
 **Don't.** Autoplay, round the corners, add a frame or shadow, or put a video in as background or mood.
 
@@ -1140,7 +1140,7 @@ Long-form text from Markdown: `.post-body` styles the plain elements inside it, 
 
 - Every block keeps to a 42rem measure, flush left: the `--post-measure` variable on `.post-body` (`[--post-measure:36rem]` changes it). Paragraphs and blocks are 1.25rem apart.
 - **Blocks from components:** a `Gallery`, a `VideoEmbed`, a `PostCard` for another post, a `PostWide` around anything else. Each gets 2.5rem above and below.
-- **Wide blocks.** A `.post-wide`, a `Gallery` or a `VideoEmbed` with `width="page"` keeps the text's left edge and runs on to the width of the page, with 2.5rem above and below. Text stays at the measure around it, so the page keeps one left edge from top to bottom. Nothing in a post is centered on its own. See PostWide.
+- **Wide blocks.** A `.post-wide`, a `Gallery` or a `VideoEmbed` keeps the text's left edge and runs on to the width of the page, with 2.5rem above and below. Text stays at the measure around it, so the page keeps one left edge from top to bottom. Nothing in a post is centered on its own. See PostWide.
 - **Components in a post** come from MDX: with `@astrojs/mdx` in the site's `integrations` and `**/*.{md,mdx}` in the collection's loader, a `.mdx` post imports a component and uses it between paragraphs. Plain `.md` posts keep working beside them. The prose styles for lists and figures are written with `:where()`, so a component inside a post keeps its own spacing.
 - `h2` is bold at 1.75rem, 2.25rem from 768px, with `space-12` above it and no rule: inside one article, space and size mark a new part, and the 2px rule is kept for the page's own sections; `h3` is the plain h3 style (`size-600`, `size-700` from 768px) and `h4` the h4 style. Don't skip from the post's `h1` to an `h3`.
 - Links are underlined, and on hover turn `accent-text` with a 2px underline, like `.link`.
@@ -1169,7 +1169,7 @@ import PostWide from '@agentic-design-kits/swiss-minimal/astro/PostWide.astro';
 </PostWide>
 ```
 
-- A `Gallery` needs no wrapper: it is wide in a post by itself. A `VideoEmbed` takes `width="page"`.
+- A `Gallery` or a `VideoEmbed` needs no wrapper: each is wide in a post by itself, and `width="text"` keeps it narrow.
 - Give an image inside it `sizes` for the page's width, as above, so it isn't served at the text's.
 - It is wide only as a direct child of `.post-body`. Elsewhere it is a plain block.
 

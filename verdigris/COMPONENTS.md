@@ -1083,7 +1083,7 @@ Long-form text from Markdown: `.post-body` styles the plain elements inside it, 
 
 **Markup.** `<div class="post-body"><Content /></div>`, after the `PostHeader`.
 
-- A 45rem measure (`--post-measure`; `[--post-measure:40rem]` changes it); center it under the header with `mx-auto`. The post is centered, so the whole body keeps to the measure: a `Gallery`, a `PostWide` or a page-width `VideoEmbed` stays at the text's width here, where Swiss Minimal runs it wide.
+- A 45rem measure (`--post-measure`; `[--post-measure:40rem]` changes it); center it under the header with `mx-auto`. The post is centered, so the whole body keeps to the measure: a `Gallery`, a `PostWide` or a `VideoEmbed` stays at the text's width here, where Swiss Minimal runs it wide.
 - **Components in a post** come from MDX: with `@astrojs/mdx` in the site's `integrations` and `**/*.{md,mdx}` in the collection's loader, a `.mdx` post imports a `Gallery`, a `VideoEmbed` or a `PostWide` and uses it between paragraphs. Paragraphs and lists are the page's body text, 1.375rem on 1.5 leading (1.25rem on phones), and blocks are 1.25rem apart.
 - `h2` is light at 2.125rem, 2.75rem from 768px, with `space-12` above it and no rule: inside one article, space and size mark a new part, and the 2px rule is kept for the page's own sections; `h3` is the plain h3 style (`size-600`, `size-700` from 768px) and `h4` the h4 style. Don't skip from the post's `h1` to an `h3`.
 - Links are underlined, and on hover turn `accent-text` with a 2px underline, like `.link`.
