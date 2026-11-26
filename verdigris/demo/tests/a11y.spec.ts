@@ -7,7 +7,7 @@ import AxeBuilder from '@axe-core/playwright';
 
 const THEMES = ['light', 'dark'] as const;
 const ACCENTS = ['verdigris'] as const;
-const PAGES = ['/', '/work', '/work/field-notes', '/blog', '/blog/page/2', '/blog/one-family', '/blog/an-agent-built-this', '/blog/copper-green', '/about', '/forms', '/components', '/gallery', '/agents', '/beautiful-code', '/type-and-color'];
+const PAGES = ['/', '/work', '/work/field-notes', '/blog', '/blog/page/2', '/blog/one-family', '/blog/an-agent-built-this', '/blog/copper-green', '/blog/pictures-and-films', '/about', '/forms', '/components', '/gallery', '/agents', '/beautiful-code', '/type-and-color'];
 const TABS = ['menu', 'contact', 'features'];
 
 /** Wait for any running CSS animation or transition to finish. */
@@ -16,7 +16,12 @@ async function settle(page: Page) {
 }
 
 async function scan(page: Page) {
-  const results = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa']).analyze();
+  // A YouTube or Vimeo player is the provider's own page, which the site can't fix, so the scan
+  // leaves each player out. Its iframe's title is checked in blog.spec.ts instead.
+  const results = await new AxeBuilder({ page })
+    .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'])
+    .exclude('.embed-frame iframe')
+    .analyze();
   const report = results.violations
     .map((v) => `[${v.impact}] ${v.id}: ${v.help}\n${v.nodes.map((n) => `    - ${n.target.join(' ')}`).join('\n')}`)
     .join('\n\n');
