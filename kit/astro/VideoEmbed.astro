@@ -48,7 +48,9 @@ function player(address: string): string {
     // vimeo.com/123, vimeo.com/123/abcdef (an unlisted video's hash), player.vimeo.com/video/123
     const m = u.pathname.match(/^\/(?:video\/)?(\d+)(?:\/([0-9a-f]+))?/);
     if (!m) throw new Error(`VideoEmbed: no video id in ${address}`);
-    const params = new URLSearchParams({ dnt: '1' });
+    // transparent=0: Vimeo's player is see-through by default, so space it leaves around a poster
+    // of another shape would show the page; this paints it black, as YouTube does.
+    const params = new URLSearchParams({ dnt: '1', transparent: '0' });
     const hash = m[2] ?? u.searchParams.get('h');
     if (hash) params.set('h', hash);
     const src = `https://player.vimeo.com/video/${m[1]}?${params}`;
