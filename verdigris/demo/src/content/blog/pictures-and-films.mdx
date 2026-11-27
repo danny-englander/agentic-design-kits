@@ -1,0 +1,50 @@
+---
+title: Pictures and films inside a post
+date: '2026-11-26'
+summary: A post written in MDX can hold a gallery, a video or a card for another post between its paragraphs. A gallery or a video can open out to the width of the page; the rest keep to the column of text.
+tags: [Images, Layout]
+---
+
+import Gallery from '@agentic-design-kits/verdigris/astro/Gallery.astro';
+import VideoEmbed from '@agentic-design-kits/verdigris/astro/VideoEmbed.astro';
+import RelatedPost from '../../components/RelatedPost.astro';
+import { gallery } from '../../data/gallery';
+
+A post here is one centered column, 45rem wide, like a page of a book. Markdown fills it with text. Written in MDX instead, a post can bring in a few of the kit's components and set them between its paragraphs. Most of them stay in that column. A gallery or a video can open out.
+
+## A gallery
+
+A `Gallery` shows each picture whole, at its own shape, across the width of the page, centered on the same line as the text. These are rows, so the bottom edges line up across each row, and the captions sit under them in the kit's italic.
+
+<Gallery items={gallery.slice(0, 8)} variant="rows" />
+
+The text picks up again under it, back in the centered column.
+
+## A film from YouTube or Vimeo
+
+A `VideoEmbed` takes the address you'd share and a title for screen readers. The YouTube player here runs the width of the page, like the gallery. With `width="text"`, the Vimeo one below stays in the column. Each loads only as it nears the screen. Nothing plays until the reader presses play. YouTube comes from its no-cookie address and Vimeo with Do Not Track on, so neither sets a tracking cookie before then.
+
+<VideoEmbed
+  url="https://www.youtube.com/watch?v=l_s-Kxuu2NA"
+  title="Creatures of Habit, a surf film by Nate Laverty shot in Canada and Iceland, on YouTube"
+  caption="Creatures of Habit, directed by Nate Laverty, 2025. From YouTube."
+  ratio={2048 / 1080}
+/>
+
+<VideoEmbed
+  url="https://vimeo.com/1103602917"
+  title="Creatures of Habit, a surf film by Nate Laverty shot in Canada and Iceland, on Vimeo"
+  caption="The same film from Vimeo, in the column."
+  ratio={2}
+  width="text"
+/>
+
+A player is 16:9 unless it's told otherwise. This film is a little wider, 2048 by 1080, so the YouTube player takes `ratio={2048 / 1080}`. Vimeo shows the film's poster at the poster's own shape, 2:1, with black around it in a player of any other shape, so the Vimeo player takes `ratio={2}`: the poster then fills it, and the film plays with a thin black edge at each side.
+
+## Another post
+
+A `PostCard` points to another post. It takes the post's file name and finds its title, summary, date and cover itself, so the card stays right when that post changes. Only its title is a link.
+
+<RelatedPost slug="copper-green" />
+
+<RelatedPost slug="scotch-rule" label="Read next" />

@@ -6,6 +6,7 @@
 // Every item is a figure: the image, then its caption if it has one, in the Image component's
 // caption style. The kit reads nothing from the files: alt text and captions come from `items`,
 // however a site gets them (written by hand, a data file, a content collection, a metadata tool).
+// In a post (.post-body) a gallery runs to the width of the page; width "text" keeps it to the text's measure.
 import { Image } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 import type { GalleryItem } from './types';
@@ -13,6 +14,8 @@ import type { GalleryItem } from './types';
 interface Props {
   items: GalleryItem[];
   variant?: 'masonry' | 'rows';
+  /** In a post: "page" (the default) runs past the text to the page's width, "text" keeps to the text's measure. */
+  width?: 'page' | 'text';
   /** The images' `sizes`, if the gallery is narrower than the page. */
   sizes?: string;
   /** Utilities for spacing, e.g. "mb-16". */
@@ -21,9 +24,14 @@ interface Props {
 const {
   items,
   variant = 'masonry',
-  sizes = variant === 'rows'
-    ? '(min-width: 1024px) 40vw, (min-width: 640px) 60vw, 100vw'
-    : '(min-width: 88rem) 28rem, (min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw',
+  width = 'page',
+  sizes = width === 'text'
+    ? variant === 'rows'
+      ? '(min-width: 640px) 28rem, 100vw'
+      : '(min-width: 640px) 20rem, 100vw'
+    : variant === 'rows'
+      ? '(min-width: 1024px) 40vw, (min-width: 640px) 60vw, 100vw'
+      : '(min-width: 88rem) 28rem, (min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw',
   class: className,
 } = Astro.props;
 
@@ -37,7 +45,7 @@ const ratio = (item: GalleryItem) =>
   typeof item.src === 'string' ? (item.width ?? 1) / (item.height ?? 1) : item.src.width / item.src.height;
 ---
 
-<ul class:list={['gallery', variant === 'rows' && 'gallery--rows', className]}>
+<ul class:list={['gallery', variant === 'rows' && 'gallery--rows', width === 'text' && 'gallery--text', className]}>
   {
     items.map((item) => (
       <li style={variant === 'rows' ? `--gallery-ratio: ${ratio(item).toFixed(4)}` : undefined}>

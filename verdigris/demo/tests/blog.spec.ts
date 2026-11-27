@@ -19,16 +19,16 @@ test('the index opens with the featured post, then lists five of the rest newest
   await expectFeature(page);
   const titles = page.locator('.post-list-title a');
   await expect(titles).toHaveText([
+    'Pictures and films inside a post →',
     'One prompt, one agent, timed →',
     'Setting a grid before the words →',
     'The green that copper grows →',
     'The scotch rule →',
-    'Why there are no capitals →',
   ]);
-  await expect(titles.first()).toHaveAttribute('href', '/blog/an-agent-built-this/');
+  await expect(titles.first()).toHaveAttribute('href', '/blog/pictures-and-films/');
   // The arrow is for the eye: screen readers get the title alone.
   await expect(page.getByRole('link', { name: 'The scotch rule', exact: true })).toBeVisible();
-  await expect(page.locator('.post-list time').first()).toHaveAttribute('datetime', '2026-11-15');
+  await expect(page.locator('.post-list time').first()).toHaveAttribute('datetime', '2026-11-26');
 });
 
 test('the pager leads to page 2, which keeps the feature and lists the older posts', async ({ page }) => {
@@ -41,7 +41,12 @@ test('the pager leads to page 2, which keeps the feature and lists the older pos
   await expect(page).toHaveURL(/\/blog\/page\/2\/$/);
   await expect(page).toHaveTitle('Blog · Page 2 · Verdigris');
   await expectFeature(page);
-  await expect(page.locator('.post-list-title a')).toHaveText(['Why the bars stay dark →', 'Images are content, not filler →', 'Motion that stops →']);
+  await expect(page.locator('.post-list-title a')).toHaveText([
+    'Why there are no capitals →',
+    'Why the bars stay dark →',
+    'Images are content, not filler →',
+    'Motion that stops →',
+  ]);
   await expect(pager.getByRole('link', { name: 'Page 2 of 2' })).toHaveAttribute('aria-current', 'page');
   await expect(pager.locator('[rel="next"]')).toHaveCount(0);
   await expect(pager.getByRole('link', { name: 'Newer' })).toHaveAttribute('href', '/blog/');
@@ -92,9 +97,9 @@ test('a post has its header, byline and body', async ({ page }) => {
 });
 
 test('the newest post links only back, the oldest only forward', async ({ page }) => {
-  await page.goto('/blog/an-agent-built-this');
+  await page.goto('/blog/pictures-and-films');
   const nav = page.getByRole('navigation', { name: 'More posts' });
-  await expect(nav.locator('[rel="prev"]')).toHaveAttribute('href', '/blog/one-family/');
+  await expect(nav.locator('[rel="prev"]')).toHaveAttribute('href', '/blog/an-agent-built-this/');
   await expect(nav.locator('[rel="next"]')).toHaveCount(0);
 
   await page.goto('/blog/motion-that-stops');
@@ -141,7 +146,7 @@ test('each card on the home page has a button named for its title', async ({ pag
   await page.goto('/');
   const buttons = page.locator('.card > .btn-outline');
   await expect(buttons).toHaveCount(4);
-  await expect(page.getByRole('link', { name: 'Read this: The green that copper grows' })).toHaveAttribute('href', /copper-green/);
+  await expect(page.getByRole('link', { name: 'Read this: Pictures and films inside a post' })).toHaveAttribute('href', /pictures-and-films/);
   await expect(page.locator('.card-title a')).toHaveCount(0);
 });
 
@@ -152,4 +157,56 @@ test('each card and the featured post have one link, so their text can be select
   const feature = page.locator('.post-feature');
   await expect(feature.locator('a')).toHaveCount(1);
   await expect(feature.locator('.post-feature-title a')).toHaveCount(0);
+});
+
+test('in an MDX post, a gallery and a video run wide on the text\'s axis, and a narrow video and the post cards keep to the column', async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 900 });
+  await page.goto('/blog/pictures-and-films');
+  const box = async (selector: string) => (await page.locator(selector).first().boundingBox())!;
+  const text = await box('.post-body > p');
+  expect(Math.round(text.width)).toBe(720); // 45rem
+  const center = (b: { x: number; width: number }) => b.x + b.width / 2;
+  for (const wide of ['.post-body > .gallery', '.post-body > .embed:not(.embed--text)']) {
+    const b = await box(wide);
+    expect(b.width, wide).toBeGreaterThan(text.width + 200);
+    expect(Math.abs(center(b) - center(text)), wide).toBeLessThan(1);
+  }
+  for (const block of ['.post-body > .embed--text', '.post-body > .post-card']) {
+    const b = (await page.locator(block).first().boundingBox())!;
+    expect(b.x, block).toBe(text.x);
+    expect(b.width, block).toBe(text.width);
+  }
+  // A gallery is a <ul>, but the post's list styles don't reach it.
+  await expect(page.locator('.post-body > .gallery')).toHaveCSS('list-style-type', 'none');
+  await expect(page.locator('.post-body > .gallery')).toHaveCSS('padding-left', '0px');
+});
+
+test('a video embed uses the no-cookie YouTube player and Vimeo with Do Not Track, lazy and titled', async ({ page }) => {
+  await page.goto('/blog/pictures-and-films');
+  const frames = page.locator('.embed-frame iframe');
+  await expect(frames).toHaveCount(2);
+  await expect(frames.nth(0)).toHaveAttribute('src', 'https://www.youtube-nocookie.com/embed/l_s-Kxuu2NA?rel=0');
+  await expect(frames.nth(1)).toHaveAttribute('src', 'https://player.vimeo.com/video/1103602917?dnt=1&transparent=0');
+  await expect(frames.nth(0)).toHaveAttribute('title', /Creatures of Habit.*on YouTube/);
+  await expect(frames.nth(1)).toHaveAttribute('title', /Creatures of Habit.*on Vimeo/);
+  for (const i of [0, 1]) {
+    await expect(frames.nth(i)).toHaveAttribute('loading', 'lazy');
+  }
+  const b = (await page.locator('.embed-frame').first().boundingBox())!;
+  // The film is 2048 by 1080, given as `ratio`, so the player has its shape and no black bars.
+  expect(Math.abs(b.width / b.height - 2048 / 1080)).toBeLessThan(0.01);
+  // Vimeo's poster for it is 2:1, so that player takes 2, and the poster fills it.
+  const v = (await page.locator('.embed-frame').nth(1).boundingBox())!;
+  expect(Math.abs(v.width / v.height - 2)).toBeLessThan(0.01);
+});
+
+test('a post card points to another post: one link, and its cover when it has one', async ({ page }) => {
+  await page.goto('/blog/pictures-and-films');
+  const cards = page.locator('.post-body > .post-card');
+  await expect(cards).toHaveCount(2);
+  await expect(cards.nth(0).locator('a')).toHaveCount(1);
+  await expect(cards.nth(0).getByRole('link', { name: 'The green that copper grows' })).toHaveAttribute('href', '/blog/copper-green/');
+  await expect(cards.nth(0).locator('img')).toHaveAttribute('alt', '');
+  await expect(cards.nth(1).locator('.post-card-label')).toHaveText('Read next');
+  await expect(cards.nth(1).locator('img')).toHaveCount(0);
 });

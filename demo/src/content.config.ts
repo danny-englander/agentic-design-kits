@@ -2,10 +2,10 @@ import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
 
-// The blog's posts: one Markdown file each in src/content/blog/, named for its address
-// (one-typeface.md is /blog/one-typeface/).
+// The blog's posts: one Markdown or MDX file each in src/content/blog/, named for its address
+// (one-typeface.md is /blog/one-typeface/). MDX is for a post that imports components.
 const blog = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: './src/content/blog' }),
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/blog' }),
   schema: ({ image }) =>
     z.object({
       title: z.string(),

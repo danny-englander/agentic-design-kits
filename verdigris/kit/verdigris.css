@@ -230,8 +230,11 @@ a.post-header-label:hover { color: var(--accent-text); }
 .post-meta dt { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; }
 .post-meta dd { margin: 0; }
 
-/* A post's text is the page's body text, at a 45rem measure. */
-.post-body { max-width: 45rem; }
+/* A post's text is the page's body text, at a 45rem measure. The post is centered, so each block
+   is centered at the measure on its own (below, after the footnote rules), and a wide block (a
+   Gallery, a VideoEmbed, a .post-wide), which has no measure, runs the width of the page, centered
+   on the same axis. width="text" keeps a gallery or a video in the column. */
+.post-body { --post-measure: 45rem; }
 
 /* The end of a piece (.post-body--end): an asterism, then the notes, if any, under a rule. */
 .post-body--end::after, .post-body--end .footnotes::before {
@@ -244,6 +247,10 @@ a.post-header-label:hover { color: var(--accent-text); }
 .post-body .footnotes ol { margin: 0; padding: 0.75rem 0 0 0; border-top: 1px solid var(--ink); list-style: decimal inside; }
 .post-body .footnotes li::marker { color: var(--copper-text); }
 .post-body .footnotes p { display: inline; }
+/* Each block of a post centered on the page. The class is doubled so this beats the kit's rules
+   that set a block's margins in full (h2, blockquote, hr, figure, the notes), and keeps their
+   space above and below. */
+.post-body.post-body > * { margin-left: auto; margin-right: auto; }
 /* The number in the text is a superscript, so it can drop the underline; the way back sits in
    the note's own text, so it keeps one. */
 .post-body :is([data-footnote-ref], [data-footnote-backref]) { margin-left: 0.125rem; color: var(--accent-text); }

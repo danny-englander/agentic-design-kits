@@ -7,6 +7,16 @@ import type { Feature } from '@agentic-design-kits/verdigris/types';
  */
 export const features: Feature[] = [
   {
+    date: '2026-11-26',
+    title: 'Galleries, videos and related posts inside a post',
+    body: 'A post written in MDX can now hold components between its paragraphs: a gallery, a YouTube or Vimeo video, or a card that points to another post. A gallery or a video opens out to the width of the page, centered on the same line as the text, and `width="text"` keeps one in the post’s 45rem column; cards keep to the column. The new post “Pictures and films inside a post” shows them all.',
+    details: [
+      '`VideoEmbed` plays a YouTube or Vimeo video from the address you’d share. YouTube comes from youtube-nocookie.com and Vimeo with Do Not Track, so neither sets a tracking cookie before you press play. It loads lazily, never autoplays, and needs a title for screen readers.',
+      '`PostCard` points to another post: a small label, the linked title, its summary, the date and topics, and the post’s cover as a small square beside it. In the demo, `<RelatedPost slug="…" />` looks the post up by its file name, so the card keeps up when the post changes, and a wrong name fails the build.',
+      'The post’s list and figure styles no longer reach a component inside it, so a gallery keeps its own spacing and has no bullets.',
+    ],
+  },
+  {
     date: '2026-11-23',
     title: 'Brighter muted text in dark, and one size for reading',
     body: 'In dark, muted text (dates, counts, sublines, captions) is a lighter green-gray, #b4c3be in place of #a6b5b0, so secondary lines read as easily as the rest. Body text is a step smaller, 20px on phones and 22px from 768px, and card summaries and a dated list’s notes now take that same size and line height, so all reading text on a page is set alike, blog posts included. Lines are a little tighter too, at 1.5 in place of 1.55. An h4 has a style of its own, a step above body.',

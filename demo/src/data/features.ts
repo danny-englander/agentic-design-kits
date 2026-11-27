@@ -7,6 +7,19 @@ import type { Feature } from '@agentic-design-kits/swiss-minimal/types';
  */
 export const features: Feature[] = [
   {
+    date: '2026-11-25',
+    title: 'Galleries, videos, wide blocks and related posts inside a post',
+    body: 'A post written in MDX can now hold components between its paragraphs. Text keeps to its 42rem measure, flush left; a gallery or a video keeps the same left edge and runs on to the width of the page, and a card can point to another post. The new post “Text at a measure, pictures at the page” shows them.',
+    details: [
+      '`PostWide` (`.post-wide`) runs any block past the text: a figure, a wide table, a card grid. A `Gallery` is wide in a post by itself, and `width="text"` keeps it to the measure.',
+      '`VideoEmbed` plays a YouTube or Vimeo video from the address you’d share. YouTube comes from youtube-nocookie.com and Vimeo with Do Not Track, so neither sets a tracking cookie before you press play. It loads lazily, never autoplays, and needs a title for screen readers. In a post it fills the page’s width, like a gallery; `width="text"` keeps it to the measure.',
+      '`PostCard` (`.post-card`) points to another post: a small label, the linked title, its summary, the date and topics, and the post’s cover as a small square beside it. In the demo, `<RelatedPost slug="…" />` looks the post up by its file name, so the card keeps up when the post changes, and a wrong name fails the build.',
+      'The measure is now set on each block, through `--post-measure` on `.post-body`, rather than on the post as a whole. A `max-w-*` utility on `.post-body` caps the wide blocks too.',
+      'The post’s list and figure styles no longer reach a component inside it, so a gallery keeps its own spacing and has no bullets.',
+      'Verdigris centers its posts, so there a wide gallery or video is centered on the text’s axis, and `width="text"` keeps one in its 45rem column.',
+    ],
+  },
+  {
     date: '2026-11-23',
     title: 'Brighter muted text in dark, and one size for reading',
     body: 'In dark, muted text (dates, counts, sublines, captions) is a brighter gray, #dcdcdc in place of #b9b5ab, so secondary lines read as easily as the rest. Card summaries and a dated list’s notes now take the body’s size and line height, so all reading text on a page is set alike, and an h4 has a style of its own, a step above body.',

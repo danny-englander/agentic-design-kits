@@ -1,0 +1,13 @@
+---
+// A block in a post that runs past the text (PostBody in COMPONENTS.md): it keeps the text's left
+// edge and goes on to the width of the page. Put it straight inside .post-body, in an MDX post or
+// a page of your own; anything goes inside it (an image or figure, a table, a CardGrid).
+// A Gallery needs no wrapper: it is wide in a post by itself.
+interface Props {
+  /** Utilities for spacing, e.g. "mt-16". */
+  class?: string;
+}
+const { class: className } = Astro.props;
+---
+
+<div class:list={['post-wide', className]}><slot /></div>
