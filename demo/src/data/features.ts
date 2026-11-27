@@ -16,7 +16,7 @@ export const features: Feature[] = [
       '`PostCard` (`.post-card`) points to another post: a small label, the linked title, its summary, the date and topics, and the post’s cover as a small square beside it. In the demo, `<RelatedPost slug="…" />` looks the post up by its file name, so the card keeps up when the post changes, and a wrong name fails the build.',
       'The measure is now set on each block, through `--post-measure` on `.post-body`, rather than on the post as a whole. A `max-w-*` utility on `.post-body` caps the wide blocks too.',
       'The post’s list and figure styles no longer reach a component inside it, so a gallery keeps its own spacing and has no bullets.',
-      'Verdigris centers its posts, so there a wide block stays at the text’s 45rem.',
+      'Verdigris centers its posts, so there a wide gallery is centered on the text’s axis, and a video stays in its 45rem column.',
     ],
   },
   {

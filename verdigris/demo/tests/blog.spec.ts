@@ -159,12 +159,17 @@ test('each card and the featured post have one link, so their text can be select
   await expect(feature.locator('.post-feature-title a')).toHaveCount(0);
 });
 
-test('in an MDX post, a gallery, the videos and the post cards keep to the centered column', async ({ page }) => {
+test('in an MDX post, a gallery runs wide on the text\'s axis, and the videos and post cards keep to the column', async ({ page }) => {
   await page.setViewportSize({ width: 1280, height: 900 });
   await page.goto('/blog/pictures-and-films');
   const box = async (selector: string) => (await page.locator(selector).first().boundingBox())!;
   const text = await box('.post-body > p');
-  for (const block of ['.post-body > .gallery', '.post-body > .embed', '.post-body > .embed >> nth=1', '.post-body > .post-card']) {
+  expect(Math.round(text.width)).toBe(720); // 45rem
+  const center = (b: { x: number; width: number }) => b.x + b.width / 2;
+  const gallery = await box('.post-body > .gallery');
+  expect(gallery.width).toBeGreaterThan(text.width + 200);
+  expect(Math.abs(center(gallery) - center(text))).toBeLessThan(1);
+  for (const block of ['.post-body > .embed', '.post-body > .embed >> nth=1', '.post-body > .post-card']) {
     const b = (await page.locator(block).first().boundingBox())!;
     expect(b.x, block).toBe(text.x);
     expect(b.width, block).toBe(text.width);
