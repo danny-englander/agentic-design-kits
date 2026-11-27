@@ -157,7 +157,7 @@ Cormorant has many optional glyphs. Verdigris already sets these: `kern`, `liga`
 - Pages end with a `Footer`: the scotch rule, the site name and its links.
 - A fixed bottom bar (`BottomBar`) is optional, and goes only on pages where something stays current while the page scrolls. On those pages, set `bar-h` to its height and reserve that space at the bottom of the page (`BaseLayout`'s `barHeight` prop does both). Without one, `--bar-h` is `0rem`.
 - A page that needs a name but no hero opens with a `PageTitle`: one big `h1` across the width of `.page`, on the paper or on a `bar` block.
-- A blog's index may open with a `PostFeature` (one post beside a square image) in place of a hero, kept at the top of every page when a `Pager` splits the list. A blog post opens with a `PostHeader`, centered, its text in a `.post-body` at a 45rem measure under it, and ends with a `PostNav`.
+- A blog's index may open with a `PostFeature` (one post beside a square image) in place of a hero, kept at the top of every page when a `Pager` splits the list. A blog post opens with a `PostHeader`, centered, its text in a `.post-body` at a 45rem measure under it, and ends with a `PostNav`. A gallery in a post runs the width of the page, centered like the text; a video stays in the column.
 - Everything is square: `radius-none`. `radius-round` is for six marks only: the spinner, the "new" dot (`.new-dot`), the drawer's "more below" arrow (`.drawer-more`), the radio button (`.radio`), the oval badge (`.ellipse`, at 50%) and the number circle (`.num-circle`, at 50%). The switch stays square.
 
 ## Iconography
