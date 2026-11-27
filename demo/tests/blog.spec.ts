@@ -165,12 +165,12 @@ test('in an MDX post, text keeps to the measure and wide blocks run to the page 
   const box = async (selector: string) => (await page.locator(selector).first().boundingBox())!;
   const text = await box('.post-body > p');
   expect(Math.round(text.width)).toBe(672); // 42rem
-  for (const wide of ['.post-body > .gallery--rows', '.post-body > .post-wide', '.post-body > .embed:not(.embed--text)']) {
+  for (const wide of ['.post-body > .gallery--rows', '.post-body > .embed:not(.embed--text)']) {
     const b = await box(wide);
     expect(b.x, wide).toBe(text.x);
     expect(b.width, wide).toBeGreaterThan(text.width + 200);
   }
-  for (const narrow of ['.post-body > .gallery--text', '.post-body > .embed--text']) {
+  for (const narrow of ['.post-body > .gallery--text', '.post-body > .embed--text', '.post-body > figure:not(.embed)']) {
     const b = await box(narrow);
     expect(b.x, narrow).toBe(text.x);
     expect(Math.round(b.width), narrow).toBe(672);
@@ -194,7 +194,7 @@ test('a video embed uses the no-cookie YouTube player and Vimeo with Do Not Trac
   const frames = page.locator('.embed-frame iframe');
   await expect(frames).toHaveCount(2);
   await expect(frames.nth(0)).toHaveAttribute('src', 'https://www.youtube-nocookie.com/embed/l_s-Kxuu2NA?rel=0');
-  await expect(frames.nth(1)).toHaveAttribute('src', 'https://player.vimeo.com/video/1103602917?dnt=1');
+  await expect(frames.nth(1)).toHaveAttribute('src', 'https://player.vimeo.com/video/1103602917?dnt=1&transparent=0');
   await expect(frames.nth(0)).toHaveAttribute('title', /Creatures of Habit.*on YouTube/);
   await expect(frames.nth(1)).toHaveAttribute('title', /Creatures of Habit.*on Vimeo/);
   for (const i of [0, 1]) {
@@ -204,6 +204,9 @@ test('a video embed uses the no-cookie YouTube player and Vimeo with Do Not Trac
   const b = (await page.locator('.embed-frame').first().boundingBox())!;
   // The film is 2048 by 1080, given as `ratio`, so the player has its shape and no black bars.
   expect(Math.abs(b.width / b.height - 2048 / 1080)).toBeLessThan(0.01);
+  // Vimeo's poster for it is 2:1, so that player takes 2, and the poster fills it.
+  const v = (await page.locator('.embed-frame').nth(1).boundingBox())!;
+  expect(Math.abs(v.width / v.height - 2)).toBeLessThan(0.01);
 });
 
 test('a post card points to another post: one link, its summary and date, and its cover when it has one', async ({ page }) => {

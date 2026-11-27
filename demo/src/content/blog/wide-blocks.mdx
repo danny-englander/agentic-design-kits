@@ -1,17 +1,16 @@
 ---
 title: Text at a measure, pictures at the page
 date: '2026-11-25'
-summary: A post keeps its text to a reading measure. A gallery or a wide figure keeps the text's left edge and runs on to the width of the page.
+summary: A post keeps its text to a reading measure. A gallery or a video keeps the text's left edge and runs on to the width of the page.
 tags: [Images, Layout]
 ---
 
 import { Image } from 'astro:assets';
 import Gallery from '@agentic-design-kits/swiss-minimal/astro/Gallery.astro';
-import PostWide from '@agentic-design-kits/swiss-minimal/astro/PostWide.astro';
 import VideoEmbed from '@agentic-design-kits/swiss-minimal/astro/VideoEmbed.astro';
 import RelatedPost from '../../components/RelatedPost.astro';
 import { gallery } from '../../data/gallery';
-import landscape from '../../assets/landscape.jpg';
+import alpineHut from '../../assets/gallery/alpine-hut.jpg';
 
 A line of text is easiest to read at about 60 to 75 characters. That is why a post keeps to a measure of 42rem, flush left, however wide the screen is. Pictures don't have that limit. A row of artwork squeezed into a column of text gives each image less room than it needs.
 
@@ -31,22 +30,20 @@ With `width="text"`, a gallery stays inside the measure. That suits two or three
 
 <Gallery items={gallery.slice(0, 2)} width="text" />
 
-## Anything else goes in a PostWide
+## A figure keeps to the text
 
-A figure, a table or a card grid goes wide inside a `PostWide`. Inside it the kit's usual rules hold: the image is a plain rectangle, and its caption sits below in small muted text.
+A single figure stays at the measure, like the text around it. The kit's usual rules hold: the image is a plain rectangle, shown whole, and its caption sits below in small muted text. To run a figure, a table or a card grid out to the page's width, wrap it in a `PostWide`.
 
-<PostWide>
-  <figure class="figure">
-    <Image
-      class="media media--16x9"
-      src={landscape}
-      alt="Wide crop of an abstract composition: a red circle, black and grey shapes and thin black rules"
-      widths={[800, 1200, 1600]}
-      sizes="(min-width: 88rem) 88rem, 100vw"
-    />
-    <figcaption>A 16:9 crop of the home page artwork, at the width of the page.</figcaption>
-  </figure>
-</PostWide>
+<figure class="figure">
+  <Image
+    class="media"
+    src={alpineHut}
+    alt="A hut with an orange roof and a white cross on a russet ridge, below a snowy mountain."
+    widths={[480, 800, 1250]}
+    sizes="(min-width: 42rem) 42rem, 100vw"
+  />
+  <figcaption>Hut on the ridge</figcaption>
+</figure>
 
 ## Video from YouTube or Vimeo
 
@@ -65,11 +62,11 @@ With `width="text"`, a video keeps to the measure instead, like a picture in the
   url="https://vimeo.com/1103602917"
   title="Creatures of Habit, a surf film by Nate Laverty shot in Canada and Iceland, on Vimeo"
   caption="The same film from Vimeo, at the text's width."
-  ratio={2048 / 1080}
+  ratio={2}
   width="text"
 />
 
-A player is 16:9 unless it's told otherwise. This film is a little wider, 2048 by 1080, so both players take `ratio={2048 / 1080}` and the picture fills them with no black bars.
+A player is 16:9 unless it's told otherwise. This film is a little wider, 2048 by 1080, so the YouTube player takes `ratio={2048 / 1080}`. Vimeo shows the film's poster at the poster's own shape, 2:1, with black around it in a player of any other shape, so the Vimeo player takes `ratio={2}`: the poster then fills it, and the film plays with a thin black edge at each side.
 
 Every wide block sits on the same left edge as the text. Nothing is centered on its own, so the page keeps one strong vertical line from top to bottom.
 

@@ -159,17 +159,19 @@ test('each card and the featured post have one link, so their text can be select
   await expect(feature.locator('.post-feature-title a')).toHaveCount(0);
 });
 
-test('in an MDX post, a gallery runs wide on the text\'s axis, and the videos and post cards keep to the column', async ({ page }) => {
+test('in an MDX post, a gallery and a video run wide on the text\'s axis, and a narrow video and the post cards keep to the column', async ({ page }) => {
   await page.setViewportSize({ width: 1280, height: 900 });
   await page.goto('/blog/pictures-and-films');
   const box = async (selector: string) => (await page.locator(selector).first().boundingBox())!;
   const text = await box('.post-body > p');
   expect(Math.round(text.width)).toBe(720); // 45rem
   const center = (b: { x: number; width: number }) => b.x + b.width / 2;
-  const gallery = await box('.post-body > .gallery');
-  expect(gallery.width).toBeGreaterThan(text.width + 200);
-  expect(Math.abs(center(gallery) - center(text))).toBeLessThan(1);
-  for (const block of ['.post-body > .embed', '.post-body > .embed >> nth=1', '.post-body > .post-card']) {
+  for (const wide of ['.post-body > .gallery', '.post-body > .embed:not(.embed--text)']) {
+    const b = await box(wide);
+    expect(b.width, wide).toBeGreaterThan(text.width + 200);
+    expect(Math.abs(center(b) - center(text)), wide).toBeLessThan(1);
+  }
+  for (const block of ['.post-body > .embed--text', '.post-body > .post-card']) {
     const b = (await page.locator(block).first().boundingBox())!;
     expect(b.x, block).toBe(text.x);
     expect(b.width, block).toBe(text.width);
@@ -184,7 +186,7 @@ test('a video embed uses the no-cookie YouTube player and Vimeo with Do Not Trac
   const frames = page.locator('.embed-frame iframe');
   await expect(frames).toHaveCount(2);
   await expect(frames.nth(0)).toHaveAttribute('src', 'https://www.youtube-nocookie.com/embed/l_s-Kxuu2NA?rel=0');
-  await expect(frames.nth(1)).toHaveAttribute('src', 'https://player.vimeo.com/video/1103602917?dnt=1');
+  await expect(frames.nth(1)).toHaveAttribute('src', 'https://player.vimeo.com/video/1103602917?dnt=1&transparent=0');
   await expect(frames.nth(0)).toHaveAttribute('title', /Creatures of Habit.*on YouTube/);
   await expect(frames.nth(1)).toHaveAttribute('title', /Creatures of Habit.*on Vimeo/);
   for (const i of [0, 1]) {
@@ -193,6 +195,9 @@ test('a video embed uses the no-cookie YouTube player and Vimeo with Do Not Trac
   const b = (await page.locator('.embed-frame').first().boundingBox())!;
   // The film is 2048 by 1080, given as `ratio`, so the player has its shape and no black bars.
   expect(Math.abs(b.width / b.height - 2048 / 1080)).toBeLessThan(0.01);
+  // Vimeo's poster for it is 2:1, so that player takes 2, and the poster fills it.
+  const v = (await page.locator('.embed-frame').nth(1).boundingBox())!;
+  expect(Math.abs(v.width / v.height - 2)).toBeLessThan(0.01);
 });
 
 test('a post card points to another post: one link, and its cover when it has one', async ({ page }) => {
