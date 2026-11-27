@@ -107,7 +107,7 @@ export const highlights = [
     path: '/blog/',
     see: 'See it',
     summary:
-      'A featured post with a split or wide hero image, a dated index across pages, and posts written in plain Markdown.',
+      'A featured post, a dated index across pages, and media-rich posts in MDX, with galleries, videos and related posts.',
   },
   {
     title: `${Math.floor(componentCount.swissMinimal / 10) * 10}+ components`,
