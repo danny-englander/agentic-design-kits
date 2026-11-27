@@ -103,11 +103,11 @@ export const highlights = [
     summary: 'Text fields, select lists, radios, switches, dates, a file picker, and more.',
   },
   {
-    title: 'A complete blog',
+    title: 'Full-Featured MDX Blog',
     path: '/blog/',
     see: 'See it',
     summary:
-      'A featured post, a dated index across pages, and media-rich posts in MDX, with galleries, videos and related posts.',
+      'Everything you need to publish; from a featured hero and paginated index to MDX-powered galleries, video embeds, variable-width layouts, and next and previous posts.',
   },
   {
     title: `${Math.floor(componentCount.swissMinimal / 10) * 10}+ components`,
