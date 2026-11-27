@@ -103,7 +103,7 @@ export const highlights = [
     summary: 'Text fields, select lists, radios, switches, dates, a file picker, and more.',
   },
   {
-    title: 'Full-Featured MDX Blog',
+    title: 'Full-featured MDX blog',
     path: '/blog/',
     see: 'See it',
     summary:
