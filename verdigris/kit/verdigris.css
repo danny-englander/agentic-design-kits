@@ -232,8 +232,8 @@ a.post-header-label:hover { color: var(--accent-text); }
 
 /* A post's text is the page's body text, at a 45rem measure. The post is centered, so each block
    is centered at the measure on its own (below, after the footnote rules), and a wide block (a
-   Gallery, a .post-wide), which has no measure, runs the width of the page, centered on the same
-   axis. A video stays in the column, like a page of the book (below). */
+   Gallery, a VideoEmbed, a .post-wide), which has no measure, runs the width of the page, centered
+   on the same axis. width="text" keeps a gallery or a video in the column. */
 .post-body { --post-measure: 45rem; }
 
 /* The end of a piece (.post-body--end): an asterism, then the notes, if any, under a rule. */
@@ -251,8 +251,6 @@ a.post-header-label:hover { color: var(--accent-text); }
    that set a block's margins in full (h2, blockquote, hr, figure, the notes), and keeps their
    space above and below. */
 .post-body.post-body > * { margin-left: auto; margin-right: auto; }
-/* A video keeps to the measure here, whatever its `width`: three classes beat the kit's wide rule. */
-.post-body.post-body > .embed { max-width: var(--post-measure); }
 /* The number in the text is a superscript, so it can drop the underline; the way back sits in
    the note's own text, so it keeps one. */
 .post-body :is([data-footnote-ref], [data-footnote-backref]) { margin-left: 0.125rem; color: var(--accent-text); }
