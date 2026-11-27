@@ -7,7 +7,7 @@ import type { Feature } from '@agentic-design-kits/verdigris/types';
  */
 export const features: Feature[] = [
   {
-    date: '2026-11-26',
+    date: '2026-11-27',
     title: 'Galleries, videos and related posts inside a post',
     body: 'A post written in MDX can now hold components between its paragraphs: a gallery, a YouTube or Vimeo video, or a card that points to another post. A gallery or a video opens out to the width of the page, centered on the same line as the text, and `width="text"` keeps one in the post’s 45rem column; cards keep to the column. The new post “Pictures and films inside a post” shows them all.',
     details: [

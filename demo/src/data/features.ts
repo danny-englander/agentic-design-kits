@@ -7,7 +7,7 @@ import type { Feature } from '@agentic-design-kits/swiss-minimal/types';
  */
 export const features: Feature[] = [
   {
-    date: '2026-11-25',
+    date: '2026-11-27',
     title: 'Galleries, videos, wide blocks and related posts inside a post',
     body: 'A post written in MDX can now hold components between its paragraphs. Text keeps to its 42rem measure, flush left; a gallery or a video keeps the same left edge and runs on to the width of the page, and a card can point to another post. The new post “Text at a measure, pictures at the page” shows them.',
     details: [
