@@ -193,11 +193,12 @@ test('a video embed uses the no-cookie YouTube player and Vimeo with Do Not Trac
   await page.goto('/blog/wide-blocks');
   const frames = page.locator('.embed-frame iframe');
   await expect(frames).toHaveCount(2);
-  await expect(frames.nth(0)).toHaveAttribute('src', 'https://www.youtube-nocookie.com/embed/aqz-KE-bpKQ?rel=0');
+  await expect(frames.nth(0)).toHaveAttribute('src', 'https://www.youtube-nocookie.com/embed/emkJ0A7IfkY?rel=0');
   await expect(frames.nth(1)).toHaveAttribute('src', 'https://player.vimeo.com/video/1084537?dnt=1');
+  await expect(frames.nth(0)).toHaveAttribute('title', /Concerto in A minor, BWV 1065/);
+  await expect(frames.nth(1)).toHaveAttribute('title', /Big Buck Bunny/);
   for (const i of [0, 1]) {
     await expect(frames.nth(i)).toHaveAttribute('loading', 'lazy');
-    await expect(frames.nth(i)).toHaveAttribute('title', /Big Buck Bunny/);
     await expect(frames.nth(i)).not.toHaveAttribute('src', /autoplay/);
   }
   // 16:9 by default.
