@@ -183,15 +183,16 @@ test('a video embed uses the no-cookie YouTube player and Vimeo with Do Not Trac
   await page.goto('/blog/pictures-and-films');
   const frames = page.locator('.embed-frame iframe');
   await expect(frames).toHaveCount(2);
-  await expect(frames.nth(0)).toHaveAttribute('src', 'https://www.youtube-nocookie.com/embed/emkJ0A7IfkY?rel=0');
-  await expect(frames.nth(1)).toHaveAttribute('src', 'https://player.vimeo.com/video/106934047?dnt=1');
-  await expect(frames.nth(0)).toHaveAttribute('title', /Concerto in A minor, BWV 1065/);
-  await expect(frames.nth(1)).toHaveAttribute('title', /La Ritournelle/);
+  await expect(frames.nth(0)).toHaveAttribute('src', 'https://www.youtube-nocookie.com/embed/l_s-Kxuu2NA?rel=0');
+  await expect(frames.nth(1)).toHaveAttribute('src', 'https://player.vimeo.com/video/1103602917?dnt=1');
+  await expect(frames.nth(0)).toHaveAttribute('title', /Creatures of Habit.*on YouTube/);
+  await expect(frames.nth(1)).toHaveAttribute('title', /Creatures of Habit.*on Vimeo/);
   for (const i of [0, 1]) {
     await expect(frames.nth(i)).toHaveAttribute('loading', 'lazy');
   }
   const b = (await page.locator('.embed-frame').first().boundingBox())!;
-  expect(Math.abs(b.width / b.height - 16 / 9)).toBeLessThan(0.01);
+  // The film is 2048 by 1080, given as `ratio`, so the player has its shape and no black bars.
+  expect(Math.abs(b.width / b.height - 2048 / 1080)).toBeLessThan(0.01);
 });
 
 test('a post card points to another post: one link, and its cover when it has one', async ({ page }) => {

@@ -53,19 +53,23 @@ A figure, a table or a card grid goes wide inside a `PostWide`. Inside it the ki
 A `VideoEmbed` takes the address you'd share and a title for screen readers. Like a gallery, it fills the page's width, and it loads only as it nears the screen. Nothing plays until the reader presses play. YouTube comes from its no-cookie address and Vimeo with Do Not Track on, so neither sets a tracking cookie before then.
 
 <VideoEmbed
-  url="https://www.youtube.com/watch?v=emkJ0A7IfkY"
-  title="Bach's Concerto in A minor, BWV 1065, played by the Netherlands Bach Society, on YouTube"
-  caption="Bach, Concerto in A minor, BWV 1065. Netherlands Bach Society."
+  url="https://www.youtube.com/watch?v=l_s-Kxuu2NA"
+  title="Creatures of Habit, a surf film by Nate Laverty shot in Canada and Iceland, on YouTube"
+  caption="Creatures of Habit, directed by Nate Laverty, 2025. From YouTube."
+  ratio={2048 / 1080}
 />
 
 With `width="text"`, a video keeps to the measure instead, like a picture in the text.
 
 <VideoEmbed
-  url="https://vimeo.com/106934047"
-  title="Teaser for La Ritournelle, an animated short film by Reza Dolatabadi, on Vimeo"
-  caption="La Ritournelle, teaser. Directed by Reza Dolatabadi, 2014. At the text's width."
+  url="https://vimeo.com/1103602917"
+  title="Creatures of Habit, a surf film by Nate Laverty shot in Canada and Iceland, on Vimeo"
+  caption="The same film from Vimeo, at the text's width."
+  ratio={2048 / 1080}
   width="text"
 />
+
+A player is 16:9 unless it's told otherwise. This film is a little wider, 2048 by 1080, so both players take `ratio={2048 / 1080}` and the picture fills them with no black bars.
 
 Every wide block sits on the same left edge as the text. Nothing is centered on its own, so the page keeps one strong vertical line from top to bottom.
 

@@ -22,19 +22,23 @@ The text picks up again under it, back in the centered column.
 
 ## A film from YouTube or Vimeo
 
-A `VideoEmbed` takes the address you'd share and a title for screen readers. The player fills the column at 16:9 and stays in it, like a picture on a page, and loads only as it nears the screen. Nothing plays until the reader presses play. YouTube comes from its no-cookie address and Vimeo with Do Not Track on, so neither sets a tracking cookie before then.
+A `VideoEmbed` takes the address you'd share and a title for screen readers. The player fills the column and stays in it, like a picture on a page, and loads only as it nears the screen. Nothing plays until the reader presses play. YouTube comes from its no-cookie address and Vimeo with Do Not Track on, so neither sets a tracking cookie before then.
 
 <VideoEmbed
-  url="https://www.youtube.com/watch?v=emkJ0A7IfkY"
-  title="Bach's Concerto in A minor, BWV 1065, played by the Netherlands Bach Society, on YouTube"
-  caption="Bach, Concerto in A minor, BWV 1065. Netherlands Bach Society."
+  url="https://www.youtube.com/watch?v=l_s-Kxuu2NA"
+  title="Creatures of Habit, a surf film by Nate Laverty shot in Canada and Iceland, on YouTube"
+  caption="Creatures of Habit, directed by Nate Laverty, 2025. From YouTube."
+  ratio={2048 / 1080}
 />
 
 <VideoEmbed
-  url="https://vimeo.com/106934047"
-  title="Teaser for La Ritournelle, an animated short film by Reza Dolatabadi, on Vimeo"
-  caption="La Ritournelle, teaser. Directed by Reza Dolatabadi, 2014."
+  url="https://vimeo.com/1103602917"
+  title="Creatures of Habit, a surf film by Nate Laverty shot in Canada and Iceland, on Vimeo"
+  caption="The same film from Vimeo."
+  ratio={2048 / 1080}
 />
+
+A player is 16:9 unless it's told otherwise. This film is a little wider, 2048 by 1080, so both players take `ratio={2048 / 1080}` and the picture fills them with no black bars.
 
 ## Another post
 
