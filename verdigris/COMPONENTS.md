@@ -852,7 +852,7 @@ One post pointed to from inside another: `<PostCard post={post} image={cover} />
 
 ## VideoEmbed
 
-A YouTube or Vimeo video in the provider's own player: `<VideoEmbed url="…" title="…" />`, a plain rectangle at a fixed shape (16:9 unless `ratio` says otherwise) with an optional `caption` in the figure caption style. `title` is required: it names the player for screen readers. YouTube comes from `youtube-nocookie.com` and Vimeo with `dnt=1`; the player loads lazily and never plays by itself. In a post it fills the 45rem column and stays there, whatever its `width`. Every prop is in Swiss Minimal's `COMPONENTS.md`.
+A YouTube or Vimeo video in the provider's own player: `<VideoEmbed url="…" title="…" />`, a plain rectangle at a fixed shape (16:9 unless `ratio` says otherwise) with an optional `caption` in the figure caption style. `title` is required: it names the player for screen readers. YouTube comes from `youtube-nocookie.com` and Vimeo with `dnt=1`; the player loads lazily and never plays by itself. In a post it runs the width of the page, centered like the text; `width="text"` keeps it in the 45rem column. Every prop is in Swiss Minimal's `COMPONENTS.md`.
 
 **Don't.** Autoplay, round the corners, or frame it.
 
@@ -1084,7 +1084,7 @@ Long-form text from Markdown: `.post-body` styles the plain elements inside it, 
 **Markup.** `<div class="post-body"><Content /></div>`, after the `PostHeader`.
 
 - Each block is centered at a 45rem measure (`--post-measure`; `[--post-measure:40rem]` changes it). Paragraphs and lists are the page's body text, 1.375rem on 1.5 leading (1.25rem on phones), and blocks are 1.25rem apart.
-- **Wide blocks.** A `Gallery` or a `.post-wide` runs the width of the page, centered on the same axis as the text, with 2.5rem above and below; `width="text"` keeps a gallery in the column. A `VideoEmbed` always stays in the column here, like a page of the book. A `PostCard` stays in it too.
+- **Wide blocks.** A `Gallery`, a `VideoEmbed` or a `.post-wide` runs the width of the page, centered on the same axis as the text, with 2.5rem above and below; `width="text"` keeps a gallery or a video in the column. A `PostCard` stays in it.
 - **Components in a post** come from MDX: with `@astrojs/mdx` in the site's `integrations` and `**/*.{md,mdx}` in the collection's loader, a `.mdx` post imports a `Gallery`, a `VideoEmbed`, a `PostCard` or a `PostWide` and uses it between paragraphs.
 - `h2` is light at 2.125rem, 2.75rem from 768px, with `space-12` above it and no rule: inside one article, space and size mark a new part, and the 2px rule is kept for the page's own sections; `h3` is the plain h3 style (`size-600`, `size-700` from 768px) and `h4` the h4 style. Don't skip from the post's `h1` to an `h3`.
 - Links are underlined, and on hover turn `accent-text` with a 2px underline, like `.link`.
