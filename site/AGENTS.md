@@ -18,6 +18,11 @@ USING.md, DESIGN.md (the rules, and its "Do not" list) and the parts of COMPONEN
 - The share card (public/share-light.png, and share-dark.png beside it) is drawn by
   scripts/share-images.ts. After changing the name, the lead, the colors or the sign, run
   `npm run share-images` here.
+- The contact form in the panel's Contact tab sends to Netlify Forms (form detection is on in the
+  agenticdesignkits project, with an email notification). Netlify finds the form only while it
+  builds: if the form ever gets a 404, check that the live <form> tag no longer has data-netlify,
+  and if it does, trigger a new deploy. See "Sending with Netlify Forms" under Field in
+  COMPONENTS.md.
 - Before calling a change done: npx astro check, npm run build and npm test.
 
 ## Development
