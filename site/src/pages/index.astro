@@ -7,7 +7,7 @@ import NumCircle from '@agentic-design-kits/swiss-minimal/astro/NumCircle.astro'
 import CardGrid from '@agentic-design-kits/swiss-minimal/astro/CardGrid.astro';
 import Cta from '@agentic-design-kits/swiss-minimal/astro/Cta.astro';
 import Footer from '@agentic-design-kits/swiss-minimal/astro/Footer.astro';
-import type { MenuItem } from '@agentic-design-kits/swiss-minimal/types';
+import type { MenuItem, PanelTab } from '@agentic-design-kits/swiss-minimal/types';
 import HeroArt from '../components/HeroArt.astro';
 import SiteMark from '../components/SiteMark.astro';
 import { highlights, kits, parts, repo } from '../data/kits';
@@ -19,6 +19,22 @@ const links: MenuItem[] = [
   { label: 'Verdigris', href: 'https://www.verdigris.ch' },
   { label: 'GitHub', href: repo },
   { label: 'npm', href: 'https://www.npmjs.com/org/agentic-design-kits' },
+  // Opens the panel's Contact tab.
+  { label: 'Contact', href: '#contact' },
+];
+// The slide-down panel, opened by the burger: the page's sections, then the two demos, on its
+// Menu tab, and the contact form on its Contact tab. The in-page links close the panel (MenuItems
+// gives a "#" link data-panel-close) and glide to their section.
+const menu: MenuItem[] = [
+  { label: 'The kits', href: '#kits' },
+  { label: 'In both kits', href: '#in-both' },
+  { label: 'Install', href: '#install' },
+  { label: 'What a kit is made of', href: '#made-of' },
+  { label: 'Demos', children: kits.map((kit) => ({ label: kit.name, href: kit.href })) },
+];
+const tabs: PanelTab[] = [
+  { id: 'menu', label: 'Menu' },
+  { id: 'contact', label: 'Contact' },
 ];
 const canonical = new URL(Astro.url.pathname, Astro.site);
 // The demos' addresses, for the script at the end that passes the visitor's theme on to them.
@@ -31,7 +47,7 @@ const share = {
 };
 ---
 
-<BaseLayout title={name} description={lead}>
+<BaseLayout title={name} description={lead} menu={menu} panelTabs={tabs} home={false}>
   <link slot="head" rel="canonical" href={canonical} />
   <link slot="head" rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <Fragment slot="head">
@@ -47,8 +63,42 @@ const share = {
     <meta name="twitter:card" content="summary_large_image" />
   </Fragment>
   <SiteMark slot="mark" />
-  <a slot="topbar" class="topbar-btn topbar-btn--text no-underline" href="#kits">Kits</a>
   <a slot="topbar" class="topbar-btn topbar-btn--text no-underline" href={repo}>GitHub</a>
+
+  <!-- Netlify Forms finds this form in the built HTML (name, data-netlify) and keeps the messages
+       under Forms in the Netlify dashboard, which can email each one on. bot-field is a honeypot:
+       people never see it, so a submission that fills it in is spam. -->
+  <form
+    slot="contact"
+    class="max-w-xl border-t-2 border-current pt-3"
+    name="contact"
+    method="POST"
+    data-netlify="true"
+    netlify-honeypot="bot-field"
+    data-contact-form
+  >
+    <input type="hidden" name="form-name" value="contact" />
+    <p hidden><label>Leave this empty <input name="bot-field" tabindex="-1" autocomplete="off" /></label></p>
+    <p class="label mb-2 font-bold text-accent-bright">Contact</p>
+    <p class="mb-6 max-w-lg">A question about a kit, or a site you are building with one? Write here.</p>
+    <p class="small mb-6"><span class="required-mark"></span>Required</p>
+    <label class="field-label" for="contact-name">Your name</label>
+    <input class="field mb-7" id="contact-name" name="name" autocomplete="name" placeholder="Jane Doe" required />
+    <label class="field-label" for="contact-email">Email</label>
+    <input class="field mb-7" id="contact-email" name="email" type="email" autocomplete="email" placeholder="jane@example.com" required />
+    <label class="field-label" for="contact-topic">Topic</label>
+    <div class="select-wrap mb-7">
+      <select class="field select" id="contact-topic" name="topic">
+        <option>General</option>
+        {kits.map((kit) => <option>{kit.name}</option>)}
+      </select>
+    </div>
+    <label class="field-label" for="contact-message">Message</label>
+    <textarea class="field mb-7 min-h-24 resize-y" id="contact-message" name="message" rows="3" required></textarea>
+    <button class="btn" type="submit">Send</button>
+    <!-- The toast sits behind the open panel, so a failure is said here, beside the button. -->
+    <p class="small mt-4 font-bold text-accent-bright empty:mt-0" role="alert" data-contact-error></p>
+  </form>
 
   <Hero lead={lead}>
     <Fragment slot="title">Agentic<br />Design<br />Kits</Fragment>
@@ -176,6 +226,7 @@ const share = {
   <Footer slot="footer" name={name} description={lead} links={links}>
     <Fragment slot="note">MIT license.</Fragment>
   </Footer>
+  <div slot="footer" class="toast" role="status" data-toast></div>
   <script is:inline slot="overlays" define:vars={{ demoOrigins }}>
     // A visitor who picked light or dark with the toggle gets the same on the demo they open:
     // a link to a demo carries ?theme=, which the kit's BaseLayout there applies and saves. Set as
@@ -194,3 +245,44 @@ const share = {
     for (const type of ['pointerdown', 'keydown', 'click']) document.addEventListener(type, pass, true);
   </script>
 </BaseLayout>
+
+<script>
+  // Contact form: sent to Netlify Forms without leaving the page. Only once Netlify accepts it
+  // does the panel close, with a thank-you in the toast; otherwise the message stays put, with
+  // the failure said beside the button, to try again.
+  const toast = document.querySelector<HTMLElement>('[data-toast]');
+  let timer: number | undefined;
+  const showToast = (text: string) => {
+    if (!toast) return;
+    toast.textContent = text;
+    toast.dataset.show = 'true';
+    clearTimeout(timer);
+    timer = window.setTimeout(() => delete toast.dataset.show, 4000);
+  };
+
+  const form = document.querySelector<HTMLFormElement>('[data-contact-form]');
+  const error = form?.querySelector<HTMLElement>('[data-contact-error]');
+  const send = form?.querySelector<HTMLButtonElement>('button[type="submit"]');
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!send || !error) return;
+    send.disabled = true;
+    error.textContent = '';
+    try {
+      const body = new URLSearchParams(new FormData(form) as unknown as Record<string, string>).toString();
+      const res = await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body,
+      });
+      if (!res.ok) throw new Error(String(res.status));
+      form.reset();
+      document.dispatchEvent(new Event('menu:close'));
+      showToast('Message sent. Thank you.');
+    } catch {
+      error.textContent = 'Couldn’t send your message. Check your connection and try again.';
+    } finally {
+      send.disabled = false;
+    }
+  });
+</script>
