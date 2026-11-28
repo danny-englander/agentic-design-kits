@@ -193,6 +193,13 @@ An underline-only text field in large type: no box, no radius, a 2px `currentCol
 
 **A form with nowhere to send.** The kit styles a form; it does not send one. A form that submits confirms with a `Toast` ("Message sent."), and only once the send has really worked; a failure is said in words beside the button (`<p class="small" role="alert">`), with what was typed left in place. So a contact form needs somewhere to send to before it is built: the host's own forms (Netlify Forms, say), a form service, or the site's own endpoint. With none of those, don't build a form that pretends: no toast for a message that went nowhere, and no `action` that leads to an error page. Use a plain link in place of the form, `<a class="btn" href="mailto:hello@example.com">Write to us</a>`, and tell the owner the form is waiting on an address to send to.
 
+**Sending with Netlify Forms.** On a static site the form stays plain HTML in the built page: `name="contact"`, `method="POST"`, `data-netlify="true"`, `netlify-honeypot="bot-field"`, a hidden `<input type="hidden" name="form-name" value="contact">` and the hidden `bot-field` trap. A script sends it without leaving the page: `fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: new URLSearchParams(new FormData(form)).toString() })`, then the toast on a 2xx, or the failure beside the button. A server-rendered site also needs a static HTML copy of the form in `public/`, since Netlify reads only the built files. The code is half of it; the owner does the other half once, in that site's own Netlify project (a repository that deploys several sites has a project for each):
+
+- **Turn on form detection** (Forms, then Enable form detection), **then run a new deploy built from Git** (Deploys, then Trigger deploy, then Deploy site). Netlify finds forms only while it builds, so a deploy from before detection was on, or an older deploy published again, has no form. Until then every send gets a 404 and the form says it couldn't send.
+- **Check it on the live page.** Once Netlify has the form, it rewrites the served `<form>` tag: `data-netlify` and `netlify-honeypot` are gone. If the live tag still has them, the published deploy predates detection. The form is then listed under Forms in the project.
+- **Add an email notification** for the form, or messages wait unseen in the Netlify dashboard.
+- **Tests can't reach Netlify.** Answer the POST in the test (Playwright's `page.route`), once as a success and once as a failure. A real send is checked on the live site.
+
 ## Select
 
 A `Field` that picks one item from a list: the same underline and type, with a chevron at its end drawn from two 2px borders.
