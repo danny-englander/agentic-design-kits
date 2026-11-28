@@ -27,6 +27,18 @@ html { scroll-padding-top: 6.75rem; }
    the full width there. From 768px the figure fills its half either way. */
 .hero--split .hero-figure:has(> .hero-art) { width: 100%; }
 
+/* On a phone the sign comes up into the text, between the lead and the paragraph under it, so it
+   is seen before the buttons rather than after a screen of text. The text column steps aside
+   (display: contents) so its parts and the figure can be ordered as one list. From 768px the
+   kit's two columns are back. */
+@media (max-width: 47.99rem) {
+  .hero:has(.hero-art) { display: flex; flex-direction: column; gap: 0; }
+  .hero:has(.hero-art) .hero-text { display: contents; }
+  .hero:has(.hero-art) .hero-text > * { order: 2; }
+  .hero:has(.hero-art) .hero-text > :is(.display, .lead) { order: 0; }
+  .hero:has(.hero-art) .hero-figure { order: 1; margin-top: 2.5rem; }
+}
+
 /* A kit's colors, shown as small squares beside its name. They are content (each kit's own
    palette), so they are set as values, not as this site's tokens. */
 .swatch { width: 1.5rem; height: 1.5rem; border: 1px solid var(--rule); }
