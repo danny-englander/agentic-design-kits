@@ -31,7 +31,7 @@ const share = {
 };
 ---
 
-<BaseLayout title={name} description={lead} tagline={name}>
+<BaseLayout title={name} description={lead}>
   <link slot="head" rel="canonical" href={canonical} />
   <link slot="head" rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <Fragment slot="head">
@@ -58,7 +58,6 @@ const share = {
     </p>
     <div class="btn-group mt-8">
       <a class="btn no-underline" href="#kits">See the two kits</a>
-      <a class="btn-outline no-underline" href={repo}>Read the source<span class="ext-arrow" aria-hidden="true">↗</span></a>
     </div>
     <HeroArt slot="art" />
   </Hero>

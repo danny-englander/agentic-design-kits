@@ -1,30 +1,8 @@
 ---
-// The small mark before the site name in the top bar (Mark under TopBar in COMPONENTS.md): the
-// hero's infinity sign, drawn in the same face and weight, in the accent. Decorative: the site
-// name beside it is the name, so it is hidden from assistive tech. accent-text on paper, and
-// accent-bright on the dark bar, should the top bar ever turn dark.
+// The site's mark in the top bar, in place of its name (Mark under TopBar in COMPONENTS.md): the
+// initials in the kit's oval badge (Ellipse), in the accent. The badge's label is the site's
+// name, so screen readers hear "Agentic Design Kits" and a pointer gets it as a tooltip.
+import Ellipse from '@agentic-design-kits/swiss-minimal/astro/Ellipse.astro';
 ---
 
-<svg class="site-mark" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false">
-  <text x="12" y="10.8" text-anchor="middle" dominant-baseline="central" font-size="27" font-family="var(--font-sans)" font-weight="700">&#8734;</text>
-</svg>
-
-<style>
-  /* The name hangs beside the mark when it wraps on a phone. */
-  :global(*:has(> .site-mark)) {
-    display: inline-flex;
-    align-items: flex-start;
-    gap: 0.5rem;
-  }
-  .site-mark {
-    flex: none;
-    width: 1.25rem;
-    height: 1.25rem;
-    margin-top: 0.125rem; /* centred on the first 1.5rem line */
-    fill: var(--accent-text);
-  }
-  :global(html[data-menu='open']) .site-mark,
-  :global(html[data-drawer-open]) .site-mark {
-    fill: var(--accent-bright);
-  }
-</style>
+<Ellipse code="ADK" label="Agentic Design Kits" accent class="site-mark" />
